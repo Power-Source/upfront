@@ -1,0 +1,1 @@
+!function(e){upfrontrjs.define(["scripts/perfect-scrollbar/perfect-scrollbar-library"],function(n){return n.withDebounceUpdate=function(r,t,i,o){void 0===o||e(r).hasClass("ps-container")||n.initialize(r,{suppressScrollX:!0});var s=_.debounce(function(){n.update(r)},500,t);void 0!==i&&Upfront.Events.on(i,s),setTimeout(s)},n})}(jQuery);
