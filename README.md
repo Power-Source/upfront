@@ -9,11 +9,7 @@ To set up development environment run:
 
 npm install
 
-To build frontend applications run:
-
-r.js -o app.build.js
-
-from scripts directory
+Frontend applications are loaded directly as AMD modules from `scripts/` and `elements/`; no JavaScript bundle build is required.
 
 To build sass into css run:
 
@@ -27,7 +23,7 @@ in root directory of project.
 
 ### Limitless Theme Possibilities
 
-Imagine opening photoshop, designing your layout, clicking save, and that's it – it's online and working. That's Upfront! Install an Upfront starter theme, customize or completely rebuild it to your liking, and see your edits in real-time. It's not just a page builder limited by boxes, slide controls and dials, modify any element to any degree with complete design control.
+Imagine opening photoshop, designing your layout, clicking save, and that's it ï¿½ it's online and working. That's Upfront! Install an Upfront starter theme, customize or completely rebuild it to your liking, and see your edits in real-time. It's not just a page builder limited by boxes, slide controls and dials, modify any element to any degree with complete design control.
 
 ### Upfront's Tools Make Customization Easy
 

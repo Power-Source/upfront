@@ -9,6 +9,10 @@ define('jquery', [], function(){
 });
 
 require.config(Upfront.mainData.requireConfig);
+window.upfrontrjs = {
+	require: require,
+	define: define
+};
 
 require(['backbone'], function (Backbone) {
 	// Fix Underscore templating to Mustache style

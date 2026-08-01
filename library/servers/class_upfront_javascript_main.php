@@ -55,6 +55,7 @@ class Upfront_JavascriptMain extends Upfront_Server {
 			"backbone" => $includes_url . "js/backbone.min",
 			"underscore" => $includes_url . "js/underscore.min",
 			"jquery.ui.widget" => $includes_url . "js/jquery/ui/widget.min",
+			"dragselect" => "scripts/vendor/dragselect/DragSelect",
 			"upfront-data" => $upfront_data_url,
 			"text" => 'scripts/text',
 			"async" => "scripts/async",
@@ -105,6 +106,23 @@ class Upfront_JavascriptMain extends Upfront_Server {
 		if (class_exists('Upfront_Compat') && is_callable(array('Upfront_Compat', 'get_upfront_core_version'))) {
 			$core_version = Upfront_Compat::get_upfront_core_version();
 			if (!empty($core_version)) $require_config['urlArgs'] = 'ufver=' . urlencode($core_version);
+		}
+		$source_root = dirname(dirname(__DIR__));
+		$source_mtime = 0;
+		foreach (array($source_root . '/scripts', $source_root . '/elements') as $source_path) {
+			if (!is_dir($source_path)) continue;
+			$source_files = new RecursiveIteratorIterator(
+				new RecursiveDirectoryIterator($source_path, FilesystemIterator::SKIP_DOTS)
+			);
+			foreach ($source_files as $source_file) {
+				if ($source_file->isFile()) $source_mtime = max($source_mtime, $source_file->getMTime());
+			}
+		}
+		if ($source_mtime) {
+			$source_version = 'source=' . urlencode($source_mtime);
+			$require_config['urlArgs'] = !empty($require_config['urlArgs'])
+				? $require_config['urlArgs'] . '&' . $source_version
+				: $source_version;
 		}
 
 		// Absolute cache breaker

@@ -1,6 +1,6 @@
 (function ($) {
 
-define(function(){
+define('scripts/upfront/behaviors/dragdrop', [], function(){
 
 var DragDrop = function (view, model) {
 	this.initialize(view, model);

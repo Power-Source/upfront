@@ -45,17 +45,44 @@ abstract class Upfront_EntityResolver {
 
 		$wp_entity = array();
 		$wp_object = $query->get_queried_object();
-		$wp_id = $query->get_queried_object_id();
+		$wp_id = self::get_persisted_post_id($query);
 
 		if (!$wp_id && $query->is_404) {
 			$wp_entity = self::_to_entity('404_page');
 		} else {
 			$post_type = !empty($wp_object->post_type) ? $wp_object->post_type : 'post';
-			$wp_entity = self::_to_entity($post_type, $wp_id);
+			$specificity = $wp_id;
+			if (!$wp_id && is_object($wp_object)) {
+				$specificity = apply_filters('upfront-entity_resolver-virtual_specificity', false, $wp_object, $query);
+			}
+			$wp_entity = self::_to_entity($post_type, $specificity);
 		}
 
 		$wp_entity['type'] = 'single';
 		return $wp_entity;
+	}
+
+	/**
+	 * Returns the database ID for the queried post, or false for runtime-only posts.
+	 */
+	public static function get_persisted_post_id ($query=false) {
+		$query = self::_get_query($query);
+		$wp_object = $query->get_queried_object();
+		$wp_id = $query->get_queried_object_id();
+		$persisted_id = false;
+
+		if (is_numeric($wp_id) && (int)$wp_id > 0) {
+			$persisted_post = get_post((int)$wp_id);
+			if ($persisted_post && (
+				!is_object($wp_object) ||
+				empty($wp_object->post_type) ||
+				$wp_object->post_type === $persisted_post->post_type
+			)) {
+				$persisted_id = (int)$wp_id;
+			}
+		}
+
+		return apply_filters('upfront-entity_resolver-persisted_post_id', $persisted_id, $wp_object, $query);
 	}
 
 	/**

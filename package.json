@@ -12,7 +12,6 @@
     "jshint": "^2.9.2",
     "load-grunt-tasks": "~1.0.0",
     "mocha": "^2.3.3",
-    "requirejs": "2.3.7",
     "underscore": "^1.8.3"
   },
   "jshintConfig": {
@@ -22,14 +21,9 @@
     "sub": true
   },
   "scripts": {
-    "build:js": "node scripts/build.js",
-    "build:js:check": "node scripts/build.js --check",
     "test-php": "phpunit -c test/php/lib/phpunit.xml",
     "test-js": "node_modules/.bin/mocha test/js",
     "test": "npm run test-php && npm run test-js",
     "jshint": "./node_modules/.bin/jshint ./ --exclude node_modules/,build/,scripts/chosen,scripts/file_upload,scripts/findandreplace,scripts/jquery,scripts/magnific-popup,scripts/realperson,scripts/spectrum"
-  },
-  "dependencies": {
-    "dragselect": "3.1.2"
   }
 }

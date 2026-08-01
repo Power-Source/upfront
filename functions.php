@@ -386,32 +386,11 @@ class Upfront {
 			$save_storage_key .= '_dev';
 		}
 
-		$is_dev = $this->_debugger->is_dev();
 		$upfront = $theme = wp_get_theme('upfront');
-		$build_source = "build/main-$upfront->version.js";
-		$fallback_build_source = 'build/main-1.9.9.js';
-		if (
-			$is_dev
-			&& !file_exists(dirname(__FILE__) . '/scripts/redactor/redactor.js')
-			&& file_exists(dirname(__FILE__) . '/' . $fallback_build_source)
-		) {
-			$is_dev = false;
-			$build_source = $fallback_build_source;
-		}
-		if (!$is_dev && !file_exists(dirname(__FILE__) . '/' . $build_source)) {
-			if (file_exists(dirname(__FILE__) . '/' . $fallback_build_source)) {
-				$build_source = $fallback_build_source;
-			} else {
-				$is_dev = true;
-			}
-		}
-		$main_source = $is_dev ? "scripts/setup.js" : $build_source;
+		$main_source = 'scripts/setup.js';
 		$script_urls = array();
 
-		// We only need require.js on dev, for build it gets baked into main.js now
-		if ($is_dev) {
-			$script_urls[] = "{$url}/scripts/require.js";
-		}
+		$script_urls[] = "{$url}/scripts/require.js";
 		$script_urls[] = admin_url('admin-ajax.php?action=upfront_load_main&ufver=' . $upfront->version . $is_ssl);
 		$main_source_path = dirname(__FILE__) . '/' . $main_source;
 		$script_urls[] = add_query_arg('mtime', filemtime($main_source_path), "{$url}/{$main_source}");
@@ -423,7 +402,7 @@ class Upfront {
 
 		$layout_post_data = json_encode(array(
 			'layout' => Upfront_EntityResolver::get_entity_ids(),
-			'post_id' => (is_singular() ? apply_filters('upfront-data-post_id', get_the_ID()) : false),
+			'post_id' => (is_singular() ? apply_filters('upfront-data-post_id', Upfront_Output::get_post_id()) : false),
 		));
 
 		echo '<script type="text/javascript">
@@ -470,26 +449,6 @@ EOAdditivemarkup;
 					jQuery(document).ajaxError(function (event, xhr, settings, error) {
 						if (!settings || String(settings.data || "").indexOf("upfront_") === -1) return;
 						reportUpfrontError("AJAX " + xhr.status + " " + (error || xhr.statusText));
-					});
-					jQuery(document).one("Upfront:loaded", function () {
-						setTimeout(function () {
-							var app = window.Upfront && Upfront.Application;
-							var objects = app && app.LayoutEditor ? app.LayoutEditor.Objects : {};
-							var elementCount = 0;
-							jQuery.each(objects || {}, function (name, object) {
-								if (object && (object.Element || object.DataElement || object.PluginElement)) elementCount++;
-							});
-							var panel = app && app.sidebar ? app.sidebar.get_panel("elements") : null;
-							var sectionCounts = [];
-							jQuery.each(["layout", "data", "plugins"], function (index, name) {
-								var section = panel && panel.get_section(name);
-								sectionCounts.push(name + "=" + (section && section.elements ? section.elements.size() : -1));
-							});
-							jQuery.post(' . json_encode(admin_url('admin-ajax.php')) . ', {
-								action: "upfront_log_client_error",
-								message: "Sidebar diagnostic: objects=" + Object.keys(objects || {}).length + ", elementTypes=" + elementCount + ", sections=" + sectionCounts.join("/") + ", dom=" + jQuery("#sidebar-ui .draggable-element").length
-							});
-						}, 500);
 					});
 				}
 			})();

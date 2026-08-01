@@ -80,7 +80,7 @@ class Upfront_Output {
 	 * @return mixed (number)Post ID, or (bool)false if we're not dealing with a singular view
 	 */
 	public static function get_post_id () {
-		return is_singular() ? get_the_ID() : false;
+		return is_singular() ? Upfront_EntityResolver::get_persisted_post_id() : false;
 	}
 
 	/**
@@ -98,7 +98,7 @@ class Upfront_Output {
 		$store_key = str_replace('_dev','',Upfront_Layout::get_storage_key());
 
 		// if page was still draft and viewed on FE, we should show 404 layout
-		if ( !$post_id && isset($layout_ids['specificity']) && preg_match('/single-page/i', $layout_ids['specificity']) ) {
+		if ( !$post_id && is_404() && isset($layout_ids['specificity']) && preg_match('/single-page/i', $layout_ids['specificity']) ) {
 			unset($layout_ids['specificity']);
 			$layout_ids['item'] = 'single-404_page';
 		}
@@ -137,6 +137,10 @@ class Upfront_Output {
 		}
 
 		$post = get_post($post_id);
+		if (!$post && is_singular()) {
+			global $wp_query;
+			$post = $wp_query->get_queried_object();
+		}
 		self::$_instance = new self($layout, $post);
 
 		// Add actions

@@ -280,10 +280,7 @@ var LayoutEditorSubapplication = Subapplication.extend({
 	},
 
 	set_up_editor_interface: function () {
-		if (!this.layout) {
-			Upfront.Util.post({action: "upfront_log_client_error", message: "Sidebar setup: skipped without layout"});
-			return false;
-		}
+		if (!this.layout) return false;
 		var app = this;
 
 		var _set_up_draggables = function () {
@@ -305,22 +302,6 @@ var LayoutEditorSubapplication = Subapplication.extend({
 			panel.get_section("data").elements = _(_.sortBy(elements.DataElement, sort_cb));
 			panel.get_section("plugins").elements = _(_.sortBy(elements.PluginElement, sort_cb));
 			Upfront.Application.sidebar.render();
-			Upfront.Util.post({
-				action: "upfront_log_client_error",
-				message: "Sidebar setup: objects=" + _.size(app.Objects) + ", built=" + elements.Element.length + "/" + elements.DataElement.length + "/" + elements.PluginElement.length + ", sections=" + panel.get_section("layout").elements.size() + "/" + panel.get_section("data").elements.size() + "/" + panel.get_section("plugins").elements.size() + ", dom=" + jQuery("#sidebar-ui .draggable-element").length
-			});
-			setTimeout(function () {
-				var node = jQuery("#sidebar-ui .draggable-element").first(),
-					chain = [];
-				node.parents().addBack().slice(-7).each(function () {
-					var style = window.getComputedStyle(this);
-					chain.push((this.id ? "#" + this.id : "." + String(this.className).replace(/\s+/g, ".")) + "[d=" + style.display + ",v=" + style.visibility + ",o=" + style.opacity + ",h=" + style.height + "]");
-				});
-				Upfront.Util.post({
-					action: "upfront_log_client_error",
-					message: "Sidebar visibility: root=" + jQuery("#sidebar-ui").attr("class") + ", panel=" + jQuery("#sidebar-ui .sidebar-panel-elements").attr("class") + ", activeTabs=" + jQuery("#sidebar-ui .sidebar-panel-elements .sidebar-panel-tab.active").length + ", chain=" + chain.join(" > ")
-				});
-			}, 1000);
 		};
 		Upfront.Events.trigger("application:setup:editor_interface");
 		_set_up_draggables();
