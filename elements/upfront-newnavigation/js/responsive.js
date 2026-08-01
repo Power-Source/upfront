@@ -1,33 +1,17 @@
 
-;(function($,sr){
-
-  // debouncing function from John Hann
-  // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
-  var debounce = function (func, threshold, execAsap) {
-	  var timeout;
-
-	  return function debounced () {
-		  var obj = this, args = arguments;
-		  function delayed () {
-			  if (!execAsap)
-				  func.apply(obj, args);
-			  timeout = null;
-		  }
-
-		  if (timeout)
-			  clearTimeout(timeout);
-		  else if (execAsap)
-			  func.apply(obj, args);
-
-		  timeout = setTimeout(delayed, threshold || 400);
-	  };
-  };
-  // smartresize
-  jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
-
-})(jQuery,'smartresize');
-
 jQuery(document).ready(function($) {
+	var debounce = function (callback, delay) {
+		var timeout;
+		return function () {
+			var context = this,
+				args = arguments
+			;
+			clearTimeout(timeout);
+			timeout = setTimeout(function () {
+				callback.apply(context, args);
+			}, delay || 400);
+		};
+	};
 
 	var $win = $(window),
 		_cache = {}
@@ -139,7 +123,11 @@ jQuery(document).ready(function($) {
 		});
 	}
 
-	$win.on('load', floatInit);
+	if (document.readyState === 'complete') {
+		floatInit();
+	} else {
+		window.addEventListener('load', floatInit, {once: true});
+	}
 
 	function hasNavInit() {
 		//Work around for having the region container have a higher z-index if it contains the nav, so that the dropdowns, if overlapping to the following regions should not loose "hover" when the mouse travels down to the next region.
@@ -162,7 +150,7 @@ jQuery(document).ready(function($) {
 	hasNavInit();
 
 	// Show burger nav on enter
-	$('.responsive_nav_toggler, .burger_nav_close').keydown(function(e) {
+	$('.responsive_nav_toggler, .burger_nav_close').on('keydown', function(e) {
 		if (e.which == 13) {
 			$(this).closest('.upfront-navigation').find('.responsive_nav_toggler').trigger('click');
 		}
@@ -526,10 +514,10 @@ jQuery(document).ready(function($) {
 	}
 	roll_responsive_nav(".upfront-output-unewnavigation > .upfront-navigation");
 
-	$(window).smartresize(function() {
+	window.addEventListener('resize', debounce(function() {
 		roll_responsive_nav(".upfront-output-unewnavigation > .upfront-navigation");
 		floatInit();
-	});
+	}, 400));
 
 	$(document).on('changed_breakpoint', function(e) {
 		roll_responsive_nav( e.selector, e.width);

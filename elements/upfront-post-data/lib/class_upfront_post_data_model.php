@@ -18,6 +18,12 @@ class Upfront_Post_Data_Model {
 	public static function get_post ($post_id = null) {
 		global $wp_query;
 		$post = get_post($post_id);
+		if (!$post && empty($post_id) && $wp_query instanceof WP_Query) {
+			$queried_object = $wp_query->get_queried_object();
+			if ($queried_object instanceof WP_Post) {
+				$post = $queried_object;
+			}
+		}
 		$wp_query->in_the_loop = true;
 		return $post;
 	}

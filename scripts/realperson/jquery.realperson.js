@@ -121,7 +121,7 @@
 				});
 			elem.prevAll('.' + this._challengeClass + ',.' + this._hashClass).remove().end().
 				before(this._generateHTML(inst, text)).
-				prevAll('div.' + this._challengeClass).click(function() {
+				prevAll('div.' + this._challengeClass).on('click', function() {
 					if (!$(this).hasClass(self._disabledClass)) {
 						elem.realperson('option', {});
 					}

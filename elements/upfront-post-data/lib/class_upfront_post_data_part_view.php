@@ -120,8 +120,8 @@ abstract class Upfront_Post_Data_PartView extends Upfront_PostPart_View {
 	 */
 	public static function _get_view_class ($data) {
 		$data_type = !empty($data['data_type']) ? $data['data_type'] : self::DEFAULT_DATA_TYPE;
-		$class_name = static::class . '_' . self::_normalize_type_to_class($data_type);
-		if (!class_exists($class_name)) $class_name = static::class . '_' . self::_normalize_type_to_class(self::DEFAULT_DATA_TYPE);
+		$class_name = self::class . '_' . self::_normalize_type_to_class($data_type);
+		if (!class_exists($class_name)) $class_name = self::class . '_' . self::_normalize_type_to_class(self::DEFAULT_DATA_TYPE);
 		return $class_name;
 	}
 

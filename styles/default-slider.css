@@ -188,22 +188,56 @@
 	height: 44px;
 	line-height: 44px;
 	border-radius: 22px;
+	border: 0;
+	padding: 0;
+	font: inherit;
+	-webkit-appearance: none;
+	appearance: none;
 	opacity: 0.7;
 	text-align: center;
 	cursor: pointer;
 	z-index: 20;
 }
-.upfront-default-slider-nav-prev {
-	left: 50px;
+.upfront-default-slider-nav-prev:before,
+.upfront-default-slider-nav-next:before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 12px;
+	height: 12px;
+	border-right: 2px solid currentColor;
+	border-bottom: 2px solid currentColor;
 }
 .upfront-default-slider-nav-prev:before {
-	content: "<";
-}
-.upfront-default-slider-nav-next {
-	right: 50px;
+	transform: translate(-35%, -50%) rotate(135deg);
 }
 .upfront-default-slider-nav-next:before {
-	content: ">";
+	transform: translate(-65%, -50%) rotate(-45deg);
+}
+html:not([dir="rtl"]) .upfront-default-slider-nav-prev,
+html[dir="ltr"] .upfront-default-slider-nav-prev {
+	left: 50px;
+	right: auto;
+}
+html:not([dir="rtl"]) .upfront-default-slider-nav-next,
+html[dir="ltr"] .upfront-default-slider-nav-next {
+	left: auto;
+	right: 50px;
+}
+html[dir="rtl"] .upfront-default-slider-nav-prev {
+	left: auto;
+	right: 50px;
+}
+html[dir="rtl"] .upfront-default-slider-nav-prev:before {
+	transform: translate(-65%, -50%) rotate(-45deg);
+}
+html[dir="rtl"] .upfront-default-slider-nav-next {
+	left: 50px;
+	right: auto;
+}
+html[dir="rtl"] .upfront-default-slider-nav-next:before {
+	transform: translate(-35%, -50%) rotate(135deg);
 }
 .upfront-default-slider-nav-item {
 	display: inline-block;

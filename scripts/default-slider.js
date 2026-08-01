@@ -235,7 +235,7 @@
 			;
 			
 			// Handle key press
-			$slider.keydown(function(e) {
+			$slider.on('keydown', function(e) {
 				// Previous slide
 				if (e.which == 37) {
 					me.prev();
@@ -252,7 +252,10 @@
 			var me = this,
 				data = this.opts
 			;
-			this.$slider.append('<div class="' + data.classname.prev + '" /><div class="' + data.classname.next + '" />')
+			this.$slider.append(
+				'<button type="button" class="' + data.classname.prev + '" aria-label="Previous slide"></button>' +
+				'<button type="button" class="' + data.classname.next + '" aria-label="Next slide"></button>'
+			)
 				.on('click', '.'+data.classname.prev, function(e){
 					e.preventDefault();
 					me.prev();
@@ -396,10 +399,15 @@
 			};
 		init_bg_slider();
 
-		// Refresh size on window.load and window.resize
-		$(window).on('load', function(){
+		// Refresh size once initial assets are available and on window resize
+		var refresh_sliders = function(){
 			$('.upfront-inline_post-slider, .upfront-bg-slider').trigger('refresh');
-		});
+		};
+		if (document.readyState === 'complete') {
+			refresh_sliders();
+		} else {
+			window.addEventListener('load', refresh_sliders, {once: true});
+		}
 		var lazyInitBgSlider = throttle(function(){
 			init_bg_slider();
 			$('.upfront-inline_post-slider, .upfront-bg-slider').trigger('refresh');

@@ -129,9 +129,9 @@ jQuery(function($){
 						$form.find(".ucontact-message-container").addClass("ucontact-success-response");
 						//$form.find("input,button,textarea").attr("disabled", true);
 
-						$form.find(".ucontact-message-container").bind('click', function() {
+						$form.find(".ucontact-message-container").on('click', function() {
 							$(this).removeClass("ucontact-success-response").html("");
-							$(this).unbind('click');
+							$(this).off('click');
 						});
 
 						name.val('');

@@ -65,7 +65,7 @@ class Upfront_ElementStyles extends Upfront_Server {
 		$styles = $hub->get_all();
 		if (empty($styles)) return false;
 
-		$ckey = $this->_cache->key(self::TYPE_STYLE, $styles);
+		$ckey = $this->_cache->key(self::TYPE_STYLE, $this->_get_versioned_dependencies($styles));
 
 		$raw_cache_key = $ckey->get_hash();
 		$cache = $this->_debugger->is_active() ? false : $this->_cache->get($ckey);
@@ -180,7 +180,7 @@ class Upfront_ElementStyles extends Upfront_Server {
 		$scripts = $hub->get_all();
 		if (empty($scripts)) return false;
 
-		$ckey = $this->_cache->key(self::TYPE_SCRIPT, $scripts);
+		$ckey = $this->_cache->key(self::TYPE_SCRIPT, $this->_get_versioned_dependencies($scripts));
 
 		$raw_cache_key = $ckey->get_hash();
 		$cache = $this->_debugger->is_active() ? false : $this->_cache->get($ckey);
@@ -203,6 +203,18 @@ class Upfront_ElementStyles extends Upfront_Server {
 		}
 
 		return $raw_cache_key;
+	}
+
+	private function _get_versioned_dependencies ($dependencies) {
+		$versioned = array();
+		foreach ($dependencies as $key => $frags) {
+			$path = upfront_element_dir($frags[0], $frags[1]);
+			$versioned[$key] = array(
+				'path' => $frags,
+				'mtime' => file_exists($path) ? filemtime($path) : 0,
+			);
+		}
+		return $versioned;
 	}
 
 	/**

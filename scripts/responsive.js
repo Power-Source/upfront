@@ -23,7 +23,11 @@
 					apply_binding($(e.target), true);
 			}, 100);
 
-			$(window).on('load', apply_binding_all);
+			if (document.readyState === 'complete') {
+				apply_binding_all();
+			} else {
+				$(window).one('load', apply_binding_all);
+			}
 			$(window).on('resize', lazyApplyBinding);
 			$(document).on('upfront-load', function(){
 				if ( typeof Upfront.Events != 'undefined' ) {
