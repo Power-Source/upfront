@@ -390,7 +390,9 @@ class Upfront {
 		$main_source = 'scripts/setup.js';
 		$script_urls = array();
 
-		$script_urls[] = "{$url}/scripts/require.js";
+		$require_source = 'scripts/require.js';
+		$require_source_path = dirname(__FILE__) . '/' . $require_source;
+		$script_urls[] = add_query_arg('mtime', filemtime($require_source_path), "{$url}/{$require_source}");
 		$script_urls[] = admin_url('admin-ajax.php?action=upfront_load_main&ufver=' . $upfront->version . $is_ssl);
 		$main_source_path = dirname(__FILE__) . '/' . $main_source;
 		$script_urls[] = add_query_arg('mtime', filemtime($main_source_path), "{$url}/{$main_source}");

@@ -2078,6 +2078,16 @@ var requirejs, require, define;
             deps = null;
         }
 
+        // Bind source-loaded anonymous modules immediately. This prevents
+        // unrelated AMD scripts from being assigned to Upfront requests.
+        if (!name && isBrowser && document.currentScript) {
+            node = document.currentScript;
+            if (node.getAttribute('data-requiremodule')) {
+                name = node.getAttribute('data-requiremodule');
+                context = contexts[node.getAttribute('data-requirecontext')];
+            }
+        }
+
         //If no name, and callback is a function, then figure out if it a
         //CommonJS thing with dependencies.
         if (!deps && isFunction(callback)) {

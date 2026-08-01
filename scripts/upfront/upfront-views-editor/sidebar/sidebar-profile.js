@@ -3,7 +3,7 @@
             ? Upfront.Settings.l10n.global.views
             : Upfront.mainData.l10n.global.views
         ;
-    define('scripts/upfront/upfront-views-editor/sidebar/sidebar-profile', [
+    define([
 
     ], function () {
         return Backbone.View.extend({
