@@ -1,15 +1,15 @@
 <?php
 /*
 Plugin Name: Upfront Login element
-Plugin URI: http://premium.wpmudev.org/project/upfront
+Plugin URI: https://psource.eimen.net/wiki/upfront-dokumentation/
 Description: Login element
 Version: 0.1
 Text Domain: upfront-login
-Author: Ve Bailovity (Incsub)
-Author URI: http://premium.wpmudev.org
+Author: Ve Bailovity (PSOURCE)
+Author URI: https://psource.eimen.net/
 WDP ID: XXX
 
-Copyright 2009-2011 Incsub (http://incsub.com)
+Copyright 2009-2011 PSOURCE (https://nerdservice.eimen.net/)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License (Version 2 - GPLv2) as published by

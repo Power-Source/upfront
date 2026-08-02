@@ -1,4 +1,4 @@
-# Copyright (C) 2017 WPMU DEV
+# Copyright (C) 2017 PSOURCE
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
@@ -8451,7 +8451,7 @@ msgid "Edit Default Preset"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://premium.wpmudev.org/"
+msgid "https://psource.eimen.net//"
 msgstr ""
 
 #. Description of the plugin/theme
@@ -8461,7 +8461,7 @@ msgid ""
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "WPMU DEV"
+msgid "PSOURCE"
 msgstr ""
 
 #: elements/upfront-comment/lib/upfront_comment.php:179

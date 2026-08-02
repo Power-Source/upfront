@@ -90,20 +90,20 @@ class Upfront_ButtonView extends Upfront_Object {
 		$l10n = array(
 			'element_name' => __('Button', 'upfront'),
 			'css' => array(
-				'container_label' => __('Text container', 'upfront'),
-				'container_info' => __('The layer that contains all the text of the element.', 'upfront'),
-				'p_label' => __('Text paragragh', 'upfront'),
-				'p_info' => __('The paragragh that contains all the text of the element.', 'upfront'),
+				'container_label' => __('Text Container', 'upfront'),
+				'container_info' => __('Die Ebene, die den gesamten Text des Elements enthält.', 'upfront'),
+				'p_label' => __('Text Absatz', 'upfront'),
+				'p_info' => __('Der Absatz, der den gesamten Text des Elements enthält.', 'upfront'),
 			),
-			'edit_link' => __('Link button', 'upfront'),
-			'visit_link' => __('Visit link', 'upfront'),
-			'dbl_click' => __('Click here', 'upfront'),
-			'appearance' => __('Textbox Appearance', 'upfront'),
+			'edit_link' => __('Link Button', 'upfront'),
+			'visit_link' => __('Link besuchen', 'upfront'),
+			'dbl_click' => __('Klicke hier', 'upfront'),
+			'appearance' => __('Textbox Darstellung', 'upfront'),
 			'settings' => array(
-				'label' => __('Settings', 'upfront'),
-				'colors_label' => __('Colors', 'upfront'),
-				'typography_label' => __('Typography', 'upfront'),
-				'button_bg_label' => __('Button Background', 'upfront'),
+				'label' => __('Einstellungen', 'upfront'),
+				'colors_label' => __('Farben', 'upfront'),
+				'typography_label' => __('Typografie', 'upfront'),
+				'button_bg_label' => __('Button Hintergrund', 'upfront'),
 			)
 		);
 		return !empty($key)

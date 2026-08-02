@@ -105,8 +105,10 @@ define([
 					}
 				});
 
-				$panel_wrapper.addClass('accordion-panel-active').find('.accordion-panel-content').slideDown();
-				$panel_wrapper.siblings().removeClass('accordion-panel-active').find('.accordion-panel-content').slideUp();
+				$panel_wrapper.addClass('accordion-panel-active').find('.accordion-panel-title').attr('aria-expanded', 'true');
+				$panel_wrapper.find('.accordion-panel-content').slideDown();
+				$panel_wrapper.siblings().removeClass('accordion-panel-active').find('.accordion-panel-title').attr('aria-expanded', 'false');
+				$panel_wrapper.siblings().find('.accordion-panel-content').slideUp();
 			}
 		},
 
@@ -201,6 +203,16 @@ define([
 			var count = 1,
 				self = this
 			;
+			this.$el.find('.accordion-panel').each(function () {
+				var $panel = $(this),
+					$title = $panel.find('.accordion-panel-title'),
+					contentId = $panel.find('.accordion-panel-content').attr('id')
+				;
+				$title.attr({
+					'aria-controls': contentId,
+					'aria-expanded': $panel.hasClass('accordion-panel-active')
+				});
+			});
 			if (Upfront.Application.user_can_modify_layout()) {
 				this.$el.find('.accordion-panel-title').each(function () {
 					var $title = $(this);

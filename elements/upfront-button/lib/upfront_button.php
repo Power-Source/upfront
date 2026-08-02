@@ -108,22 +108,22 @@ class Upfront_ButtonView extends Upfront_Object {
 		$l10n = array(
 			'element_name' => __('Button', 'upfront'),
 			'css' => array(
-				'container_label' => __('Text container', 'upfront'),
-				'container_info' => __('The layer that contains all the text of the element.', 'upfront'),
-				'p_label' => __('Text paragragh', 'upfront'),
-				'p_info' => __('The paragragh that contains all the text of the element.', 'upfront'),
+				'container_label' => __('Text Container', 'upfront'),
+				'container_info' => __('Die Ebene, die den gesamten Text des Elements enthält.', 'upfront'),
+				'p_label' => __('Text Absatz', 'upfront'),
+				'p_info' => __('Der Absatz, der den gesamten Text des Elements enthält.', 'upfront'),
 			),
-			'dbl_click' => __('Click here', 'upfront'),
-			'appearance' => __('Textbox Appearance', 'upfront'),
+			'dbl_click' => __('Klicke hier', 'upfront'),
+			'appearance' => __('Textbox Darstellung', 'upfront'),
 			'border' => __('Border', 'upfront'),
-			'none' => __('None', 'upfront'),
+			'none' => __('Keinen', 'upfront'),
 			'solid' => __('Solid', 'upfront'),
 			'dashed' => __('Dashed', 'upfront'),
 			'dotted' => __('Dotted', 'upfront'),
-			'width' => __('Width', 'upfront'),
-			'color' => __('Color', 'upfront'),
-			'bg_color' => __('Background Color', 'upfront'),
-			'edit_text' => __('Edit Text', 'upfront'),
+			'width' => __('Breite', 'upfront'),
+			'color' => __('Farbe', 'upfront'),
+			'bg_color' => __('Hintergrundfarbe', 'upfront'),
+			'edit_text' => __('Text bearbeiten', 'upfront'),
 		);
 		return !empty($key)
 			? (!empty($l10n[$key]) ? $l10n[$key] : $key)

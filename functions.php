@@ -149,7 +149,7 @@ class Upfront {
 	private function _add_supports () {
 		add_theme_support('post-thumbnails');
 		add_theme_support('title-tag'); // Let WP deal with our theme titles
-		register_nav_menu('default', __('Default', 'upfront'));
+		register_nav_menu('default', __('Standard', 'upfront'));
 		// Do widget text
 		$do_widget_text = apply_filters(
 			'upfront-shortcode-enable_in_widgets',
@@ -413,7 +413,7 @@ class Upfront {
 			var _upfront_save_storage_key = "' . esc_js($save_storage_key) . '";
 			var _upfront_stylesheet = "' . esc_js(get_stylesheet()) . '";
 			var _upfront_debug_mode = ' . (int)Upfront_Behavior::debug()->is_debug() . ';
-			var _upfront_please_hold_on = ' . json_encode(__('Please, hold on for just a little bit more', 'upfront')) . ';
+			var _upfront_please_hold_on = ' . json_encode(__('Bitte halte noch ein kleines bisschen länger durch.', 'upfront')) . ';
 		</script>';
 		echo <<<EOAdditivemarkup
 	<div id="sidebar-ui" class="upfront-ui"></div>

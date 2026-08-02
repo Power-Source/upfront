@@ -1,14 +1,14 @@
 <?php
 /*
 Plugin Name: This page module
-Plugin URI: http://premium.wpmudev.org/project/upfront
+Plugin URI: https://psource.eimen.net/wiki/upfront-dokumentation/
 Description: Complex Upfront module for page editing
 Version: 0.1
 Text Domain: uthispage
-Author: Jeffri (Incsub)
-Author URI: http://premium.wpmudev.org
+Author: Jeffri (PSOURCE)
+Author URI: https://psource.eimen.net/
 
-Copyright 2009-2011 Incsub (http://incsub.com)
+Copyright 2009-2011 PSOURCE (https://nerdservice.eimen.net/)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License (Version 2 - GPLv2) as published by

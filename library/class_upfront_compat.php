@@ -107,7 +107,7 @@ class Upfront_Compat implements IUpfront_Server {
 	 */
 	public function prevent_conflicted_children_updates ($raw) {
 		if (defined('DOING_AJAX') && DOING_AJAX) return $raw; // Presumably we know what we're doing there
-		// Only ever kick in when there's no WPMU DEV Dashboard around.
+		// Only ever kick in when there's no PSOURCE Dashboard around.
 		// Otherwise, trust it'll do the right thing on its own.
 		if (Upfront_Compat::has_dashboard()) return $raw;
 

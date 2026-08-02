@@ -1,5 +1,15 @@
 ;(function($){
 	$(function () {
+		$('.accordion-panel').each(function () {
+			var $panel = $(this);
+			var $title = $panel.find('.accordion-panel-title');
+			var contentId = $panel.find('.accordion-panel-content').attr('id');
+
+			$title.attr({
+				'aria-controls': contentId,
+				'aria-expanded': $panel.hasClass('accordion-panel-active')
+			});
+		});
 		$('.accordion-panel:not(.accordion-panel-active) .accordion-panel-content').hide();	
 		
 		$('body').on('touchstart click', '.accordion-panel', function(event) {
@@ -9,8 +19,10 @@
 			if ($panel.hasClass('accordion-panel-active')) {
 				return;
 			}
-			$panel.addClass('accordion-panel-active').find('.accordion-panel-content').slideDown();
-			$panel.siblings().removeClass('accordion-panel-active').find('.accordion-panel-content').slideUp();
+			$panel.addClass('accordion-panel-active').find('.accordion-panel-title').attr('aria-expanded', 'true');
+			$panel.find('.accordion-panel-content').slideDown();
+			$panel.siblings().removeClass('accordion-panel-active').find('.accordion-panel-title').attr('aria-expanded', 'false');
+			$panel.siblings().find('.accordion-panel-content').slideUp();
 		});
 		
 		/**

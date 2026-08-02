@@ -1,15 +1,15 @@
 <?php
 /*
 Plugin Name: Upfront New Navigation
-Plugin URI: http://premium.wpmudev.org/project/upfront
+Plugin URI: https://psource.eimen.net/wiki/upfront-dokumentation/
 Description: Complex Upfront module 1
 Version: 0.1
 Text Domain: unewnavigation
-Author: Gagan S Goraya (Incsub)
-Author URI: http://premium.wpmudev.org
+Author: Gagan S Goraya (PSOURCE)
+Author URI: https://psource.eimen.net/
 WDP ID: XXX
 
-Copyright 2009-2011 Incsub (http://incsub.com)
+Copyright 2009-2011 PSOURCE (https://nerdservice.eimen.net/)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License (Version 2 - GPLv2) as published by

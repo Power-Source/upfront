@@ -70,7 +70,7 @@ class Upfront_Admin_General extends Upfront_Admin_Page {
 							</div>
 							<div class="upfront-debug-block">
 								<h4><?php _e("WPMUDEV Help", Upfront::TextDomain) ?></h4>
-								<a class="upfront_button visit-forum" href="http://premium.wpmudev.org/support/" target="_blank"><?php esc_html_e("Visit Forums", Upfront::TextDomain) ?></a> <a class="upfront_button" href="http://premium.wpmudev.org/forums/forum/support#question" target="_blank"><?php esc_html_e("Ask a Question", Upfront::TextDomain) ?></a>
+								<a class="upfront_button visit-forum" href="https://psource.eimen.net//support/" target="_blank"><?php esc_html_e("Visit Forums", Upfront::TextDomain) ?></a> <a class="upfront_button" href="https://psource.eimen.net//forums/forum/support#question" target="_blank"><?php esc_html_e("Ask a Question", Upfront::TextDomain) ?></a>
 							</div>
 						</div>
 					</div>

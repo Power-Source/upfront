@@ -1,14 +1,14 @@
 <?php
 /*
 Plugin Name: Image module
-Plugin URI: http://premium.wpmudev.org/project/upfront
+Plugin URI: https://psource.eimen.net/wiki/upfront-dokumentation/
 Description: Complex Upfront module for adding and editing galleries
 Version: 0.1
 Text Domain: ugallery
-Author: An Incsub wizard
-Author URI: http://premium.wpmudev.org
+Author: An PSOURCE wizard
+Author URI: https://psource.eimen.net/
 
-Copyright 2009-2013 Incsub (http://incsub.com)
+Copyright 2013-2026 PSOURCE (https://nerdservice.eimen.net/)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License (Version 2 - GPLv2) as published by

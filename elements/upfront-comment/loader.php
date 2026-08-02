@@ -1,15 +1,14 @@
 <?php
 /*
 Plugin Name: Upfront Comment module
-Plugin URI: http://premium.wpmudev.org/project/upfront
+Plugin URI: https://psource.eimen.net/wiki/upfront-dokumentation/
 Description: Complex Upfront module 1
 Version: 0.1
 Text Domain: ucomment
-Author: Jeffri Hong (Incsub)
-Author URI: http://premium.wpmudev.org
-WDP ID: XXX
+Author: PSOURCE
+Author URI: https://psource.eimen.net/
 
-Copyright 2009-2011 Incsub (http://incsub.com)
+Copyright 2011-2026 PSOURCE (https://nerdservice.eimen.net/)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License (Version 2 - GPLv2) as published by
