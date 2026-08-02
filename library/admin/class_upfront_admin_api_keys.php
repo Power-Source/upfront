@@ -55,7 +55,7 @@ class Upfront_Admin_ApiKeys extends Upfront_Admin_Page {
 			Upfront_ApiKeys_Model::SERVICE_GMAPS => array(
 				'label' => __('Google Maps', 'upfront'),
 				'help' => sprintf(
-					__('You can obtain the API key <a href="%s" target="_blank">here</a>', 'upfront'),
+					__('Du kannst den API-Schlüssel <a href="%s" target="_blank">hier</a> erhalten', 'upfront'),
 					'https://console.developers.google.com/flows/enableapi?apiid=maps_backend,geocoding_backend,directions_backend,distance_matrix_backend,elevation_backend&keyType=CLIENT_SIDE&reusekey=true'
 				),
 			),

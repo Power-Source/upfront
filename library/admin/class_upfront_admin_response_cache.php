@@ -42,24 +42,24 @@ class Upfront_Admin_ResponseCache extends Upfront_Admin_Page {
 	 public function get_levels () {
 		return array(
 			'' => array(
-				'label' => __('None', 'upfront'),
-				'help' => __('Legacy upfront behavior. Any and all request queueing and caching will be bypassed.', 'upfront'),
+				'label' => __('Keine', 'upfront'),
+				'help' => __('Legacy-Verhalten von UpFront. Jegliche Warteschlangenbildung für Anfragen sowie Caching werden umgangen.', 'upfront'),
 			),
 			'stub' => array(
-				'label' => __('Queue only', 'upfront'),
-				'help' => __('Request queueing only, no response caching. Multiple requests will be collapsed into one.', 'upfront'),
+				'label' => __('Nur Warteschlange', 'upfront'),
+				'help' => __('Nur Warteschlangenbildung für Anfragen, kein Caching der Antworten. Mehrere Anfragen werden zu einer zusammengefasst.', 'upfront'),
 			),
 			'memory' => array(
-				'label' => __('Memory', 'upfront'),
-				'help' => __('Request queueing with response caching in memory. Cached responses will not survive page reload.', 'upfront'),
+				'label' => __('Speicher', 'upfront'),
+				'help' => __('Warteschlangenbildung für Anfragen mit Caching der Antworten im Speicher. Gechachte Antworten überleben kein Neuladen der Seite.', 'upfront'),
 			),
 			'persistent' => array(
-				'label' => __('Session', 'upfront'),
-				'help' => __('Request queueing with response caching in session storage. Cached responses will persist across page reloads, but will not survive closing the window/tab.', 'upfront'),
+				'label' => __('Sitzung', 'upfront'),
+				'help' => __('Warteschlangenbildung für Anfragen mit Caching der Antworten im Sitzungs-Speicher. Gechachte Antworten überleben ein Neuladen der Seite, aber nicht das Schließen des Fensters/Tabs.', 'upfront'),
 			),
 			'permanent' => array(
 				'label' => __('Permanent', 'upfront'),
-				'help' => __('Request queueing with response caching in local storage. Cached responses will remain cached until cleaned up.', 'upfront'),
+				'help' => __('Warteschlangenbildung für Anfragen mit Caching der Antworten im lokalen Speicher. Gechachte Antworten bleiben gecacht, bis sie bereinigt werden.', 'upfront'),
 			),
 		);
 	}

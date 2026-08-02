@@ -8,7 +8,7 @@ class Upfront_Admin_Experimental extends Upfront_Admin_Page {
 
 	public function __construct () {
 		if ($this->_can_access( Upfront_Permissions::SEE_USE_DEBUG )) {
-			add_submenu_page( "upfront", __("Experimental Features", Upfront::TextDomain), __("Experimental", Upfront::TextDomain), 'manage_options', Upfront_Admin::$menu_slugs['experimental'], array($this, "render_page") );
+			add_submenu_page( "upfront", __("Experimentelle Features", Upfront::TextDomain), __("Experimentell", Upfront::TextDomain), 'manage_options', Upfront_Admin::$menu_slugs['experimental'], array($this, "render_page") );
 		}
 	}
 
@@ -63,23 +63,23 @@ class Upfront_Admin_Experimental extends Upfront_Admin_Page {
 			<h1><?php _e("Experimental Features", Upfront::TextDomain); ?><span class="upfront_logo"></span></h1>
 						<div class="upfront_admin_experimental_contents">
 								<p class="info">
-									<?php esc_html_e("These are various Experimental Features available to Upfront. Please be careful, some of those settings might interfere with plugins.", Upfront::TextDomain ); ?>
+									<?php esc_html_e("Dies sind verschiedene experimentelle Funktionen, die in Upfront verfügbar sind. Bitte sei vorsichtig, einige dieser Einstellungen könnten mit Plugins interferieren.", Upfront::TextDomain ); ?>
 								</p>
 								<form action="<?php echo esc_url( add_query_arg( array("page" => "upfront_experimental") ) ) ?>" method="post" id="upfront_experimental_form">
 										<div class="form_content">
 												<div class="form_title bottom_separator">
-													<span><?php esc_html_e("Performance Optimizations", Upfront::TextDomain); ?></span>
+													<span><?php esc_html_e("Performance Optimierungen", Upfront::TextDomain); ?></span>
 												</div>
 												<div class="form_content_group clear_after">
 														<div class="form_content_group_title">
-															<?php esc_html_e("Performance-improving Behavior Changes", Upfront::TextDomain); ?>
+															<?php esc_html_e("Performance-verbessernde Verhaltensänderungen", Upfront::TextDomain); ?>
 														</div>
 														<div class="form_content_input float_left">
 																<div class="upfront_toggle_radio">
 																		<input type="radio" name="experimental_optimization" id="experimental_optimization_off" <?php checked(false, $compression->has_experiments()); ?> value="" />
 																		<label class="upfront_toggle_radio_label" for="experimental_optimization_off">
 																			<span class="upfront_toggle_radio_button"></span>
-																			<span class="upfront_toggle_radio_main_label"><?php esc_html_e("Off", Upfront::TextDomain ); ?></span>
+																			<span class="upfront_toggle_radio_main_label"><?php esc_html_e("Aus", Upfront::TextDomain ); ?></span>
 																		</label>
 																</div>
 														</div>
@@ -88,8 +88,8 @@ class Upfront_Admin_Experimental extends Upfront_Admin_Page {
 																		<input type="radio" name="experimental_optimization" id="experimental_optimization_on" <?php checked(true, $compression->has_experiments_level('default')); ?> value="<?php echo esc_attr($compression->constant('default')); ?>" />
 																		<label class="upfront_toggle_radio_label" for="experimental_optimization_on">
 																			<span class="upfront_toggle_radio_button"></span>
-																			<span class="upfront_toggle_radio_main_label"><?php esc_html_e("On", Upfront::TextDomain ); ?></span>
-																			<span class="upfront_toggle_radio_sub_label"><?php esc_html_e("Turns On the default Optimization", Upfront::TextDomain ); ?></span>
+																			<span class="upfront_toggle_radio_main_label"><?php esc_html_e("Ein", Upfront::TextDomain ); ?></span>
+																			<span class="upfront_toggle_radio_sub_label"><?php esc_html_e("Aktiviert die Standard-Optimierung", Upfront::TextDomain ); ?></span>
 																		</label>
 																</div>
 														</div>
@@ -100,8 +100,8 @@ class Upfront_Admin_Experimental extends Upfront_Admin_Page {
 																		<input type="radio" name="experimental_optimization" id="experimental_aggressive" <?php checked(true, $compression->has_experiments_level('aggressive')); ?> value="<?php echo esc_attr($compression->constant('aggressive')); ?>" />
 																		<label class="upfront_toggle_radio_label" for="experimental_aggressive">
 																			<span class="upfront_toggle_radio_button"></span>
-																			<span class="upfront_toggle_radio_main_label"><?php esc_html_e("Aggressive", Upfront::TextDomain ); ?></span>
-																			<span class="upfront_toggle_radio_sub_label"><?php esc_html_e("Debounces WordPress built-in scripts used, and load them asynchronously", Upfront::TextDomain ); ?></span>
+																			<span class="upfront_toggle_radio_main_label"><?php esc_html_e("Aggressiv", Upfront::TextDomain ); ?></span>
+																			<span class="upfront_toggle_radio_sub_label"><?php esc_html_e("Entprellt die verwendeten WordPress-internen Skripte und lädt sie asynchron", Upfront::TextDomain ); ?></span>
 																		</label>
 																</div>
 														</div>
@@ -110,13 +110,13 @@ class Upfront_Admin_Experimental extends Upfront_Admin_Page {
 																		<input type="radio" name="experimental_optimization" id="experimental_hardcore" <?php checked(true, $compression->has_experiments_level('hardcore')); ?> value="<?php echo esc_attr($compression->constant('hardcore')); ?>" />
 																		<label class="upfront_toggle_radio_label" for="experimental_hardcore">
 																			<span class="upfront_toggle_radio_button"></span>
-																			<span class="upfront_toggle_radio_main_label"><?php esc_html_e("Hardcore", Upfront::TextDomain ); ?></span>
-																			<span class="upfront_toggle_radio_sub_label"><?php esc_html_e("All built-in dependencies as well as jQuery are debounced & moved to footer. (This mode is very likely to break plugins, please use with caution).", Upfront::TextDomain ); ?></span>
+																			<span class="upfront_toggle_radio_main_label"><?php esc_html_e("Extrem", Upfront::TextDomain ); ?></span>
+																			<span class="upfront_toggle_radio_sub_label"><?php esc_html_e("Alle eingebauten Abhängigkeiten sowie jQuery werden entprellt und in den Footer verschoben. (Dieser Modus wird sehr wahrscheinlich Plugins beschädigen, bitte vorsichtig verwenden).", Upfront::TextDomain ); ?></span>
 																		</label>
 																</div>
 														</div>
 														<div class="form_content_group_title">
-															<?php esc_html_e("Assets caching (freeze mode)", Upfront::TextDomain); ?>
+															<?php esc_html_e("Asset-Caching (Freeze-Modus)", Upfront::TextDomain); ?>
 														</div>
 														<div class="form_content_input ">
 															<div class="upfront_toggle">
@@ -127,16 +127,16 @@ class Upfront_Admin_Experimental extends Upfront_Admin_Page {
 																</label>
 															</div>
 															<div class="upfront_toggle_description">
-																<span class="upfront_toggle_checkbox_main_label"><?php esc_html_e("Cache frozen assets", Upfront::TextDomain ); ?></span>
-																<span class="upfront_toggle_checkbox_sub_label"><?php esc_html_e("Freeze all assets in their current state and serve them cached. This option will improve performance and is best used once you're done making changes to your site.", Upfront::TextDomain ); ?></span>
+																<span class="upfront_toggle_checkbox_main_label"><?php esc_html_e("Gefrorene Assets cachen", Upfront::TextDomain ); ?></span>
+																<span class="upfront_toggle_checkbox_sub_label"><?php esc_html_e("Alle Assets in ihrem aktuellen Zustand einfrieren und aus dem Cache ausliefern. Diese Option verbessert die Leistung und sollte am besten verwendet werden, sobald Sie Änderungen an Ihrer Website abgeschlossen haben.", Upfront::TextDomain ); ?></span>
 															</div>
 														</div>
 														<div class="form_content_input ">
 															<label class="upfront_select_label" for="experimental_freeze_time">
-																<span class="upfront_select_main_label"><?php esc_html_e("Freeze time", Upfront::TextDomain ); ?></span>
-																<span class="upfront_select_sub_label"><?php esc_html_e("How long to wait before refreshing the frozen assets cache", Upfront::TextDomain ); ?></span>
+																<span class="upfront_select_main_label"><?php esc_html_e("Freeze-Dauer", Upfront::TextDomain ); ?></span>
+																<span class="upfront_select_sub_label"><?php esc_html_e("Wie lange gewartet werden soll, bevor der Cache der gefrorenen Assets aktualisiert wird", Upfront::TextDomain ); ?></span>
 															</label>
-															<select name="experimental_freeze_time" id="experimetal_freeze_time">
+															<select name="experimental_freeze_time" id="experimental_freeze_time">
 																<option value="120" <?php selected(120, $compression->get_option('freeze_time', DAY_IN_SECONDS)); ?> ><?php esc_html_e('Two minutes (debug)', 'upfront'); ?></option>
 																<option value="3600" <?php selected(3600, $compression->get_option('freeze_time', DAY_IN_SECONDS)); ?> ><?php esc_html_e('One hour', 'upfront'); ?></option>
 																<option value="86400" <?php selected(86400, $compression->get_option('freeze_time', DAY_IN_SECONDS)); ?> ><?php esc_html_e('One day', 'upfront'); ?></option>
@@ -156,14 +156,14 @@ class Upfront_Admin_Experimental extends Upfront_Admin_Page {
 																		</label>
 																</div>
 																<div class="upfront_toggle_description">
-																	<span class="upfront_toggle_checkbox_main_label"><?php esc_html_e("Enable Upfront Compress Response", Upfront::TextDomain ); ?></span>
-																	<span class="upfront_toggle_checkbox_sub_label"><?php esc_html_e("Applies GZip compression to all Upfront-generated responses (AJAX)", Upfront::TextDomain ); ?></span>
+																	<span class="upfront_toggle_checkbox_main_label"><?php esc_html_e("Aktiviere Upfront komprimierte Antwort", Upfront::TextDomain ); ?></span>
+																	<span class="upfront_toggle_checkbox_sub_label"><?php esc_html_e("Wendet GZip-Komprimierung auf alle von Upfront generierten Antworten (AJAX) an", Upfront::TextDomain ); ?></span>
 																</div>
 														</div>
 												</div>
 										</div>
 										<?php wp_nonce_field(self::FORM_NONCE_ACTION, self::FORM_NONCE_KEY); ?>
-										<button type="submit" name="upront_experiments_submit" id="upront_restrictions_submit"><?php esc_html_e("Save Changes", Upfront::TextDomain); ?></button>
+										<button type="submit" name="upront_experiments_submit" id="upront_restrictions_submit"><?php esc_html_e("Änderungen speichern", Upfront::TextDomain); ?></button>
 								</form>
 						</div>
 		</div>
