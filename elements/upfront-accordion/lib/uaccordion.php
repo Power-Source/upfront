@@ -113,7 +113,7 @@ class Upfront_UaccordionView extends Upfront_Object {
 
 	private static function _get_l10n ($key=false) {
 		$l10n = array(
-			'element_name' => __('Akkordion', 'upfront'),
+			'element_name' => __('Akkordeon', 'upfront'),
 			'default_panel_title' => __('Panel 1', 'upfront'),
 			'default_panel_content' => __('<p>Klicke auf den aktiven Panel-Titel, um den Titel zu bearbeiten. Bestätige mit der Eingabetaste.</p><p>Klicke auf die Plus-Schaltfläche [+], um ein neues Panel hinzuzufügen.</p>', 'upfront'),
 			'css' => array(

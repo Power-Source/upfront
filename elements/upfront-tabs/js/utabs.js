@@ -193,6 +193,18 @@ define([
 				self.addTooltips();
 			}, 10, this);
 
+			this.$el.find('.tabs-tab').each(function () {
+				var $tab = $(this),
+					contentId = $tab.data('content-id'),
+					tabId = 'tab-' + contentId
+				;
+				$tab.attr({
+					'id': tabId,
+					'aria-controls': contentId
+				});
+				$('#' + contentId).attr('aria-labelledby', tabId);
+			});
+
 			var me = this,
 				$tabtitles = this.$el.find('.tabs-tab .inner-box'),
 				count = 0,

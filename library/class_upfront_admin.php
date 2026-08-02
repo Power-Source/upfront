@@ -48,8 +48,8 @@ class Upfront_Admin
 		wp_register_script( 'upfront_admin_js', Upfront::get_root_url() . "/scripts/admin.js", array("jquery"), Upfront_ChildTheme::get_version(), true);
 		wp_localize_script( 'upfront_admin_js', "Upfront_Data", array(
 			'l10n' => array(
-				"sure_to_reset_theme" => __('Are you sure you want to reset theme to default state? Please note that this can not be undone.'),
-				"sure_to_reset_layout" => __('Are you sure you want to reset layout "{layout}" to default state? Please note that this can not be undone.')
+				"sure_to_reset_theme" => __('Bist Du sicher, dass Du das Theme auf den Standardzustand zurücksetzen möchtest? Bitte beachte, dass dieser Vorgang nicht rückgängig gemacht werden kann.'),
+				"sure_to_reset_layout" => __('Bist Du sicher, dass Du das Layout "{layout}" auf den Standardzustand zurücksetzen möchtest? Bitte beachte, dass dieser Vorgang nicht rückgängig gemacht werden kann.')
 			)
 		) );
 		wp_enqueue_script('upfront_admin_js');
@@ -65,7 +65,7 @@ class Upfront_Admin
 		global $menu, $submenu;
 
 		if (Upfront_Permissions::current( Upfront_Permissions::SEE_USE_DEBUG ) || Upfront_Permissions::current( Upfront_Permissions::MODIFY_RESTRICTIONS )) {
-			add_menu_page( __("General Settings", Upfront::TextDomain), __("Upfront", Upfront::TextDomain), "manage_options", self::$menu_slugs['main'], null, "", 58);
+			add_menu_page( __("Allgemeine Einstellungen", Upfront::TextDomain), __("Upfront", Upfront::TextDomain), "manage_options", self::$menu_slugs['main'], null, "", 58);
 		}
 
 		new Upfront_Admin_General();
@@ -79,7 +79,7 @@ class Upfront_Admin
 	function render_main_menu(){
 		?>
 			<div class="wrap upfront_admin">
-				<h1><?php _e("General Settings", Upfront::TextDomain); ?></h1>
+				<h1><?php _e("Allgemeine Einstellungen", Upfront::TextDomain); ?></h1>
 			</div>
 		<?php
 	}
