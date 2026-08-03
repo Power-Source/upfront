@@ -15,7 +15,7 @@ define([
 
 		initialize: function() {
 			var me = this;
-			$(document).click(function(e){
+			$(document).on('click', function(e){
 				var	target = $(e.target);
 
 				if(target.closest('#page').length && target[0] !== me.el && !target.closest(me.el).length && me.isOpen) {

@@ -1023,7 +1023,7 @@ var Application = new (Backbone.Router.extend({
 					app.saveCache = false;
 				}
 			})
-			.error(function (xhr) {
+			.fail(function (xhr) {
 				if(xhr.statusText == 'abort') //we are ok
 					return;
 
@@ -1069,7 +1069,7 @@ var Application = new (Backbone.Router.extend({
 					app.saveCache = false;
 				}
 			})
-			.error(function (xhr) {
+			.fail(function (xhr) {
 				if(xhr.statusText == 'abort') //we are ok
 					return;
 

@@ -6666,7 +6666,7 @@ define([
 				e.stopPropagation();
 			},
 			check_modules: function () {
-				var total = this.$el.find('> .upfront-region-wrapper > .upfront-modules_container > .upfront-editable_entities_container').find('.upfront-module').size();
+				var total = this.$el.find('> .upfront-region-wrapper > .upfront-modules_container > .upfront-editable_entities_container').find('.upfront-module').length;
 				if ( total == 0 ){
 					this.$el.removeClass('upfront-region-has-modules');
 					this.$el.addClass('upfront-region-empty');
@@ -6753,7 +6753,7 @@ define([
 				var me = this;
 				this.$bg.insertBefore(this.$el);
 				if(this.model.get_property_value_by_name('click_out_close') == 'yes') {
-					this.$bg.unbind('click');
+					this.$bg.off('click');
 					this.$bg.bind('click', function() {
 						me.hide();
 					});
@@ -6816,12 +6816,12 @@ define([
 				var me = this;
 
 				if(this.model.get_property_value_by_name('click_out_close') == 'yes') {
-					this.$bg.unbind('click');
+					this.$bg.off('click');
 					this.$bg.bind('click', function() {
 						me.hide();
 					});
 				} else {
-					this.$bg.unbind('click');
+					this.$bg.off('click');
 				}
 
 				this.$bg.css('background-color', this.model.get_property_value_by_name('overlay_color') );
@@ -6890,7 +6890,7 @@ define([
 					e.stopPropagation();
 			},
 			check_modules: function () {
-				var total = this.$el.find('> .upfront-region-wrapper > .upfront-modules_container > .upfront-editable_entities_container').find('.upfront-module').size();
+				var total = this.$el.find('> .upfront-region-wrapper > .upfront-modules_container > .upfront-editable_entities_container').find('.upfront-module').length;
 				if ( total == 0 ){
 					this.$el.removeClass('upfront-region-has-modules');
 					this.$el.addClass('upfront-region-empty');
