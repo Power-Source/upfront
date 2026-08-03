@@ -103,7 +103,7 @@
 				this._add_promise(args, promise); // So, stack up this promise
 
 				promise
-					.success(function (response) {
+					.done(function (response) {
 						me.menuItems = response.data || [];
 						_.each(me.menuItems, function(itemOptions, index) {
 							var menuStructureItem = new MenuStructureItem({

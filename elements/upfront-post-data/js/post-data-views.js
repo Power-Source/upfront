@@ -105,7 +105,7 @@ var Views = {
 					action: "upfront_post-data-load",
 					data: data
 				})
-				.success(function (response) {
+				.done(function (response) {
 					if (response.data && response.data.post_data) {
 						me.render_object_view(response.data.post_data, only_objects);
 						if ( me._do_cache ) {

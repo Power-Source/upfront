@@ -99,7 +99,7 @@ define([
 				}
 			;
 			Upfront.Util.post(data)
-				.success(function (response) {
+				.done(function (response) {
 					me.each(function (model) {
 						var labels = response.data[model.get("ID")];
 						if (labels) model.set({labels: labels}, {silent: true});
@@ -117,7 +117,7 @@ define([
 				}
 			;
 			return Upfront.Util.post(data)
-				.success(function (response) {
+				.done(function (response) {
 					me.each(function (model) {
 						var labels = response.data[model.get("ID")];
 						if (labels) model.set({labels: labels}, {silent: true});
@@ -135,7 +135,7 @@ define([
 				}
 			;
 			Upfront.Util.post(data)
-				.success(function (response) {
+				.done(function (response) {
 					me.reset([]);
 					Upfront.Events.trigger("media_manager:media:list", ActiveFilters);
 				})
@@ -151,7 +151,7 @@ define([
 				}
 			;
 			Upfront.Util.post(data)
-				.success(function (response) {
+				.done(function (response) {
 					me.reset([]);
 					Upfront.Events.trigger("media_manager:media:list", ActiveFilters);
 				})
@@ -264,7 +264,7 @@ define([
 		reload_labels: function () {
 			var me = this;
 			Upfront.Util.post({action: "upfront-media-get_labels"})
-				.success(function (response) {
+				.done(function (response) {
 					var arr = [];
 					if (response.data) {
 						me.labels_cache = response.data;
@@ -2577,7 +2577,7 @@ define([
 				}
 			;
 			Upfront.Util.post(data)
-				.success(function (response) {
+				.done(function (response) {
 					Upfront.Events.trigger("media_manager:media:labels_updated");
 				})
 			;
@@ -2606,7 +2606,7 @@ define([
 				}
 			;
 			Upfront.Util.post(data)
-				.success(function (response) {
+				.done(function (response) {
 					var id = me.model.get("ID"),
 						data = response.data || {},
 						labels = data[id] || data

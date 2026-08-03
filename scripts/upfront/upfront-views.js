@@ -3893,11 +3893,11 @@ define([
 
 				// Add Hover Class on group resize handle hover.
 				me = this;
-				this.$el.parent().find('.upfront-resize-handle-wrapper').hover(function() {
+				this.$el.parent().find('.upfront-resize-handle-wrapper').on('mouseenter', function() {
 					me.$el.addClass('upfront-module-group-handle-hover');
-				}, function() {
+				}).on('mouseleave', function() {
 					me.$el.removeClass('upfront-module-group-handle-hover');
-				})
+				});
 
 				this.$bg = this.$el.find('.upfront-module-group-bg');
 				this.update();

@@ -51,22 +51,24 @@ define([
 ], function ( pako, Cache ){
 
 	var guessLinkType = function(url) {
-		if(!$.trim(url) || $.trim(url) == '#' || $.trim(url) === '') {
+		var trimmedUrl = String(url).trim();
+
+		if (!trimmedUrl || trimmedUrl === '#') {
 			return 'unlink';
 		}
 
-		if(url.length && url[0] == '#') {
+		if (url.length && url[0] == '#') {
 			return url.indexOf('#ltb-') > -1 ? 'lightbox' : 'anchor';
 		}
 
-		if(typeof window.location.origin !== "undefined") {
-			if(url.substring(0, window.location.origin.length) == window.location.origin) {
-				if(
+		if (typeof window.location.origin !== "undefined") {
+			if (url.substring(0, window.location.origin.length) == window.location.origin) {
+				if (
 					typeof window.location.pathname !== "undefined"
 					&&
-					url.substring(window.location.origin.length, window.location.origin.length+window.location.pathname.length) == window.location.pathname
+					url.substring(window.location.origin.length, window.location.origin.length + window.location.pathname.length) == window.location.pathname
 					&&
-					url.substring(window.location.origin.length+window.location.pathname.length)[0] == '#'
+					url.substring(window.location.origin.length + window.location.pathname.length)[0] == '#'
 				) {
 					return 'anchor';
 				}
@@ -1194,7 +1196,7 @@ define([
 						"compressed_length": _layout_compressed ? _layout_compressed.compressed_length : 0,
 						"compression": Upfront.mainData.save_compression ? 1 : 0
 					})
-					.success(function (response) {
+					.done(function (response) {
 						var data = response.data || {};
 						if ("html" in data && data.html) {
 							_preview_url = data.html;

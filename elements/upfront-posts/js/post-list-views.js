@@ -75,7 +75,7 @@ var Views = {
 						query: query
 					}
 				})
-				.success(function (response) {
+				.done(function (response) {
 					if (response.data && response.data.posts) {
 						var posts = '';
 						_.each(response.data.posts, function (post) {

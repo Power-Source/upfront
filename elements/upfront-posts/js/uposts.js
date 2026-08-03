@@ -162,7 +162,7 @@ define(function() {
 				"action": "uposts_get_markup",
 				layout_cascade: Upfront.Application.current_subapplication.get_layout_data().layout,
 				"data": JSON.stringify(data)
-			}).success(function (response) {
+			}).done(function (response) {
 				me.markup = response.data;
 				$(content_selector)
 					.find(".upfront-object-content")
@@ -223,7 +223,7 @@ define(function() {
 						post: post,
 						properties: flat
 					}
-				}).success(function (response) {
+				}).done(function (response) {
 					loading.$el.remove();
 					loading = false;
 					wrapper.html(response.data);

@@ -745,7 +745,7 @@
 				data.action = 'upfront_save_styles';
 
 				Upfront.Util.post(data)
-					.success(function(response) {
+					.done(function(response) {
 						var data = response.data,
 							elementType = me.elementType.id;
 
@@ -761,13 +761,12 @@
 
 						me.checkDeleteToggle(data.name);
 
-						return notifier.addMessage(l10n.style_saved_as.replace(/%s/,  me.get_style_id()));
+						return notifier.addMessage(l10n.style_saved_as.replace(/%s/, me.get_style_id()));
 					})
-					.error(function(response){
+					.fail(function(response) {
 						return notifier.addMessage(l10n.there_was_an_error);
 					});
-			},
-
+				},
 			/* API to call save style without loading editor */
 			saveCall: function (notify) {
 				var me = this,
@@ -792,23 +791,23 @@
 				data.action = 'upfront_save_styles';
 
 				Upfront.Util.post(data)
-					.success(function(response) {
-						var data = response.data,
-							elementType = me.elementType.id;
+				.done(function(response) {
+					var data = response.data,
+						elementType = me.elementType.id;
 
-						if (!Upfront.data.styles[elementType]) Upfront.data.styles[elementType] = [];
+					if (!Upfront.data.styles[elementType]) Upfront.data.styles[elementType] = [];
 
-						if (Upfront.data.styles[elementType].indexOf(me.get_style_id()) === -1) {
-							Upfront.data.styles[elementType].push(me.get_style_id());
-						}
+					if (Upfront.data.styles[elementType].indexOf(me.get_style_id()) === -1) {
+						Upfront.data.styles[elementType].push(me.get_style_id());
+					}
 
-						Upfront.Events.trigger('upfront:themestyle:saved', me.get_style_id());
+					Upfront.Events.trigger('upfront:themestyle:saved', me.get_style_id());
 
-						return notify ? notifier.addMessage(l10n.style_saved_as.replace(/%s/,  me.get_style_id())) : true;
-					})
-					.error(function(response){
-						return notify ? notifier.addMessage(l10n.there_was_an_error) : true;
-					});
+					return notify ? notifier.addMessage(l10n.style_saved_as.replace(/%s/, me.get_style_id())) : true;
+				})
+				.fail(function(response){
+					return notify ? notifier.addMessage(l10n.there_was_an_error) : true;
+				});
 
 			},
 
@@ -885,12 +884,12 @@
 				;
 
 				Upfront.Util.post(fetchData)
-					.success(function(response){
+					.done(function(response){
 						deferred.resolve(response.data.styles);
 					});
+
 				return deferred.promise();
 			},
-
 			createSelectors: function(objects){
 				var me = this,
 					selectors = {}

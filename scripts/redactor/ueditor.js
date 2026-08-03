@@ -1409,16 +1409,19 @@
 			},
 			guessLinkType: function(url){
 				var anchor = false;
-				if(!$.trim(url) || $.trim(url) == '#')
+				var trimmedUrl = String(url).trim();
+
+				if(!trimmedUrl || trimmedUrl === '#')
 					return 'unlink';
 
 				if(url.indexOf('#') > -1) {
-					anchor =this.getUrlanchor(url);
+					anchor = this.getUrlanchor(url);
 				}
 
 				if(anchor) {
 					return url.indexOf('ltb-') > -1 ? 'lightbox' : 'anchor';
 				}
+
 				// is it an email.
 				if(url.indexOf('mailto:') === 0) {
 					return 'email';

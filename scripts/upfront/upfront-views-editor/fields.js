@@ -121,16 +121,19 @@
 					this.$el.append(this.get_label_html());
 				this.$el.append(this.get_field_html());
 				var me = this;
-				this.get_field().keyup(function(){
-					if ( '' === $(this).val() ){
-							$(this).addClass('upfront-field-empty');
-					}
-					else if ( $(this).hasClass('upfront-field-empty') ) {
-							$(this).removeClass('upfront-field-empty');
-					}
-				}).trigger('keyup').change(function(){
-					me.trigger('changed', me.get_value());
-				});
+				this.get_field()
+                .on('keyup', function() {
+                    if ('' === $(this).val()) {
+                        $(this).addClass('upfront-field-empty');
+                    }
+                    else if ($(this).hasClass('upfront-field-empty')) {
+                        $(this).removeClass('upfront-field-empty');
+                    }
+                })
+                .trigger('keyup')
+                .on('change', function() {
+                    me.trigger('changed', me.get_value());
+                });
 				this.trigger('rendered');
 			},
 			get_field_html: function () {

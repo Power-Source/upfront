@@ -1083,12 +1083,17 @@
 					bindEvents: function () {
 					},
 					guessLinkType: function(url){
-						if(!$.trim(url) || $.trim(url) == '#')
+						var trimmedUrl = String(url).trim();
+
+						if (!trimmedUrl || trimmedUrl === '#')
 							return 'unlink';
-						if(url.length && url[0] == '#')
+
+						if (url.length && url[0] == '#')
 							return url.indexOf('#ltb-') > -1 ? 'lightbox' : 'anchor';
-						if(url.substring(0, location.origin.length) == location.origin)
+
+						if (url.substring(0, location.origin.length) == location.origin)
 							return 'entry';
+
 						if (url.match(/^mailto/)) {
 							return 'email';
 						}

@@ -1573,7 +1573,7 @@ var UgalleryView = Upfront.Views.ObjectView.extend({
 
 		var deferred = $.Deferred();
 		Upfront.Util.post(data)
-		.success(function (response) {
+		.done(function (response) {
 			//Replace the temp label
 			var thisLabels = response.data[imageId],
 			imageLabels = [],

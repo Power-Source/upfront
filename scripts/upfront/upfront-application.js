@@ -1015,7 +1015,7 @@ var Application = new (Backbone.Router.extend({
 			this.loadingLayout.abort();
 
 		this.loadingLayout = Upfront.Util.post(request_data)
-			.success(function (response) {
+			.done(function (response) {
 				app.set_layout_up(response);
 
 				if(app.saveCache){
@@ -1060,7 +1060,7 @@ var Application = new (Backbone.Router.extend({
 			this.loadingLayout.abort();
 
 		this.loadingLayout = Upfront.Util.post(request_data)
-			.success(function (response) {
+			.done(function (response) {
 				// Temporary, until find better solution
 				Upfront.layout_data_from_create_layout = layout_ids;
 				app.set_layout_up(response);
