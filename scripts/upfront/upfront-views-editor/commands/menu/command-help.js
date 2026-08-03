@@ -12,7 +12,7 @@
 				this.$el.html(l10n.help_and_support);
 			},
 			on_click: function () {
-				var url = 'https://premium.wpmudev.org/upfront-documentation',
+				var url = 'https://psource.eimen.net/wiki/upfront-dokumentation/',
 					win = window.open(url, "_blank")
 				;
 				win.focus();

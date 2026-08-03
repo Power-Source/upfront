@@ -36,6 +36,7 @@ var requirejs, require, define;
         contexts = {},
         cfg = {},
         globalDefQueue = [],
+        externalDefineCounter = 0,
         useInteractive = false;
 
     //Could match something like ')//comment', do not lose the prefix to comment.
@@ -2078,13 +2079,17 @@ var requirejs, require, define;
             deps = null;
         }
 
-        // Bind source-loaded anonymous modules immediately. This prevents
-        // unrelated AMD scripts from being assigned to Upfront requests.
+        // Bind anonymous modules to the script that declared them. WordPress
+        // may load unrelated AMD-aware scripts outside RequireJS.
         if (!name && isBrowser && document.currentScript) {
             node = document.currentScript;
             if (node.getAttribute('data-requiremodule')) {
                 name = node.getAttribute('data-requiremodule');
                 context = contexts[node.getAttribute('data-requirecontext')];
+            } else {
+                externalDefineCounter += 1;
+                name = '_@upfront-external-' + externalDefineCounter;
+                context = contexts[defContextName];
             }
         }
 
