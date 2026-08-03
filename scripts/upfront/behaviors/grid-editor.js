@@ -3168,7 +3168,7 @@ var GridEditor = {
 					Upfront.Util.post({
 						action: 'upfront_load_editor_grid',
 						baseline: grid_data.baseline
-					}, 'text').success(function(data) {
+					}, 'text').done(function(data) {
 						if ( $('#upfront-editor-grid-inline').length )
 							$('#upfront-editor-grid-inline').html( data );
 						else

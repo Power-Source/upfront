@@ -283,7 +283,7 @@ Shuffle.prototype = {
                 $items.each(function() {
                     var $this = $(this),
                     groups = $this.data('groups'),
-                    keys = self.delimeter && !$.isArray( groups ) ? groups.split( self.delimeter ) : groups,
+                    keys = self.delimeter && !Array.isArray( groups ) ? groups.split( self.delimeter ) : groups,
                     passes = $.inArray(category, keys) > -1;
 
                     if ( passes ) {

@@ -400,11 +400,11 @@ return (function ($) {
 			if(typeof me.model['menu-item-db-id'] != 'undefined') {
 				//console.log('ajax call to set delete menu item');
 				Upfront.Util.post({"action": "upfront_new_delete_menu_item", "menu_item_id": me.model['menu-item-db-id'], "new_menu_order" : neworder})
-					.success(function (ret) {
+					.done(function (ret) {
 						if(me.$el.find('ul.sub-menu').length > 0)
 							parentview.render();
 					})
-					.error(function (ret) {
+					.fail(function (ret) {
 						Upfront.Util.log("Error Deleting Menu Item");
 					})
 				;
@@ -484,12 +484,12 @@ return (function ($) {
 
 			//console.log('ajax call to new update menu item');
 			Upfront.Util.post(postdata)
-				.success(function (ret) {
+				.done(function (ret) {
 					me.model['menu-item-db-id'] = ret.data;
 					//Triggering this event is causing nav to re-render and hide Link Panel
 					//Upfront.Events.trigger("menu_element:edit");
 				})
-				.error(function (ret) {
+				.fail(function (ret) {
 					Upfront.Util.log("Error updating menu item");
 				})
 			;

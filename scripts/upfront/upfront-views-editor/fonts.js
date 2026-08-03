@@ -391,7 +391,7 @@
 								};
 
 								Upfront.Util.post(postData)
-										.error(function(){
+										.fail(function(){
 												return notifier.addMessage(l10n.theme_fonts_save_fail);
 										});
 						};
@@ -570,7 +570,7 @@
 						name: name,
 						idx: idx
 					})
-					.error(function (data) {
+					.fail(function (data) {
 						var error = ((data || {}).responseJSON || {}).error || 'Oops, something went wrong';
 						if (!_.isString(error) && (error || {}).message) error = error.message;
 						Upfront.Views.Editor.notify(error, 'error');
@@ -681,7 +681,7 @@
 
 
 								Upfront.Util.post(postData)
-										.error(function(){
+										.fail(function(){
 												return notifier.addMessage('Could not update active icon font');
 										});
 

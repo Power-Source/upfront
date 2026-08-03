@@ -40,14 +40,14 @@ define([
 							fileInput: null, // disable change listener, we handle it below
 							paramName: 'media[]' // due to previous options we have to set this manually
 						})
-						.bind('fileuploadstart', function () {
+						.on('fileuploadstart', function () {
 							progress.css('width', '0');
 						})
-						.bind('fileuploadprogressall', function (e, data) {
+						.on('fileuploadprogressall', function (e, data) {
 							var percent = parseInt(data.loaded / data.total * 100, 10);
 							progress.css('width', percent + '%');
 						})
-						.bind('fileuploaddone', function (e, data) {
+						.on('fileuploaddone', function (e, data) {
 							var response = data.result;
 							progress.css('width', '100%');
 							$('#upfront-image-uploading h2').html(l10n.sel.preparing);
@@ -55,14 +55,14 @@ define([
 								.done(function(response){
 									me.deferred.resolve(response.data.images, response);
 								})
-								.error(function(){
+								.fail(function(){
 									Upfront.Views.Editor.notify(l10n.sel.upload_error, 'error');
 									me.openSelector();
 								});
 							form[0].reset();
 							//$('#upfront-upload-image').remove();
 						})
-						.bind('fileuploadfail', function (e, response) {
+						.on('fileuploadfail', function (e, response) {
 							var error = response.jqXHR.responseJSON.error;
 							Upfront.Views.Editor.notify(error, 'error');
 							me.openSelector();

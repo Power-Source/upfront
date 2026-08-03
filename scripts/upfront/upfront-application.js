@@ -85,7 +85,7 @@ var LayoutEditorSubapplication = Subapplication.extend({
 				"template_type": template_type,
 				"template_slug": template_slug
 			})
-			.success(function () {
+			.done(function () {
 				Upfront.Util.log("layout applied");
 
 				// remove the old cache of layouts as cache will be updated upon loading layouts
@@ -98,7 +98,7 @@ var LayoutEditorSubapplication = Subapplication.extend({
 				},100);
 
 			})
-			.error(function () {
+			.fail(function () {
 				Upfront.Util.log("error saving layout");
 				Upfront.Events.trigger("command:layout:save_error");
 			})
@@ -151,7 +151,7 @@ var LayoutEditorSubapplication = Subapplication.extend({
 				"template_type": template_type,
 				"template_slug": template_slug
 			})
-			.success(function (resp) {
+			.done(function (resp) {
 				Upfront.Util.log("layout saved");
 				Upfront.Events.trigger("command:layout:save_success");
 
@@ -173,7 +173,7 @@ var LayoutEditorSubapplication = Subapplication.extend({
 
 				me.save_presets();
 			})
-			.error(function () {
+			.fail(function () {
 				Upfront.Util.log("error saving layout");
 				Upfront.Events.trigger("command:layout:save_error");
 			})
@@ -267,7 +267,7 @@ var LayoutEditorSubapplication = Subapplication.extend({
 					$(this).html(tpl(resp));
 				});
 			})
-			.error(function (resp) {
+			.fail(function (resp) {
 				console.log(resp);
 			})
 		;

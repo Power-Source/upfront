@@ -600,7 +600,7 @@ var YoutubeSettings = ElementSettings.extend({
 				me.for_view.model.get('properties').trigger('change');
 				Upfront.Events.trigger("upfront:youtube:added:done");
 			})
-			.error(function () {
+			.fail(function () {
 				Upfront.Util.log("error single video");
 			});
 	},

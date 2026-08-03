@@ -124,7 +124,7 @@ var Views = {
 					// Notify all part views that we have finished loading
 					me.element.toggle_child_objects_loading(false);                    
 				})
-				.error(function () {
+				.fail(function () {
 					me.$el
 						.empty()
 						.append(me.tpl.error({l10n: l10n}))

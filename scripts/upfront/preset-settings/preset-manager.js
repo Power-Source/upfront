@@ -537,7 +537,7 @@ define([
 			Upfront.Util.post({
 				data: preset.toJSON(),
 				action: 'upfront_reset_' + this.ajaxActionSlug + '_preset'
-			}).success(function (ret) {
+			}).done(function (ret) {
 				var resetPreset = ret.data;
 				if(_.isEmpty(ret.data) || ret.data === false) {
 					resetPreset = me.getPresetDefaults('default');
@@ -556,7 +556,7 @@ define([
 				me.$el.empty();
 				me.render();
 				Upfront.Events.trigger('element:preset:updated');
-			}).error(function (ret) {
+			}).fail(function (ret) {
 				//Notify error
 				Upfront.Views.Editor.notify(ret);
 			});

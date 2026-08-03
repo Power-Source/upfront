@@ -59,7 +59,7 @@ var PostsView = Upfront.Views.ObjectView.extend({
 		view.render();
 		this.$el.find(".upfront-object-content").empty().append(view.$el);
 		if ( view._posts_load ){
-			view._posts_load.success(function(){
+			view._posts_load.done(function(){
 				me.adjust_featured_images();
 				Upfront.Events.trigger('entity:object:refresh', me);
 			});

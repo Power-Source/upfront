@@ -22,7 +22,7 @@
                 };
 
                 Upfront.Util.post(postData)
-                    .error(function(){
+                    .fail(function(){
                         return notifier.addMessage(l10n.button_presets_save_fail);
                     });
             };

@@ -1558,7 +1558,7 @@
 				var placeholder = this.options.placeholder;
 				if (this.$el.attr('placeholder')) placeholder = this.$el.attr('placeholder');
 				if (placeholder === '') placeholder = false;
-				if (placeholder !== false && $.trim(this.$el.text()).length === 0)
+				if (placeholder !== false && this.$el.text().trim().length === 0)
 				{
 					//remove existing placeholder
 					this.$el.parent().children('.ueditor-placeholder').remove();

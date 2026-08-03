@@ -123,7 +123,7 @@
 						me.render();
 						me._drop_promise(args); // And pop it off the stack once we're done
 					})
-					.error(function (response) {
+					.fail(function (response) {
 						Upfront.Util.log("Error loading menu items");
 					})
 				;

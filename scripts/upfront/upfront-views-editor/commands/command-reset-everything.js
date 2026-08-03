@@ -14,11 +14,11 @@
             },
             on_click: function () {
                 Upfront.Util.reset()
-                    .success(function () {
+                    .done(function () {
                         Upfront.Util.log("layout reset");
                         window.location.reload();
                     })
-                    .error(function () {
+                    .fail(function () {
                         Upfront.Util.log("error resetting layout");
                     })
                 ;

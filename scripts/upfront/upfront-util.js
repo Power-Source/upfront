@@ -1219,7 +1219,7 @@ define([
 							Upfront.Views.Editor.notify(Upfront.Settings.l10n.global.views.multiple_tabs_nag, 'error');
 						}
 					})
-					.error(function () {
+					.fail(function () {
 						Upfront.Util.log("error building layout preview");
 					})
 				;

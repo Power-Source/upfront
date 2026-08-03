@@ -161,7 +161,7 @@
             currentValue = 0,
             currentAlpha = 1,
             palette = opts.palette.slice(0),
-            paletteArray = $.isArray(palette[0]) ? palette : [palette],
+            paletteArray = Array.isArray(palette[0]) ? palette : [palette],
             selectionPalette = opts.selectionPalette.slice(0),
             maxSelectionSize = opts.maxSelectionSize,
             draggingClass = "sp-dragging",
@@ -384,8 +384,8 @@
             }
 
             var paletteEvent = IE ? "mousedown.spectrum" : "click.spectrum touchstart.spectrum";
-            paletteContainer.delegate(".sp-thumb-el", paletteEvent, { ignore: true }, palletElementClick);
-            initialColorContainer.delegate(".sp-thumb-el:nth-child(1)", paletteEvent, { ignore: true }, palletElementClick);
+            paletteContainer.on(paletteEvent, ".sp-thumb-el", { ignore: true }, palletElementClick);
+            initialColorContainer.on(paletteEvent, ".sp-thumb-el:nth-child(1)", { ignore: true }, palletElementClick);
         }
 
         function addColorToSelectionPalette(color) {

@@ -117,7 +117,7 @@ var Views = {
 					}
 					else me.$el.empty().append(me.tpl.error({l10n: l10n}));
 				})
-				.error(function () {
+				.fail(function () {
 					me.$el.empty().append(me.tpl.error({l10n: l10n}));
 				})
 			;

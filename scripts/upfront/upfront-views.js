@@ -287,7 +287,7 @@ define([
 						false === Upfront.plugins.isForbiddenByPlugin('initialize featured image selector')
 				) {
 					var feature_selector = $('<a href="#" class="feature_image_selector">' + l10n.add_featured_image + '</a>');
-					feature_selector.bind('click', function() {
+					feature_selector.on('click', function() {
 						Upfront.Views.Editor.ImageSelector.open().done(function(images){
 							var sizes = {},
 								imageId = 0
@@ -6754,7 +6754,7 @@ define([
 				this.$bg.insertBefore(this.$el);
 				if(this.model.get_property_value_by_name('click_out_close') == 'yes') {
 					this.$bg.off('click');
-					this.$bg.bind('click', function() {
+					this.$bg.on('click', function() {
 						me.hide();
 					});
 				}
@@ -6817,7 +6817,7 @@ define([
 
 				if(this.model.get_property_value_by_name('click_out_close') == 'yes') {
 					this.$bg.off('click');
-					this.$bg.bind('click', function() {
+					this.$bg.on('click', function() {
 						me.hide();
 					});
 				} else {

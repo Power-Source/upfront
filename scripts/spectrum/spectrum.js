@@ -219,7 +219,7 @@
 
             if (opts.palette) {
                 palette = opts.palette.slice(0);
-                paletteArray = $.isArray(palette[0]) ? palette : [palette];
+                paletteArray = Array.isArray(palette[0]) ? palette : [palette];
                 paletteLookup = {};
                 for (var i = 0; i < paletteArray.length; i++) {
                     for (var j = 0; j < paletteArray[i].length; j++) {
@@ -416,8 +416,8 @@
             }
 
             var paletteEvent = IE ? "mousedown.spectrum" : "click.spectrum touchstart.spectrum";
-            paletteContainer.delegate(".sp-thumb-el", paletteEvent, palletElementClick);
-            initialColorContainer.delegate(".sp-thumb-el:nth-child(1)", paletteEvent, { ignore: true }, palletElementClick);
+            paletteContainer.on(paletteEvent, ".sp-thumb-el", palletElementClick);
+            initialColorContainer.on(paletteEvent, ".sp-thumb-el:nth-child(1)", { ignore: true }, palletElementClick);
         }
 
         function updateSelectionPaletteFromStorage() {
