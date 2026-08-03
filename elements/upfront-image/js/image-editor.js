@@ -80,9 +80,9 @@ define([
 				me.isDragged = false;
 			});
 
-			$('body').bind( 'keyup', function( event ) {
-				if ( event.keyCode === 27) {
-					if('undefined' !== typeof me.element_id) {
+			$('body').on('keyup', function(event) {
+				if (event.key === 'Escape') {
+					if (typeof me.element_id !== 'undefined') {
 						me.close();
 					}
 				}

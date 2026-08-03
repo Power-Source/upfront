@@ -106,22 +106,29 @@ var ThisPageView = (function(){
 					post_id: page_id,
 					post_type: Upfront.Settings.LayoutEditor.newpostType
 				})
-			}).success(function(response){
-				if(loading){
+			})
+			.done(function(response) {
+				if (loading) {
 					loading.done();
 					loading = false;
 				}
+
 				var node = node || me.$el.find(".upfront-object-content");
 				var page = Upfront.data.posts[page_id];
+
 				markups = response.data.filtered;
+
 				// resolving all instances
-				_.each(instances, function(ins){
+				_.each(instances, function(ins) {
 					ins.is_new = page && page.is_new;
 					ins.deferred.resolve(markups[ins.display]);
 				});
-				if (page)
+
+				if (page) {
 					page.is_new = false;
-			}).done(function(){
+				}
+			})
+			.always(function() {
 				requesting = false;
 			});
 

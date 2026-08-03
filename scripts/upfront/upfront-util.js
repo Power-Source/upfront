@@ -959,24 +959,25 @@ define([
 				classname = classname || 'default-popup';
 				this.init();
 				var me = this,
-						sidebarWidth = $('#sidebar-ui').width(),
-						$win = $(window),
-						width = data.width || 630,
-						left_pos = ($win.width() - width) / 2 + sidebarWidth / 2,
-						height = ($win.height() / 3) * 2,
-						close_func = function () {
-							$("#upfront-popup").attr('class', 'upfront-ui');
-							me.close();
-							return false;
-						}
+					sidebarWidth = $('#sidebar-ui').width(),
+					$win = $(window),
+					width = data.width || 630,
+					left_pos = ($win.width() - width) / 2 + sidebarWidth / 2,
+					height = ($win.height() / 3) * 2,
+					close_func = function () {
+						$("#upfront-popup").attr('class', 'upfront-ui');
+						me.close();
+						return false;
+					}
 				;
 
-				if ( !this.disable_esc ) {
-					$('body').bind( 'keyup', function( event ) {
-						if ( event.keyCode === 27 ) me.close();
+				if (!this.disable_esc) {
+					$('body').on('keyup', function(event) {
+						if (event.keyCode === 27) {
+							me.close();
+						}
 					});
 				}
-
 				// data.width = width, data.height = height;
 				this.$background
 					// .css({

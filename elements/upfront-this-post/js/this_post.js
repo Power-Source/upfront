@@ -232,11 +232,12 @@ var ThisPostView = Upfront.Views.ObjectView.extend({
 					post_type: Upfront.Settings.LayoutEditor.newpostType,
 					properties: this._properties
 				})
-			}).success(function(response){
-				if(loading){
+			}).done(function(response) {
+				if (loading) {
 					loading.done();
 					loading = false;
 				}
+
 				var node = node || $('#' + me.property('element_id')).find(".upfront-object-content");
 				me.markup = response.data.filtered;
 				node.html(me.get_content_markup());
@@ -244,7 +245,7 @@ var ThisPostView = Upfront.Views.ObjectView.extend({
 				me.on_render();
 
 				me.loadingMarkup = false;
-			})
+			});
 		;
 
 		return this.loadingMarkup;

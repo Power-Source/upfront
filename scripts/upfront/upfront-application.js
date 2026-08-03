@@ -832,11 +832,11 @@ var Application = new (Backbone.Router.extend({
 			},
 			base_only: true // flag for w/o element styles
 		})
-			.success(function(response) {
-				// Switch styles
-				$('#upfront-main-css').after('<style id="upfront-main-base-css">' + response.data.styles + '</style>');
-				$('#upfront-main-css').remove();
-			});
+		.done(function(response) {
+			// Switch styles
+			$('#upfront-main-css').after('<style id="upfront-main-base-css">' + response.data.styles + '</style>');
+			$('#upfront-main-css').remove();
+		});
 
 		$('#wpadminbar').hide();
 		$('html').attr('style', 'margin-top: 0 !important;');

@@ -22,9 +22,10 @@ define([
 				if ($('#upfront-upload-image').length === 0) {
 				$('body').append(me.formTpl({url: Upfront.Settings.ajax_url, l10n: l10n.template}));
 				
-				$('body').bind( 'keyup', function( event ) {
-					if ( event.keyCode === 27 )
+				$('body').on('keyup', function(event) {
+					if (event.key === 'Escape') {
 						me.closeOverlay();
+					}
 				});
 				
 				var progress = $('#upfront-progress'),
