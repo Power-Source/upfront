@@ -20176,8 +20176,7 @@ div.preset-manager-panel .upfront-settings-css {
 #element-settings-sidebar .upfront-css-edit,
 div.preset-manager-panel .edit_preset_css {
   position: relative;
-  margin-top: -12px;
-  left: 90px; }
+  left: 10px; }
 
 #element-settings-sidebar .edit-preset-css-label,
 div.preset-manager-panel .edit_preset_label {

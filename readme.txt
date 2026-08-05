@@ -4,7 +4,7 @@ Theme URI: https://github.com/Power-Source/upfront
 Tags: classicpress-theme, classicpress, theme, framework, awesome
 Requires at least: 4.9
 Tested up to: 5.0
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -54,6 +54,10 @@ Add theme colors, customize typography, and edit global settings without a singl
 
 
 == ChangeLog ==
+
+= 1.1.1 =
+* Fix: Colorpicker zeigt die Picker wieder korrekt
+* Mehr und besseres Deutsch
 
 = 1.1.0 =
 

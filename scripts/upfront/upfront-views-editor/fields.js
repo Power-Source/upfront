@@ -1190,7 +1190,7 @@
 				openOptions: function(e) {
 
 					//Disable scroll when chosen is opened
-					$('.sidebar-panel-content .sidebar-tab-content, #sidebar-scroll-wrapper').bind('mousewheel', function() {
+					$('.sidebar-panel-content .sidebar-tab-content, #sidebar-scroll-wrapper').on('mousewheel', function() {
 						return false;
 					});
 
@@ -1239,7 +1239,7 @@
 				},
 				allowMouseWheel: function() {
 					//Enable scroll when chosen is closed
-					$('.sidebar-panel-content .sidebar-tab-content, #sidebar-scroll-wrapper').unbind('mousewheel');
+					$('.sidebar-panel-content .sidebar-tab-content, #sidebar-scroll-wrapper').off('mousewheel');
 				}
 		});
 
@@ -1515,7 +1515,7 @@
             openOptions: function(e) {
 
                 //Disable scroll when chosen is opened
-                $('.sidebar-panel-content .sidebar-tab-content, #sidebar-scroll-wrapper').bind('mousewheel', function() {
+                $('.sidebar-panel-content .sidebar-tab-content, #sidebar-scroll-wrapper').on('mousewheel', function() {
                     return false;
                 });
 
@@ -1558,7 +1558,7 @@
             },
             allowMouseWheel: function() {
                 //Enable scroll when chosen is closed
-                $('.sidebar-panel-content .sidebar-tab-content, #sidebar-scroll-wrapper').unbind('mousewheel');
+                $('.sidebar-panel-content .sidebar-tab-content, #sidebar-scroll-wrapper').off('mousewheel');
             }
         });
 
