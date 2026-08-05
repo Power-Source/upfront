@@ -107,9 +107,13 @@ class Upfront_Uwidget {
 
 
 		foreach ($plugins_widgets as $pw) {
-			if( defined( "DOING_AJAX" ) && DOING_AJAX && is_a($callback[0], $pw['class'])) {
+			$callback_obj = (is_array($callback) && !empty($callback[0]) && is_object($callback[0]))
+				? $callback[0]
+				: false
+			;
+			if( defined( "DOING_AJAX" ) && DOING_AJAX && $callback_obj && is_a($callback_obj, $pw['class'])) {
 				return $pw['text'];
-			} elseif (is_a($callback[0], $pw['class'])) {
+			} elseif ($callback_obj && is_a($callback_obj, $pw['class'])) {
 				ob_start();
 				the_widget($pw['class'], $instance, $args);
 				$out = ob_get_clean();
@@ -118,8 +122,12 @@ class Upfront_Uwidget {
 		}
 
 		ob_start();
-		call_user_func_array($callback, array($args, $instance));
+		$return = call_user_func_array($callback, array($args, $instance));
 		$out = ob_get_clean();
+
+		if (empty($out) && is_string($return) && '' !== trim($return)) {
+			$out = $return;
+		}
 
 		return !empty($out) ? $out : $result;
 	}

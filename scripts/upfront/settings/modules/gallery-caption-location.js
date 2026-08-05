@@ -150,7 +150,7 @@ define([
 				setTimeout( function() {
 					if(me.model.get('use_captions') === 'yes') {
 						me.$el.find('.' + state + '-toggle-wrapper').show();
-						var height_type = me.model.get('caption-height', value);
+						var height_type = me.model.get('caption-height');
 						if(height_type === "fixed") {
 							me.$el.find('.'+ state +'-caption-height-number').show();
 						}

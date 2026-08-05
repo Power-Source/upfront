@@ -698,7 +698,7 @@ var GridEditor = {
 				return;
 
 			// Separate wrapper if more than one element in the wrapper, provided that the wrapper is not conflicting anything
-			if ( $wrap_els.size() > 1 ){
+			if ( $wrap_els.length > 1 ){
 				$wrap_els.each(function(){
 					var wrap_el = ed.get_el($(this)),
 						aff_wraps = ed.get_affected_els(wrap, wraps, [], false)
@@ -1007,9 +1007,9 @@ var GridEditor = {
 		wraps.each(function(wrap){
 			var wrapper_id = wrap.get_wrapper_id();
 			if (
-				($parent ? $parent : $layout).find('[ref-id='+wrapper_id+']').size() == 0
+				($parent ? $parent : $layout).find('[ref-id='+wrapper_id+']').length === 0
 				&&
-				($parent ? $parent : $layout).find('#'+wrapper_id).size() == 0
+				($parent ? $parent : $layout).find('#'+wrapper_id).length === 0
 			) {
 				wrapsToRemove.push(wrap);
 			}

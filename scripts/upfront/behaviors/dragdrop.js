@@ -422,7 +422,7 @@ DragDrop.prototype = {
 							current_el_top = bottom+1;
 						});
 						var $last = $els.last(),
-							last = $last.size() > 0 ? ed.get_el($last) : false,
+							last = $last.length > 0 ? ed.get_el($last) : false,
 							last_me = ( last && last._id == me._id ),
 							wrap_bottom = ( breakpoint && !breakpoint['default'] && next_clr_el_top ) ? Math.ceil(next_clr_el_top.grid_center.y) : max_row_wrap.grid.bottom
 						;
@@ -1376,7 +1376,7 @@ DragDrop.prototype = {
 		});
 		if ( !this.drop.is_me && this.drop.type == 'side-before' ) {
 			var $next_wrap = this.drop.insert[1];
-			if ( $next_wrap.size() > 0 ){
+			if ( $next_wrap.length > 0 ){
 				var next_wrap = ed.get_wrap($next_wrap),
 					next_wrap_clr = ( !breakpoint || breakpoint['default'] ) ? $next_wrap.hasClass('clr') : $next_wrap.data('breakpoint_clear');
 				if ( ! next_wrap_clr || this.drop.is_clear ){

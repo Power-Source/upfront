@@ -307,12 +307,12 @@ define([
 									id: imageId
 								}
 							;
-							$('<img>').attr('src', imageInfo.srcFull).load(function(){
+							$('<img>').attr('src', imageInfo.srcFull).on('load', function(){
 								post.meta.setValue('_thumbnail_id', imageInfo.id);
 								post.meta.setValue('_thumbnail_data', imageInfo);
 
 								post.meta.save().done(function(){
-									$('<img>').attr('src', imageInfo.srcOriginal).load(function() {
+									$('<img>').attr('src', imageInfo.srcOriginal).on('load', function() {
 										me.update_background();
 										Upfront.Views.Editor.ImageSelector.close();
 									});
@@ -353,7 +353,7 @@ define([
 
 							image = response.data.featured_image;
 							var temp_image = $('<img>').attr('src', response.data.featured_image);
-							temp_image.load(function(){
+							temp_image.on('load', function(){
 								ratio = parseFloat(Math.round(this.height/this.width*100)/100);
 								$bg.data('bg-featured-image-ratio', ratio);
 								$bg.removeClass('no-featured_image');
@@ -368,7 +368,7 @@ define([
 							_update_default();
 						}
 					})
-					.fail(_update_default())
+					.fail(_update_default);
 				;
 			},
 			postpone_map_init: function ($type, $overlay) {
@@ -1623,7 +1623,7 @@ define([
 				this.$el.empty().addClass(cls);
 				this.$el.append(this.label);
 
-				this.$el.bind('click', function(e) {
+				this.$el.on('click', function(e) {
 					e.preventDefault();
 					me.action(this.for_view, e);
 					Upfront.Events.trigger("entity:contextmenu:deactivate", this);

@@ -278,7 +278,7 @@ define([
 						default_value: 0,
 						multiple: false,
 						values: [
-							{ label: 'Enable image filtering', value: ['true'] }
+							{ label: 'Bildfilterung aktivieren', value: ['true'] }
 						],
 						change: function(value, me) {
 							me.model.set_property('labelFilters', value);

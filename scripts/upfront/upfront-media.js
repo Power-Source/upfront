@@ -1691,9 +1691,9 @@ define([
 			//this.embed_view = new MediaManager_EmbedMedia({});
 
 			this.library_view.multiple_selection = multiple_selection;
+			ActiveFilters.themeImages = !!data.themeImages;
 
-			if(data.themeImages){
-				ActiveFilters.themeImages = true;
+			if(ActiveFilters.themeImages){
 				this.library_view.multiple_selection = false;
 			}
 			
@@ -2767,6 +2767,7 @@ define([
 			ActiveFilters.allowed_media_types = [];
 			ActiveFilters.current_keys = [];
 			ActiveFilters.current_models = [];
+			ActiveFilters.themeImages = false;
 			this.cleanup_manager_view();
 		},
 		cleanup_manager_view: function () {

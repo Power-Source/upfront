@@ -265,13 +265,13 @@ Shuffle.prototype = {
 
         // Loop through each item and use provided function to determine
         // whether to hide it or not.
-        if ( $.isFunction(category) ) {
+        if ( typeof category === 'function' ) {
             $items.each(function() {
                 var $item = $(this),
-                passes = category.call($item[0], $item, self);
+                    passes = category.call($item[0], $item, self);
 
                 if ( passes ) {
-                    $filtered = $filtered.add( $item );
+                    $filtered = $filtered.add($item);
                 }
             });
         }

@@ -712,7 +712,7 @@ PostContentEditor.prototype = {
 							id: imageId
 						}
 					;
-					$('<img>').attr('src', imageInfo.srcFull).load(function(){
+					$('<img>').attr('src', imageInfo.srcFull).on('load', function(){
 						Upfront.Views.Editor.ImageSelector.close();
 						if ( full_image == '1' ){
 							var img = me.$featured.find('img'),
@@ -1444,7 +1444,7 @@ var PostContentEditorLegacy = Backbone.View.extend(_.extend({}, PostContentEdito
 				id: imageId
 			}
 			;
-			$('<img>').attr('src', imageInfo.srcFull).load(function(){
+			$('<img>').attr('src', imageInfo.srcFull).on('load', function(){
 				Upfront.Views.Editor.ImageSelector.close();
 				if ( full_image == '1' ){
 					var img = me.$('.ueditor_thumb img'),

@@ -959,7 +959,7 @@
 
 						// Make sure that input is clicked (for some reason in redactor toolbar this does not work naturally)
 						if ( $(e.currentTarget).siblings('input').not(':checked')) {
-							$(e.currentTarget).siblings('input').click();
+							$(e.currentTarget).siblings('input').trigger('click');
 						}
 
 						this.$el.find('.upfront-field-select').removeClass('upfront-field-select-expanded');
@@ -1288,7 +1288,7 @@
 
                     // Make sure that input is clicked (for some reason in redactor toolbar this does not work naturally)
                     if ( $(e.currentTarget).siblings('input').not(':checked')) {
-                        $(e.currentTarget).siblings('input').click();
+                        $(e.currentTarget).siblings('input').trigger('click');
                     }
 
                     this.$el.find('.upfront-field-select').removeClass('upfront-field-select-expanded');
@@ -1737,7 +1737,7 @@
 
                 this.$el.on('change', '.upfront-field-multiple input', function(){
                     me.$el.find('.upfront-field-multiple').each(function(){
-                        if ( $(this).find('input:checked').size() > 0 ) {
+                        if ( $(this).find('input:checked').length > 0 ) {
                             $(this).addClass('upfront-field-multiple-selected');
                         } else {
                             $(this).removeClass('upfront-field-multiple-selected');

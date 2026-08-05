@@ -254,7 +254,7 @@ var ButtonView = Upfront.Views.ObjectView.extend({
 				linebreaks: true,
 				disableLineBreak: true,
 				airButtons: ['stateAlignCTA', 'upfrontIcons'],
-				placeholder: 'Click here',
+				placeholder: 'Hier klicken',
 				autostart: false
 			})
 			.on('start', function(){

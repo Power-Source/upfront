@@ -4,7 +4,7 @@ class Upfront_ButtonView extends Upfront_Object {
 
 	public static function default_properties(){
 		return array(
-			"content" => "Click here",
+			"content" => "Hier klicken",
 			"href" => "",
 			"linkTarget" => "",
 			"align" => "center",

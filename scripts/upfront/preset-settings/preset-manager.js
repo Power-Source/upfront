@@ -117,7 +117,7 @@ define([
 			if(preset === "default") {
 				setTimeout( function() {
 					//Wrap settings and preset styles
-					me.$el.find('.preset_specific').next().andSelf().wrapAll('<div class="default-overlay-wrapper" />');
+					me.$el.find('.preset_specific').next().addBack().wrapAll('<div class="default-overlay-wrapper" />');
 
 					//Append overlay div
 					me.$el.find('.default-overlay-wrapper').append('<div class="default-overlay">' +
