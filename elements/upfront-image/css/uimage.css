@@ -876,9 +876,9 @@ a.image-edit-button.deactivated:hover {
 }
 .image-control-button {
 	visibility: hidden;
-	min-width: 122px;
+	min-width: 150px;
     width: 100%;
-	height: 118px;
+	height: 150px;
     font-size: 0.8em;
     padding: 10px 20px 10px 10px !important;
     margin-top: 16px !important;
@@ -887,7 +887,7 @@ a.image-edit-button.deactivated:hover {
 	box-shadow: 0px 2px 10px 0px rgba(34,50,64,1);
 	border: none;
 	z-index: -1;
-	right: 96px;
+	right: 124px;
 	position: relative !important;
 }
 .upfront-control-dialog-open .image-control-button {
@@ -1206,7 +1206,7 @@ div#page .upfront-object.upfront-image .swap-image-overlay p:before {
 	line-height: 26px;
 }
 .image-edit-col-full input {
-	width: 102px;
+	width: 130px;
 	height: 26px;
 	line-height: 26px;
 }

@@ -38,7 +38,7 @@
 					model: this.model,
 					label: l10n.btn.fit,
 					id: 'image-edit-button-fit',
-					className: "image-crop-edit-button image-edit-col-half",
+					className: "image-crop-edit-button image-edit-col-full",
 					compact: true,
 					on_click: function() {
 						me.trigger('crop:fit:image');
@@ -48,7 +48,7 @@
 					model: this.model,
 					label: l10n.btn.fill,
 					id: 'image-edit-button-fill',
-					className: "image-crop-edit-button image-edit-col-half image-edit-col-half-last",
+					className: "image-crop-edit-button image-edit-col-full",
 					compact: true,
 					on_click: function() {
 						me.trigger('crop:fill:image');
