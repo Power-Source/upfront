@@ -1262,6 +1262,8 @@
         this._g = rgb.g;
         this._b = rgb.b;
         this._a = rgb.a;
+        // Backwards-compat: legacy Upfront callers expect direct alpha access.
+        this.alpha = this._a;
         this._roundA = mathRound(1000 * this._a) / 1000;
         this._format = opts.format || rgb.format;
         this._gradientType = opts.gradientType;
@@ -1303,8 +1305,32 @@
         },
         setAlpha: function(value) {
             this._a = boundAlpha(value);
+            this.alpha = this._a;
             this._roundA = mathRound(1000 * this._a) / 1000;
             return this;
+        },
+        // Backwards-compat: older Upfront modules call this API directly.
+        get_is_theme_color: function () {
+            var util = typeof Upfront !== "undefined" && Upfront.Util && Upfront.Util.colors
+                ? Upfront.Util.colors
+                : false;
+
+            if (!util || typeof util.get_ufc !== "function") {
+                this.theme_color = false;
+                this.is_theme_color = false;
+                return false;
+            }
+
+            var ufc = util.get_ufc(this.toHexString());
+            if (!ufc) {
+                this.theme_color = false;
+                this.is_theme_color = false;
+                return false;
+            }
+
+            this.theme_color = "#" + ufc;
+            this.is_theme_color = true;
+            return this.theme_color;
         },
         toHsv: function() {
             var hsv = rgbToHsv(this._r, this._g, this._b);
