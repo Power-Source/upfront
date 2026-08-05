@@ -16,10 +16,11 @@ define(function(){
 		preview_color: function (color) {
 			if( !_.isObject( color ) ) return;
 			var rgb = color.toRgb(),
-				rgba_string = 'rgba('+rgb.r+','+rgb.g+','+rgb.b+','+color.alpha+')'
+				rgba_string = 'rgba('+rgb.r+','+rgb.g+','+rgb.b+','+color.alpha+')',
+				is_theme_color = _.isFunction(color.get_is_theme_color) && color.get_is_theme_color() !== false
 			;
 
-			rgba_string = color.get_is_theme_color() !== false ?  color.theme_color : rgba_string;
+			rgba_string = is_theme_color ? color.theme_color : rgba_string;
 			if ( typeof this.is_featured_fallback_bg_color !== 'undefined' && this.is_featured_fallback_bg_color ) {
 				this.model.set_breakpoint_property('featured_fallback_background_color', rgba_string);
 			} else {

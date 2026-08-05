@@ -1636,7 +1636,7 @@
 				return this;
 			},
 			validateDate: function () {
-				this.$('.schedule-hours, .schedule-minutes').change(function () {
+				this.$('.schedule-hours, .schedule-minutes').on('change', function () {
 					var max = parseInt($(this).attr('max'), 10);
 					var min = parseInt($(this).attr('min'), 10);
 
