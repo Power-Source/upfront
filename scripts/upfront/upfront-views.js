@@ -6132,7 +6132,7 @@ define([
 				if(Upfront.Application.get_current() != "theme" || this.$el.hasClass('upfront-region-floating') || this.$el.hasClass('upfront-region-lightbox') || this.$el.attr('id')=='region-shadow')
 					return;
 
-				if(this.$el.find('> .upfront-region-wrapper > .upfront-modules_container .upfront-wrapper').size() < 1) {
+				if(this.$el.find('> .upfront-region-wrapper > .upfront-modules_container .upfront-wrapper').length < 1) {
 					this.$el.addClass('empty_in_theme_mode');
 				}
 				else {

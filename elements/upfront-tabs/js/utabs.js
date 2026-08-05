@@ -163,7 +163,7 @@ define([
 				id = $(event.currentTarget).data('content-id').split('-').pop();
 				this.property('tabs')[id].title = $(event.currentTarget).text();
 				this.addTooltips();
-				if ($(event.currentTarget).find('i').size() < 1) {
+				if ($(event.currentTarget).find('i').length < 1) {
 					$(event.currentTarget).append('<i></i>');
 				}
 			}
