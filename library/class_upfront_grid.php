@@ -940,7 +940,13 @@ class Upfront_GridBreakpoint {
 		$selector = $this->_get_property($property, $entity);
 		if (!$classes) return '';
 		$breakpoint = $this->_get_property('breakpoint', $entity);
+		if (is_object($breakpoint)) {
+			$breakpoint = (array) $breakpoint;
+		}
 		$breakpoint_data = $breakpoint && !empty($breakpoint[$this->get_id()]) ? $breakpoint[$this->get_id()] : false;
+		if (is_object($breakpoint_data)) {
+			$breakpoint_data = (array) $breakpoint_data;
+		}
 
 		$raw_styles = array();
 		if ( $this->is_default() ){
@@ -1045,7 +1051,13 @@ class Upfront_GridBreakpoint {
 			$selector = $selector . ' #' . $this->_get_property($property, $entity);
 		}
 		$breakpoint = $this->_get_property('breakpoint', $entity);
+		if (is_object($breakpoint)) {
+			$breakpoint = (array) $breakpoint;
+		}
 		$breakpoint_data = $breakpoint && !empty($breakpoint[$this->get_id()]) ? $breakpoint[$this->get_id()] : false;
+		if (is_object($breakpoint_data)) {
+			$breakpoint_data = (array) $breakpoint_data;
+		}
 
 		$raw_styles = array();
 		$top_padding_use = false;
@@ -1141,7 +1153,13 @@ class Upfront_GridBreakpoint {
 
 	public function apply_bg_paddings ($entity, $scope=false, $selector = '') {
 		$breakpoint = $this->_get_property('breakpoint', $entity);
+		if (is_object($breakpoint)) {
+			$breakpoint = (array) $breakpoint;
+		}
 		$breakpoint_data = $breakpoint && !empty($breakpoint[$this->get_id()]) ? $breakpoint[$this->get_id()] : false;
+		if (is_object($breakpoint_data)) {
+			$breakpoint_data = (array) $breakpoint_data;
+		}
 
 		$raw_styles = array();
 
