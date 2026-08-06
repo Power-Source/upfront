@@ -8,33 +8,7 @@ var LayoutEditor = {
 	mergeable_selectors: [],
 	manual_mergeable_ns: 0,
 	_debug_manual_mergeable: function (message, type) {
-		var $debug = $('#upfront-manual-select-debug'),
-			bg = '#2f475f',
-			now = new Date(),
-			ts = now.toLocaleTimeString()
-		;
-
-		if (!$debug.length) {
-			$debug = $('<div id="upfront-manual-select-debug" />').css({
-				position: 'fixed',
-				right: '12px',
-				bottom: '12px',
-				zIndex: 2147483647,
-				padding: '8px 10px',
-				borderRadius: '4px',
-				font: '12px/1.3 monospace',
-				color: '#fff',
-				maxWidth: '420px',
-				boxShadow: '0 2px 8px rgba(0,0,0,.25)'
-			}).appendTo('body');
-		}
-
-		if (type === 'error') bg = '#c0392b';
-		else if (type === 'warn') bg = '#d35400';
-		else if (type === 'ok') bg = '#1f8f4d';
-		else if (type === 'move') bg = '#48596a';
-
-		$debug.css('background', bg).text('GROUP DEBUG [' + ts + '] ' + message);
+		$('#upfront-manual-select-debug').remove();
 	},
 
 	_clear_debug_manual_mergeable: function () {
@@ -162,6 +136,10 @@ var LayoutEditor = {
 				ed._debug_manual_mergeable('start blocked by cancel selector on ' + (target && target.className ? target.className : target.tagName), 'warn');
 				return;
 			}
+			if ($target.closest('.upfront-editable_entity').length) {
+				ed._debug_manual_mergeable('start blocked inside editable entity', 'warn');
+				return;
+			}
 			if ($target.closest('.upfront-module-group').length) {
 				ed._debug_manual_mergeable('start inside module group (allowed)', 'ok');
 			}
@@ -249,6 +227,7 @@ var LayoutEditor = {
 			$modules = view.$el.find('.upfront-module').filter(function () {
 				var $module = $(this);
 				if (state.regionEl && $module.closest('.upfront-region').get(0) !== state.regionEl) return false;
+				if ($module.hasClass('upfront-module-spacer') || $module.hasClass('upfront-object-spacer')) return false;
 				return true;
 			});
 
@@ -348,6 +327,7 @@ var LayoutEditor = {
 	},
 
 	parse_selections: function () {
+		$('.upfront-module-group-group').remove();
 		if ( !$(".upfront-ui-selected").length )
 			return false;
 
@@ -364,15 +344,19 @@ var LayoutEditor = {
 				$(this).find('.upfront-selected-border').remove();
 				$(this).removeClass('upfront-ui-selected ui-selected');
 			},
-			$selected = $('.upfront-ui-selected');
+			$selected = $('.upfront-ui-selected').not('.upfront-module-spacer, .upfront-object-spacer');
+
+		$('.upfront-ui-selected.upfront-module-spacer, .upfront-ui-selected.upfront-object-spacer').each(function(){
+			ed._remove_selection(this);
+		});
 		if ($selected.length < 2){
 			$selected.each(function(){
 				ed._remove_selection(this);
 			});
 			$('#upfront-group-selection').remove();
+			$('.upfront-module-group-group').remove();
 			return false;
 		}
-		$('.upfront-module-group-group').remove();
 		var $group = $('<div class="upfront-module-group-toggle upfront-module-group-group">' + Upfront.Settings.l10n.global.behaviors.group + '</div>'),
 			sel_top = sel_left = sel_right = sel_bottom = false,
 			wrap_top = wrap_left = wrap_right = wrap_bottom = false,
@@ -414,6 +398,16 @@ var LayoutEditor = {
 			if (e.preventDefault) e.preventDefault();
 			if (e.stopImmediatePropagation) e.stopImmediatePropagation();
 			if (e.stopPropagation) e.stopPropagation();
+			var selected_ids = {};
+			$selected.each(function () {
+				var $item = $(this),
+					item_id = $item.attr('ref_id') || $item.attr('id'),
+					$entity = $item.find('> .upfront-editable_entity').eq(0),
+					entity_id = $entity.length ? ($entity.attr('ref_id') || $entity.attr('id')) : false
+				;
+				if (item_id) selected_ids[item_id] = true;
+				if (entity_id) selected_ids[entity_id] = true;
+			});
 			var breakpoint = Upfront.Views.breakpoints_storage.get_breakpoints().get_active().toJSON(),
 				grid_ed = Upfront.Behaviors.GridEditor,
 				first_module_view = false,
@@ -446,18 +440,25 @@ var LayoutEditor = {
 						bottom_modules = []
 						;
 					_.each(w.modules, function (m) {
-						var found = false;
-						$selected.each(function () {
-							var element_id = $(this).attr('id'),
-								index;
-							if ( m.model.get_element_id() == element_id ) {
-								if ( first_module_view === false ) {
-									first_module_view = Upfront.data.module_views[m.model.cid];
-								}
-								modules.push(m);
-								found = true;
+						var found = false,
+							module_view = Upfront.data.module_views[m.model.cid],
+							$model_view_el = module_view && module_view.$el ? module_view.$el : false,
+							$module_entity = $model_view_el ? $model_view_el.find('> .upfront-editable_entity').eq(0) : false,
+							model_element_id = m.model.get_element_id(),
+							view_id = $model_view_el ? ($model_view_el.attr('ref_id') || $model_view_el.attr('id')) : false,
+							entity_id = ($module_entity && $module_entity.length) ? ($module_entity.attr('ref_id') || $module_entity.attr('id')) : false
+						;
+						found = !!(
+							(model_element_id && selected_ids[model_element_id]) ||
+							(view_id && selected_ids[view_id]) ||
+							(entity_id && selected_ids[entity_id])
+						);
+						if ( found ) {
+							if ( first_module_view === false ) {
+								first_module_view = module_view;
 							}
-						});
+							modules.push(m);
+						}
 						if ( !found ) {
 							if ( modules.length == 0 ) {
 								top_modules.push(m);
@@ -537,43 +538,33 @@ var LayoutEditor = {
 					}
 				}
 			});
-			if (!group_lines.length) return false;
+			if (!group_lines.length) {
+				$('.upfront-module-group-group').remove();
+				return false;
+			}
 			grid_ed.start(first_module_view, first_module_view.model);
 
-			// Grouping!
-			// Try to see if previous elements qualify to be grouped/combined (that is if it has > 1 line)
-			if ( prev_group_lines.length > 1 ) {
-				if ( !ed._do_combine(prev_group_lines, region) ) {
-					ed._do_group(prev_group_lines, region);
-				}
-			}
-			// If we don't have affected previous/next elements, we'll split non-selected element outside group
-			// Otherwise, it creates another group
-			if ( prev_group_lines.length == 0 && next_group_lines.length == 0 ) {
-				do_split = true;
-			}
-			ed._do_group(group_lines, region, false, do_split);
-			// Try to see if next elements qualify to be grouped/combined (that is if it has > 1 line)
-			if ( next_group_lines.length > 1 ) {
-				if ( !ed._do_combine(next_group_lines, region) ) {
-					ed._do_group(next_group_lines, region);
-				}
-			}
+			// Group only selected modules; split leftovers only when there are no adjacent wrappers.
+			do_split = ( prev_group_lines.length == 0 && next_group_lines.length == 0 );
+			ed._do_group(group_lines, region, false, do_split, false);
 
 			// now normalize the wrappers
 			grid_ed.update_position_data($region.find('.upfront-editable_entities_container:first'));
 			grid_ed.update_wrappers(region);
 
-			$(this).remove();
+			$('.upfront-module-group-group').remove();
 			$('#upfront-group-selection').remove();
 			ed.selection = [];
 			return false;
 		});
 	},
 
-	_do_group: function (lines, region, force_add_wrapper, do_split)  {
+	_do_group: function (lines, region, force_add_wrapper, do_split, allow_nested_groups)  {
 		var ed = this,
 			grid_ed = Upfront.Behaviors.GridEditor,
+			has_real_modules = false,
+			real_module_count = 0,
+			allow_nested_groups = (allow_nested_groups !== false),
 			add_wrapper = (force_add_wrapper === true),
 			do_split = ( do_split === true ),
 			region_modules = region.get("modules"),
@@ -583,7 +574,7 @@ var LayoutEditor = {
 			group_view = false,
 			group_modules = group.get('modules'),
 			group_wrappers = group.get('wrappers'),
-			group_wrapper_clear = false,
+			group_module_items = [],
 			group_wrapper = false,
 			group_wrapper_id = false,
 			group_col = 0,
@@ -591,6 +582,18 @@ var LayoutEditor = {
 			top_add_index = false,
 			breakpoints = Upfront.Views.breakpoints_storage.get_breakpoints().get_enabled()
 		;
+		_.each(lines, function (l) {
+			_.each(l.wrappers, function (w) {
+				_.each(w.modules, function (m) {
+					if (!m.spacer) {
+						has_real_modules = true;
+						real_module_count++;
+					}
+				});
+			});
+		});
+		if (!has_real_modules || real_module_count < 2) return false;
+
 		_.each(lines, function (l, li) {
 			group_col = l.col > group_col ? l.col : group_col;
 			_.each(l.wrappers, function (w, wi) {
@@ -603,12 +606,6 @@ var LayoutEditor = {
 				new_wrapper.set_property('wrapper_id', new_wrapper_id);
 				new_wrapper.set_property('class', w.model.get_property_value_by_name('class'));
 				new_wrapper.replace_class(grid_ed.grid['class'] + w.col);
-				if ( wi == 0 ) {
-					new_wrapper.add_class('clr');
-					if ( li == 0 ) {
-						group_wrapper_clear = w.clear;
-					}
-				}
 				group_wrappers.add(new_wrapper);
 				_.each(w.modules, function (m, mi) {
 					var index = region_modules.indexOf(m.model),
@@ -623,7 +620,7 @@ var LayoutEditor = {
 					if ( !has_top_modules && !has_bottom_modules ) {
 						wrapper_view.$el.detach(); // Detach wrapper view from DOM too
 					}
-					group_modules.add(m.model);
+					group_module_items.push({ model: m.model, index: index });
 				});
 				if ( li == 0 && wi == 0 ) {
 					// First wrapper is now used for group wrapper
@@ -637,19 +634,19 @@ var LayoutEditor = {
 			});
 			if ( 'bottom_wrappers' in l && l.bottom_wrappers.length > 1 ) {
 				// Has bottom wrappers, let's group that too
-				if ( do_split ) {
+				if ( do_split || !allow_nested_groups ) {
 					ed._do_split(l.bottom_wrappers, region);
 				}
 				else {
 					ed._do_group([{
 						wrappers: l.bottom_wrappers,
 						col: l.col
-					}], region);
+					}], region, false, false, allow_nested_groups);
 				}
 			}
 			if ( 'top_wrappers' in l && l.top_wrappers.length > 1 ) {
 				// Has top wrappers, let's group that too, create new wrapper instead
-				if ( do_split ) {
+				if ( do_split || !allow_nested_groups ) {
 					// We don't actually split the top wrappers, the group will be render below that
 					// But we need to fix the element position
 					_.each(l.top_wrappers, function (w, wi) {
@@ -673,7 +670,7 @@ var LayoutEditor = {
 					ed._do_group([{
 						wrappers: l.top_wrappers,
 						col: l.col
-					}], region);
+					}], region, false, false, allow_nested_groups);
 				}
 			}
 		});
@@ -684,9 +681,6 @@ var LayoutEditor = {
 		}
 		group_wrapper.set_property('wrapper_id', group_wrapper_id);
 		group_wrapper.replace_class(grid_ed.grid['class'] + group_col);
-		if ( group_wrapper_clear ){
-			group_wrapper.add_class('clr');
-		}
 		group.set_property('wrapper_id', group_wrapper_id);
 		group.set_property('element_id', group_id);
 		group.replace_class(grid_ed.grid['class'] + group_col);
@@ -710,6 +704,15 @@ var LayoutEditor = {
 				}
 			}
 		});
+			var sorted_group_items = _.sortBy(group_module_items, function (item) {
+				return item.index;
+			});
+			if ( sorted_group_items.length > 0 && top_add_index === false ) {
+				add_index = sorted_group_items[0].index;
+			}
+			_.each(sorted_group_items, function (item) {
+				group_modules.add(item.model);
+			});
 		group.add_to(region_modules, add_index);
 		Upfront.Events.trigger("entity:module_group:group", group, region);
 	},
@@ -886,6 +889,7 @@ var LayoutEditor = {
 	},
 
 	_add_selection: function (el) {
+		if ($(el).hasClass('upfront-module-spacer') || $(el).hasClass('upfront-object-spacer')) return;
 		var find = _.find(this.selection, function(sel){ return (sel == el); });
 		if ( find ) return;
 		this.selection.push(el);
