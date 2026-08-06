@@ -1,6 +1,13 @@
 Change Log
 ============
 
+1.1.3 - 2026-08-06
+-------------------------------------------------------------------------------
+- Fix: Gruppierungseditor
+- Fix: Speichern von neuen Regionen im Builder
+- Jquery und PhP Modernisierungen
+- Editor UI Anpassungen
+
 1.1.2 - 2026-08-05
 -------------------------------------------------------------------------------
 - Fix: Bilder werden korrekt gespeichert
