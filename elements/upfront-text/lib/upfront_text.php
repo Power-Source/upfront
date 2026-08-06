@@ -118,7 +118,7 @@ class Upfront_PlainTxtView extends Upfront_Object {
 		$l10n = array(
 			'element_name' => __('Text', 'upfront'),
 			'css' => array(
-				'container_label' => __('Text container', 'upfront'),
+				'container_label' => __('Text Container', 'upfront'),
 				'container_info' => __('The layer that contains all the text of the element.', 'upfront'),
 				'p_label' => __('Text paragragh', 'upfront'),
 				'p_info' => __('The paragragh that contains all the text of the element.', 'upfront'),

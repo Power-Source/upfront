@@ -1104,7 +1104,7 @@
                 $.map(entries, function (entry) {
                     return that._handleFileTreeEntry(entry, path);
                 })
-            ).pipe(function () {
+            ).then(function () {
                 return Array.prototype.concat.apply(
                     [],
                     arguments
@@ -1173,7 +1173,7 @@
             return $.when.apply(
                 $,
                 $.map(fileInput, this._getSingleFileInputFiles)
-            ).pipe(function () {
+            ).then(function () {
                 return Array.prototype.concat.apply(
                     [],
                     arguments

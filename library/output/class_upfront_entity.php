@@ -289,6 +289,12 @@ abstract class Upfront_Entity {
 		else if ('slider' == $type){
 			$slides = array();
 			$images = $this->_get_breakpoint_property('background_slider_images', $breakpoint_id);
+			if (is_object($images)) {
+				$images = (array) $images;
+			}
+			if (!is_array($images)) {
+				$images = array();
+			}
 			$auto = $this->_get_breakpoint_property('background_slider_rotate', $breakpoint_id);
 			$interval = $this->_get_breakpoint_property('background_slider_rotate_time', $breakpoint_id) * 1000;
 			$show_control = $this->_get_breakpoint_property('background_slider_control', $breakpoint_id);
@@ -312,8 +318,8 @@ abstract class Upfront_Entity {
 			}
 
 			foreach ( $images as $image ){
-				//$src = wp_get_attachment_image($image, 'full');
-				$src = upfront_get_attachment_image_lazy($image, 'full');
+				$src = $this->_get_background_slider_image_markup($image);
+				if (empty($src)) continue;
 				$slides[] = "<div class='upfront-default-slider-item'>{$src}</div>";
 			}
 			$slides_markup = join('', $slides);
@@ -403,6 +409,45 @@ abstract class Upfront_Entity {
 		}
 
 		return "<div class='{$classes}' {$attr}>{$markup}</div>" . "\n";
+	}
+
+	/**
+	 * Build image markup for region background slider entries.
+	 * Supports attachment IDs and exported theme-relative paths/URLs.
+	 *
+	 * @param mixed $image
+	 *
+	 * @return string
+	 */
+	protected function _get_background_slider_image_markup ($image) {
+		if (is_numeric($image)) {
+			$markup = upfront_get_attachment_image_lazy((int)$image, 'full');
+			return !empty($markup) ? $markup : '';
+		}
+
+		if (empty($image) || !is_string($image)) {
+			return '';
+		}
+
+		$src = trim($image);
+		if ('' === $src) {
+			return '';
+		}
+
+		if (!preg_match('/^(https?:)?\/\//i', $src)) {
+			if (0 === strpos($src, '/')) {
+				$src = home_url($src);
+			} else {
+				$src = trailingslashit(get_stylesheet_directory_uri()) . ltrim($src, '/');
+			}
+		}
+
+		$src = esc_url($src);
+		if (empty($src)) {
+			return '';
+		}
+
+		return '<img src="' . $src . '" alt="" />';
 	}
 
 	public function get_propagated_classes () {
