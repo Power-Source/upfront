@@ -339,6 +339,18 @@ var LayoutEditorSubapplication = Subapplication.extend({
 		this.listenTo(ue, "entity:region_container:after_render", gr_ed.create_region_container_resizable);
 		this.listenTo(ue, "entity:region_sub_container:after_render", gr_ed.create_region_container_resizable);
 
+		// Defensive rebinding: ensure grouping selection hooks are present even
+		// if region container views were rendered before listeners were attached.
+		this.listenTo(ue, "layout:after_render", function () {
+			if (!Upfront || !Upfront.Application || !Upfront.Application.layout_view) return;
+			var container_views = Upfront.Application.layout_view.container_views || {};
+			_.each(container_views, function (container_view) {
+				if (container_view && container_view.$el) {
+					lay_ed.create_mergeable(container_view, container_view.model);
+				}
+			});
+		});
+
 		if ( !gr_ed.grid ) {
 			gr_ed.init();
 		}

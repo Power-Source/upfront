@@ -538,6 +538,14 @@
 	border: 1px solid #1fcd8f;
 	background: rgba(31, 205, 143, .1);
 }
+body.upfront-disable-selection,
+body.upfront-disable-selection * {
+	-webkit-user-select: none !important;
+	-moz-user-select: none !important;
+	-ms-user-select: none !important;
+	user-select: none !important;
+	-webkit-user-drag: none;
+}
 .upfront-ui-selected, .ui-selecting {
 	position: relative;
 }

@@ -6,10 +6,52 @@ var LayoutEditor = {
 	selection: [], // store selection
 	selecting: false, // true when selecting start, false when stopped
 	mergeable_selectors: [],
+	manual_mergeable_ns: 0,
+	_debug_manual_mergeable: function (message, type) {
+		var $debug = $('#upfront-manual-select-debug'),
+			bg = '#2f475f',
+			now = new Date(),
+			ts = now.toLocaleTimeString()
+		;
+
+		if (!$debug.length) {
+			$debug = $('<div id="upfront-manual-select-debug" />').css({
+				position: 'fixed',
+				right: '12px',
+				bottom: '12px',
+				zIndex: 2147483647,
+				padding: '8px 10px',
+				borderRadius: '4px',
+				font: '12px/1.3 monospace',
+				color: '#fff',
+				maxWidth: '420px',
+				boxShadow: '0 2px 8px rgba(0,0,0,.25)'
+			}).appendTo('body');
+		}
+
+		if (type === 'error') bg = '#c0392b';
+		else if (type === 'warn') bg = '#d35400';
+		else if (type === 'ok') bg = '#1f8f4d';
+		else if (type === 'move') bg = '#48596a';
+
+		$debug.css('background', bg).text('GROUP DEBUG [' + ts + '] ' + message);
+	},
+
+	_clear_debug_manual_mergeable: function () {
+		$('#upfront-manual-select-debug').remove();
+	},
 	create_mergeable: function (view, model) {
 		var ed = Upfront.Behaviors.LayoutEditor,
-			cancel = ".upfront-module:not(.upfront-module-spacer), .upfront-module-group, .upfront-region-side-fixed, .upfront-entity_meta, .upfront-region-edit-trigger, .upfront-region-edit-fixed-trigger, .upfront-region-finish-edit, .upfront-icon-control-region-resize, .upfront-inline-modal, .upfront-inline-panels",
+			cancel = ".upfront-region-side-fixed, .upfront-entity_meta, .upfront-region-edit-trigger, .upfront-region-edit-fixed-trigger, .upfront-region-finish-edit, .upfront-icon-control-region-resize, .upfront-inline-modal, .upfront-inline-panels, .upfront-ui, .upfront-inline-panel, .upfront-inline-panel-item, .upfront-module-group-group, .upfront-module-group-toggle, .upfront-control, .upfront-icon-control",
 			selector;
+
+		var existing = _.find(ed.mergeable_selectors, function (entry) {
+			return entry && entry.view && entry.view.cid === view.cid;
+		});
+		if (existing) return;
+
+		if (!view || !view.$el || !view.el) return;
+		if (_.find(ed.mergeable_selectors, function (entry) { return entry.view === view; })) return;
 
 		view.$el.addClass('ui-selectable');
 		selector = new DragSelect({
@@ -17,7 +59,7 @@ var LayoutEditor = {
 			selectables: view.$el.find('.upfront-module').get(),
 			draggability: false,
 			keyboardDrag: false,
-			multiSelectMode: false,
+			multiSelectMode: true,
 			selectableClass: 'upfront-selectable-item',
 			selectedClass: 'ui-selecting',
 			selectorClass: 'ui-selectable-helper'
@@ -25,63 +67,248 @@ var LayoutEditor = {
 
 		selector.subscribe('DS:start:pre', function (data) {
 			var target = data.event && data.event.target;
-			if (target && $(target).closest(cancel).length) selector.break();
+			if (target && $(target).closest(cancel).length) {
+				if (data.event && data.event.preventDefault) data.event.preventDefault();
+				if (window.getSelection) window.getSelection().removeAllRanges();
+				selector.break();
+				return;
+			}
+			if (data.event && data.event.preventDefault) data.event.preventDefault();
+			if (window.getSelection) window.getSelection().removeAllRanges();
 		});
 		selector.subscribe('DS:start', function (data) {
 			if (data.isDragging) return;
 			ed.remove_selections();
 			ed.selection = [];
 			ed.selecting = true;
+			$('body').addClass('upfront-disable-selection');
 		});
 		selector.subscribe('DS:select', function (data) {
 				var $el = $(data.item),
-					$region, $selected, $affected, group, do_select;
+					$region;
 				// make sure it's not inside module group
 				if ( $el.closest('.upfront-module-group').length > 0 ) {
 					selector.removeSelection(data.item, false, false);
 					return;
 				}
-				if ( ed.selection.length > 0 ){
-					// if we already have at least one selection, check if the next selection is mergeable or not
-					// make sure it's in the same region
+				if ( ed.selection.length > 0 ) {
 					$region = $(ed.selection[0]).closest('.upfront-region');
 					if ( $el.closest('.upfront-region').get(0) != $region.get(0) ) return;
-					ed._add_selections( $region.find('.ui-selecting'), $region.find('.upfront-module').not('.upfront-ui-selected, .upfront-module-parent-group'), $region.find('.upfront-module-group') );
 				}
-				else {
-					ed._add_selection(data.item);
-				}
+				ed._add_selection(data.item);
 				ed._update_selection_outline();
 		});
 		selector.subscribe('DS:unselect', function (data) {
-				var $el = $(data.item),
-					$region, $selected
-				;
-				if ( ed.selection.length > 1 ){
-					$region = $(ed.selection[0]).closest('.upfront-region');
-					if ( $el.closest('.upfront-region').get(0) != $region.get(0) ) return;
-					$('.upfront-ui-selected').each(function(){
-						ed._remove_selection(this);
-					});
-					$selected = $region.find('.ui-selecting');
-					if ( $selected.length > 0 ) {
-						ed._add_selection($selected.get(0));
-						ed._add_selections( $selected, $region.find('.upfront-module').not('.upfront-ui-selected, .upfront-module-parent-group'), $region.find('.upfront-module-group') );
-					}
-
-					ed._update_selection_outline();
-					return;
-				}
 				ed._remove_selection(data.item);
 				ed._update_selection_outline();
 		});
 		selector.subscribe('DS:end', function (data) {
 				var $el = $(data.items || []);
+				$('body').removeClass('upfront-disable-selection');
+				if (window.getSelection) window.getSelection().removeAllRanges();
+				ed.remove_selections();
+				ed.selection = [];
+				$el.each(function () {
+					var $item = $(this);
+					if ($item.closest('.upfront-module-group').length > 0) return;
+					ed._add_selection(this);
+				});
+				ed._update_selection_outline();
 				$el.find('.upfront-selected-border').remove();
 				$('.upfront-module-group-group').remove();
 				ed.parse_selections();
 		});
-		ed.mergeable_selectors.push({view: view, selector: selector});
+		var entry = {
+			view: view,
+			selector: selector,
+			cancel: cancel,
+			manualNs: '.upfront-manual-select-' + (++ed.manual_mergeable_ns),
+			manualBound: false
+		};
+		ed._bind_manual_mergeable(entry);
+		ed.mergeable_selectors.push(entry);
+	},
+
+	_bind_manual_mergeable: function (entry) {
+		var ed = this,
+			view = entry.view,
+			cancel = entry.cancel
+		;
+
+		if (entry.manualBound) return;
+
+		entry.manualState = {
+			active: false,
+			dragActive: false,
+			startX: 0,
+			startY: 0,
+			regionEl: null,
+			boxEl: null,
+			hasMoved: false
+		};
+
+		entry._manualStart = function (ev) {
+			var target = ev.target && ev.target.nodeType === 3 ? ev.target.parentNode : ev.target,
+				$target = $(target),
+				state = entry.manualState,
+				button = typeof ev.button === 'number' ? ev.button : 0
+			;
+
+			if (button !== 0) {
+				ed._debug_manual_mergeable('start ignored: non-left button (' + button + ')', 'warn');
+				return;
+			}
+			if ($target.closest(cancel).length) {
+				ed._debug_manual_mergeable('start blocked by cancel selector on ' + (target && target.className ? target.className : target.tagName), 'warn');
+				return;
+			}
+			if ($target.closest('.upfront-module-group').length) {
+				ed._debug_manual_mergeable('start inside module group (allowed)', 'ok');
+			}
+
+			state.active = true;
+			state.dragActive = false;
+			state.startX = ev.pageX;
+			state.startY = ev.pageY;
+			state.regionEl = $target.closest('.upfront-region').get(0);
+			state.hasMoved = false;
+			state.boxEl = null;
+			$('.ui-selectable-helper').remove();
+			ed._debug_manual_mergeable('start ok at ' + state.startX + ',' + state.startY + ' [mouse]', 'ok');
+			// Do not prevent default yet: keep normal clicks/menu interactions intact.
+		};
+
+		entry._manualMove = function (ev) {
+			var state = entry.manualState;
+			if (!state.active) return;
+
+			var left = Math.min(state.startX, ev.pageX),
+				top = Math.min(state.startY, ev.pageY),
+				width = Math.abs(ev.pageX - state.startX),
+				height = Math.abs(ev.pageY - state.startY)
+			;
+
+			state.hasMoved = state.hasMoved || width > 4 || height > 4;
+			if (state.hasMoved && !state.dragActive) {
+				state.dragActive = true;
+				state.boxEl = $('<div class="ui-selectable-helper upfront-manual-select-box" />').css({
+					left: state.startX,
+					top: state.startY,
+					width: 0,
+					height: 0,
+					display: 'block'
+				}).appendTo('body');
+				ed.remove_selections();
+				ed.selection = [];
+				ed.selecting = true;
+				$('body').addClass('upfront-disable-selection');
+				if (window.getSelection) window.getSelection().removeAllRanges();
+			}
+
+			if (state.dragActive) {
+				ed._debug_manual_mergeable('move ' + width + 'x' + height, 'move');
+				if (state.boxEl) state.boxEl.css({ left: left, top: top, width: width, height: height });
+				if (ev.preventDefault) ev.preventDefault();
+				if (ev.stopPropagation) ev.stopPropagation();
+			}
+		};
+
+		entry._manualEnd = function (ev) {
+			var state = entry.manualState;
+			if (!state.active) return;
+
+			var left = Math.min(state.startX, ev.pageX),
+				top = Math.min(state.startY, ev.pageY),
+				right = Math.max(state.startX, ev.pageX),
+				bottom = Math.max(state.startY, ev.pageY),
+				$modules
+			;
+
+			if (state.boxEl) state.boxEl.remove();
+			state.boxEl = null;
+			$('.ui-selectable-helper').remove();
+			state.active = false;
+			state.dragActive = false;
+
+			$('body').removeClass('upfront-disable-selection');
+			if (window.getSelection) window.getSelection().removeAllRanges();
+
+			if (!state.hasMoved) {
+				ed._debug_manual_mergeable('end without drag (click only)', 'warn');
+				if ($('.upfront-ui-selected').length > 1) {
+					ed._suppress_next_layout_click_clear = true;
+					setTimeout(function () {
+						ed._suppress_next_layout_click_clear = false;
+					}, 0);
+					ed.parse_selections();
+				}
+				ed.selecting = false;
+				return;
+			}
+
+			$modules = view.$el.find('.upfront-module').filter(function () {
+				var $module = $(this);
+				if (state.regionEl && $module.closest('.upfront-region').get(0) !== state.regionEl) return false;
+				return true;
+			});
+
+			ed.remove_selections();
+			ed.selection = [];
+
+			$modules.each(function () {
+				var $module = $(this),
+					off = $module.offset(),
+					mLeft = off.left,
+					mTop = off.top,
+					mRight = mLeft + $module.outerWidth(),
+					mBottom = mTop + $module.outerHeight(),
+					intersects = left < mRight && right > mLeft && top < mBottom && bottom > mTop
+				;
+				if (intersects) ed._add_selection(this);
+			});
+
+			ed._debug_manual_mergeable('end ok, selected ' + ed.selection.length + ' module(s)', ed.selection.length > 1 ? 'ok' : 'warn');
+
+			ed._update_selection_outline();
+			ed._suppress_next_layout_click_clear = true;
+			setTimeout(function () {
+				ed._suppress_next_layout_click_clear = false;
+			}, 0);
+			$('.upfront-module-group-group').remove();
+			ed.parse_selections();
+			ed.selecting = false;
+
+			if (ev.preventDefault) ev.preventDefault();
+			if (ev.stopPropagation) ev.stopPropagation();
+		};
+
+		entry._manualDownType = 'mouse';
+		view.el.addEventListener('mousedown', entry._manualStart, true);
+		window.addEventListener('mousemove', entry._manualMove, true);
+		window.addEventListener('mouseup', entry._manualEnd, true);
+
+		entry.manualBound = true;
+	},
+
+	_unbind_manual_mergeable: function (entry) {
+		if (!entry || !entry.view || !entry._manualStart) return;
+
+		if (entry._manualDownType === 'mouse') {
+			entry.view.el.removeEventListener('mousedown', entry._manualStart, true);
+			window.removeEventListener('mousemove', entry._manualMove, true);
+			window.removeEventListener('mouseup', entry._manualEnd, true);
+		}
+
+		if (entry.manualState && entry.manualState.boxEl) {
+			entry.manualState.boxEl.remove();
+		}
+		this._clear_debug_manual_mergeable();
+		$('body').removeClass('upfront-disable-selection');
+		entry._manualStart = null;
+		entry._manualMove = null;
+		entry._manualEnd = null;
+		entry._manualDownType = null;
+		entry.manualBound = false;
 	},
 
 	refresh_mergeable: function () {
@@ -93,22 +320,28 @@ var LayoutEditor = {
 
 	enable_mergeable: function () {
 		this.remove_selections();
+		var ed = this;
 		_.each(this.mergeable_selectors, function (entry) {
 			if (entry.selector.stopped) entry.selector.start();
+			ed._bind_manual_mergeable(entry);
 		});
 	},
 
 	disable_mergeable: function () {
 		this.remove_selections();
+		var ed = this;
 		_.each(this.mergeable_selectors, function (entry) {
 			entry.selector.stop(false, false, false);
+			ed._unbind_manual_mergeable(entry);
 		});
 	},
 
 	destroy_mergeable: function () {
 		this.remove_selections();
+		var ed = this;
 		_.each(this.mergeable_selectors, function (entry) {
 			entry.selector.stop(true, true, false);
+			ed._unbind_manual_mergeable(entry);
 			entry.view.$el.removeClass('ui-selectable');
 		});
 		this.mergeable_selectors = [];

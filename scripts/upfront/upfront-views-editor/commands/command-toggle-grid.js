@@ -23,7 +23,7 @@
                 this.$el.prop("title", l10n.toggle_grid);
             },
             on_click: function () {
-                if (!$('.upfront-overlay-grid').size()) this.create_grid();
+                if (!$('.upfront-overlay-grid').length) this.create_grid();
                 this.toggle_grid();
             },
             create_grid: function () {

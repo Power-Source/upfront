@@ -5151,6 +5151,15 @@ define([
 				//if ( type != 'clip' )
 					this.$el.append('<div class="upfront-region-active-overlay" />');
 				Upfront.Events.trigger("entity:region_container:after_render", this, this.model);
+				// Hard fallback: initialize mergeable selection directly from the render path
+				// in case event plumbing order prevents external listener binding.
+				if (
+					Upfront.Behaviors &&
+					Upfront.Behaviors.LayoutEditor &&
+					_.isFunction(Upfront.Behaviors.LayoutEditor.create_mergeable)
+				) {
+					Upfront.Behaviors.LayoutEditor.create_mergeable(this, this.model);
+				}
 			},
 			update: function () {
 				var me = this,
@@ -7643,6 +7652,12 @@ define([
 				RenderQueue.start();
 			},
 			on_click: function (e) {
+				var lay_ed = Upfront.Behaviors.LayoutEditor;
+				if (lay_ed && lay_ed._suppress_next_layout_click_clear) {
+					lay_ed._suppress_next_layout_click_clear = false;
+					return;
+				}
+				if ($(e.target).closest('.upfront-module-group-group').length) return;
 				//Check we are not selecting text
 				//var selection = document.getSelection ? document.getSelection() : document.selection;
 				//if(selection && selection.type == 'Range')
@@ -7728,7 +7743,7 @@ define([
 					this.$layout.width(breakpoint.width);
 					this.render_ruler(false, breakpoint.width);
 					this.render_gutter(breakpoint.width);
-					Upfront.Behaviors.LayoutEditor.disable_mergeable();
+					Upfront.Behaviors.LayoutEditor.enable_mergeable();
 				}
 				this.update_grid_css();
 			},
