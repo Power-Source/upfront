@@ -410,7 +410,10 @@ var LayoutEditor = {
 			left: group_left
 		});
 		setTimeout(function(){ ed.selecting = false; }, 1000);
-		$group.on('click', function () {
+		$group.on('mousedown', function (e) {
+			if (e.preventDefault) e.preventDefault();
+			if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+			if (e.stopPropagation) e.stopPropagation();
 			var breakpoint = Upfront.Views.breakpoints_storage.get_breakpoints().get_active().toJSON(),
 				grid_ed = Upfront.Behaviors.GridEditor,
 				first_module_view = false,
@@ -534,6 +537,7 @@ var LayoutEditor = {
 					}
 				}
 			});
+			if (!group_lines.length) return false;
 			grid_ed.start(first_module_view, first_module_view.model);
 
 			// Grouping!
@@ -563,6 +567,7 @@ var LayoutEditor = {
 			$(this).remove();
 			$('#upfront-group-selection').remove();
 			ed.selection = [];
+			return false;
 		});
 	},
 
