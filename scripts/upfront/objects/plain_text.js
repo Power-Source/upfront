@@ -92,7 +92,7 @@ var PlainTxtElement = Upfront.Views.Editor.Sidebar.Element.extend({
 		var object = new PlainTxtModel({
 				"name": "",
 				"properties": [
-					{"name": "content", "value": "<p>My awesome stub content goes here</p>"}
+					{"name": "content", "value": "<p>Mein großartiger Platzhalterinhalt kommt hier hin</p>"}
 				]
 			}),
 			module = new Upfront.Models.Module({

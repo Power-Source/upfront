@@ -457,7 +457,22 @@ define([
 					rotate_time = this.model.get_breakpoint_property_value('background_slider_rotate_time', true),
 					control = this.model.get_breakpoint_property_value('background_slider_control', true),
 					control_style = this.model.get_breakpoint_property_value('background_slider_control_style', true),
-					transition = this.model.get_breakpoint_property_value('background_slider_transition', true)
+					transition = this.model.get_breakpoint_property_value('background_slider_transition', true),
+					resolve_slider_src = function (entry, images) {
+						var value = _.isObject(entry) && entry.src ? entry.src : entry,
+							key = String(value || ''),
+							image = images && images[key] ? images[key] : false,
+							site = Upfront.Settings && Upfront.Settings.site_url ? Upfront.Settings.site_url : (window.location ? window.location.origin : ''),
+							theme = Upfront.mainData && Upfront.mainData.currentThemeUrl ? Upfront.mainData.currentThemeUrl : ''
+						;
+						if (image && image.full && image.full[0]) return image.full[0];
+						if (!_.isString(value) || !value.length) return false;
+						if (/^(https?:)?\/\//i.test(value)) return value;
+						if (value.charAt(0) === '/') return site.replace(/\/$/, '') + value;
+						if (/^wp-content\//i.test(value)) return site.replace(/\/$/, '') + '/' + value;
+						if (theme) return theme.replace(/\/$/, '') + '/' + value.replace(/^\.?\//, '');
+						return value;
+					}
 				;
 				this.remove_api_key_overlay();
 				if ( slide_images ) {
@@ -492,11 +507,11 @@ define([
 
 					if ( (this.slide_images != slide_images) && slide_images.length > 0 ) {
 						Upfront.Views.Editor.ImageEditor.getImageData(slide_images).done(function(response){
-							var images = response.data.images;
+							var images = response && response.data ? response.data.images : {};
 							_.each(slide_images, function(id){
-								var image = images[id],
+								var src = resolve_slider_src(id, images),
 									$image = $('<div class="upfront-default-slider-item" />');
-								if (image && image.full) $image.append('<img src="' + image.full[0] + '" />');
+								if (src) $image.append('<img src="' + src + '" />');
 								$type.append($image);
 							});
 							me.slide_images = slide_images;

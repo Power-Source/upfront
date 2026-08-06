@@ -153,7 +153,7 @@ describe('Test Upfront', function() {
         client
           .getText(testRegion + ' .upfront-plain_txt', function(error, text) {
             expect(error).to.equal(null);
-            expect(text).to.have.string('My awesome stub content goes here');
+            expect(text).to.have.string('Mein großartiger Platzhalterinhalt kommt hier hin');
             done();
           });
       });

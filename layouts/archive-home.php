@@ -58,7 +58,7 @@ $main->add_element("Uimage", array (
     'image_title' => '',
     'alternative_text' => '',
     'include_image_caption' => true,
-    'image_caption' => '<p>My awesome image caption</p>',
+    'image_caption' => '<p>Meine tolle Bildunterschrift</p>',
     'caption_position' => false,
     'caption_alignment' => false,
     'caption_trigger' => 'always_show',
