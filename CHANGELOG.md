@@ -1,6 +1,11 @@
 Change Log
 ============
 
+1.1.4 - 2026-08-06
+-------------------------------------------------------------------------------
+- Verbesserte Doppelklick-Interaktion für die Textbearbeitung
+- Aktualisierte Titelattribute auf Deutsch
+
 1.1.3 - 2026-08-06
 -------------------------------------------------------------------------------
 - Fix: Gruppierungseditor

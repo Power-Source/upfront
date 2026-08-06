@@ -97,7 +97,21 @@
 				blurTimeout = false;
 
 				if (Upfront.Application.user_can_modify_layout()) {
-					this.$el.find('.upfront-object-content')
+					var $content = this.$el.find('.upfront-object-content');
+
+					// Fallback for flaky delegated dblclick paths in older Redactor/jQuery stacks.
+					$content.off('dblclick.upfrontTextStart').on('dblclick.upfrontTextStart', function () {
+						var ed = $(this).data('ueditor');
+						if (!ed || ed.redactor) return;
+						ed.start();
+						setTimeout(function () {
+							if (ed.redactor && ed.redactor.$editor) {
+								ed.redactor.$editor.attr('contenteditable', true).focus();
+							}
+						}, 0);
+					});
+
+					$content
 						// .addClass('upfront-plain_txt') // WHY DO THIS, IT MESSES UP THE CSS LOGIC SINCE THAN WE HAVE DUPLICATED CLASS
 						.ueditor({
 							linebreaks: false,
@@ -108,6 +122,11 @@
 							placeholder: l10n.default_content
 						})
 						.on('start', function(){
+							var ed = $(this).data('ueditor');
+							if (ed && ed.redactor && ed.redactor.$editor) {
+								ed.redactor.$editor.attr('contenteditable', true).focus();
+							}
+
 							var $swap = $(this).find('.upfront-quick-swap');
 							if ( $swap.length ){
 								$swap.remove();

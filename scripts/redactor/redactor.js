@@ -430,7 +430,12 @@
             // bind methods
             for (var z = 0; z < len; z++)
             {
-                this[module][methods[z]] = this[module][methods[z]].on(this);
+                if (typeof this[module][methods[z]].on === 'function') {
+                    this[module][methods[z]] = this[module][methods[z]].on(this);
+                }
+                else {
+                    this[module][methods[z]] = this[module][methods[z]].bind(this);
+                }
             }
         },
 
@@ -1420,7 +1425,12 @@
                         // bind methods
                         for (var z = 0; z < len; z++) {
                             if (typeof this[s][methods[z]] === 'function') {
+                                if (typeof this[s][methods[z]].on === 'function') {
                                 this[s][methods[z]] = this[s][methods[z]].on(this);
+                                }
+                                else {
+                                    this[s][methods[z]] = this[s][methods[z]].bind(this);
+                                }
                             }
                         }
                     

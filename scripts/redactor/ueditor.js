@@ -1322,7 +1322,7 @@
 				var me = this;
 
 				me.$el.addClass('ueditable-inactive')
-					.attr('title', 'Double click to edit the text')
+					.attr('title', 'Doppelklick um Text zu bearbeiten')
 					.addClass('uf-click-to-edit-text')
 					.one('dblclick', function(e){
 						e.preventDefault();
@@ -1671,15 +1671,15 @@
 				}
 
 				$html.find(".redactor-selection-marker").remove();
+
 				/**
 				 * Make sure the wrapping .plain-text-container is not being returned as html
 				 */
-				return $.trim(
-					// Conditionally nuke the wrapper - only if we actually have it
-					$html.find(".plain-text-container").length
-						? $html.find(".plain-text-container").last().html()
-						: $html.html()
-				);
+				var output = $html.find(".plain-text-container").length
+					? $html.find(".plain-text-container").last().html()
+					: $html.html();
+
+				return $.trim(output || '');
 			},
 			getInsertsData: function(){
 				var insertsData = {};
@@ -1883,8 +1883,23 @@
 			position_tooltips: function(redactor){
 				if( !this.$tooltips ) return;
 
-				var $current = $( redactor.selection.getCurrent() ),
-					$position = $( redactor.selection.getBlock() ).position();
+				var current = redactor.selection.getCurrent(),
+					block = redactor.selection.getBlock(),
+					$current = $(current),
+					$block = $(block).closest('p,div,li,ul,ol,blockquote,h1,h2,h3,h4,h5,h6'),
+					$position;
+
+				if (!current || !block || !$block.length || !$.contains(this.$el[0], $block[0])) {
+					this.$tooltips.hide();
+					return;
+				}
+
+				$position = $block.position();
+
+				if (!$position) {
+					this.$tooltips.hide();
+					return;
+				}
 
 				if( this.show_tooltip_in_this_location( redactor ) ){
 					if( typeof $current[0] === "undefined" ) return;
@@ -2083,18 +2098,21 @@
 			},
 			show_tooltip_in_this_location: function(redactor){
 				var current = redactor.selection.getCurrent(),
-					$block = $( current ),
+					$block = $( current ).closest('p,div,li,ul,ol,blockquote,h1,h2,h3,h4,h5,h6'),
 					$prevBlock = $block.parent().prev(),
 					indexPosition = redactor.range.startOffset;
 
-				if( !current || _.isEmpty( $block ) ) return false;
+				if( !current || !$block.length || !$.contains(this.$el[0], $block[0]) ) return false;
 
 
 				var $image_embed_insert_wrappers = $(".upfront-inserted_image-wrapper, .upfront-inserted_embed-wrapper"),
-					block_top = $block.offset().top,
-					block_html = $.trim( $block.html() ) || '',
-					prevblock_html = $.trim( $prevBlock.html() ) || '',
+					block_offset = $block.offset(),
+					block_top = block_offset ? block_offset.top : false,
+					block_html = ($block.html() || '').trim(),
+					prevblock_html = ($prevBlock.html() || '').trim(),
 					show_tooltip = true;
+
+				if (block_top === false) return false;
 
 				// $image_embed_insert_wrappers.each(function(){
 				// 	var $this = $(this),

@@ -56,13 +56,32 @@ var PlainTxtView = Upfront.Views.ObjectView.extend({
 		var me = this,
 		blurTimeout = false;
 
-		this.$el.find('.upfront-object-content')
+		var $content = this.$el.find('.upfront-object-content');
+
+		// Fallback for flaky delegated dblclick paths in older Redactor/jQuery stacks.
+		$content.off('dblclick.upfrontTextStart').on('dblclick.upfrontTextStart', function () {
+			var ed = $(this).data('ueditor');
+			if (!ed || ed.redactor) return;
+			ed.start();
+			setTimeout(function () {
+				if (ed.redactor && ed.redactor.$editor) {
+					ed.redactor.$editor.attr('contenteditable', true).focus();
+				}
+			}, 0);
+		});
+
+		$content
 			.addClass('upfront-plain_txt')
 			.ueditor({
 				linebreaks: false,
 				autostart: false
 			})
 			.on('start', function(){
+				var ed = $(this).data('ueditor');
+				if (ed && ed.redactor && ed.redactor.$editor) {
+					ed.redactor.$editor.attr('contenteditable', true).focus();
+				}
+
 				var $swap = $(this).find('.upfront-quick-swap');
 				if ( $swap.length ){
 					$swap.remove();
