@@ -545,6 +545,62 @@ function uf_admin_bar_styles() {
 add_action( 'admin_enqueue_scripts', 'uf_admin_bar_styles' );
 
 /**
+ * Registers Upfront avatar source option under Settings > General.
+ */
+function uf_register_general_avatar_settings() {
+	register_setting(
+		'general',
+		'upfront_external_avatars_enabled',
+		array(
+			'type' => 'integer',
+			'default' => 0,
+			'sanitize_callback' => 'uf_sanitize_external_avatars_enabled',
+		)
+	);
+
+	add_settings_field(
+		'upfront_external_avatars_enabled',
+		esc_html__('Upfront: Externe Avatare', 'upfront'),
+		'uf_render_external_avatars_setting_field',
+		'general'
+	);
+}
+add_action('admin_init', 'uf_register_general_avatar_settings');
+
+/**
+ * Sanitizes external avatar setting value.
+ *
+ * @param mixed $value Raw value from the settings form.
+ *
+ * @return int 1 if enabled, 0 otherwise.
+ */
+function uf_sanitize_external_avatars_enabled($value) {
+	return !empty($value) ? 1 : 0;
+}
+
+/**
+ * Renders external avatars checkbox in Settings > General.
+ */
+function uf_render_external_avatars_setting_field() {
+	$value = (int) get_option('upfront_external_avatars_enabled', 0);
+	?>
+	<label for="upfront_external_avatars_enabled">
+		<input
+			type="checkbox"
+			name="upfront_external_avatars_enabled"
+			id="upfront_external_avatars_enabled"
+			value="1"
+			<?php checked(1, $value); ?>
+		/>
+		<?php esc_html_e('Externe Avatar-Dienste (z.B. Gravatar) fuer Upfront laden', 'upfront'); ?>
+	</label>
+	<p class="description">
+		<?php esc_html_e('Standard ist AUS. Wenn deaktiviert, nutzt Upfront nur lokale Platzhalterbilder.', 'upfront'); ?>
+	</p>
+	<?php
+}
+
+/**
  * Gets rid of the admin notice and declares support for Woo
  */
 function uf_add_woocommerce_support() {

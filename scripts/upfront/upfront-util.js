@@ -258,15 +258,32 @@ define([
 			var url = 'https://www.gravatar.com/avatar/',
 				settings = Upfront.Settings || {},
 				allow_external = !!settings.external_avatars_enabled,
-				local_avatar = settings.local_avatar_url || ((Upfront.mainData && Upfront.mainData.currentThemeUrl ? Upfront.mainData.currentThemeUrl : '') + '/img/placeholder-image.png'),
+				root_url = Upfront.mainData && Upfront.mainData.root ? Upfront.mainData.root : '',
+				is_small = size && parseInt(size, 10) <= 32,
+				local_avatar = root_url
+					? (root_url + (is_small ? '/img/placeholder-image-32x32.png' : '/img/placeholder-image.png'))
+					: (settings.local_avatar_url || ''),
+				avatar_url = '',
 				hash = ''
 			;
 
 			size = size && parseInt(size, 10) == size ? size : 32;
 
 			if(_.isString(obj)) hash = obj;
-			else if(obj instanceof Upfront.Models.User || obj instanceof Upfront.Models.Comment) hash = obj.get('gravatar');
+			else if(obj instanceof Upfront.Models.User || obj instanceof Upfront.Models.Comment) {
+				hash = obj.get('gravatar');
+				avatar_url = obj.get('avatar_url') || '';
+			}
+			else if (_.isObject(obj)) {
+				hash = obj.gravatar || '';
+				avatar_url = obj.avatar_url || '';
+			}
 			else return false;
+
+			if (avatar_url) {
+				if (allow_external || !/gravatar\.com/i.test(avatar_url)) return avatar_url;
+				return local_avatar;
+			}
 
 			if (!allow_external || !hash) return local_avatar;
 

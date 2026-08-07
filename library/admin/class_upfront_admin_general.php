@@ -152,6 +152,7 @@ class Upfront_Admin_General extends Upfront_Admin_Page {
 		if( !Upfront_Permissions::current( Upfront_Permissions::SEE_USE_DEBUG ) ) return;
 		Upfront_Layout::get_db_layouts();
 		$exclude_google_maps_api = Upfront_Cache_Utils::get_option( 'upfront_exclude_google_maps_api', 0 );
+		$external_avatars_enabled = (int) get_option('upfront_external_avatars_enabled', 0);
 		?>
 		<div class="postbox-container debug-options">
 			<div class='postbox'>
@@ -173,6 +174,17 @@ class Upfront_Admin_General extends Upfront_Admin_Page {
 								<span class="upfront_toggle_switch"></span>
 							</label>
 						</div>
+					</div>
+					<div class="upfront-debug-block external-avatars">
+						<p class="left"><?php esc_html_e( 'Externe Avatare laden', Upfront::TextDomain ) ?></p>
+						<div class="upfront_toggle right">
+							<input value="1" type="checkbox" name="upfront_external_avatars_enabled" class="upfront_toggle_checkbox" id="upfront_external_avatars_enabled" <?php checked( true, $external_avatars_enabled ); ?> data-current="<?php echo $external_avatars_enabled;?>">
+							<label class="upfront_toggle_label" for="upfront_external_avatars_enabled">
+								<span class="upfront_toggle_inner"></span>
+								<span class="upfront_toggle_switch"></span>
+							</label>
+						</div>
+						<p class="left"><small><?php esc_html_e( 'Aus: nur lokale Platzhalterbilder. An: Gravatar/andere externe Avatar-Dienste laden.', Upfront::TextDomain ) ?></small></p>
 					</div>
 					<div class="upfront-debug-block lightgrey">
 						<p class="left">

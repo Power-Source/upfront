@@ -9,6 +9,9 @@ Change Log
 - Fix: Themebild-Importdialog merkt ignorierte fehlende Bilder pro Layout und zeigt sie nicht erneut an
 - Modernisierung: Weitere jQuery- und Backbone-Altlasten im Editor-/Element-Code bereinigt
 - Modernisierung: Event-Handling in mehreren Views/Commands auf listenTo/on/off umgestellt
+- Neu: Ace-Editor wird lokal aus dem Theme geladen (keine CDN-Abhaengigkeit mehr)
+- Neu: Externe Avatare sind im Upfront-Dashboard unter Allgemein als Option schaltbar
+- Fix: Avatar-Darstellung nutzt standardmaessig lokale Platzhalterbilder statt externer Gravatar-Requests
 
 1.1.5 - 2026-08-07
 -------------------------------------------------------------------------------

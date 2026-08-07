@@ -3,15 +3,16 @@
   "description": "Tools for Upfront",
   "version": "1.0.0",
   "devDependencies": {
+    "clean-css-cli": "^5.6.3",
     "grunt": "~0.4.5",
     "grunt-cli": "~0.1.13",
     "grunt-contrib-cssmin": "^0.12.3",
     "grunt-contrib-watch": "~0.6.1",
-    "grunt-sass": "~1.1.0",
     "grunt-wp-i18n": "^0.4.9",
     "jshint": "^2.9.2",
     "load-grunt-tasks": "~1.0.0",
     "mocha": "^2.3.3",
+    "sass": "^1.83.4",
     "underscore": "^1.8.3"
   },
   "jshintConfig": {
@@ -21,6 +22,9 @@
     "sub": true
   },
   "scripts": {
+    "build-css": "sass styles/editor-interface.scss styles/editor-interface.css --style=expanded --source-map && sass styles/sass/admin/admin.scss styles/admin.css --style=expanded --source-map && cleancss -o styles/global.min.css styles/global.css && cleancss -o styles/global-rtl.min.css styles/global-rtl.css && cleancss -o styles/editor-interface.min.css styles/editor-interface.css && cleancss -o elements/upfront-newnavigation/css/unewnavigation-style.min.css elements/upfront-newnavigation/css/unewnavigation-style.css",
+    "watch-css": "sass --watch styles/editor-interface.scss:styles/editor-interface.css styles/sass/admin/admin.scss:styles/admin.css --style=expanded --source-map",
+    "build": "npm run build-css",
     "test-php": "phpunit -c test/php/lib/phpunit.xml",
     "test-js": "node_modules/.bin/mocha test/js",
     "test": "npm run test-php && npm run test-js",

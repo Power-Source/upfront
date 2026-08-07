@@ -36,6 +36,15 @@
 		});
 	});
 
+	$(document).on('change','#upfront_external_avatars_enabled', function(e){
+		e.preventDefault();
+		var state = $("#upfront_external_avatars_enabled").is(':checked');
+		Upfront.post({
+			action: "upfront_set_external_avatars_enabled",
+			external_avatars_enabled: state
+		});
+	});
+
 	/**
 	 * Reset layout
 	 */

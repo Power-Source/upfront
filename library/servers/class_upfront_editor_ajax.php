@@ -590,6 +590,9 @@ class Upfront_Editor_Ajax extends Upfront_Server {
 
 	function remove_private_user_fields($user) {
 		if (!empty($user->data) && !empty($user->data->user_email)) $user->gravatar = md5($user->data->user_email);
+		if (function_exists('get_avatar_url')) {
+			$user->avatar_url = get_avatar_url($user->ID, array('size' => 32));
+		}
 		unset($user->data->user_pass);
 		unset($user->data->user_registered);
 		unset($user->data->user_activation_key);
@@ -892,6 +895,9 @@ class Upfront_Editor_Ajax extends Upfront_Server {
 			$this->_out(new Upfront_JsonResponse_Error("Comment not found."));
 
 		$comment->gravatar = md5($comment->comment_author_email);
+		if (function_exists('get_avatar_url')) {
+			$comment->avatar_url = get_avatar_url($comment, array('size' => 32));
+		}
 
 		$this->_out(new Upfront_JsonResponse_Success($comment));
 	}
@@ -949,6 +955,9 @@ class Upfront_Editor_Ajax extends Upfront_Server {
 
 		foreach ($comments as $idx => $comment) {
 			$comment->gravatar = md5($comment->comment_author_email);
+			if (function_exists('get_avatar_url')) {
+				$comment->avatar_url = get_avatar_url($comment, array('size' => 32));
+			}
 		}
 
 		$comments_count = $wpdb->get_var(

@@ -425,7 +425,7 @@ class Upfront_JavascriptMain extends Upfront_Server {
 		$plugins_layouts = json_encode(
 			apply_filters('upfront-plugins_layouts', $plugins_layouts)
 		);
-		$external_avatars_enabled = (int) apply_filters('upfront_external_avatars_enabled', false);
+		$external_avatars_enabled = (int) get_option('upfront_external_avatars_enabled', 0);
 
 		$fe_cache_level = preg_replace('/[^a-z]/', '', get_option('upfront-response_cache-level', ''));
 

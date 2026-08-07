@@ -37,6 +37,7 @@ class Upfront_Ajax extends Upfront_Server {
 			upfront_add_ajax('upfront_reset_layout', array($this, "reset_layout"));
 			upfront_add_ajax('upfront_reset_cache', array($this, "reset_cache"));
 			upfront_add_ajax('upfront_exclude_google_maps_api', array($this, "exclude_google_maps_api"));
+			upfront_add_ajax('upfront_set_external_avatars_enabled', array($this, "set_external_avatars_enabled"));
 			upfront_add_ajax('upfront_reset_all_from_db', array($this, "reset_all_from_db"));
 			upfront_add_ajax('upfront_update_layout_element', array($this, "update_layout_element"));
 			upfront_add_ajax('upfront_add_custom_thumbnail_size', array($this, "add_custom_thumbnail_size"));
@@ -785,6 +786,14 @@ class Upfront_Ajax extends Upfront_Server {
 		$data = !empty($_POST) ? stripslashes_deep($_POST) : false;
 		$exclude_google_maps_api = ( isset( $data['exclude_google_maps_api'] ) && 'true' === $data['exclude_google_maps_api'] ) ? 1 : 0;
 		Upfront_Cache_Utils::update_option('upfront_exclude_google_maps_api', $exclude_google_maps_api);
+		$this->_out(new Upfront_JsonResponse_Success("All is well"));
+	}
+
+	function set_external_avatars_enabled() {
+		if (!Upfront_Permissions::current(Upfront_Permissions::SAVE)) $this->_reject();
+		$data = !empty($_POST) ? stripslashes_deep($_POST) : false;
+		$enabled = ( isset( $data['external_avatars_enabled'] ) && 'true' === $data['external_avatars_enabled'] ) ? 1 : 0;
+		update_option('upfront_external_avatars_enabled', $enabled);
 		$this->_out(new Upfront_JsonResponse_Success("All is well"));
 	}
 

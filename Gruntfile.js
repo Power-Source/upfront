@@ -15,7 +15,7 @@ module.exports = function(grunt) {
 			dist: {
 				files: {
 					'styles/editor-interface.css': 'styles/editor-interface.scss',
-                    'styles/build/admin.css': 'styles/sass/admin/admin.scss'
+				    'styles/admin.css': 'styles/sass/admin/admin.scss'
 				}
 			}
 		},
@@ -55,5 +55,5 @@ module.exports = function(grunt) {
 		}
 	});
 
-	grunt.registerTask('default', ['sass', 'cssmin']);
+	grunt.registerTask('default', ['cssmin']);
 };

@@ -44,7 +44,12 @@ class Upfront_Admin
 
 		if ( false === ( $is_upfront_admin_subpage || $is_upfront_admin_mainpage ) ) return;
 
-		wp_enqueue_style( 'upfront_admin', Upfront::get_root_url() . "/styles/build/admin.css", array(), Upfront_ChildTheme::get_version() );// todo Sam: add proper version
+		$admin_css = file_exists(Upfront::get_root_dir() . '/styles/admin.css')
+			? '/styles/admin.css'
+			: '/styles/build/admin.css'
+		;
+
+		wp_enqueue_style( 'upfront_admin', Upfront::get_root_url() . $admin_css, array(), Upfront_ChildTheme::get_version() );// todo Sam: add proper version
 		wp_register_script( 'upfront_admin_js', Upfront::get_root_url() . "/scripts/admin.js", array("jquery"), Upfront_ChildTheme::get_version(), true);
 		wp_localize_script( 'upfront_admin_js', "Upfront_Data", array(
 			'l10n' => array(

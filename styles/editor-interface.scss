@@ -1,39 +1,40 @@
 @charset 'UTF-8';
 
-@import "sass/partials/layout";
-@import 'sass/partials/upfront-ui';
-@import 'sass/partials/general-stuff';
+@use "sass:meta";
+@use "sass/partials/layout";
+@use 'sass/partials/upfront-ui';
+@use 'sass/partials/general-stuff';
 /* @import 'sass/partials/button'; */
-@import 'sass/partials/sidebar-ui';
-@import 'sass/partials/fields';
-@import 'sass/partials/ueditor-inserts';
-@import 'sass/partials/video-insert';
-@import 'sass/admin/buttons';
-@import 'sass/partials/region';
-@import 'sass/partials/map-editor';
-@import 'sass/partials/bgsettings';
-@import 'sass/partials/layout-grid-module-object';
-@import 'sass/partials/modal';
-@import 'sass/partials/drag-n-drop';
-@import 'sass/partials/settings';
-@import 'sass/partials/element-settings-sidebar';
-@import 'sass/partials/element-settings-migration';
-@import 'sass/partials/menu-structure';
-@import 'sass/partials/save-as-dialog';
-@import 'sass/partials/icon';
-@import 'sass/partials/tooltips';
-@import 'sass/partials/popup';
-@import 'sass/partials/tabs';
-@import 'sass/partials/pagination';
-@import 'sass/partials/taxonomy';
-@import 'sass/partials/post-list';
-@import 'sass/partials/single-post';
-@import 'sass/partials/notifier';
-@import 'sass/partials/loading';
-@import 'sass/partials/popup_media-manager';
-@import 'sass/partials/color-picker';
-@import 'sass/partials/image-details-dialog';
-@import 'sass/partials/inline-controls-panel';
+@use 'sass/partials/sidebar-ui';
+@use 'sass/partials/fields';
+@use 'sass/partials/ueditor-inserts';
+@use 'sass/partials/video-insert';
+@use 'sass/admin/buttons';
+@use 'sass/partials/region';
+@use 'sass/partials/map-editor';
+@use 'sass/partials/bgsettings';
+@use 'sass/partials/layout-grid-module-object';
+@use 'sass/partials/modal';
+@use 'sass/partials/drag-n-drop';
+@use 'sass/partials/settings';
+@use 'sass/partials/element-settings-sidebar';
+@use 'sass/partials/element-settings-migration';
+@use 'sass/partials/menu-structure';
+@use 'sass/partials/save-as-dialog';
+@use 'sass/partials/icon';
+@use 'sass/partials/tooltips';
+@use 'sass/partials/popup';
+@use 'sass/partials/tabs';
+@use 'sass/partials/pagination';
+@use 'sass/partials/taxonomy';
+@use 'sass/partials/post-list';
+@use 'sass/partials/single-post';
+@use 'sass/partials/notifier';
+@use 'sass/partials/loading';
+@use 'sass/partials/popup_media-manager';
+@use 'sass/partials/color-picker';
+@use 'sass/partials/image-details-dialog';
+@use 'sass/partials/inline-controls-panel';
 
 #upfront-inline-slider-nav {
 	position: absolute;
@@ -41,11 +42,11 @@
 	z-index: 9999;
 }
 
-@import 'sass/partials/ulinkpanel';
-@import 'sass/partials/editor-bar';
-@import 'sass/partials/editor-box';
-@import 'sass/partials/thumbnail-changer';
-@import 'sass/partials/selector';
+@include meta.load-css('sass/partials/ulinkpanel');
+@include meta.load-css('sass/partials/editor-bar');
+@include meta.load-css('sass/partials/editor-box');
+@include meta.load-css('sass/partials/thumbnail-changer');
+@include meta.load-css('sass/partials/selector');
 #settings .upfront-settings-item-anchor .upfront-settings-item {
 	border: none;
 	margin: 0;
@@ -197,13 +198,13 @@
 }
 
 
-@import 'sass/partials/perfect-scrollbar';
-@import 'sass/partials/new-perfect-scrollbar';
-@import 'sass/partials/redactor';
-@import 'sass/partials/new-color-picker';
-@import 'sass/partials/plaintext';
-@import 'sass/partials/context-menu';
-@import 'sass/partials/css-editor';
+@include meta.load-css('sass/partials/perfect-scrollbar');
+@include meta.load-css('sass/partials/new-perfect-scrollbar');
+@include meta.load-css('sass/partials/redactor');
+@include meta.load-css('sass/partials/new-color-picker');
+@include meta.load-css('sass/partials/plaintext');
+@include meta.load-css('sass/partials/context-menu');
+@include meta.load-css('sass/partials/css-editor');
 /* Layout editor region */
 .upfront-edit-postlayout .upfront-overlay-grid {
 	display: none;
@@ -357,24 +358,24 @@
 .inline-number label {
   font-weight: normal;
 }
-@import 'sass/partials/styles-and-anchor-settings';
-@import 'sass/partials/padding-settings';
-@import 'sass/partials/post-settings';
-@import 'sass/partials/responsive-ui';
-@import 'sass/partials/icon-fonts';
-@import 'sass/partials/feature-image';
-@import 'sass/partials/flexbox';
-@import 'sass/partials/theme-colors-ui';
-@import 'sass/partials/typography-panel';
-@import 'sass/partials/chosen';
-@import 'sass/partials/theme-fonts-manager';
-@import 'sass/partials/sidebar-ui-section-tabs';
-@import 'sass/partials/builder';
-@import 'sass/partials/fixes';
-@import 'sass/partials/global-regions';
-@import 'sass/partials/ueditor';
-@import 'sass/partials/embed-inserts';
-@import 'sass/partials/insert-font-widget';
+@include meta.load-css('sass/partials/styles-and-anchor-settings');
+@include meta.load-css('sass/partials/padding-settings');
+@include meta.load-css('sass/partials/post-settings');
+@include meta.load-css('sass/partials/responsive-ui');
+@include meta.load-css('sass/partials/icon-fonts');
+@include meta.load-css('sass/partials/feature-image');
+@include meta.load-css('sass/partials/flexbox');
+@include meta.load-css('sass/partials/theme-colors-ui');
+@include meta.load-css('sass/partials/typography-panel');
+@include meta.load-css('sass/partials/chosen');
+@include meta.load-css('sass/partials/theme-fonts-manager');
+@include meta.load-css('sass/partials/sidebar-ui-section-tabs');
+@include meta.load-css('sass/partials/builder');
+@include meta.load-css('sass/partials/fixes');
+@include meta.load-css('sass/partials/global-regions');
+@include meta.load-css('sass/partials/ueditor');
+@include meta.load-css('sass/partials/embed-inserts');
+@include meta.load-css('sass/partials/insert-font-widget');
 /* Toggleable text field */
 .upfront-ui .upfront-field-wrap-toggleable label b {
 	font-weight: bold;
@@ -433,11 +434,11 @@
   z-index: 999;
   margin-bottom: -36px;
 }
-@import 'sass/partials/visit-link';
-@import 'sass/partials/fix-theme-style-messes-ui';
-@import 'sass/partials/_preset-manager.scss';
-@import 'sass/partials/preset-manager/_preset-selector.scss';
-@import 'sass/partials/preset-manager/_preset-styles-editor.scss';
-@import 'sass/partials/preset-manager/_preset-default-overlay.scss';
-@import 'sass/partials/_inline-panels.scss';
-@import 'sass/partials/_upgrade_notice.scss';
+@include meta.load-css('sass/partials/visit-link');
+@include meta.load-css('sass/partials/fix-theme-style-messes-ui');
+@include meta.load-css('sass/partials/_preset-manager.scss');
+@include meta.load-css('sass/partials/preset-manager/_preset-selector.scss');
+@include meta.load-css('sass/partials/preset-manager/_preset-styles-editor.scss');
+@include meta.load-css('sass/partials/preset-manager/_preset-default-overlay.scss');
+@include meta.load-css('sass/partials/_inline-panels.scss');
+@include meta.load-css('sass/partials/_upgrade_notice.scss');
