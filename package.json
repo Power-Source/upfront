@@ -3,11 +3,9 @@
   "description": "Tools for Upfront",
   "version": "1.0.0",
   "devDependencies": {
-    "clean-css-cli": "^5.6.3",
+    "csso-cli": "^4.0.2",
     "grunt": "~0.4.5",
     "grunt-cli": "~0.1.13",
-    "grunt-contrib-cssmin": "^0.12.3",
-    "grunt-contrib-watch": "~0.6.1",
     "grunt-wp-i18n": "^0.4.9",
     "jshint": "^2.9.2",
     "load-grunt-tasks": "~1.0.0",
@@ -22,7 +20,7 @@
     "sub": true
   },
   "scripts": {
-    "build-css": "sass styles/editor-interface.scss styles/editor-interface.css --style=expanded --source-map && sass styles/sass/admin/admin.scss styles/admin.css --style=expanded --source-map && cleancss -o styles/global.min.css styles/global.css && cleancss -o styles/global-rtl.min.css styles/global-rtl.css && cleancss -o styles/editor-interface.min.css styles/editor-interface.css && cleancss -o elements/upfront-newnavigation/css/unewnavigation-style.min.css elements/upfront-newnavigation/css/unewnavigation-style.css",
+    "build-css": "sass styles/editor-interface.scss styles/editor-interface.css --style=expanded --source-map && sass styles/sass/admin/admin.scss styles/admin.css --style=expanded --source-map && csso styles/global.css --output styles/global.min.css && csso styles/global-rtl.css --output styles/global-rtl.min.css && csso styles/editor-interface.css --output styles/editor-interface.min.css && csso elements/upfront-newnavigation/css/unewnavigation-style.css --output elements/upfront-newnavigation/css/unewnavigation-style.min.css",
     "watch-css": "sass --watch styles/editor-interface.scss:styles/editor-interface.css styles/sass/admin/admin.scss:styles/admin.css --style=expanded --source-map",
     "build": "npm run build-css",
     "test-php": "phpunit -c test/php/lib/phpunit.xml",
