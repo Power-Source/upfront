@@ -1036,7 +1036,7 @@
             '.upfront-social-icon ': {label: l10n.css.box_label, info: l10n.css.box_info},
             '.upfront-linked-in-link-box': {label: l10n.css.linked_label, info: l10n.css.linked_info},
             '.upfront-twitter-link-box, .ufront-twitter-count-box, .upfront-social-icon-twitter': {label: l10n.css.twitter_label, info: l10n.css.twitter_info},
-            '.upfront-google-link-box, .ufront-google-count-box, .upfront-social-icon-google': {label: l10n.css.google_label, info: l10n.css.google_info},
+            '.upfront-instagram-link-box, .ufront-instagram-count-box, .upfront-social-icon-instagram': {label: l10n.css.instagram_label, info: l10n.css.instagram_info},
             '.upfront-facebook-link-box, .ufront-facebook-count-box, .upfront-social-icon-facebook': {label: l10n.css.fb_label, info: l10n.css.fb_info},
             '.upfront-pinterest-link-box': {label: l10n.css.pin_label, info: l10n.css.pin_info},
             '.upfront-youtube-link-box': {label: l10n.css.yt_label, info: l10n.css.yt_info}

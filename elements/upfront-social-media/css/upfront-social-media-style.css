@@ -101,13 +101,8 @@
 .usocial-button-large .usocial-button.twitter-link {
     background-position: -30px -130px;
 }
-.usocial-button-large .usocial-button.google-link {
-    background-position: -30px -230px;
-}
 .usocial-button-large .usocial-button.instagram-link {
-    background: linear-gradient(135deg, #f58529 0%, #dd2a7b 45%, #8134af 75%, #515bd4 100%);
-    border-radius: 22%;
-    position: relative;
+    background-position: -30px -230px;
 }
 .usocial-button-large .usocial-button.linked-in-link {
     background-position: -30px -430px;
@@ -128,13 +123,8 @@
 .usocial-button-medium .usocial-button.twitter-link {
     background-position: -18px -78px;
 }
-.usocial-button-medium .usocial-button.google-link {
-    background-position: -18px -138px;
-}
 .usocial-button-medium .usocial-button.instagram-link {
-    background: linear-gradient(135deg, #f58529 0%, #dd2a7b 45%, #8134af 75%, #515bd4 100%);
-    border-radius: 22%;
-    position: relative;
+    background-position: -18px -138px;
 }
 .usocial-button-medium .usocial-button.linked-in-link {
     background-position: -18px -258px;
@@ -156,13 +146,8 @@
 .usocial-button-small .usocial-button.twitter-link {
     background-position: -12px -52px;
 }
-.usocial-button-small .usocial-button.google-link {
-    background-position: -12px -92px;
-}
 .usocial-button-small .usocial-button.instagram-link {
-    background: linear-gradient(135deg, #f58529 0%, #dd2a7b 45%, #8134af 75%, #515bd4 100%);
-    border-radius: 22%;
-    position: relative;
+    background-position: -12px -92px;
 }
 .usocial-button-small .usocial-button.linked-in-link {
     background-position: -12px -172px;
@@ -202,14 +187,16 @@
 .upfront-fan-counts.twitter-count {
     background-position: -30px -130px;
 }
-.upfront-fan-counts.google-count {
+.upfront-fan-counts.instagram-count {
     background-position: -30px -230px;
 }
+
 .upfront-fan-counts.instagram-count {
     background: none;
     padding-left: 54px;
     position: relative;
 }
+
 .upfront-fan-counts.instagram-count:before {
     content: '';
     position: absolute;
@@ -241,6 +228,13 @@
     border: 2px solid #fff;
     border-radius: 28%;
     box-sizing: border-box;
+}
+
+.usocial-button.instagram-link {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f58529 0%, #dd2a7b 45%, #8134af 75%, #515bd4 100%);
+    border-radius: 22%;
 }
 
 .usocial-button.instagram-link:after {

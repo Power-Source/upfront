@@ -51,22 +51,22 @@ class Upfront_UsearchView extends Upfront_Object {
 
 	private static function _get_l10n ($key=false) {
 		$l10n = array(
-			'element_name' => __('Search', 'upfront'),
-			'placeholder' => __('Search', 'upfront'),
-			'custom' => __('Custom text', 'upfront'),
+			'element_name' => __('Suche', 'upfront'),
+			'placeholder' => __('Suche', 'upfront'),
+			'custom' => __('Eigener Text', 'upfront'),
 			'css' => array(
-				'container_label' => __('Search container', 'upfront'),
-				'container_info' => __('The container that wraps search field and search button', 'upfront'),
-				'field_label' => __('Search field', 'upfront'),
-				'field_info' => __('The search input field', 'upfront'),
-				'button_label' => __('Search button', 'upfront'),
-				'button_info' => __('The search button', 'upfront'),
+				'container_label' => __('Suche-Container', 'upfront'),
+				'container_info' => __('Der Container, der das Suchfeld und die Suchschaltfläche umschließt', 'upfront'),
+				'field_label' => __('Suchfeld', 'upfront'),
+				'field_info' => __('Das Such-Eingabefeld', 'upfront'),
+				'button_label' => __('Suchschaltfläche', 'upfront'),
+				'button_info' => __('Die Suchschaltfläche', 'upfront'),
 			),
-			'settings' => __('Search Settings', 'upfront'),
-			'placeholder_label' => __('Placeholder text:', 'upfront'),
-			'field' => __('Field', 'upfront'),
-			'field_settings' => __('Field settings', 'upfront'),
-			'btn_content' => __('Button content', 'upfront'),
+			'settings' => __('Suche-Einstellungen', 'upfront'),
+			'placeholder_label' => __('Platzhaltertext:', 'upfront'),
+			'field' => __('Feld', 'upfront'),
+			'field_settings' => __('Feldeinstellungen', 'upfront'),
+			'btn_content' => __('Schaltflächeninhalt', 'upfront'),
 		);
 		return !empty($key)
 			? (!empty($l10n[$key]) ? $l10n[$key] : $key)
