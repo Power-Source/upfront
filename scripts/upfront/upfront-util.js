@@ -255,8 +255,10 @@ define([
 				return output;
 		},
 		get_avatar: function(obj, size){
-			var protocolParts = window.location.href.split('//'),
-				url = protocolParts[0] + '//www.gravatar.com/avatar/',
+			var url = 'https://www.gravatar.com/avatar/',
+				settings = Upfront.Settings || {},
+				allow_external = !!settings.external_avatars_enabled,
+				local_avatar = settings.local_avatar_url || ((Upfront.mainData && Upfront.mainData.currentThemeUrl ? Upfront.mainData.currentThemeUrl : '') + '/img/placeholder-image.png'),
 				hash = ''
 			;
 
@@ -265,6 +267,8 @@ define([
 			if(_.isString(obj)) hash = obj;
 			else if(obj instanceof Upfront.Models.User || obj instanceof Upfront.Models.Comment) hash = obj.get('gravatar');
 			else return false;
+
+			if (!allow_external || !hash) return local_avatar;
 
 			return url + hash + '?d=mm&s=' + size;
 		},

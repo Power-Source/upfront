@@ -7,6 +7,8 @@ define([
 ], function(ElementSettings, Util, styleTpl) {
 
 var l10n = Upfront.Settings.l10n.comments_element;
+var localAvatarIcon = (Upfront.Settings && Upfront.Settings.local_avatar_url)
+	|| ((Upfront.mainData && Upfront.mainData.currentThemeUrl ? Upfront.mainData.currentThemeUrl : '') + '/img/placeholder-image.png');
 
 var UcommentModel = Upfront.Models.ObjectModel.extend({
 	/**
@@ -302,10 +304,10 @@ var DiscussionSettings_Avatars_View = DiscussionSettings_ActionView.extend({
 						property: 'avatar_rating',
 						layout: "vertical",
 						values: [
-							{label: l10n.rating.g, value: 'G', icon: 'http://1.gravatar.com/avatar/31cb559695bfc798dbf0981a52c7a748?s=32&d=&r=G&forcedefault=1'},
-							{label: l10n.rating.pg, value: 'PG', icon: 'http://1.gravatar.com/avatar/31cb559695bfc798dbf0981a52c7a748?s=32&d=&r=G&forcedefault=1'},
-							{label: l10n.rating.r, value: 'R', icon: 'http://1.gravatar.com/avatar/31cb559695bfc798dbf0981a52c7a748?s=32&d=&r=G&forcedefault=1'},
-							{label: l10n.rating.x, value: 'X', icon: 'http://1.gravatar.com/avatar/31cb559695bfc798dbf0981a52c7a748?s=32&d=&r=G&forcedefault=1'}
+											{label: l10n.rating.g, value: 'G', icon: localAvatarIcon},
+											{label: l10n.rating.pg, value: 'PG', icon: localAvatarIcon},
+											{label: l10n.rating.r, value: 'R', icon: localAvatarIcon},
+											{label: l10n.rating.x, value: 'X', icon: localAvatarIcon}
 						]
 					})
 				])

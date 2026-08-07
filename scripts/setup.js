@@ -25,7 +25,9 @@ require(['backbone'], function (Backbone) {
 		// Shims and stubs
 		_.extend(Upfront.Events, Backbone.Events);
 		Upfront.Settings = {
-			"ace_url": "//cdnjs.cloudflare.com/ajax/libs/ace/1.1.01/ace.js",
+			"ace_url": Upfront.mainData.currentThemeUrl + "/scripts/vendor/ace/1.1.01/ace.js",
+			"external_avatars_enabled": !!Upfront.mainData.externalAvatarsEnabled,
+			"local_avatar_url": Upfront.mainData.currentThemeUrl + "/img/placeholder-image.png",
 			"root_url": Upfront.mainData.root,
 			"ajax_url": Upfront.mainData.ajax,
 			"admin_url": Upfront.mainData.admin,

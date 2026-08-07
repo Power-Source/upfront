@@ -72,7 +72,7 @@ define([
 				require: require,
 				requirejs: requirejs
 			};
-			upfrontrjs.require(['//cdnjs.cloudflare.com/ajax/libs/ace/1.1.01/ace.js'], function(){
+			upfrontrjs.require([Upfront.Settings.ace_url], function(){
 				deferred.resolve();
 			});
 

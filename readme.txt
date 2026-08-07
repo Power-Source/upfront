@@ -5,7 +5,7 @@ Tags: classicpress-theme, classicpress, theme, framework, awesome
 Requires at least: 4.9
 Tested up to: 5.0
 ClassicPress: 2.7.0
-Stable tag: 1.1.5
+Stable tag: 1.1.6
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -37,6 +37,14 @@ Füge Designfarben hinzu, pass Typografie an und bearbeite globale Einstellungen
 
 
 == ChangeLog ==
+
+= 1.1.6 =
+* Fix: Textauswahl im Editor bleibt beim Markieren/Bearbeiten stabiler erhalten
+* Fix: Textfarben-/Teilselektionsverhalten im Editor ueberarbeitet
+* Fix: Google-Maps-Skripte laden ohne API-Key nicht mehr und erzeugen keine NoApiKeys-Warnung
+* Fix: Themebild-Importdialog merkt ignorierte fehlende Bilder pro Layout und zeigt sie nicht erneut an
+* Modernisierung: Weitere jQuery- und Backbone-Altlasten im Editor-/Element-Code bereinigt
+* Modernisierung: Event-Handling in mehreren Views/Commands auf listenTo/on/off umgestellt
 
 = 1.1.5 =
 * Fix: Upfront AJAX 500 beim Verlinkungsdialog (Walker-Signatur aktualisiert)

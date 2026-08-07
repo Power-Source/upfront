@@ -992,7 +992,7 @@
 						this.redactor.selection.restore();
 						this.redactor.link.unlink();
 
-						this.redactor.$element.focus();
+						this.redactor.$element.trigger('focus');
 						this.updateMissingLightboxFlag();
 					},
 
@@ -1073,7 +1073,7 @@
 						}
 
 						// Do redactor stuff
-						this.redactor.$element.focus();
+						this.redactor.$element.trigger('focus');
 						// dontflag is sent while creation of lightbox from link-panel.js
 						if(typeof(dontflag) === 'undefined')
 							this.updateMissingLightboxFlag();
@@ -1417,9 +1417,38 @@
 					updateColors: function (target) {
 						if (this.suspend_color_updates) return false;
 						target = target || this.getActiveColorTarget();
-						this.redactor.buffer.set();
-						this.redactor.selection.restore();
-						this.redactor.selection.get();
+						var isRangeInEditor = function (redactor, range) {
+							if (!range || !range.commonAncestorContainer || !redactor || !redactor.$editor || !redactor.$editor[0]) {
+								return false;
+							}
+
+							if (range.commonAncestorContainer === redactor.$editor[0]) {
+								return true;
+							}
+
+							return $.contains(redactor.$editor[0], range.commonAncestorContainer);
+						};
+
+						try {
+							this.redactor.selection.restore();
+							this.redactor.selection.get();
+						} catch (e) {
+							return false;
+						}
+
+						if (!isRangeInEditor(this.redactor, this.redactor.range)) {
+							return false;
+						}
+
+						try {
+							this.redactor.buffer.set();
+						} catch (e) {
+							// Skip undo snapshot when selection range is stale/detached.
+							if (!isRangeInEditor(this.redactor, this.redactor.range)) {
+								return false;
+							}
+						}
+
 						if (
 							!this.redactor.range
 							|| !this.redactor.range.commonAncestorContainer
@@ -1454,6 +1483,22 @@
 							font_cleanup = "color",
 							change_color = false,
 							change_bgcolor = false,
+							safeReplaceNode = function (fromNode, toNode) {
+								if (!fromNode || !toNode || fromNode === toNode) {
+									return false;
+								}
+
+								if (fromNode.nodeType !== 1 || toNode.nodeType !== 1) {
+									return false;
+								}
+
+								if (!$.contains(self.redactor.$editor[0], fromNode) || !$.contains(self.redactor.$editor[0], toNode)) {
+									return false;
+								}
+
+								$(fromNode).replaceWith($(toNode));
+								return true;
+							},
 							class_set = function( cls ){
 								self.redactor.inline.format('div', 'class', cls);
 							},
@@ -1670,7 +1715,7 @@
 								$current.css( { backgroundColor: bg_color } );
 							}
 
-							$( $last_el ).replaceWith( $current );
+							safeReplaceNode($last_el.get(0), $current.get(0));
 						}
 
 						if( change_bgcolor && !change_color){
@@ -1693,7 +1738,7 @@
 								current = $( current ).css( { color: color } );
 							}
 
-							$( $last_el ).replaceWith( current );
+							safeReplaceNode($last_el.get(0), $(current).get(0));
 						}
 
 						if( change_bgcolor && change_color){
@@ -1705,9 +1750,10 @@
 								}
 							} );
 
-							$( _.last( replacees ) ).replaceWith( $( this.redactor.selection.getCurrent()).css( {
+							var $replacement = $( this.redactor.selection.getCurrent()).css( {
 								backgroundColor: self.current_bg.is_theme_color ? self.current_bg.theme_color_code : self.current_bg.toHexString()
-							} ) );
+							} );
+							safeReplaceNode(_.last(replacees), $replacement.get(0));
 						}
 
 						/**

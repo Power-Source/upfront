@@ -27,14 +27,14 @@
 		<div class="instructor-block ">
 			<div class="instructor-profile " itemscope="" itemtype="http://schema.org/Person">
 				<a href="#">
-					<div class="profile-avatar" itemprop="image"><img alt="instructora" src="http://1.gravatar.com/avatar/145f71daaee62fbca3d397099595f5f2?s=80&amp;d=mm&amp;r=g" srcset="http://1.gravatar.com/avatar/145f71daaee62fbca3d397099595f5f2?s=160&amp;d=mm&amp;r=g 2x" class="avatar avatar-80 photo" height="80" width="80"></div>
+					<div class="profile-avatar" itemprop="image"><img alt="instructora" src="<?php echo get_theme_root_uri() ?>/upfront/img/placeholder-image-32x32.png" srcset="<?php echo get_theme_root_uri() ?>/upfront/img/placeholder-image-32x32.png 2x" class="avatar avatar-80 photo" height="80" width="80"></div>
 					<div class="profile-name" itemscope="" itemtype="http://schema.org/Person"><span itemprop="name">instructora</span></div>
 				</a>
 				<div class="profile-description"></div>
 			</div>
 			<div class="instructor-profile " itemscope="" itemtype="http://schema.org/Person">
 				<a href="#">
-					<div class="profile-avatar" itemprop="image"><img alt="instructorb" src="http://0.gravatar.com/avatar/0344ea9931a8019cab1ac6e4021af16c?s=80&amp;d=mm&amp;r=g" srcset="http://0.gravatar.com/avatar/0344ea9931a8019cab1ac6e4021af16c?s=160&amp;d=mm&amp;r=g 2x" class="avatar avatar-80 photo" height="80" width="80"></div>
+					<div class="profile-avatar" itemprop="image"><img alt="instructorb" src="<?php echo get_theme_root_uri() ?>/upfront/img/placeholder-image-32x32.png" srcset="<?php echo get_theme_root_uri() ?>/upfront/img/placeholder-image-32x32.png 2x" class="avatar avatar-80 photo" height="80" width="80"></div>
 					<div class="profile-name" itemscope="" itemtype="http://schema.org/Person"><span itemprop="name">instructorb</span></div>
 				</a>
 				<div class="profile-description"></div>

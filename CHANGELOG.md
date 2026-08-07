@@ -1,6 +1,15 @@
 Change Log
 ============
 
+1.1.6 - 2026-08-07
+-------------------------------------------------------------------------------
+- Fix: Textauswahl im Editor bleibt beim Markieren/Bearbeiten stabiler erhalten
+- Fix: Textfarben-/Teilselektionsverhalten im Editor ueberarbeitet
+- Fix: Google-Maps-Skripte laden ohne API-Key nicht mehr und erzeugen keine NoApiKeys-Warnung
+- Fix: Themebild-Importdialog merkt ignorierte fehlende Bilder pro Layout und zeigt sie nicht erneut an
+- Modernisierung: Weitere jQuery- und Backbone-Altlasten im Editor-/Element-Code bereinigt
+- Modernisierung: Event-Handling in mehreren Views/Commands auf listenTo/on/off umgestellt
+
 1.1.5 - 2026-08-07
 -------------------------------------------------------------------------------
 

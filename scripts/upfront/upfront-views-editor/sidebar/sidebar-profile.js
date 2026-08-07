@@ -13,13 +13,14 @@
                 if ( !user ) user = new Backbone.Model();
                 var data = user.get('data') || {},
                     roles = user.get('roles') || [],
+                        avatar_url = Upfront.Util.get_avatar(data.gravatar || '', 25),
                     tpl
                     ;
-                tpl = '<div class="sidebar-profile-avatar"><img src="//www.gravatar.com/avatar/{{ gravatar ? gravatar : "gravatar" }}?s=25" /></div>' +
+                    tpl = '<div class="sidebar-profile-avatar"><img src="{{ avatar_url }}" /></div>' +
                     '<div class="sidebar-profile-detail"><span class="sidebar-profile-name">{{name}}</span><span class="sidebar-profile-role">{{role}}</span></div>';
                 this.$el.html(_.template(tpl,
                     {
-                        gravatar: data.gravatar,
+                            avatar_url: avatar_url,
                         name: data.display_name || l10n.anonymous,
                         role: roles[0] || l10n.none,
                         edit_url: Upfront.Settings.admin_url + 'profile.php'

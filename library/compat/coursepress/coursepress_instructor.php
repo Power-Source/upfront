@@ -2,7 +2,7 @@
 	<div class="cp-instructor-page">
 		<div class="instructor-wrapper" itemscope="" itemtype="http://schema.org/Person">
 			<div class="instructor-avatar">
-				<div class="small-circle-profile-image" style="background: url( http://1.gravatar.com/avatar/145f71daaee62fbca3d397099595f5f2?s=200&amp;d=mm&amp;r=g ); width: 200px; height: 200px;"></div>
+				<div class="small-circle-profile-image" style="background: url( <?php echo get_theme_root_uri() ?>/upfront/img/placeholder-image.png ); width: 200px; height: 200px;"></div>
 			</div>
 			<div class="instructor-bio" itemprop="description">
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
