@@ -5,7 +5,7 @@ Plugin URI: https://psource.eimen.net/wiki/upfront-dokumentation/
 Description: Complex Upfront module 1
 Version: 0.1
 Text Domain: usearch
-Author: Victor, Jeffri, Ve Bailovity (PSOURCE)
+Author: Victor, Jeffri, DerNerd (PSOURCE)
 Author URI: https://psource.eimen.net/
 
 Copyright 2009-2011 PSOURCE (https://nerdservice.eimen.net/)

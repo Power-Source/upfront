@@ -5,7 +5,7 @@ Plugin URI: https://psource.eimen.net/wiki/upfront-dokumentation/
 Description: Login element
 Version: 0.1
 Text Domain: upfront-login
-Author: Ve Bailovity (PSOURCE)
+Author: DerNerd (PSOURCE)
 Author URI: https://psource.eimen.net/
 WDP ID: XXX
 

@@ -16,7 +16,7 @@ var LayoutEditor = {
 	},
 	create_mergeable: function (view, model) {
 		var ed = Upfront.Behaviors.LayoutEditor,
-			cancel = ".upfront-region-side-fixed, .upfront-entity_meta, .upfront-region-edit-trigger, .upfront-region-edit-fixed-trigger, .upfront-region-finish-edit, .upfront-icon-control-region-resize, .upfront-inline-modal, .upfront-inline-panels, .upfront-ui, .upfront-inline-panel, .upfront-inline-panel-item, .upfront-module-group-group, .upfront-module-group-toggle, .upfront-control, .upfront-icon-control",
+			cancel = ".upfront-region-side-fixed, .upfront-entity_meta, .upfront-region-edit-trigger, .upfront-region-edit-fixed-trigger, .upfront-region-finish-edit, .upfront-icon-control-region-resize, .upfront-inline-modal, .upfront-inline-panels, .upfront-ui, .upfront-inline-panel, .upfront-inline-panel-item, .upfront-module-group-group, .upfront-module-group-toggle, .upfront-control, .upfront-icon-control, .upfront-object-content, .upfront-plain_txt, .upfront-text, .redactor-box, .redactor-editor, .ueditable, .ueditable-inactive, input, textarea, select, option, [contenteditable]",
 			selector;
 
 		var existing = _.find(ed.mergeable_selectors, function (entry) {
@@ -40,14 +40,20 @@ var LayoutEditor = {
 		});
 
 		selector.subscribe('DS:start:pre', function (data) {
-			var target = data.event && data.event.target;
-			if (target && $(target).closest(cancel).length) {
-				if (data.event && data.event.preventDefault) data.event.preventDefault();
-				if (window.getSelection) window.getSelection().removeAllRanges();
+			var ev = data.event || {},
+				target = ev.target && ev.target.nodeType === 3 ? ev.target.parentNode : ev.target,
+				$target = $(target),
+				button = typeof ev.button === 'number' ? ev.button : 0,
+				is_editable = $target.closest('.upfront-object-content, .upfront-plain_txt, .upfront-text, .redactor-box, .redactor-editor, .ueditable, .ueditable-inactive, input, textarea, select, option, [contenteditable]').length > 0
+			;
+
+			// Preserve native caret placement and text selection in editable fields.
+			if (button !== 0 || is_editable || (target && $target.closest(cancel).length)) {
 				selector.break();
 				return;
 			}
-			if (data.event && data.event.preventDefault) data.event.preventDefault();
+
+			if (ev.preventDefault) ev.preventDefault();
 			if (window.getSelection) window.getSelection().removeAllRanges();
 		});
 		selector.subscribe('DS:start', function (data) {

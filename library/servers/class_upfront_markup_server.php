@@ -120,14 +120,14 @@ class Upfront_Server_MarkupServer extends Upfront_Server {
 
 	private function _get_l10n ($key=false) {
 		$l10n = array(
-			self::ORIGIN_INTERNAL => __('WordPress internal', 'upfront'),
-			self::ORIGIN_PLUGIN => __('Unknown plugin', 'upfront'),
-			self::ORIGIN_THEME => __('Unknown theme', 'upfront'),
-			'done' => __('Done', 'upfront'),
-			'insert_shortcode' => __('Insert shortcode', 'upfront'),
-			'insert_image' => __('Insert image', 'upfront'),
-			'waiting' => __('Please, wait', 'upfront'),
-			'select_area' => __('Please, select an area', 'upfront'),
+			self::ORIGIN_INTERNAL => __('CMS Intern', 'upfront'),
+			self::ORIGIN_PLUGIN => __('Unbekanntes Plugin', 'upfront'),
+			self::ORIGIN_THEME => __('Unbekanntes Theme', 'upfront'),
+			'done' => __('Erledigt', 'upfront'),
+			'insert_shortcode' => __('Shortcode einfügen', 'upfront'),
+			'insert_image' => __('Bild einfügen', 'upfront'),
+			'waiting' => __('Bitte warten', 'upfront'),
+			'select_area' => __('Bereich auswählen', 'upfront'),
 		);
 		return !empty($key)
 			? (!empty($l10n[$key]) ? $l10n[$key] : $key)

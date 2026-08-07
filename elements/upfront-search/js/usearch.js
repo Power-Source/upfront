@@ -73,7 +73,7 @@ var UsearchView = Upfront.Views.ObjectView.extend({
  */
 var UsearchElement = Upfront.Views.Editor.Sidebar.Element.extend({
     priority: 200,
-    draggable: false,
+    draggable: true,
 	/**
 	 * Set up element appearance that will be displayed on sidebar panel.
 	 */

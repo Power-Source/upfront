@@ -127,6 +127,8 @@
                     })
                     ;
 
+                options = _.extend({no_filtering: 1}, options || {});
+
                 this.$('.use_selection_container').addClass('inactive');
                 this.selected = false;
 

@@ -48,15 +48,30 @@ class Upfront_Editor_Ajax extends Upfront_Server {
 	}
 
 	function handle_model_request(){
+		$trace_id = substr(md5(uniqid('upfront-model-', true)), 0, 10);
+		$started = microtime(true);
+		$trace_file = ABSPATH . 'wp-content/upfront-ajax-debug.log';
 		$data = stripslashes_deep($_POST);
-		$action = $data['model_action'];
+		$action = !empty($data['model_action']) ? $data['model_action'] : false;
+		error_log(sprintf("[UpfrontAjax %s] start uri=%s action=%s keys=%s\n", $trace_id, isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '', (string)$action, implode(',', array_keys((array)$data))), 3, $trace_file);
 
 		if (!Upfront_Permissions::current(Upfront_Permissions::BOOT)) $this->_reject();
+		if (!$action) $this->_out(new Upfront_JsonResponse_Error('Missing model action.'));
 
 		if(!method_exists($this, $action))
 			$this->_out(new Upfront_JsonResponse_Error($action . ' not implemented.'));
 
-		call_user_func(array($this, $action), $data);
+		try {
+			call_user_func(array($this, $action), $data);
+		}
+		catch (Throwable $e) {
+			error_log(sprintf("[UpfrontAjax %s] exception action=%s message=%s file=%s line=%d\n", $trace_id, (string)$action, $e->getMessage(), $e->getFile(), $e->getLine()), 3, $trace_file);
+			throw $e;
+		}
+		finally {
+			$elapsed = round((microtime(true) - $started) * 1000, 2);
+			error_log(sprintf("[UpfrontAjax %s] finish action=%s duration_ms=%s\n", $trace_id, (string)$action, $elapsed), 3, $trace_file);
+		}
 	}
 
 	function create_post_type () {
@@ -173,7 +188,7 @@ class Upfront_Editor_Ajax extends Upfront_Server {
 	}
 
 	public function fetch_filter_data ($data) {
-		$post_type = $data['postType'] ? $data['postType'] : 'post';
+		$post_type = !empty($data['postType']) ? $data['postType'] : 'post';
 		$statuses = $this->_get_status_filter_data($post_type);
 		$dates = $this->_get_date_filter_data($post_type);
 		$categories = $this->_get_category_filter_data($post_type);
@@ -297,6 +312,10 @@ class Upfront_Editor_Ajax extends Upfront_Server {
 
 		$months = apply_filters( 'months_dropdown_results', $months, $post_type );
 
+		if (!is_array($months)) {
+			return array();
+		}
+
 		$month_count = count( $months );
 		// Array to return with values and labels of dates.
 		$date_values_and_labels = array();
@@ -304,7 +323,7 @@ class Upfront_Editor_Ajax extends Upfront_Server {
 		$l10n = $l10n['global']['content'];
 
 		if ( !$month_count || ( 1 == $month_count && 0 == $months[0]->month ) )
-			return;
+			return array();
 
 		// Add All Dates option.
 		$date_values_and_labels[] = array(
@@ -377,6 +396,9 @@ class Upfront_Editor_Ajax extends Upfront_Server {
 		$get_terms_args = $r;
 		unset( $get_terms_args['name'] );
 		$categories = get_terms( $r['taxonomy'], $get_terms_args );
+		if (is_wp_error($categories) || !is_array($categories)) {
+			$categories = array();
+		}
 
 		// Add All Categories option.
 		//$l10n = Upfront_EditorL10n_Server::add_l10n_strings(array());
@@ -576,21 +598,60 @@ class Upfront_Editor_Ajax extends Upfront_Server {
 	}
 
 	function fetch_post_list($data){
-		if(!$data['postType'])
+		if(empty($data['postType']))
 			$this->_out(new Upfront_JsonResponse_Error("Invalid post type."));
 
-		$query = $this->_spawn_query($data['postType'], $data);
+		try {
+			$query = $this->_spawn_query($data['postType'], $data);
+		}
+		catch (Throwable $e) {
+			error_log('Upfront fetch_post_list spawn_query failed: ' . $e->getMessage());
+			$this->_out(new Upfront_JsonResponse_Success(array(
+				"results" => array(),
+				"filtering" => array(
+					'statuses' => array(),
+					'dates' => array(),
+					'categories' => array(),
+					'post_types' => array(),
+				),
+				"pagination" => array(
+					"total" => 0,
+					"page_size" => isset($data['limit']) ? (int)$data['limit'] : 25,
+					"page" => isset($data['page']) ? (int)$data['page'] : 0,
+					"pages" => 0,
+				)
+			)));
+		}
 		$limit = isset($data['limit']) ? (int)$data['limit'] : 25;
 		$page = isset($data['page']) ? (int)$data['page'] : 0;
 		// For pages hierarchy.
-		$walker = $this->walker($query->posts, $limit, $page);
+		$walker = array('posts' => array(), 'pages' => 0);
+		if (isset($query->posts) && is_array($query->posts)) {
+			$walker = $this->walker($query->posts, $limit, $page);
+		}
 		// If hierarchical, pass through query to walker.
-		$posts = isset($data['hierarchical']) ? $walker['posts'] : $query->posts;
+		$posts = isset($data['hierarchical']) ? $walker['posts'] : (isset($query->posts) && is_array($query->posts) ? $query->posts : array());
 		// If hierarchical, pass through pages number to walker.
 		// This is because child pages are placed on parent page despite page limit.
-		$pages = (isset($data['hierarchical']) ? $walker['pages'] : (int)$query->found_posts / $limit);
+		$pages = (isset($data['hierarchical']) ? $walker['pages'] : (isset($query->found_posts) ? (int)$query->found_posts / $limit : 0));
 		// Filtering dropdown data for post list.
-		$filtering = $this->fetch_filter_data($data);
+		$filtering = array(
+			'statuses' => array(),
+			'dates' => array(),
+			'categories' => array(),
+			'post_types' => array(),
+		);
+		if (empty($data['no_filtering'])) {
+			try {
+				$computed_filtering = $this->fetch_filter_data($data);
+				if (is_array($computed_filtering)) {
+					$filtering = array_merge($filtering, $computed_filtering);
+				}
+			}
+			catch (Throwable $e) {
+				error_log('Upfront fetch_post_list filter_data failed: ' . $e->getMessage());
+			}
+		}
 
 		if($posts) {
 			for ($i=0; $i < sizeof($posts); $i++) {
@@ -600,26 +661,29 @@ class Upfront_Editor_Ajax extends Upfront_Server {
 					$posts[$i]->post_excerpt = apply_filters('the_excerpt', $posts[$i]->post_excerpt);
 				}
 
-				if($data['withAuthor']){
+				if(!empty($data['withAuthor'])){
 					$posts[$i]->author = $this->remove_private_user_fields(new WP_User($posts[$i]->post_author));
 				}
 
-				if($data['withThumbnail']){
+				if(!empty($data['withThumbnail'])){
 					$posts[$i]->thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id($posts[$i]->ID));
 				}
 
-				if($data['withMeta']){
+				if(!empty($data['withMeta'])){
 					$posts[$i]->meta = $this->parse_single_meta(get_metadata('post', $posts[$i]->ID));
 				}
 				$posts[$i]->permalink = get_permalink($posts[$i]->ID);
 			}
+		}
+		else {
+			$posts = array();
 		}
 
 		$this->_out(new Upfront_JsonResponse_Success(array(
 			"results" => $posts,
 			"filtering" => $filtering,
 			"pagination" => array(
-				"total" => $query->found_posts,
+				"total" => isset($query->found_posts) ? $query->found_posts : 0,
 				"page_size" => $limit,
 				"page" => $page,
 				"pages" => $pages,
@@ -1037,11 +1101,28 @@ class Upfront_Editor_Ajax extends Upfront_Server {
 			'post_type' => $post_type,
 			'posts_per_page' => $posts_per_page,
 			'paged' => $page,
-			'post_status' => $status,
-			'm' => $date,
-			'cat' => $category,
 		);
-		if ($search) $args['s'] = $search;
+
+		if ($status !== false && $status !== '') {
+			$args['post_status'] = $status;
+		}
+		if ($date !== false && $date !== '' && $date !== '0') {
+			$args['m'] = $date;
+		}
+		if ($category !== false && $category !== '' && $category !== '0') {
+			$args['cat'] = $category;
+		}
+		if ($search) {
+			$args['s'] = $search;
+		}
+
+		// Lightweight mode used by the link picker: avoid expensive/third-party query filters.
+		if (!empty($data['no_filtering'])) {
+			$args['no_found_rows'] = true;
+			$args['update_post_meta_cache'] = false;
+			$args['update_post_term_cache'] = false;
+			$args['suppress_filters'] = true;
+		}
 
 		return new WP_Query($args);
 	}

@@ -2348,10 +2348,10 @@
 							'<div class="upfront-image-detail-link">' +
 							'<label class="upfront-field-label">Image links to:</label>' +
 							'<ul>' +
-							'<li><label><input class="upfront-field-radio" type="radio" ' + no_link + ' name="link_to" value="" /> No link</label></li>' +
-							'<li><label><input class="upfront-field-radio" type="radio" ' + popup_link + ' name="link_to" value="popup" /> Larger version (opens in lightbox)</label></li>' +
+							'<li><label><input class="upfront-field-radio" type="radio" ' + no_link + ' name="link_to" value="" /> Kein Link</label></li>' +
+							'<li><label><input class="upfront-field-radio" type="radio" ' + popup_link + ' name="link_to" value="popup" /> Größere Version (öffnet im Lightbox)</label></li>' +
 							'<li><label><input class="upfront-field-radio" type="radio" ' + link_link + ' name="link_to" value="link" /> Link <input class="upfront-field upfront-field-text" type="text" placeholder="http://www.google.com" value="' + link_value + '" /></label></li>' +
-							'<li><label><input class="upfront-field-radio" type="radio" name="link_to" value="post" /> Post or page <em>/your-cool-post/</em></label></li>' +
+							'<li><label><input class="upfront-field-radio" type="radio" name="link_to" value="post" /> Beitrag oder Seite <em>/dein-toller-beitrag/</em></label></li>' +
 							'</ul>' +
 							'</div>' +
 							'<button class="upfront-image-detail-button" type="button">OK</button>'

@@ -6,15 +6,15 @@ class Upfront_Posts_Walker extends Walker_Page {
 	public $list = array();
 
 	// Custom walk method.
-	public function walk($elements, $max_depth = 0) {
-		parent::walk($elements, $max_depth);
+	public function walk($elements, $max_depth = 0, ...$args) {
+		parent::walk($elements, $max_depth, ...$args);
 		// Return the list instead of $output.
 		return $this->list;
 	}
 
 	// Custom paged_walk method to work with pagination.
-	public function paged_walk( $elements, $max_depth, $page_num, $per_page ) {
-		parent::paged_walk($elements, $max_depth, $page_num, $per_page);
+	public function paged_walk( $elements, $max_depth, $page_num, $per_page, ...$args ) {
+		parent::paged_walk($elements, $max_depth, $page_num, $per_page, ...$args);
 		// Return the list instead of $output.
 		return $this->list;
 	}

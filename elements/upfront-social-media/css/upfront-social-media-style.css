@@ -74,6 +74,10 @@
 {
     background: url("../images/SM_Sprite_Style_11-01.svg") no-repeat;
 }
+/* Keep legacy button styles available, but use the flatter icon set by default */
+.upfront-button-style-2 .usocial-button {
+	background: url("../images/SM_Sprite_Style_11-01.svg") no-repeat;
+}
 .usocial-button-small .usocial-button
 {
     width: 16px;
@@ -100,8 +104,16 @@
 .usocial-button-large .usocial-button.google-link {
     background-position: -30px -230px;
 }
+.usocial-button-large .usocial-button.instagram-link {
+    background: linear-gradient(135deg, #f58529 0%, #dd2a7b 45%, #8134af 75%, #515bd4 100%);
+    border-radius: 22%;
+    position: relative;
+}
 .usocial-button-large .usocial-button.linked-in-link {
     background-position: -30px -430px;
+}
+.usocial-button-large .usocial-button.linkedin-link {
+	background-position: -30px -430px;
 }
 .usocial-button-large .usocial-button.pinterest-link {
     background-position: -30px -630px;
@@ -119,8 +131,16 @@
 .usocial-button-medium .usocial-button.google-link {
     background-position: -18px -138px;
 }
+.usocial-button-medium .usocial-button.instagram-link {
+    background: linear-gradient(135deg, #f58529 0%, #dd2a7b 45%, #8134af 75%, #515bd4 100%);
+    border-radius: 22%;
+    position: relative;
+}
 .usocial-button-medium .usocial-button.linked-in-link {
     background-position: -18px -258px;
+}
+.usocial-button-medium .usocial-button.linkedin-link {
+	background-position: -18px -258px;
 }
 .usocial-button-medium .usocial-button.pinterest-link {
     background-position: -18px -378px;
@@ -139,6 +159,11 @@
 .usocial-button-small .usocial-button.google-link {
     background-position: -12px -92px;
 }
+.usocial-button-small .usocial-button.instagram-link {
+    background: linear-gradient(135deg, #f58529 0%, #dd2a7b 45%, #8134af 75%, #515bd4 100%);
+    border-radius: 22%;
+    position: relative;
+}
 .usocial-button-small .usocial-button.linked-in-link {
     background-position: -12px -172px;
 }
@@ -148,10 +173,13 @@
 .usocial-button-small .usocial-button.youtube-link {
     background-position: -12px -132px;
 }
+.usocial-button-small .usocial-button.linkedin-link {
+	background-position: -12px -172px;
+}
 
 .upfront-fan-counts
 {
-    background: url("../images/SM_Sprite_Style_01-01.svg") no-repeat;
+    background: url("../images/SM_Sprite_Style_11-01.svg") no-repeat;
     min-height: 40px;
     min-width: 40px;
     display: inline-block;
@@ -176,6 +204,79 @@
 }
 .upfront-fan-counts.google-count {
     background-position: -30px -230px;
+}
+.upfront-fan-counts.instagram-count {
+    background: none;
+    padding-left: 54px;
+    position: relative;
+}
+.upfront-fan-counts.instagram-count:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #f58529 0%, #dd2a7b 45%, #8134af 75%, #515bd4 100%);
+}
+.upfront-fan-counts.instagram-count:after {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    width: 12px;
+    height: 12px;
+    border: 2px solid #fff;
+    border-radius: 4px;
+}
+
+.usocial-button.instagram-link:before {
+    content: '';
+    position: absolute;
+    left: 24%;
+    top: 24%;
+    width: 52%;
+    height: 52%;
+    border: 2px solid #fff;
+    border-radius: 28%;
+    box-sizing: border-box;
+}
+
+.usocial-button.instagram-link:after {
+    content: '';
+    position: absolute;
+    right: 23%;
+    top: 23%;
+    width: 10%;
+    height: 10%;
+    background: #fff;
+    border-radius: 50%;
+}
+
+.usocial-instagram-like-btn {
+    display: inline-block;
+    padding: 0 12px;
+    height: 24px;
+    line-height: 24px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    background: linear-gradient(135deg, #f58529 0%, #dd2a7b 45%, #8134af 75%, #515bd4 100%);
+}
+
+.usocial-instagram.horizontal {
+    width: 90px;
+    height: 24px;
+}
+
+.usocial-instagram.vertical {
+    width: 70px;
+    height: 60px;
+    display: flex;
+    align-items: center;
 }
 /* New settings*/
 /* TODO: Need to remove this width  */
@@ -414,7 +515,7 @@ i.usocial-align-icon {
     width:100px;
     height: 23px;
 }
-.usocial-google.vertical{
+.usocial-instagram.vertical{
     margin-top: 2px;
     height: 60px;
 }
@@ -428,9 +529,7 @@ i.usocial-align-icon {
 .usocial-twitter.horizontal{
     width: 90px;
 }
-.usocial-google.horizontal{
-    width: 70px;
-}
+
 
 
 .upfront-global-social-settings label.upfront-field-label-block {

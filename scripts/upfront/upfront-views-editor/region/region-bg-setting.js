@@ -543,6 +543,7 @@
 			render_sticky_settings: function ($region_sticky) {
 				var collection = this.model.collection,
 					has_sticky = collection.findWhere({sticky: '1'}),
+					region_height = null,
 					region_sticky = new Fields.Toggle({
 						model: this.model,
 						name: 'sticky',
@@ -560,8 +561,18 @@
 					})
 				;
 
+				if ( this.for_view && this.for_view.$el && this.for_view.$el.length ) {
+					region_height = this.for_view.$el.height();
+				}
+				else {
+					var region_name = this.model && this.model.get ? this.model.get('name') : false,
+						$region = region_name ? $('.upfront-region-' + region_name).first() : false
+					;
+					if ( $region && $region.length ) region_height = $region.height();
+				}
+
 				// Show the sticky option if there's no sticky region yet AND the region is <= 300px height
-				if ( ( !has_sticky && this.for_view.$el.height() <= 300 ) || this.model.get('sticky') ) {
+				if ( ( !has_sticky && ( region_height === null || region_height <= 300 ) ) || this.model.get('sticky') ) {
 					region_sticky.render();
 					region_sticky.$el.find('label').append('<span class="upfront-bg-setting-sticky-toggle"></span>');
 					$region_sticky.append(region_sticky.$el);

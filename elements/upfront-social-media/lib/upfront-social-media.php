@@ -64,7 +64,7 @@ class Upfront_SocialMediaView extends Upfront_Object {
 		$words = array(
 			'facebook' => self::_get_l10n('fans'),
 			'twitter' => self::_get_l10n('followers'),
-			'google' => self::_get_l10n('subscribers'),
+			'instagram' => self::_get_l10n('followers'),
 		);
 		$output = '';
 		$tpl = '<div data-id="upfront-icon-%s" class="ufront-%s-count-box upfront-social-icon usocial_count_wrapper">
@@ -137,7 +137,7 @@ class Upfront_SocialMediaView extends Upfront_Object {
 				'services' => array(
 					'facebook' => array('name' => 'Facebook', 'id' => 'facebook', 'url' => '', 'active' => false, 'meta' => array()),
 					'twitter' => array('name' => 'Twitter', 'id' => 'twitter', 'url' => '', 'active' => false, 'meta' => array(array('id' => 'consumer_key', 'name' => self::_get_l10n('consumer_key'), 'value' => ''), array('id' => 'consumer_secret', 'name' => self::_get_l10n('consumer_secret'), 'value' => ''))),
-					'google' => array('name' => 'Google +', 'id' => 'google', 'url' => '', 'active' => false, 'meta' => array())
+					'instagram' => array('name' => 'Instagram', 'id' => 'instagram', 'url' => '', 'active' => false, 'meta' => array())
 				),
 				'inpost' => array('yes'),
 				'after_title' => array('yes'),
@@ -158,12 +158,12 @@ class Upfront_SocialMediaView extends Upfront_Object {
 		return array(
 			'social_type' => 'likes',
 
-			'like_social_media_services' => array("facebook", "twitter", "google"),
+			'like_social_media_services' => array("facebook", "twitter", "instagram"),
 
 			'count_social_media_services' => array(),
 
 			'button_size' => 'medium',
-			'button_style' => 'button-style-2',
+			'button_style' => 'button-style-3',
 			'call_social_media_services' => array(),
 
 			'id_slug' => 'SocialMedia',
@@ -186,7 +186,7 @@ class Upfront_SocialMediaView extends Upfront_Object {
 			'select_backend_option' => __('Please select an option from backend', 'upfront'),
 			'fans' => __('Fans', 'upfront'),
 			'followers' => __('Followers', 'upfront'),
-			'subscribers' => __('Subscribers', 'upfront'),
+			'subscribers' => __('Followers', 'upfront'),
 			'add_some_services' => __('Please, add some services', 'upfront'),
 			'consumer_key' => __('Consumer Key', 'upfront'),
 			'consumer_secret' => __('Consumer Secret', 'upfront'),
@@ -195,7 +195,7 @@ class Upfront_SocialMediaView extends Upfront_Object {
 			'settings_not_found' => __('Settings not found', 'upfront'),
 			'no_creds' => __('No credentials', 'upfront'),
 			'no_token' => __('No token', 'upfront'),
-			'google_page_error' => __('Google page not found', 'upfront'),
+			'instagram_page_error' => __('Instagram page not found', 'upfront'),
 			'error_unknown' => __('Unknown service', 'upfront'),
 			'global_settings' => __('Global Social Settings', 'upfront'),
 			'ok' => __('OK', 'upfront'),
@@ -211,14 +211,14 @@ class Upfront_SocialMediaView extends Upfront_Object {
 				'linked_info' => __('The box that contains LinkedIn button', 'upfront'),
 				'twitter_label' => __('Twitter box', 'upfront'),
 				'twitter_info' => __('The box that contains twitter button', 'upfront'),
-				'google_label' => __('Google box', 'upfront'),
-				'google_info' => __('The box that contains Google button', 'upfront'),
+				'google_label' => __('Instagram box', 'upfront'),
+				'google_info' => __('The box that contains Instagram button', 'upfront'),
 				'fb_label' => __('Facebook box', 'upfront'),
 				'fb_info' => __('The box that contains Facebook button', 'upfront'),
 				'pin_label' => __('Pinterest box', 'upfront'),
 				'pin_info' => __('The box that contains Pinterest button', 'upfront'),
-				'yt_label' => __('Youtube box', 'upfront'),
-				'yt_info' => __('The box that contains Youtube button', 'upfront'),
+				'yt_label' => __('YouTube box', 'upfront'),
+				'yt_info' => __('The box that contains YouTube button', 'upfront'),
 			),
 			'awesome_stuff' => __('What an awesome stuff! ', 'upfront'),
 			'no_global_settings_nag' => __('There is no global settings for the social media. Please configure them pressing the settings button.', 'upfront'),
@@ -226,7 +226,7 @@ class Upfront_SocialMediaView extends Upfront_Object {
 			'opts' => array(
 				'layout_label' => __('Layout Style', 'upfront'),
 				'layout_title' => __('Layout Style settings', 'upfront'),
-				'action' => __('Like,<br> Tweet, +1', 'upfront'),
+				'action' => __('Like,<br> Tweet, Share', 'upfront'),
 				'counts' => __('Fan, Follower count', 'upfront'),
 				'cta' => __('Call to action icon', 'upfront'),
 				'general_label' => __('General', 'upfront'),
@@ -380,9 +380,8 @@ class Upfront_SocialMedia_Setting extends Upfront_Server {
 				<iframe class="social-frame usocial-twitter {{style}} like" allowtransparency="true" frameborder="0" scrolling="no" src="//platform.twitter.com/widgets/tweet_button.html?text={{text}}&amp;url={{url}}&amp;original_referer={{url}}&amp;count={{style}}&amp;size=medium" style=""></iframe>
 			</div>',
 
-			'google-likes' => '<div data-id="upfront-icon-google" class="upfront-social-icon social-frame usocial-google {{style}} like">
-				<script type="text/javascript" src="//apis.google.com/js/plusone.js"></script>
-				<div class="g-plusone" data-size="{{size}}"></div>
+			'instagram-likes' => '<div data-id="upfront-icon-instagram" class="upfront-social-icon social-frame usocial-instagram {{style}} like">
+				<a class="usocial-instagram-like-btn" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
 			</div>'
 		);
 
@@ -534,20 +533,17 @@ class Upfront_SocialMedia_Setting extends Upfront_Server {
 			return $followers_count;
 		}
 
-		else if($id == 'google'){
+		else if($id == 'instagram'){
 			if ($name){
-				$page = wp_remote_get(
-					'https://plusone.google.com/_/+1/fastbutton?bsv&annotation=inline&hl=it&url=' . urlencode('https://plus.google.com/' . $name),
-					array('sslverify' => false)
-				);
+				$page = wp_remote_get('https://www.instagram.com/' . $name . '/', array('sslverify' => false));
 
 				$count = self::COUNT_ERROR;
 				if (200 == wp_remote_retrieve_response_code($page)) {
 					$body = wp_remote_retrieve_body($page);
-					if (preg_match('/window.__SSR *= *{c: *(\d+)/is', $body, $match) ){
+					if (preg_match('/"edge_followed_by"\s*:\s*\{"count"\s*:\s*(\d+)/is', $body, $match) ){
 						$count = $match[1];
 						set_transient(
-							'usocial_google_' . $transient_id,
+							'usocial_instagram_' . $transient_id,
 							array('count' => $count, 'url' => $url),
 							$transient_time
 						);
@@ -556,7 +552,7 @@ class Upfront_SocialMedia_Setting extends Upfront_Server {
 
 				return $count;
 			}
-			return Upfront_SocialMediaView::_get_l10n('google_page_error');
+			return Upfront_SocialMediaView::_get_l10n('instagram_page_error');
 		}
 		return Upfront_SocialMediaView::_get_l10n('error_unknown');
 	}
@@ -615,8 +611,10 @@ class Upfront_SocialMedia_Setting extends Upfront_Server {
 	}
 
 	protected static function get_url_last_part($url){
-		$keys = parse_url($url); // parse the url
-		return end(explode("/", $keys['path'])); // splitting the path
+		$keys = parse_url($url);
+		if (empty($keys['path'])) return '';
+		$parts = array_values(array_filter(explode('/', trim($keys['path'], '/'))));
+		return empty($parts) ? '' : end($parts);
 	}
 
 }

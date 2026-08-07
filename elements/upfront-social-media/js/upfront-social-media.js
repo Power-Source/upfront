@@ -232,9 +232,9 @@
             //Button type services
             var bs = _.clone(globals.services);
 
-            bs.push({id: 'linked-in', name: 'Linked in', active: false, url: '', meta:{}});
+            bs.push({id: 'linked-in', name: 'LinkedIn', active: false, url: '', meta:{}});
             bs.push({id: 'pinterest', name: 'Pinterest', active: false, url: '', meta:{}});
-            bs.push({id: 'youtube', name: 'Youtube', active: false, url: '', meta:{}});
+            bs.push({id: 'youtube', name: 'YouTube', active: false, url: '', meta:{}});
 
             return _.extend({}, defaults, {
                 services: globals.services,
@@ -309,7 +309,7 @@
                 words = {
                     'facebook': l10n.fans,
                     'twitter': l10n.followers,
-                    'google': l10n.subscribers
+                    'instagram': l10n.followers
                 }
             ;
 
@@ -403,7 +403,7 @@
                     tpls = {
                         facebook: 'fb_like-tpl',
                         twitter: 'tweet-tpl',
-                        google:'plusone-tpl'
+                        instagram:'instagram-like-tpl'
                     }
                 ;
                 _.each(services, function(s){
@@ -455,7 +455,7 @@
      */
     var SocialMediaElement = Upfront.Views.Editor.Sidebar.Element.extend({
         priority: 60,
-        draggable: false,
+        draggable: true,
         render: function () {
             this.$el.addClass('upfront-icon-element upfront-icon-element-social');
             this.$el.html(l10n.element_name);
@@ -1026,27 +1026,23 @@
 // The definitions part is over.
 // Now, to tie it all up and expose to the Subapplication.
 
-    //Upfront.Application.LayoutEditor.add_object("SocialMedia", { Removing social element for now
-    //    "Model": SocialMediaModel,
-    //    "View": SocialMediaView,
-    //    "Element": SocialMediaElement,
-    //    "Settings": SocialSettings,
-	// cssSelectors: {
-			// '.upfront-object-content': {label: l10n.css.container_label, info: l10n.css.container_info},
-			// '.upfront-social-icon ': {label: l10n.css.box_label, info: l10n.box_info},
-			// '.upfront-linked-in-link-box': {label: l10n.css.linked_label, info: l10n.css.linked_info},
-			// '.upfront-twitter-link-box, .ufront-twitter-count-box, .upfront-social-icon-twitter': {label: l10n.css.twitter_label, info: l10n.css.twitter_info},
-			// '.upfront-google-link-box, .ufront-google-count-box, .upfront-social-icon-google': {label: l10n.css.google_label, info: l10n.css.google_info},
-			// '.upfront-facebook-link-box, .ufront-facebook-count-box, .upfront-social-icon-facebook': {label: l10n.css.fb_label, info: l10n.css.fb_info},
-			// '.upfront-pinterest-link-box': {label: l10n.css.pin_label, info: l10n.css.pin_info},
-			// '.upfront-youtube-link-box': {label: l10n.css.yt_label, info: l10n.css.yt_info},
-	// },
-		// cssSelectorsId: Upfront.data.usocial.defaults.type
-		///*,
-    //    'anchor': {
-    //      is_target: false
-    //    }*/
-    //});
+    Upfront.Application.LayoutEditor.add_object("SocialMedia", {
+        "Model": SocialMediaModel,
+        "View": SocialMediaView,
+        "Element": SocialMediaElement,
+        "Settings": SocialSettings,
+        cssSelectors: {
+            '.upfront-object-content': {label: l10n.css.container_label, info: l10n.css.container_info},
+            '.upfront-social-icon ': {label: l10n.css.box_label, info: l10n.css.box_info},
+            '.upfront-linked-in-link-box': {label: l10n.css.linked_label, info: l10n.css.linked_info},
+            '.upfront-twitter-link-box, .ufront-twitter-count-box, .upfront-social-icon-twitter': {label: l10n.css.twitter_label, info: l10n.css.twitter_info},
+            '.upfront-google-link-box, .ufront-google-count-box, .upfront-social-icon-google': {label: l10n.css.google_label, info: l10n.css.google_info},
+            '.upfront-facebook-link-box, .ufront-facebook-count-box, .upfront-social-icon-facebook': {label: l10n.css.fb_label, info: l10n.css.fb_info},
+            '.upfront-pinterest-link-box': {label: l10n.css.pin_label, info: l10n.css.pin_info},
+            '.upfront-youtube-link-box': {label: l10n.css.yt_label, info: l10n.css.yt_info}
+        },
+        cssSelectorsId: Upfront.data.usocial.defaults.type
+    });
 
     Upfront.Models.SocialMediaModel = SocialMediaModel;
     Upfront.Views.SocialMediaView = SocialMediaView;

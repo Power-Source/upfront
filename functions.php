@@ -551,3 +551,32 @@ function uf_add_woocommerce_support() {
 	add_theme_support('woocommerce');
 }
 add_action('after_setup_theme', 'uf_add_woocommerce_support');
+
+/**
+ * Temporary targeted debug trace for failing Upfront AJAX model requests.
+ * Writes to wp-content/upfront-ajax-debug.log regardless of PHP's global error_log target.
+ */
+function uf_trace_upfront_ajax_model_requests() {
+	if (!defined('DOING_AJAX') || !DOING_AJAX) return;
+	if (empty($_POST['action']) || $_POST['action'] !== 'upfront-wp-model') return;
+
+	$trace_id = substr(md5(uniqid('uf-ajax-', true)), 0, 12);
+	$start = microtime(true);
+	$log_file = WP_CONTENT_DIR . '/upfront-ajax-debug.log';
+	$model_action = isset($_POST['model_action']) ? (string)$_POST['model_action'] : '';
+	$keys = implode(',', array_keys((array)$_POST));
+
+	error_log(sprintf("[%s] start uri=%s action=%s model_action=%s keys=%s\n", $trace_id, isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '', isset($_POST['action']) ? $_POST['action'] : '', $model_action, $keys), 3, $log_file);
+
+	register_shutdown_function(function () use ($trace_id, $start, $log_file, $model_action) {
+		$elapsed = round((microtime(true) - $start) * 1000, 2);
+		$last = error_get_last();
+		if ($last && in_array($last['type'], array(E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR), true)) {
+			error_log(sprintf("[%s] fatal model_action=%s duration_ms=%s type=%s msg=%s file=%s line=%s\n", $trace_id, $model_action, $elapsed, $last['type'], $last['message'], $last['file'], $last['line']), 3, $log_file);
+		}
+		else {
+			error_log(sprintf("[%s] finish model_action=%s duration_ms=%s\n", $trace_id, $model_action, $elapsed), 3, $log_file);
+		}
+	});
+}
+add_action('init', 'uf_trace_upfront_ajax_model_requests', 1);
