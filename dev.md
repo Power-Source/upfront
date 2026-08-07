@@ -55,13 +55,27 @@ Alias fuer `npm run build-css`.
 - `grunt`/default task fuehrt `makepot` aus.
 - CSS wird nicht mehr ueber Grunt gebaut.
 
+Hinweis: Die alte POT-Erstellung ueber `grunt-wp-i18n` kann unter modernen PHP-Versionen
+(z. B. PHP 8.4) fehlschlagen, da dort veraltete PHP-Funktionen genutzt werden.
+
 ## Sprachdateien (POT)
 
-Falls benoetigt:
+Aktueller, empfohlener Weg:
 
 ```bash
-npx grunt makepot
+wp i18n make-pot . languages/upfront.pot --slug=upfront --exclude=node_modules,vendor,build,.git,test
 ```
+
+Optionaler Check auf deutsche Quellstrings in der POT:
+
+```bash
+rg -n 'msgid "Allgemeine Einstellungen"|msgid "Externe Avatare laden"' languages/upfront.pot
+```
+
+Wichtig:
+
+- Die POT uebernimmt die Quelltexte (`msgid`) so, wie sie im Code stehen.
+- In diesem Projekt sind viele Quelltexte bereits deutsch, einzelne Eintraege koennen weiterhin englisch sein, wenn sie im Code noch englisch hinterlegt sind.
 
 ## Warum diese Umstellung?
 
