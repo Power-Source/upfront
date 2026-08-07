@@ -461,7 +461,7 @@
                 set: function(type)
                 {
                     // focus
-                    if (!this.utils.browser('msie')) this.$editor.focus();
+                    if (!this.utils.browser('msie') && this.$editor[0] && this.$editor[0].focus) this.$editor[0].focus();
 
                     this.buffer.set();
                     this.selection.save();
@@ -639,7 +639,7 @@
                     this.block.isRemoveInline = (tag == 'pre' || tag.search(/h[1-6]/i) != -1);
 
                     // focus
-                    if (!this.utils.browser('msie')) this.$editor.focus();
+                    if (!this.utils.browser('msie') && this.$editor[0] && this.$editor[0].focus) this.$editor[0].focus();
 
                     this.block.blocks = this.selection.getBlocks();
 
@@ -1216,7 +1216,7 @@
                 loadContent: function()
                 {
                     var func = (this.build.isTextarea()) ? 'val' : 'html';
-                    this.content = $.trim(this.$element[func]());
+                    this.content = String(this.$element[func]() || '').trim();
                 },
                 enableEditor: function()
                 {
@@ -1784,7 +1784,7 @@
                 setAfterOrBefore: function(node, type)
                 {
                     // focus
-                    if (!this.utils.browser('msie')) this.$editor.focus();
+                    if (!this.utils.browser('msie') && this.$editor[0] && this.$editor[0].focus) this.$editor[0].focus();
 
                     node = node[0] || node;
 
@@ -1822,7 +1822,7 @@
                     cloned.selectNodeContents(node);
                     cloned.setEnd(this.range.endContainer, this.range.endOffset);
 
-                    return $.trim(cloned.toString()).length;
+                    return String(cloned.toString() || '').trim().length;
                 },
                 getOffset: function()
                 {
@@ -2012,7 +2012,7 @@
                 },
                 onPaste: function(html, setMode)
                 {
-                    html = $.trim(html);
+                    html = String(html || '').trim();
 
                     html = html.replace(/\$/g, '&#36;');
 
@@ -2295,7 +2295,7 @@
                 {
                     if (!this.utils.browser('msie')) return html;
 
-                    var tmp = $.trim(html);
+                    var tmp = String(html || '').trim();
                     if (tmp.search(/^<a(.*?)>(.*?)<\/a>$/i) === 0)
                     {
                         html = html.replace(/^<a(.*?)>(.*?)<\/a>$/i, "$2");
@@ -2403,7 +2403,7 @@
                     tmp.innerHTML = html;
                     html = tmp.textContent || tmp.innerText;
 
-                    return $.trim(html);
+                    return String(html || '').trim();
                 },
                 getPlainText: function(html, paragraphize)
                 {
@@ -2625,7 +2625,7 @@
             return {
                 set: function(html)
                 {
-                    html = $.trim(html.toString());
+                    html = String(html ?? '').trim();
 
                     // clean
                     html = this.clean.onSet(html);
@@ -2714,7 +2714,8 @@
                     // indent code
                     html = this.tabifier.get(html);
 
-                    this.$textarea.val(html).height(height).show().focus();
+                    this.$textarea.val(html).height(height).show();
+                    if (this.$textarea[0] && this.$textarea[0].focus) this.$textarea[0].focus();
                     this.$textarea.on('keydown.redactor-textarea-indenting', this.code.textareaIndenting);
 
                     $(window).scrollTop(scroll);
@@ -3133,7 +3134,7 @@
             return {
                 setStart: function()
                 {
-                    this.$editor.focus();
+                    if (this.$editor[0] && this.$editor[0].focus) this.$editor[0].focus();
 
                     var first = this.$editor.children().first();
 
@@ -3173,7 +3174,7 @@
                     {
                         var last = this.$editor.children().last();
 
-                        this.$editor.focus();
+                        if (this.$editor[0] && this.$editor[0].focus) this.$editor[0].focus();
                         this.caret.setEnd(last);
                     }
                     else
@@ -3300,7 +3301,7 @@
                     this.image.setFloating($image);
 
                     // as link
-                    var link = $.trim($('#redactor-image-link').val());
+                    var link = String($('#redactor-image-link').val() || '').trim();
                     if (link !== '')
                     {
                         // test url (add protocol)
@@ -3690,7 +3691,7 @@
                 increase: function()
                 {
                     // focus
-                    if (!this.utils.browser('msie')) this.$editor.focus();
+                    if (!this.utils.browser('msie') && this.$editor[0] && this.$editor[0].focus) this.$editor[0].focus();
 
                     this.buffer.set();
                     this.selection.save();
@@ -3855,7 +3856,7 @@
 
                     if (!this.utils.browser('msie'))
                     {
-                        this.$editor.focus();
+                        if (this.$editor[0] && this.$editor[0].focus) this.$editor[0].focus();
                     }
 
                     this.selection.get();
@@ -4230,10 +4231,10 @@
                     this.placeholder.remove();
 
                     text = text.toString();
-                    text = $.trim(text);
+                    text = String(text || '').trim();
                     text = this.clean.getPlainText(text, false);
 
-                    this.$editor.focus();
+                    if (this.$editor[0] && this.$editor[0].focus) this.$editor[0].focus();
 
                     if (this.utils.browser('msie'))
                     {
@@ -4277,7 +4278,7 @@
 
                     if (typeof clean == 'undefined') clean = true;
 
-                    this.$editor.focus();
+                    if (this.$editor[0] && this.$editor[0].focus) this.$editor[0].focus();
 
                     html = this.clean.setVerified(html);
 
@@ -4906,7 +4907,7 @@
                 {
                     if (!this.utils.isEndOfElement()) return;
 
-                    var tmp = $.trim($(this.keydown.block).html());
+                    var tmp = String($(this.keydown.block).html() || '').trim();
                     if (tmp.search(/(<br\s?\/?>){2}$/i) != -1)
                     {
                         e.preventDefault();
@@ -4941,7 +4942,7 @@
 
                     if (this.opts.linebreaks)
                     {
-                        var contents = $('<div>').append($.trim(this.$editor.html())).contents();
+                        var contents = $('<div>').append(String(this.$editor.html() || '').trim()).contents();
                         var last = contents.last()[0];
                         if (last.tagName == 'SPAN' && last.innerHTML === '')
                         {
@@ -5181,7 +5182,7 @@
                 },
                 formatEmpty: function(e)
                 {
-                    var html = $.trim(this.$editor.html());
+                    var html = String(this.$editor.html() || '').trim();
 
                     if (!this.utils.isEmpty(html)) return;
 
@@ -5229,7 +5230,7 @@
                     var blocks = this.selection.getBlocks();
                     if (blocks[0] !== false && this.line.isExceptLastOrFirst(blocks))
                     {
-                        if (!this.utils.browser('msie')) this.$editor.focus();
+                        if (!this.utils.browser('msie') && this.$editor[0] && this.$editor[0].focus) this.$editor[0].focus();
                         return;
                     }
 
@@ -5331,7 +5332,7 @@
                     // show modal
                     this.selection.save();
                     this.modal.show();
-                    this.link.$inputUrl.focus();
+                    if (this.link.$inputUrl[0] && this.link.$inputUrl[0].focus) this.link.$inputUrl[0].focus();
                 },
                 cleanUrl: function()
                 {
@@ -5375,7 +5376,7 @@
                     var link = this.link.$inputUrl.val();
                     var text = this.link.$inputText.val();
 
-                    if ($.trim(link) === '')
+                    if (String(link || '').trim() === '')
                     {
                         this.link.$inputUrl.addClass('redactor-input-error').on('keyup', function()
                         {
@@ -5416,7 +5417,7 @@
                 },
                 set: function(text, link, target)
                 {
-                    text = $.trim(text.replace(/<|>/g, ''));
+                    text = String(text || '').replace(/<|>/g, '').trim();
 
                     this.selection.restore();
 
@@ -5549,7 +5550,7 @@
                 toggle: function(cmd)
                 {
                     this.placeholder.remove();
-                    if (!this.utils.browser('msie')) this.$editor.focus();
+                    if (!this.utils.browser('msie') && this.$editor[0] && this.$editor[0].focus) this.$editor[0].focus();
 
                     this.buffer.set();
                     this.selection.save();
@@ -5651,7 +5652,7 @@
 
                     if (!this.utils.browser('msie'))
                     {
-                        this.$editor.focus();
+                        if (this.$editor[0] && this.$editor[0].focus) this.$editor[0].focus();
                     }
 
                     this.clean.clearUnverified();
@@ -5664,7 +5665,7 @@
                     var tmpList = (cmd == 'orderedlist') ? $('<ol>') : $('<ul>');
                     var tmpLi = $('<li>');
 
-                    if ($.trim(wrapperHtml) === '')
+                    if (String(wrapperHtml || '').trim() === '')
                     {
                         tmpLi.append(this.selection.getMarkerAsHtml());
                         tmpList.append(tmpLi);
@@ -5677,7 +5678,7 @@
                         {
                             for (var i = 0; i < items.length; i++)
                             {
-                                if ($.trim(items[i]) !== '')
+                                if (String(items[i] || '').trim() !== '')
                                 {
                                     tmpList.append($('<li>').html(items[i]));
                                 }
@@ -6238,7 +6239,7 @@
 
                     html = html.replace(new RegExp('<br\\s?/?>\n?<(' + this.paragraphize.blocks.join('|') + ')(.*?[^>])>', 'gi'), '<p><br /></p>\n<$1$2>');
 
-                    return $.trim(html);
+                    return String(html || '').trim();
                 },
                 getSafes: function(html)
                 {
@@ -6400,7 +6401,7 @@
                         $('body').append(this.$pasteBox);
                     }
 
-                    this.$pasteBox.focus();
+                    if (this.$pasteBox[0] && this.$pasteBox[0].focus) this.$pasteBox[0].focus();
                 },
                 insert: function(html)
                 {
@@ -6818,7 +6819,7 @@
                     }
                     else
                     {
-                        this.$editor.focus();
+                        if (this.$editor[0] && this.$editor[0].focus) this.$editor[0].focus();
                     }
 
                     this.selection.removeMarkers();
@@ -6909,7 +6910,7 @@
                         {
                             if (typeof keys[i] === 'string')
                             {
-                                this.shortcuts.handler(e, $.trim(keys[i]), $.proxy(function()
+                                this.shortcuts.handler(e, String(keys[i] || '').trim(), $.proxy(function()
                                 {
                                     var func;
                                     if (command.func.search(/\./) != '-1')
@@ -8219,7 +8220,7 @@
                         html = html.replace(/<[^\/>][^>]*><\/[^>]+>/gi, '');
                     }
 
-                    html = $.trim(html);
+                    html = String(html || '').trim();
 
                     return html === '';
                 },
@@ -8280,7 +8281,7 @@
                     $s.find('.redactor-invisible-space').removeAttr('style').removeAttr('class');
 
                     if ($s.find('hr, br, img, iframe, source').length !== 0) return;
-                    var text = $.trim($s.text());
+                    var text = String($s.text() || '').trim();
                     if (this.utils.isEmpty(text, false))
                     {
                         $s.remove();
@@ -8377,7 +8378,7 @@
                     }
 
                     var offset = this.caret.getOffsetOfElement(element);
-                    var text = $.trim($(element).text()).replace(/\n\r\n/g, '');
+                    var text = String($(element).text() || '').trim().replace(/\n\r\n/g, '');
 
                     return (offset == text.length) ? true : false;
                 },
@@ -8386,7 +8387,7 @@
                     var block = this.$editor[0];
 
                     var offset = this.caret.getOffsetOfElement(block);
-                    var text = $.trim($(block).html().replace(/(<([^>]+)>)/gi,''));
+                    var text = String($(block).html().replace(/(<([^>]+)>)/gi,'') || '').trim();
 
                     return (offset == text.length) ? true : false;
                 },
@@ -8609,7 +8610,7 @@
                             }
                         }
 
-                        html = html.replace(href, '<a href=\"' + addProtocol + $.trim(href) + '\">' + $.trim(text) + '</a>' + space);
+                        html = html.replace(href, '<a href=\"' + addProtocol + String(href || '').trim() + '\">' + String(text || '').trim() + '</a>' + space);
 
                         // rebuffer
                         $.each(buffer, function(i,s)

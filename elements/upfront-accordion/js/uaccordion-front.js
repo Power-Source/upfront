@@ -28,17 +28,21 @@
 		/**
 		 * Activate focused panel with Enter keydown
 		 */
-		$('.accordion-panel-title').keydown(function(e) {
+		$('.accordion-panel-title').on('keydown', function(e) {
 			if (e.which == 13) {
-				$(this).click();
+				$(this).trigger('click');
 			}
 
 			if (e.which == 38 || e.which == 37) {
-				$(this).parent().prev('.accordion-panel').find('.accordion-panel-title').focus().click();
+				var prevTitle = $(this).parent().prev('.accordion-panel').find('.accordion-panel-title');
+				if (prevTitle[0] && prevTitle[0].focus) prevTitle[0].focus();
+				prevTitle.trigger('click');
 			}
 			
 			if (e.which == 40 || e.which == 39) {
-				$(this).parent().next('.accordion-panel').find('.accordion-panel-title').focus().click();
+				var nextTitle = $(this).parent().next('.accordion-panel').find('.accordion-panel-title');
+				if (nextTitle[0] && nextTitle[0].focus) nextTitle[0].focus();
+				nextTitle.trigger('click');
 			}
 		});
 	});

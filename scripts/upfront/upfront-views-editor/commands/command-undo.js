@@ -12,11 +12,11 @@
             initialize: function () {
                 //Upfront.Events.on("entity:activated", this.activate, this);
                 //Upfront.Events.on("entity:deactivated", this.deactivate, this);
-                Upfront.Events.on("command:undo", this.render, this);
-                Upfront.Events.on("command:redo", this.render, this);
+                this.listenTo(Upfront.Events, 'command:undo', this.render);
+                this.listenTo(Upfront.Events, 'command:redo', this.render);
 
                 // Re-activate on stored state
-                Upfront.Events.on("upfront:undo:state_stored", this.render, this);
+                this.listenTo(Upfront.Events, 'upfront:undo:state_stored', this.render);
 
                 this.deactivate();
             },

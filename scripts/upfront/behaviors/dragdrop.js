@@ -1761,7 +1761,7 @@ DragDrop.prototype = {
 			$helper = this.$helper
 		;
 		_.each(ed.els, function(each){
-			each.$el.find(".upfront-debug-info").size() || each.$el.find('.upfront-editable_entity:first').append('<div class="upfront-debug-info"></div>');
+			each.$el.find(".upfront-debug-info").length || each.$el.find('.upfront-editable_entity:first').append('<div class="upfront-debug-info"></div>');
 			each.$el.find(".upfront-debug-info").text(
 				'grid: ('+each.grid.left+','+each.grid.right+'),'+'('+each.grid.top+','+each.grid.bottom+') | '+
 				'outer: ('+each.outer_grid.left+','+each.outer_grid.right+'),('+each.outer_grid.top+','+each.outer_grid.bottom+') | '+
@@ -1797,7 +1797,7 @@ DragDrop.prototype = {
 			$layout.append($view);
 		});
 		$layout.append('<div id="upfront-compare-area"></div>');
-		$helper.find(".upfront-debug-info").size() || $helper.append('<div class="upfront-debug-info"></div>');
+		$helper.find(".upfront-debug-info").length || $helper.append('<div class="upfront-debug-info"></div>');
 	}
 };
 

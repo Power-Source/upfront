@@ -144,7 +144,7 @@
 					}
 					else
 					{
-						this.$editor.focus();
+						if (this.$editor[0] && this.$editor[0].focus) this.$editor[0].focus();
 					}
 				}
 
@@ -396,7 +396,7 @@
 
 							if (this.utils.browser('mozilla'))
 							{
-								this.$editor.focus();
+								if (this.$editor[0] && this.$editor[0].focus) this.$editor[0].focus();
 							}
 
 							if (node1.length !== 0 && node2.length !== 0)
@@ -409,7 +409,7 @@
 							}
 							else
 							{
-								this.$editor.focus();
+								if (this.$editor[0] && this.$editor[0].focus) this.$editor[0].focus();
 							}
 
 							this.selection.removeMarkers();
@@ -493,7 +493,7 @@
 
 						if (!this.utils.browser('msie'))
 						{
-							this.$editor.focus();
+							if (this.$editor[0] && this.$editor[0].focus) this.$editor[0].focus();
 						}
 
 						this.selection.get();
@@ -709,7 +709,7 @@
 						{
 							var func;
 
-							if ($.isFunction(callback))
+							if (typeof callback === 'function')
 							{
 								callback.call(this, btnName);
 								this.observe.buttons(e, btnName);
@@ -1644,11 +1644,23 @@
 					if(!me.redactor)
 						return;
 					//var is_selection = ((Math.abs(e.pageX-me.lastmousedown.x) + Math.abs(e.pageY-me.lastmousedown.y)) > 2);
-					var is_selection = !!me.redactor.selection.getText();
+					var is_selection = !!me.redactor.selection.getText(),
+						selection = window.getSelection ? window.getSelection() : null,
+						selected_range = selection && selection.rangeCount && !selection.isCollapsed
+							? selection.getRangeAt(0).cloneRange()
+							: false
+					;
 
 					if((is_selection || me.clickcount > 1) && me.redactor && me.redactor.waitForMouseUp && me.redactor.selection.getText()){
-						me.redactor.airShow(e);
-						me.redactor.$element.trigger('mouseup.redactor');
+						setTimeout(function () {
+							var active_selection = window.getSelection ? window.getSelection() : null;
+							if (selected_range && active_selection && active_selection.removeAllRanges) {
+								active_selection.removeAllRanges();
+								active_selection.addRange(selected_range);
+							}
+							me.redactor.airShow(e);
+							me.redactor.$element.trigger('mouseup.redactor');
+						}, 0);
 					}
 					else
 						$('.redactor_air').hide();
@@ -1679,7 +1691,7 @@
 					? $html.find(".plain-text-container").last().html()
 					: $html.html();
 
-				return $.trim(output || '');
+				return String(output ?? '').trim();
 			},
 			getInsertsData: function(){
 				var insertsData = {};

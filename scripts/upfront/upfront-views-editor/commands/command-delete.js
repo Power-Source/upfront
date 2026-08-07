@@ -9,8 +9,8 @@
 
         return Command.extend({
             initialize: function () {
-                Upfront.Events.on("entity:activated", this.activate, this);
-                Upfront.Events.on("entity:deactivated", this.deactivate, this);
+                this.listenTo(Upfront.Events, 'entity:activated', this.activate);
+                this.listenTo(Upfront.Events, 'entity:deactivated', this.deactivate);
                 this.deactivate();
             },
             render: function () {

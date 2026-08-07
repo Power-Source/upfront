@@ -19,16 +19,20 @@
 		/**
 		 * Activate focused tab with Enter keydown
 		 */
-		$('.tabs-tab').keydown(function(e) {
+		$('.tabs-tab').on('keydown', function(e) {
 			if (e.which == 13) {
-				$(this).click();
+				$(this).trigger('click');
 			}
 			if (e.which == 37) {
-				$(this).prev('.tabs-tab').focus().click();
+				var prevTab = $(this).prev('.tabs-tab');
+				if (prevTab[0] && prevTab[0].focus) prevTab[0].focus();
+				prevTab.trigger('click');
 			}
 			
 			if (e.which == 39) {
-				$(this).next('.tabs-tab').focus().click();
+				var nextTab = $(this).next('.tabs-tab');
+				if (nextTab[0] && nextTab[0].focus) nextTab[0].focus();
+				nextTab.trigger('click');
 			}
 		});
 	});

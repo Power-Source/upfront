@@ -1345,7 +1345,7 @@ define([
 					width = $el.width(),
 					$prev;
 				$el.children().each(Upfront.Util.normalize_sort_elements_cb).sort(Upfront.Util.sort_elements_cb).filter(function(){
-					return $(this).children().size() > 0;
+					return $(this).children().length > 0;
 				}).each(function(){
 					var order = $(this).data('breakpoint_order') || 0,
 						clear = $(this).data('breakpoint_clear'),
@@ -5844,7 +5844,15 @@ define([
 					this.on_settings_click();
 				}
 			},
-			on_mouse_up: function () {
+			on_mouse_up: function (e) {
+				var selection = window.getSelection ? window.getSelection() : null,
+					$target = $(e && e.target ? e.target : null),
+					is_editable_target = $target.closest('.upfront-object-content, .upfront-plain_txt, .upfront-text, .redactor-box, .redactor-editor, .ueditable, .ueditable-inactive, [contenteditable]').length > 0
+				;
+
+				if (is_editable_target && selection && selection.rangeCount && !selection.isCollapsed) {
+					return;
+				}
 				this.trigger("activate_region", this);
 			},
 			on_mouse_over: function () {
@@ -7668,15 +7676,14 @@ define([
 			},
 			on_click: function (e) {
 				var lay_ed = Upfront.Behaviors.LayoutEditor;
+				var selection = window.getSelection ? window.getSelection() : null;
+				var is_editable_target = $(e.target).closest('.upfront-object-content, .upfront-plain_txt, .upfront-text, .redactor-box, .redactor-editor, .ueditable, .ueditable-inactive, [contenteditable]').length > 0;
 				if (lay_ed && lay_ed._suppress_next_layout_click_clear) {
 					lay_ed._suppress_next_layout_click_clear = false;
 					return;
 				}
 				if ($(e.target).closest('.upfront-module-group-group').length) return;
-				//Check we are not selecting text
-				//var selection = document.getSelection ? document.getSelection() : document.selection;
-				//if(selection && selection.type == 'Range')
-				//	return;
+				if (is_editable_target && selection && selection.rangeCount && !selection.isCollapsed) return;
 				var currentEntity = Upfront.data.currentEntity;
 				// Deactivate settings on clicking anywhere in layout, but the settings button
 				if(!$(e.target).closest('.upfront-entity_meta').length && !$(e.target).closest('#upfront-csseditor').length){

@@ -7,6 +7,47 @@ var LayoutEditor = {
 	selecting: false, // true when selecting start, false when stopped
 	mergeable_selectors: [],
 	manual_mergeable_ns: 0,
+	_import_image_ignore_key: function () {
+		var stylesheet = '';
+		try {
+			stylesheet = String((_upfront_post_data && _upfront_post_data.layout && _upfront_post_data.layout.layout) || '').trim();
+		} catch (e) {}
+		return 'upfront:ignored_theme_images:' + stylesheet;
+	},
+	_get_ignored_theme_images: function () {
+		var key = this._import_image_ignore_key(),
+			ignored = []
+		;
+		try {
+			ignored = JSON.parse(window.localStorage.getItem(key) || '[]');
+		} catch (e) {
+			ignored = [];
+		}
+		return _.isArray(ignored) ? ignored : [];
+	},
+	_set_ignored_theme_images: function (images) {
+		try {
+			window.localStorage.setItem(this._import_image_ignore_key(), JSON.stringify(_.uniq(images || [])));
+		} catch (e) {}
+	},
+	_filter_ignored_theme_images: function (images) {
+		var ignored = this._get_ignored_theme_images();
+		return _.filter(images || [], function (image) {
+			return ignored.indexOf(image) === -1;
+		});
+	},
+	_ignore_theme_images: function (images) {
+		var ignored = this._get_ignored_theme_images();
+		this._set_ignored_theme_images(ignored.concat(images || []));
+	},
+	_unignore_theme_images: function (images) {
+		var ignored = this._get_ignored_theme_images(),
+			to_remove = images || []
+		;
+		this._set_ignored_theme_images(_.filter(ignored, function (image) {
+			return to_remove.indexOf(image) === -1;
+		}));
+	},
 	_debug_manual_mergeable: function (message, type) {
 		$('#upfront-manual-select-debug').remove();
 	},
@@ -1387,6 +1428,7 @@ var LayoutEditor = {
 				if ( image.status === 'not_exists' ) import_image_list.push(image.filepath);
 				else if ( image.status === 'exists' ) Upfront.Events.trigger('upfront:import_image:imported', image);
 			});
+			import_image_list = ed._filter_ignored_theme_images(import_image_list);
 			if ( import_image_list.length > 0 ) ed.open_import_image_dialog(import_image_list);
 		});
 	},
@@ -1406,6 +1448,7 @@ var LayoutEditor = {
 		}
 		ed.import_image_modal.open(function($content, $modal) {
 			var importing = false,
+				$remember_ignore = $('<label class="upfront-import-image-remember"><input type="checkbox" class="upfront-import-image-remember-checkbox" value="1"> ' + Upfront.Settings.l10n.global.behaviors.import_image_ignore_remember + '</label>'),
 				import_button = new Upfront.Views.Editor.Field.Button({
 					name: 'import_image',
 					label: Upfront.Settings.l10n.global.behaviors.import_image_button,
@@ -1432,6 +1475,9 @@ var LayoutEditor = {
 					compact: true,
 					classname: 'upfront-import-image-button',
 					on_click: function () {
+						if ($remember_ignore.find('input').is(':checked')) {
+							ed._ignore_theme_images(image_list);
+						}
 						ed.import_image_modal.close();
 					}
 				}),
@@ -1449,6 +1495,7 @@ var LayoutEditor = {
 				);
 			});
 			$content.append($image_list);
+			$content.append($remember_ignore);
 			_.each([import_button, ignore_button], function (button) {
 				button.render();
 				button.delegateEvents();
@@ -1490,9 +1537,14 @@ var LayoutEditor = {
 			action: 'upfront_import_image',
 			images: each_image_list
 		}).done(function (response) {
+			var imported = [];
 			_.each(response.data.images, function (image) {
-				if ( image.status === 'import_success' ) Upfront.Events.trigger('upfront:import_image:imported', image);
+				if ( image.status === 'import_success' ) {
+					imported.push(image.filepath);
+					Upfront.Events.trigger('upfront:import_image:imported', image);
+				}
 			});
+			ed._unignore_theme_images(imported);
 			_update_image_status('done');
 			ed._import_image_index += import_each;
 			ed.do_import_image(image_list);

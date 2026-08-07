@@ -41,13 +41,13 @@ var ButtonView = Upfront.Views.ObjectView.extend({
 
 		this.delegateEvents();
 
-		this.model.get('properties').bind('change', this.render, this);
-		this.model.get('properties').bind('change', this.handle_visual_padding_hint, this);
-		this.model.get('properties').bind('add', this.render, this);
-		this.model.get('properties').bind('remove', this.render, this);
+		this.listenTo(this.model.get('properties'), 'change', this.render);
+		this.listenTo(this.model.get('properties'), 'change', this.handle_visual_padding_hint);
+		this.listenTo(this.model.get('properties'), 'add', this.render);
+		this.listenTo(this.model.get('properties'), 'remove', this.render);
 		this.listenTo(this.model, 'change:preset', this.updatePresetClass);
 
-		Upfront.Events.on('entity:deactivated', this.stopEdit, this);
+		this.listenTo(Upfront.Events, 'entity:deactivated', this.stopEdit);
 
 		this.listenTo(Upfront.Events, "theme_colors:update", this.update_colors, this);
 

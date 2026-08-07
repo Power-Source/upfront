@@ -3,7 +3,7 @@
 	 * Replace main video placeholder image+button with actual main video.
 	 */
 	function replace_ph_with_video(ph) {
-		if (ph.size() === 0) return;
+		if (ph.length === 0) return;
 
 		var video_id = ph.data('video-id') || 'none';
 		var loop = ph.data('loop');
@@ -25,7 +25,7 @@
 		var video_id = list_item.data('video-id') || 'none';
 
 		// Make sure iframe is present and initialized properly
-		if (el.find('iframe').size() === 0) {
+		if (el.find('iframe').length === 0) {
 			replace_ph_with_video(el.find('.ufyt_main-video-placeholder'));
 		}
 

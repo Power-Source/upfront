@@ -11,8 +11,8 @@
             className: 'command-toggle-mode',
             enabled: true,
             initialize: function () {
-                Upfront.Events.on('upfront:element:edit:start', this.disable_toggle, this);
-                Upfront.Events.on('upfront:element:edit:stop', this.enable_toggle, this);
+                this.listenTo(Upfront.Events, 'upfront:element:edit:start', this.disable_toggle);
+                this.listenTo(Upfront.Events, 'upfront:element:edit:stop', this.enable_toggle);
             },
             render: function () {
                 this.$el.html(_.template(

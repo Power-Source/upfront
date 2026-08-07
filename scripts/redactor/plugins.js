@@ -1126,6 +1126,7 @@
 				panel: UeditorPanel.extend({
 					current_color: false,
 					current_bg: false,
+					suspend_color_updates: false,
 					events: {
 						'open': 'open'
 					},
@@ -1178,11 +1179,11 @@
 									allowEmpty: true,
 									change: function (color) {
 										self.current_color = color;
-										self.updateColors();
+										self.updateColors('foreground');
 									},
 									move: function (color) {
 										self.current_color = color;
-										self.updateColors();
+										self.updateColors('foreground');
 									}
 								},
 								autoHide: true
@@ -1203,11 +1204,11 @@
 									allowEmpty: true,
 									change: function (color) {
 										self.current_bg = color;
-										self.updateColors();
+										self.updateColors('background');
 									},
 									move: function (color) {
 										self.current_bg = color;
-										self.updateColors();
+										self.updateColors('background');
 									}
 								},
 								autoHide: true
@@ -1218,6 +1219,7 @@
 
 						background_picker.render();
 						this.$("#tabbackground-content").html(background_picker.el);
+						this.suspend_color_updates = true;
 
 						/**
 						 * Position the color pickers so that they are always inside the page
@@ -1274,14 +1276,18 @@
 
 						this.$(".sp-choose").on("click", function ( e ) {
 							e.preventDefault();
-							self.updateColors();
+							self.updateColors(self.getActiveColorTarget());
 							self.closePanel();
 							self.closeToolbar();
 							self.redactor.dropdown.hideAll();
 						});
+						this.suspend_color_updates = false;
 
 						this.positionColorPicker();
 						this.fadeInToolbar();
+					},
+					getActiveColorTarget: function () {
+						return this.$('.tablist li.active').attr('id') === 'tabbackground' ? 'background' : 'foreground';
 					},
 					scrollPageForPicker: function() {
 						var viewportTop = $(window).scrollTop(),
@@ -1408,9 +1414,22 @@
 							this.redactor.$toolbar.find('#tabforeground').css('color', '');
 						}
 					},
-					updateColors: function () {
+					updateColors: function (target) {
+						if (this.suspend_color_updates) return false;
+						target = target || this.getActiveColorTarget();
 						this.redactor.buffer.set();
-						this.redactor.selection.save();
+						this.redactor.selection.restore();
+						this.redactor.selection.get();
+						if (
+							!this.redactor.range
+							|| !this.redactor.range.commonAncestorContainer
+							|| (
+								this.redactor.range.commonAncestorContainer !== this.redactor.$editor[0]
+								&& !$.contains(this.redactor.$editor[0], this.redactor.range.commonAncestorContainer)
+							)
+						) {
+							return false;
+						}
 						var theme_color_index = Upfront.Views.Theme_Colors.colors.is_theme_color(this.current_color);
 						if( theme_color_index !== false ){
 							this.current_color.is_theme_color = true;
@@ -1450,7 +1469,7 @@
 
 								var wrapper = document.createElement("span"),
 									//contents = document.createRange().createContextualFragment( self.redactor.selection.getHtml() ),
-									contents = self.redactor.range.extractContents(),
+									contents = false,
 									//contents = self.redactor.range.cloneContents(),
 									range = self.redactor.range,
 									$range = range.commonAncestorContainer ? $(range.commonAncestorContainer) : false,
@@ -1466,6 +1485,41 @@
 										}
 									}
 									;
+
+								if (
+									!range
+									|| !range.commonAncestorContainer
+									|| (
+										range.commonAncestorContainer !== self.redactor.$editor[0]
+										&& !$.contains(self.redactor.$editor[0], range.commonAncestorContainer)
+									)
+								) {
+									return false;
+								}
+
+								// For partial inline selections, prefer Redactor's native formatter.
+								// The custom extract/insert path is what tends to treat the whole text block as affected.
+								if (!range.collapsed) {
+									var selection_blocks = self.redactor.selection.getBlocks() || [],
+										is_single_block = selection_blocks.length <= 1,
+										start_parent = range.startContainer && range.startContainer.nodeType === 3 ? range.startContainer.parentNode : range.startContainer,
+										end_parent = range.endContainer && range.endContainer.nodeType === 3 ? range.endContainer.parentNode : range.endContainer,
+										is_inline_selection = is_single_block && !self.redactor.utils.isBlock(start_parent) && !self.redactor.utils.isBlock(end_parent)
+									;
+
+									if (is_inline_selection) {
+										self.redactor.selection.restore();
+										if (cls) {
+											self.redactor.inline.format('span', 'class', cls);
+										}
+										else if (theme_color) {
+											self.redactor.inline.format('span', 'style', rule + ':' + theme_color);
+										}
+										return 'native-inline';
+									}
+								}
+
+								contents = range.extractContents();
 
 								// Todo Ve: Removing this would allow changing the color of part of a block which already has color i.e
 								// You have "This is my whole text" and it's aready red, but you wanna change the color of "whole" word
@@ -1547,7 +1601,7 @@
 						/**
 						 * Background color
 						 */
-						if (self.current_bg && typeof(self.current_bg) == 'object') {
+						if (target === 'background' && self.current_bg && typeof(self.current_bg) == 'object') {
 
 							change_bgcolor = true;
 							var bg_class = Upfront.Views.Theme_Colors.colors.get_css_class(self.current_bg.toHexString(), true);
@@ -1561,14 +1615,17 @@
 							if(self.current_bg.reset === true){
 								self.reset_bg_color();
 							}else{
-								color_set( 'background-color', self.current_bg	);
+								if (color_set('background-color', self.current_bg) === 'native-inline') {
+									self.updateIcon();
+									return;
+								}
 							}
 						}
 
 						/**
 						 * Font color
 						 */
-						if (self.current_color && typeof(self.current_color) == 'object') {
+						if (target === 'foreground' && self.current_color && typeof(self.current_color) == 'object') {
 							change_color = true;
 							var theme_color_classname = Upfront.Views.Theme_Colors.colors.get_css_class(self.current_color.toHexString());
 							color_remove( 'color' );
@@ -1580,7 +1637,10 @@
 							if( self.current_color.reset === true ){
 								this.reset_color();
 							}else{
-								color_set( 'color', self.current_color );
+								if (color_set('color', self.current_color) === 'native-inline') {
+									self.updateIcon();
+									return;
+								}
 							}
 						}
 
@@ -1598,17 +1658,19 @@
 
 							var current = this.redactor.selection.getCurrent(),
 								$last_el = $( _.last( replacees ) ),
+								$current = $(current),
+								is_block_current = current && this.redactor.utils && this.redactor.utils.isBlock && this.redactor.utils.isBlock(current),
 								$bg_children = $last_el.children("[data-redactor-style^='background-color'], [ style^='background-color']");
 
 
 							$bg_children = $bg_children.length === 0 &&  $last_el.is("[data-redactor-style^='background-color'], [ style^='background-color']") ? $last_el : $bg_children;
 
-							if( $bg_children.length > 0 ){
+							if( $bg_children.length > 0 && !is_block_current && $current.is('span, font, b, strong, i, em, u, a') ){
 								var bg_color = $( _.first( $bg_children )).css("background-color");
-								current = $( current).css( { backgroundColor: bg_color } );
+								$current.css( { backgroundColor: bg_color } );
 							}
 
-							$( $last_el ).replaceWith( current );
+							$( $last_el ).replaceWith( $current );
 						}
 
 						if( change_bgcolor && !change_color){
@@ -1627,7 +1689,7 @@
 							$color_children = $color_children.length === 0 &&  $last_el.is("[data-redactor-style^='color'], [ style^='color']") ? $last_el : $color_children;
 
 							if( $color_children.length > 0 ){
-								var color = $( _.first( $bg_children )).css("color");
+								var color = $( _.first( $color_children )).css("color");
 								current = $( current ).css( { color: color } );
 							}
 

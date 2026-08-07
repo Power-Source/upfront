@@ -103,7 +103,7 @@ var GlobalSettings_View = Backbone.View.extend({
 		"click a.settings": "popup_open"
 	},
 	initialize: function() {
-		Upfront.Events.on("popup:closed", this.onPopupClosed, this);
+		this.listenTo(Upfront.Events, 'popup:closed', this.onPopupClosed);
 	},
 	onPopupClosed: function() {
 		//Remove discussion-settings-wrapper when dicussion settings popup is closed

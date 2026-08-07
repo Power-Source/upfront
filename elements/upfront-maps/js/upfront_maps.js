@@ -572,7 +572,7 @@ define([
 				$('.marker-imgs img', t).on('dblclick', function(){
 					self.setMap(null);
 				});
-				$('.marker-url button', t).click(function(){
+				$('.marker-url button', t).on('click', function(){
 					self.setMap(null);
 				});
 
@@ -584,7 +584,9 @@ define([
 				$('img[src="'+src+'"]',t).parent().addClass('ufm-current');
 				url_textarea.val(src);
 
-				url_textarea.click(function(){this.focus();});
+				url_textarea.on('click', function(){
+					if (this.focus) this.focus();
+				});
 
 				url_textarea.on('input propertychange change', function(){
 					var url = $(this).val();

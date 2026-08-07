@@ -13,7 +13,7 @@
             post: false,
             initialize: function(){
                 this.setPost();
-                Upfront.Events.on("data:current_post:change", this.setPost, this);
+                this.listenTo(Upfront.Events, 'data:current_post:change', this.setPost);
             },
             setPost: function(){
                 var currentPost = Upfront.data.currentPost;

@@ -256,7 +256,7 @@
                 this.model = new SocialMediaModel({properties: this.model.get('properties')});
             }
             Upfront.Views.ObjectView.prototype.initialize.call(this);
-            Upfront.Events.on("entity:drag_stop", this.dragStop, this);
+            this.listenTo(Upfront.Events, 'entity:drag_stop', this.dragStop);
         },
 
         dragStop: function(view, model){

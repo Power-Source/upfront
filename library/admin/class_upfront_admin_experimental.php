@@ -101,7 +101,7 @@ class Upfront_Admin_Experimental extends Upfront_Admin_Page {
 																		<label class="upfront_toggle_radio_label" for="experimental_aggressive">
 																			<span class="upfront_toggle_radio_button"></span>
 																			<span class="upfront_toggle_radio_main_label"><?php esc_html_e("Aggressiv", Upfront::TextDomain ); ?></span>
-																			<span class="upfront_toggle_radio_sub_label"><?php esc_html_e("Entprellt die verwendeten WordPress-internen Skripte und lädt sie asynchron", Upfront::TextDomain ); ?></span>
+																			<span class="upfront_toggle_radio_sub_label"><?php esc_html_e("Entprellt die verwendeten internen Skripte und lädt sie asynchron", Upfront::TextDomain ); ?></span>
 																		</label>
 																</div>
 														</div>

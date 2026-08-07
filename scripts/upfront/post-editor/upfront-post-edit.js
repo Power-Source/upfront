@@ -869,10 +869,10 @@
 				var me = this;
 				setTimeout(function () {
 					// overwriting click event on chosen.jquery.min.js
-					me.$el.find('.upfront-field-multiple input').bind('click.chosen', function (e) {
+					me.$el.find('.upfront-field-multiple input').on('click.chosen', function (e) {
 						me.stop_bubble(e);
 					});
-					me.$el.find('.upfront-field-multiple span.upfront-field-label-text').bind('click.chosen', function (e) {
+					me.$el.find('.upfront-field-multiple span.upfront-field-label-text').on('click.chosen', function (e) {
 						me.stop_bubble(e);
 					});
 				}, 300);
@@ -1293,7 +1293,7 @@
 						var me = this;
 
 						//Disable scroll when chosen is opened
-						$('.sidebar-panel-content .sidebar-tab-content').bind('mousewheel', function () {
+						$('.sidebar-panel-content .sidebar-tab-content').on('mousewheel', function () {
 							return false;
 						});
 
@@ -1331,7 +1331,7 @@
 					},
 					allowMouseWheel: function () {
 						//Enable scroll when chosen is closed
-						$('.sidebar-panel-content .sidebar-tab-content').unbind('mousewheel');
+						$('.sidebar-panel-content .sidebar-tab-content').off('mousewheel');
 					}
 				});
 

@@ -32,14 +32,14 @@ define([
 			}
 			Upfront.Views.ObjectView.prototype.initialize.call(this);
 			var me = this;
-			this.model.get("properties").on("change", function (model) {
+			this.listenTo(this.model.get("properties"), 'change', function (model) {
 				if (!model || !model.get) return true;
 				if ("row" != model.get("name")) {
 					me.markup = false;
 					me.render();
 				}
 			});
-			this.model.get('properties').bind('change', this.handle_visual_padding_hint, this);
+			this.listenTo(this.model.get('properties'), 'change', this.handle_visual_padding_hint);
 		},
 
 		render: function () {

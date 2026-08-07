@@ -80,7 +80,7 @@
 			},
 			get_value: function () {
 				var $field = this.get_field();
-				if ( ! this.multiple || ($field.size() == 1 && $field.is('select')) )
+                if ( ! this.multiple || ($field.length == 1 && $field.is('select')) )
 					return $field.val();
 				else
 					return _.map($field, function (el) { return $(el).val(); });

@@ -106,7 +106,8 @@
 						ed.start();
 						setTimeout(function () {
 							if (ed.redactor && ed.redactor.$editor) {
-								ed.redactor.$editor.attr('contenteditable', true).focus();
+								ed.redactor.$editor.attr('contenteditable', true);
+								if (ed.redactor.$editor[0] && ed.redactor.$editor[0].focus) ed.redactor.$editor[0].focus();
 							}
 						}, 0);
 					});
@@ -124,7 +125,8 @@
 						.on('start', function(){
 							var ed = $(this).data('ueditor');
 							if (ed && ed.redactor && ed.redactor.$editor) {
-								ed.redactor.$editor.attr('contenteditable', true).focus();
+								ed.redactor.$editor.attr('contenteditable', true);
+								if (ed.redactor.$editor[0] && ed.redactor.$editor[0].focus) ed.redactor.$editor[0].focus();
 							}
 
 							var $swap = $(this).find('.upfront-quick-swap');

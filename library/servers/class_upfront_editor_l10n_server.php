@@ -116,7 +116,8 @@ class Upfront_EditorL10n_Server implements IUpfront_Server {
 				'import_image_done' => __('Bilderimport abgeschlossen', 'upfront'),
 				'import_image_done_description' => __('Erfolg! Alle Bilder wurden importiert.', 'upfront'),
 				'import_image_button' => __('Bilder importieren', 'upfront'),
-				'import_image_ignore_button' => __('Ignorieren', 'upfront')
+				'import_image_ignore_button' => __('Ignorieren', 'upfront'),
+				'import_image_ignore_remember' => __('Nicht importierte Bilder für dieses Layout ausblenden', 'upfront')
 			),
 			'content' => array(
 				'apply' => __('Anwenden', 'upfront'),
