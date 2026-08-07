@@ -1,6 +1,14 @@
 Change Log
 ============
 
+1.1.5 - 2026-08-07
+-------------------------------------------------------------------------------
+
+- Fix: Upfront AJAX 500 beim Verlinkungsdialog (Walker-Signatur aktualisiert)
+- Fix: Floating-Region-Settings ($el-Guard in Sticky-Option)
+- Neu: Social-Element wieder im Editor sichtbar und draggable
+- Modernisierung: Google+ im Social-Element vollständig durch Instagram ersetzt
+
 1.1.4 - 2026-08-06
 -------------------------------------------------------------------------------
 - Verbesserte Doppelklick-Interaktion für die Textbearbeitung

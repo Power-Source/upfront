@@ -5,7 +5,7 @@ Tags: classicpress-theme, classicpress, theme, framework, awesome
 Requires at least: 4.9
 Tested up to: 5.0
 ClassicPress: 2.7.0
-Stable tag: 1.1.4
+Stable tag: 1.1.5
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -37,6 +37,12 @@ Füge Designfarben hinzu, pass Typografie an und bearbeite globale Einstellungen
 
 
 == ChangeLog ==
+
+= 1.1.5 =
+* Fix: Upfront AJAX 500 beim Verlinkungsdialog (Walker-Signatur aktualisiert)
+* Fix: Floating-Region-Settings ($el-Guard in Sticky-Option)
+* Neu: Social-Element wieder im Editor sichtbar und draggable
+* Modernisierung: Google+ im Social-Element vollständig durch Instagram ersetzt
 
 = 1.1.4 =
 * Verbesserte Doppelklick-Interaktion für die Textbearbeitung
