@@ -16,12 +16,13 @@ class Upfront_UnewnavigationView extends Upfront_Object {
 			$preset = 'default';
 		}
 		$breakpoint_data = $this->_get_property('breakpoint');
+		$breakpoint_data = is_array($breakpoint_data) ? $breakpoint_data : array();
 
 		if ($this->_get_property('usingNewAppearance') == true) {
 			/* NEW APPEARANCE */
 			// preset here uses the Desktop one
 			$preset_props = Upfront_Nav_Presets_Server::get_instance()->get_preset_properties($preset);
-			$breakpoint_data['preset'] = isset($preset_props['breakpoint'])?$preset_props['breakpoint']:false;
+			$breakpoint_data['preset'] = isset($preset_props['breakpoint']) && is_array($preset_props['breakpoint']) ? $preset_props['breakpoint'] : array();
 			// catering breakpoint presets
 			$breakpoint_presets = $this->_get_property('breakpoint_presets');
 			$breakpoint_presets = is_array($breakpoint_presets) ? $breakpoint_presets : array();
@@ -38,6 +39,7 @@ class Upfront_UnewnavigationView extends Upfront_Object {
 			/* OLD APPEARANCE */
 			$breakpoint_property = $breakpoint_data;
 			$breakpoint_property = is_array($breakpoint_property) ? $breakpoint_property : array();
+			$breakpoint_data['preset'] = array();
 			foreach ($breakpoint_property as $key=>$properties) {
 				$breakpoint_data['preset'][$key] = $properties;
 

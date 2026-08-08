@@ -1,6 +1,15 @@
 Change Log
 ============
 
+
+1.1.7 - 2026-08-08
+-------------------------------------------------------------------------------
+- Fix: Breakpoint-Preset-Daten akzeptieren Arrays und Objekte und verhindern PHP-Fatal-Errors
+- Fix: Navigation verarbeitet fehlende Breakpoint- und Preset-Daten ohne PHP-Deprecation
+- Fix: RequireJS-URL-Pfade werden auch bei Root-Installationen ohne preg_quote-Deprecation verarbeitet
+- Fix: Virtuelle Builder-Seiten erzeugen ohne globalen Beitrag keine Kommentar-Feed-Warnung mehr
+- Modernisierung: jQuery Effects Core und Slide durch performante Vanilla-JavaScript-Animationen mit Reduced-Motion-Unterstützung ersetzt
+
 1.1.6 - 2026-08-07
 -------------------------------------------------------------------------------
 - Fix: Textauswahl im Editor bleibt beim Markieren/Bearbeiten stabiler erhalten

@@ -5,7 +5,7 @@ Tags: classicpress-theme, classicpress, theme, framework, awesome
 Requires at least: 4.9
 Tested up to: 5.0
 ClassicPress: 2.7.0
-Stable tag: 1.1.6
+Stable tag: 1.1.7
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -37,6 +37,13 @@ Füge Designfarben hinzu, pass Typografie an und bearbeite globale Einstellungen
 
 
 == ChangeLog ==
+
+= 1.1.7 =
+* Fix: Breakpoint-Preset-Daten akzeptieren Arrays und Objekte und verhindern PHP-Fatal-Errors
+* Fix: Navigation verarbeitet fehlende Breakpoint- und Preset-Daten ohne PHP-Deprecation
+* Fix: RequireJS-URL-Pfade werden auch bei Root-Installationen ohne preg_quote-Deprecation verarbeitet
+* Fix: Virtuelle Builder-Seiten erzeugen ohne globalen Beitrag keine Kommentar-Feed-Warnung mehr
+* Modernisierung: jQuery Effects Core und Slide durch performante Vanilla-JavaScript-Animationen mit Reduced-Motion-Unterstützung ersetzt
 
 = 1.1.6 =
 * Fix: Textauswahl im Editor bleibt beim Markieren/Bearbeiten stabiler erhalten

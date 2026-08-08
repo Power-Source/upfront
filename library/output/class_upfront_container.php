@@ -210,6 +210,8 @@ abstract class Upfront_Container extends Upfront_Entity {
 		$type = upfront_get_property_value('type', $data);
 		$data_type = ( 'PostDataModel' === $type ) ? upfront_get_property_value('data_type', $data) : '';
 		if (!empty($raw_preset_map)) foreach ($raw_preset_map as $bp => $pst) {
+			if (is_object($pst)) $pst = get_object_vars($pst);
+			if (!is_array($pst)) continue;
 			if (empty($pst['preset'])) continue;
 
 			// Check if preset exist, if not use default

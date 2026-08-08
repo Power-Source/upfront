@@ -5,8 +5,9 @@
 				;
 		define([
 			"text!upfront/templates/popup.html",
-			'scripts/perfect-scrollbar/perfect-scrollbar'
-		], function ( popup_tpl, perfectScrollbar ) {
+			'scripts/perfect-scrollbar/perfect-scrollbar',
+			'scripts/upfront/upfront-effects'
+		], function ( popup_tpl, perfectScrollbar, Effects ) {
 
 
 				return Backbone.View.extend({
@@ -150,7 +151,7 @@
 												})
 										;
 								}
-								$("#upfront-list-page").show('slide', { direction: "right"}, 'fast');
+								Effects.slideIn(document.getElementById("upfront-list-page"), "right", "fast");
 								this.$el.find("#upfront-list").hide();
 								$("#upfront-page_preview-edit button").one("click", function () {
 										//window.location = Upfront.Settings.Content.edit.post + post.id;
@@ -178,7 +179,7 @@
 
 						handle_return_to_posts: function () {
 								var me = this;
-								this.$el.find("#upfront-list").show('slide', { direction: "left"}, function(){
+								Effects.slideIn(this.el.querySelector("#upfront-list"), "left", null, function(){
 										me.collection.trigger('reset');
 								});
 								$("#upfront-list-page").hide();

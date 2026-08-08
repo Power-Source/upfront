@@ -30,7 +30,7 @@ class Upfront_JavascriptMain extends Upfront_Server {
 		$site_url = get_site_url();
 		$includes_url = includes_url();
 		$current_theme_url = get_stylesheet_directory_uri();
-		$site_path = parse_url($site, PHP_URL_PATH);
+		$site_path = (string) parse_url($site, PHP_URL_PATH);
 		$current_theme_path = parse_url($current_theme_url, PHP_URL_PATH);
 		$current_theme_path = preg_replace('/^' . preg_quote($site_path, '/') . '/i', '', $current_theme_path);
 
