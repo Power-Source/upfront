@@ -1,16 +1,11 @@
 .upfront_logo {
-  background-image: url("../../img/uf-admin-sprite.svg");
-  background-repeat: no-repeat;
   float: right;
   background-position: -10px -10px;
   width: 122px;
   height: 25px;
   overflow: hidden;
-  display: block; }
-
-.postbox.newtheme .character {
-  background-image: url("../../img/uf-admin-sprite.svg");
-  background-repeat: no-repeat; }
+  display: block; 
+}
 
 .upfront_admin {
   padding: 0 10px; }

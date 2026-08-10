@@ -2,6 +2,13 @@ Change Log
 ============
 
 
+1.1.8 - 2026-08-09
+-------------------------------------------------------------------------------
+- Fix: Add-Region-Modal im Builder ist wieder vollständig anklickbar (kein blockierendes Overlay mehr)
+- Fix: Drag-/Mousedown-Konflikt im Inline-Modal behoben, sodass Inputs, Radios und Selects zuverlässig fokussiert werden
+- Fix: Eingabe-Cursor (Caret) in Textfeldern des Add-Region-Dialogs blinkt wieder sichtbar an der korrekten Position
+- Fix: Textauswahl im Add-Region-Dialog bleibt trotz upfront-no-select-Regeln wieder möglich
+
 1.1.7 - 2026-08-08
 -------------------------------------------------------------------------------
 - Fix: Breakpoint-Preset-Daten akzeptieren Arrays und Objekte und verhindern PHP-Fatal-Errors

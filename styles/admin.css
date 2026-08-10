@@ -1,6 +1,4 @@
 .upfront_logo {
-  background-image: url("../../img/uf-admin-sprite.svg");
-  background-repeat: no-repeat;
   float: right;
   background-position: -10px -10px;
   width: 122px;
@@ -9,10 +7,6 @@
   display: block;
 }
 
-.postbox.newtheme .character {
-  background-image: url("../../img/uf-admin-sprite.svg");
-  background-repeat: no-repeat;
-}
 
 .upfront_admin {
   padding: 0 10px;
@@ -56,7 +50,7 @@
 
 #toplevel_page_upfront .wp-menu-image:before {
   content: "";
-  background-image: url("../../img/uf-admin-sprite.svg");
+  background-image: url("../img/uf-admin-sprite.svg");
   background-repeat: no-repeat;
   background-position: -10px -85px;
   width: 18px;
@@ -100,12 +94,12 @@
   width: 48px;
   padding: 13px;
   vertical-align: top;
-  background: url("../../img/uf-admin-sprite.svg") #AFAFAF;
+  background: url("../img/uf-admin-sprite.svg") #AFAFAF;
 }
 
 .postbox.themes .download:hover,
 .postbox.themes .edit.info:hover {
-  background: url("../../img/uf-admin-sprite.svg") #999;
+  background: url("../img/uf-admin-sprite.svg") #999;
 }
 
 .postbox.themes .download,
@@ -121,7 +115,7 @@
 /* NO THUMBNAIL THEME STYLING */
 .uf-thx-theme a:before {
   content: "";
-  background: url("../../img/uf-admin-sprite.svg") #F1F1F1;
+  background: url("../img/uf-admin-sprite.svg") #F1F1F1;
   width: 140px;
   height: 45px;
   position: absolute;
@@ -143,7 +137,7 @@
 
 .uf-thx-theme_screenshot .no-image:before {
   content: "";
-  background: url("../../img/uf-admin-sprite.svg") #F1F1F1;
+  background: url("../img/uf-admin-sprite.svg") #F1F1F1;
   width: 145px;
   height: 45px;
   position: absolute;
@@ -456,7 +450,7 @@ input.upfront_toggle_checkbox {
 .upfront_admin button.loading,
 .upfront-general-settings .upfront-debug-block a.upfront_button.loading,
 .upfront-general-settings .upfront-debug-block button.loading {
-  background-image: url("../../img/loader-admin.gif");
+  background-image: url("../img/loader-admin.gif");
   background-position: center right;
   background-size: 24px;
   padding-right: 28px;
@@ -464,7 +458,7 @@ input.upfront_toggle_checkbox {
 }
 
 .upfront_help_icon {
-  background-image: url("../../img/uf-admin-sprite.svg");
+  background-image: url("../img/uf-admin-sprite.svg");
   background-repeat: no-repeat;
   display: block;
   background-position: -10px -153px;
