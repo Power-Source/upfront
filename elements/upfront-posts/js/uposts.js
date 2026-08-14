@@ -65,7 +65,7 @@ define(function() {
 			if (Upfront.Application.is_single() === false) {
 				var pluginLayout = Upfront.Application.is_plugin_layout();
 				if (pluginLayout) {
-					this.$el.find(".upfront-object-content").empty().append('<div>Below is sample content for ' + pluginLayout.pluginName + '. Use it as a reference for styling.</div>' + pluginLayout.data);
+					this.$el.find(".upfront-object-content").empty().append('<div>Im Folgenden findest du Beispielinhalte für ' + pluginLayout.pluginName + '. Use it as a reference for styling.</div>' + pluginLayout.data);
 					return;
 				}
 			}

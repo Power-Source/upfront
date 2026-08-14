@@ -38,19 +38,19 @@
 			<span style="display:none" class="date updated">46</span>
 			<div class="mp_product_meta">
 				<h1 itemprop="name" class="mp_product_name entry-title">
-					<a href="#">Example Product</a>
+					<a href="#">Beispielprodukt</a>
 				</h1>
 				<!-- MP Product Price -->
 				<div class="mp_product_price" itemtype="http://schema.org/Offer" itemscope="" itemprop="offers">
-					<span class="mp_product_price-normal" itemprop="price">$234.00<span class="exclusive_tax"> (tax incl.)</span></span>
+					<span class="mp_product_price-normal" itemprop="price">234,00€<span class="exclusive_tax"> (Inklusive MwSt.)</span></span>
 				</div>
 				<!-- end mp_product_price -->
 				<div class="mp_product_excerpt">
-					<p>Some product description.</p>
+					<p>Einige Produktbeschreibung.</p>
 				</div>
 				<!-- end mp_product_excerpt -->
 				<div class="mp_product_categories">
-					Categorized in <a href="#" rel="tag">alpha</a>
+					Kategorien: <a href="#" rel="tag">Alpha</a>
 				</div>
 			</div>
 			<!-- end mp_product_meta-->
@@ -68,12 +68,12 @@
 						<!-- end mp_product_options_att -->
 					</div>
 					<!-- end mp_product_options_atts -->
-					<button class="mp_button mp_button-addcart" type="submit" name="addcart">Add To Cart</button>
+					<button class="mp_button mp_button-addcart" type="submit" name="addcart">In den Warenkorb</button>
 				</form>
 				<!-- end mp-buy-product-form -->
 				<div class="mp_product_tags">
-					Tagged in <a href="#" rel="tag">one</a>, <a href="#" rel="tag">three</a>,
-					<a href="#" rel="tag">two</a>
+					Tagged in <a href="#" rel="tag">Eins</a>, <a href="#" rel="tag">Drei</a>,
+					<a href="#" rel="tag">Zwei</a>
 				</div>
 			</div>
 			<!-- end mp_product_callout-->
@@ -83,8 +83,8 @@
 		<!-- end mp_single_product_details-->
 		<div class="mp_single_product_extra">
 			<ul class="mp_product_tab_labels">
-				<li class="mp_product_tab_label current"><a class="mp_product_tab_label_link mp-product-overview" href="#mp-product-overview-46">Description</a></li>
-				<li class="mp_product_tab_label"><a class="mp_product_tab_label_link mp-related-products" href="#mp-related-products-46">Related Products</a></li>
+				<li class="mp_product_tab_label current"><a class="mp_product_tab_label_link mp-product-overview" href="#mp-product-overview-46">Beschreibung</a></li>
+				<li class="mp_product_tab_label"><a class="mp_product_tab_label_link mp-related-products" href="#mp-related-products-46">Ähnliche Produkte</a></li>
 			</ul>
 			<!-- end mp_product_tab_labels -->
 			<div id="mp-product-overview-46" class="mp_product_tab_content mp_product_tab_content-overview mp_product_tab_content-current">
@@ -104,7 +104,7 @@
 										<span class="fn"></span>
 									</div>
 									<a rel="enclosure" id="mp-product-image-104" class="mp_product_img_link" href="#">
-									<img src="<?php echo get_theme_root_uri() ?>/upfront/img/placeholder-image.png" itemprop="image" class="mp_product_image_list photo" title="Example Product">
+									<img src="<?php echo get_theme_root_uri() ?>/upfront/img/placeholder-image.png" itemprop="image" class="mp_product_image_list photo" title="Beispielprodukt">
 									</a>
 								</div>
 							</div>
@@ -112,10 +112,10 @@
 							<div class="mp_product_details">
 								<div class="mp_product_meta">
 									<h3 class="mp_product_name entry-title" itemprop="name">
-										<a href="#">Example Product</a>
+										<a href="#">Beispielprodukt</a>
 									</h3>
 									<!-- MP Product Price -->
-									<div class="mp_product_price" itemtype="http://schema.org/Offer" itemscope="" itemprop="offers"><span class="mp_product_price-normal" itemprop="price">$111.00<span class="exclusive_tax"> (tax incl.)</span></span></div>
+									<div class="mp_product_price" itemtype="http://schema.org/Offer" itemscope="" itemprop="offers"><span class="mp_product_price-normal" itemprop="price">111,00€<span class="exclusive_tax"> (Inklusive MwSt.)</span></span></div>
 									<!-- end mp_product_price -->
 									<div class="mp_social_shares">
 									</div>
@@ -123,14 +123,14 @@
 								</div>
 								<!-- end mp_product_meta -->
 								<div class="mp_product_callout">
-									<form id="mp-buy-product-104-form" class="mp_form mp_form-buy-product mp_no_single " method="post" data-ajax-url="http://local.woo-compat.dev/wp-admin/admin-ajax.php?action=mp_update_cart" action="http://local.woo-compat.dev/store/cart/" novalidate="novalidate"><input type="hidden" name="product_id" value="104"><button class="mp_button mp_button-addcart" type="submit" name="addcart">Add To Cart</button></form>
+									<form id="mp-buy-product-104-form" class="mp_form mp_form-buy-product mp_no_single " method="post" data-ajax-url="http://local.woo-compat.dev/wp-admin/admin-ajax.php?action=mp_update_cart" action="http://local.woo-compat.dev/store/cart/" novalidate="novalidate"><input type="hidden" name="product_id" value="104"><button class="mp_button mp_button-addcart" type="submit" name="addcart">In den Warenkorb</button></form>
 									<!-- end mp-buy-product-form -->
 								</div>
 								<!-- end mp_product_callout -->
 							</div>
 							<!-- end mp_product_details -->
 							<div style="display:none">
-								<span class="entry-title">Example Product</span> was last modified:
+								<span class="entry-title">Beispielprodukt</span> was last modified:
 								<time class="updated">2016-11-07T10:58</time> by
 								<span class="author vcard"><span class="fn">admin</span></span>
 							</div>

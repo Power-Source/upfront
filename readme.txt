@@ -5,7 +5,7 @@ Tags: classicpress-theme, classicpress, theme, framework, awesome
 Requires at least: 4.9
 Tested up to: 5.0
 ClassicPress: 2.7.0
-Stable tag: 1.1.8
+Stable tag: 1.1.9
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -37,6 +37,11 @@ Füge Designfarben hinzu, pass Typografie an und bearbeite globale Einstellungen
 
 
 == ChangeLog ==
+
+= 1.1.9 =
+* Fix: Neue Menünamen lassen sich im Navigationselement wieder zuverlässig eingeben
+* Fix: Eingabefelder und interaktive Steuerelemente lösen beim Bearbeiten kein Modul-Dragging mehr aus
+* Fix: Textcursor und Fokusrahmen im Feld für neue Menünamen sind wieder deutlich sichtbar
 
 = 1.1.8 =
 * Fix: Add-Region-Modal im Builder ist wieder vollständig anklickbar (kein blockierendes Overlay mehr)

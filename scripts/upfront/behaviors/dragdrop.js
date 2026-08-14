@@ -144,7 +144,7 @@ DragDrop.prototype = {
 			zIndex: 100,
 			helper: 'clone',
 			disabled: this.is_disabled,
-			cancel: '.upfront-entity_meta, .upfront-element-controls',
+			cancel: '.upfront-entity_meta, .upfront-element-controls, input, textarea, button, select, option, [contenteditable]',
 			distance: 10,
 			appendTo: this.$main,
 			iframeFix: true,

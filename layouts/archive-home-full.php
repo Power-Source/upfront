@@ -36,7 +36,7 @@ $main->add_element('PlainTxt', array(
 	'margin_left' => 1,
 	'new_line' => false,
 	'options' => array(
-		'content' => "<p>Text element with no background color applied<p>",
+		'content' => "<p>Textelement ohne Hintergrundfarbe<p>",
 		"class" => "c24 upfront-plain_txt",
 	)
 ));
@@ -49,7 +49,7 @@ $main->add_element('PlainTxt', array(
 	'margin_left' => 1,
 	'new_line' => false,
 	'options' => array(
-		'content' => "<p>Text element with background color applied gets additional padding to prevent text running into sides</p>",
+		'content' => "<p>Ein Textelement mit Hintergrundfarbe erhält einen zusätzlichen Innenabstand, um zu verhindern, dass der Text an die Ränder läuft.</p>",
 		'background_color' => '#ffffff',
 		"class" => "c24 upfront-plain_txt",
 	)
@@ -72,7 +72,7 @@ if ( $extended ){
 		'margin_top' => 6,
 		'new_line' => false,
 		'options' => array(
-			'content' => "Text element on navigation area",
+			'content' => "Textelement im Navigationsbereich",
 			"class" => "c24 upfront-plain_txt",
 		)
 	));
@@ -102,7 +102,7 @@ if ( $extended ){
 		'margin_top' => 6,
 		'options' => array(
 	    'has_settings' => 1,
-			'content' => '<p style="text-align:center;">Text element in content</p>',
+			'content' => '<p style="text-align:center;">Textelement im Inhaltsbereich</p>',
 			"class" => "c24 upfront-plain_txt",
 		)
 	));

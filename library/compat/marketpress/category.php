@@ -52,7 +52,7 @@
 				</div><!-- end mp_product_meta -->
 
 				<div class="mp_product_callout">
-					<form id="mp-buy-product-46-form" class="mp_form mp_form-buy-product mp_no_single " method="post" data-ajax-url="http://local.woo-compat.dev/wp-admin/admin-ajax.php?action=mp_update_cart" action="http://local.woo-compat.dev/store/cart/"><input type="hidden" name="product_id" value="46"><button class="mp_button mp_button-addcart" type="submit" name="addcart">Add To Cart</button></form><!-- end mp-buy-product-form -->
+					<form id="mp-buy-product-46-form" class="mp_form mp_form-buy-product mp_no_single " method="post" data-ajax-url="http://local.woo-compat.dev/wp-admin/admin-ajax.php?action=mp_update_cart" action="http://local.woo-compat.dev/store/cart/"><input type="hidden" name="product_id" value="46"><button class="mp_button mp_button-addcart" type="submit" name="addcart">In den Warenkorb</button></form><!-- end mp-buy-product-form -->
 
 				</div><!-- end mp_product_callout -->
 
@@ -94,7 +94,7 @@
 				</div><!-- end mp_product_meta -->
 
 				<div class="mp_product_callout">
-					<form id="mp-buy-product-46-form" class="mp_form mp_form-buy-product mp_no_single " method="post" data-ajax-url="http://local.woo-compat.dev/wp-admin/admin-ajax.php?action=mp_update_cart" action="http://local.woo-compat.dev/store/cart/"><input type="hidden" name="product_id" value="46"><button class="mp_button mp_button-addcart" type="submit" name="addcart">Add To Cart</button></form><!-- end mp-buy-product-form -->
+					<form id="mp-buy-product-46-form" class="mp_form mp_form-buy-product mp_no_single " method="post" data-ajax-url="http://local.woo-compat.dev/wp-admin/admin-ajax.php?action=mp_update_cart" action="http://local.woo-compat.dev/store/cart/"><input type="hidden" name="product_id" value="46"><button class="mp_button mp_button-addcart" type="submit" name="addcart">In den Warenkorb</button></form><!-- end mp-buy-product-form -->
 
 				</div><!-- end mp_product_callout -->
 
@@ -136,7 +136,7 @@
 				</div><!-- end mp_product_meta -->
 
 				<div class="mp_product_callout">
-					<form id="mp-buy-product-46-form" class="mp_form mp_form-buy-product mp_no_single " method="post" data-ajax-url="http://local.woo-compat.dev/wp-admin/admin-ajax.php?action=mp_update_cart" action="http://local.woo-compat.dev/store/cart/"><input type="hidden" name="product_id" value="46"><button class="mp_button mp_button-addcart" type="submit" name="addcart">Add To Cart</button></form><!-- end mp-buy-product-form -->
+					<form id="mp-buy-product-46-form" class="mp_form mp_form-buy-product mp_no_single " method="post" data-ajax-url="http://local.woo-compat.dev/wp-admin/admin-ajax.php?action=mp_update_cart" action="http://local.woo-compat.dev/store/cart/"><input type="hidden" name="product_id" value="46"><button class="mp_button mp_button-addcart" type="submit" name="addcart">In den Warenkorb</button></form><!-- end mp-buy-product-form -->
 
 				</div><!-- end mp_product_callout -->
 
@@ -178,7 +178,7 @@
 				</div><!-- end mp_product_meta -->
 
 				<div class="mp_product_callout">
-					<form id="mp-buy-product-46-form" class="mp_form mp_form-buy-product mp_no_single " method="post" data-ajax-url="http://local.woo-compat.dev/wp-admin/admin-ajax.php?action=mp_update_cart" action="http://local.woo-compat.dev/store/cart/"><input type="hidden" name="product_id" value="46"><button class="mp_button mp_button-addcart" type="submit" name="addcart">Add To Cart</button></form><!-- end mp-buy-product-form -->
+					<form id="mp-buy-product-46-form" class="mp_form mp_form-buy-product mp_no_single " method="post" data-ajax-url="http://local.woo-compat.dev/wp-admin/admin-ajax.php?action=mp_update_cart" action="http://local.woo-compat.dev/store/cart/"><input type="hidden" name="product_id" value="46"><button class="mp_button mp_button-addcart" type="submit" name="addcart">In den Warenkorb</button></form><!-- end mp-buy-product-form -->
 
 				</div><!-- end mp_product_callout -->
 
@@ -220,7 +220,7 @@
 				</div><!-- end mp_product_meta -->
 
 				<div class="mp_product_callout">
-					<form id="mp-buy-product-46-form" class="mp_form mp_form-buy-product mp_no_single " method="post" data-ajax-url="http://local.woo-compat.dev/wp-admin/admin-ajax.php?action=mp_update_cart" action="http://local.woo-compat.dev/store/cart/"><input type="hidden" name="product_id" value="46"><button class="mp_button mp_button-addcart" type="submit" name="addcart">Add To Cart</button></form><!-- end mp-buy-product-form -->
+					<form id="mp-buy-product-46-form" class="mp_form mp_form-buy-product mp_no_single " method="post" data-ajax-url="http://local.woo-compat.dev/wp-admin/admin-ajax.php?action=mp_update_cart" action="http://local.woo-compat.dev/store/cart/"><input type="hidden" name="product_id" value="46"><button class="mp_button mp_button-addcart" type="submit" name="addcart">In den Warenkorb</button></form><!-- end mp-buy-product-form -->
 
 				</div><!-- end mp_product_callout -->
 
@@ -262,7 +262,7 @@
 				</div><!-- end mp_product_meta -->
 
 				<div class="mp_product_callout">
-					<form id="mp-buy-product-46-form" class="mp_form mp_form-buy-product mp_no_single " method="post" data-ajax-url="http://local.woo-compat.dev/wp-admin/admin-ajax.php?action=mp_update_cart" action="http://local.woo-compat.dev/store/cart/"><input type="hidden" name="product_id" value="46"><button class="mp_button mp_button-addcart" type="submit" name="addcart">Add To Cart</button></form><!-- end mp-buy-product-form -->
+					<form id="mp-buy-product-46-form" class="mp_form mp_form-buy-product mp_no_single " method="post" data-ajax-url="http://local.woo-compat.dev/wp-admin/admin-ajax.php?action=mp_update_cart" action="http://local.woo-compat.dev/store/cart/"><input type="hidden" name="product_id" value="46"><button class="mp_button mp_button-addcart" type="submit" name="addcart">In den Warenkorb</button></form><!-- end mp-buy-product-form -->
 
 				</div><!-- end mp_product_callout -->
 
@@ -304,7 +304,7 @@
 				</div><!-- end mp_product_meta -->
 
 				<div class="mp_product_callout">
-					<form id="mp-buy-product-46-form" class="mp_form mp_form-buy-product mp_no_single " method="post" data-ajax-url="http://local.woo-compat.dev/wp-admin/admin-ajax.php?action=mp_update_cart" action="http://local.woo-compat.dev/store/cart/"><input type="hidden" name="product_id" value="46"><button class="mp_button mp_button-addcart" type="submit" name="addcart">Add To Cart</button></form><!-- end mp-buy-product-form -->
+					<form id="mp-buy-product-46-form" class="mp_form mp_form-buy-product mp_no_single " method="post" data-ajax-url="http://local.woo-compat.dev/wp-admin/admin-ajax.php?action=mp_update_cart" action="http://local.woo-compat.dev/store/cart/"><input type="hidden" name="product_id" value="46"><button class="mp_button mp_button-addcart" type="submit" name="addcart">In den Warenkorb</button></form><!-- end mp-buy-product-form -->
 
 				</div><!-- end mp_product_callout -->
 
@@ -346,7 +346,7 @@
 				</div><!-- end mp_product_meta -->
 
 				<div class="mp_product_callout">
-					<form id="mp-buy-product-46-form" class="mp_form mp_form-buy-product mp_no_single " method="post" data-ajax-url="http://local.woo-compat.dev/wp-admin/admin-ajax.php?action=mp_update_cart" action="http://local.woo-compat.dev/store/cart/"><input type="hidden" name="product_id" value="46"><button class="mp_button mp_button-addcart" type="submit" name="addcart">Add To Cart</button></form><!-- end mp-buy-product-form -->
+					<form id="mp-buy-product-46-form" class="mp_form mp_form-buy-product mp_no_single " method="post" data-ajax-url="http://local.woo-compat.dev/wp-admin/admin-ajax.php?action=mp_update_cart" action="http://local.woo-compat.dev/store/cart/"><input type="hidden" name="product_id" value="46"><button class="mp_button mp_button-addcart" type="submit" name="addcart">In den Warenkorb</button></form><!-- end mp-buy-product-form -->
 
 				</div><!-- end mp_product_callout -->
 

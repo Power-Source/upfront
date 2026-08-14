@@ -80,34 +80,10 @@ class Upfront_Compat_Backup_Info {
 	 * @return string
 	 */
 	public function get_plugin_action () {
-		if ($this->is_plugin_active()) return __('Backup with Snapshot', 'upfront');
-		if ($this->is_plugin_present() && current_user_can('activate_plugins')) return __('Activate Snapshot', 'upfront');
+		if ($this->is_plugin_active()) return __('Backup mit Snapshot', 'upfront');
+		if ($this->is_plugin_present() && current_user_can('activate_plugins')) return __('Snapshot aktivieren', 'upfront');
 
-		return __('Install Snapshot', 'upfront');
-	}
-
-	/**
-	 * Check if we have Dashboard plugin alive and active
-	 *
-	 * @return bool
-	 */
-	private function _has_dashboard () {
-		if (false === Upfront_Compat::has_dashboard()) return false;
-
-		if (!empty(WPMUDEV_Dashboard::$site) && is_callable(array(WPMUDEV_Dashboard::$site, 'allowed_user'))) {
-			return WPMUDEV_Dashboard::$site->allowed_user();
-		}
-
-		return false;
-	}
-
-	/**
-	 * Get Dashboard install URL
-	 *
-	 * @return string
-	 */
-	private function _get_dashboard_url () {
-		return admin_url('admin.php?page=wpmudev-plugins#pid=257');
+		return __('Snapshot installieren', 'upfront');
 	}
 
 	/**
@@ -116,7 +92,7 @@ class Upfront_Compat_Backup_Info {
 	 * @return string
 	 */
 	private function _get_project_url () {
-		return 'https://premium.wpmudev.org/project/snapshot/';
+		return 'https://psource.eimen.net/wiki/snapshot-dokumentation/';
 	}
 
 	/**

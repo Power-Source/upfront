@@ -179,6 +179,15 @@ div.upfront-navigation div.new_menu_name input {
 	font-size: 15px;
 	font-family: 'Open Sans', Helvetica Neueu, Helvetica, Arial, sans-serif;
 	border: 1px #a2bfda solid;
+	cursor: text;
+	caret-color: #315f8a;
+}
+
+div.upfront-navigation div.new_menu_name input:focus {
+	background: #fff;
+	border-color: #315f8a;
+	box-shadow: 0 0 0 2px rgba(49, 95, 138, 0.25);
+	outline: 0;
 }
 
 div.upfront-navigation div.new_menu_button input {

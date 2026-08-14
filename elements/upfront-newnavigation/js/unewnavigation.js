@@ -427,9 +427,12 @@
 				newMenuName.render();
 				me.$el.find('div.upfront-object-content').append('<div class="upfront_new_menu_name_and_button"></div>');
 				// attaching events first before appending
-				newMenuName.$el.on('mouseover', function() {
+				newMenuName.$el.on('mousedown', 'input', function(e) {
+					e.stopPropagation();
 					$parent_container.draggable('disable');
-				}).on('mouseout', function() {
+				}).on('focusin', 'input', function() {
+					$parent_container.draggable('disable');
+				}).on('focusout', 'input', function() {
 					$parent_container.draggable('enable');
 				}).on('keydown', function(e) {
 					var $menu_button = me.$el.find('.new_menu_button > input.upfront-field-button');

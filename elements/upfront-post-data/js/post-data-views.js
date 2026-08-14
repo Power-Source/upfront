@@ -67,7 +67,7 @@ var Views = {
 					}, 100);
 				}
 				if (showContent) {
-					var content = '<div>Below is sample content for ' + pluginLayout.pluginName + '. Use it as a reference for styling.</div>' + pluginLayout.content;
+					var content = '<div>Im Folgenden findest du Beispielinhalte für ' + pluginLayout.pluginName + '. Use it as a reference for styling.</div>' + pluginLayout.content;
 					// For some reason this.$el is not working when Settings are opened and canceled, use me.element instead
 					setTimeout( function() {
 						me.element.$el.find('.part-content .upfront-object-content').first().empty().append(content);

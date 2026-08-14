@@ -1,35 +1,35 @@
 </p><form id="mp-order-lookup-form" class="mp_form mp_form-order-lookup" method="post" action="http://local.woo-compat.dev/wp-admin/admin-ajax.php?action=mp_lookup_order">
 	<div class="mp_form_content"><br>
-		<h2>Order Search</h2>
-		<p>If you have your order ID you can look it up using the form below.</p>
+		<h2>Bestellung suchen</h2>
+		<p>Wenn Du Deine Bestell-ID hast, kannst Du sie mit dem untenstehenden Formular nachschlagen.</p>
 		<p></p></div>
 	<div class="mp_form_group">
 		<div class="mp_form_group_input">
 			<input type="text" class="mp_form_input" id="mp-order-id-input" name="order_id" placeholder="Order ID" autocomplete="off" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAUBJREFUOBGVVE2ORUAQLvIS4gwzEysHkHgnkMiEc4zEJXCMNwtWTmDh3UGcYoaFhZUFCzFVnu4wIaiE+vvq6+6qTgthGH6O4/jA7x1OiCAIPwj7CoLgSXDxSjEVzAt9k01CBKdWfsFf/2WNuEwc2YqigKZpK9glAlVVwTTNbQJZlnlCkiTAZnF/mePB2biRdhwHdF2HJEmgaRrwPA+qqoI4jle5/8XkXzrCFoHg+/5ICdpm13UTho7Q9/0WnsfwiL/ouHwHrJgQR8WEwVG+oXpMPaDAkdzvd7AsC8qyhCiKJjiRnCKwbRsMw9hcQ5zv9maSBeu6hjRNYRgGFuKaCNwjkjzPoSiK1d1gDDecQobOBwswzabD/D3Np7AHOIrvNpHmPI+Kc2RZBm3bcp8wuwSIot7QQ0PznoR6wYSK0Xb/AGVLcWwc7Ng3AAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;">
 		</div>
 		<div class="mp_form_group_btn">
-				<button class="mp_button" type="submit">Look Up</button>
+				<button class="mp_button" type="submit">Suchen</button>
 			</div>
 		</div>
 </form><!-- end mp-order-lookup-form -->
 <!-- Order History -->
 <section id="mp-order-history" class="mp_orders mp_orders-list">
-	<h2 class="mp_title">Order History</h2><div class="mp_order_details"><div class="mp_order">
-	<h3 class="mp_order_head">Order # <a href="#">c48f18c56862</a></h3>
+	<h2 class="mp_title">Bestellverlauf</h2><div class="mp_order_details"><div class="mp_order">
+	<h3 class="mp_order_head">Bestellung # <a href="#">c48f18c56862</a></h3>
 	<div class="mp_order_detail" id="mp-order-detail-126">
-	<div class="mp_order_detail_item"><h5>Order Received</h5> <span>November 8, 2016</span></div><!-- end mp_order_detail_item -->
-	<div class="mp_order_detail_item"><h5>Current Status</h5> <span>Received</span></div><!-- end mp_order_detail_item -->
+	<div class="mp_order_detail_item"><h5>Bestellung erhalten</h5> <span>November 8, 2016</span></div><!-- end mp_order_detail_item -->
+	<div class="mp_order_detail_item"><h5>Aktueller Status</h5> <span>Erhalten</span></div><!-- end mp_order_detail_item -->
 	<div class="mp_order_detail_item">
-		<h5>Total</h5>
-		<a href="#" class="mp_tooltip">$444.00</a>
+		<h5>Gesamt</h5>
+		<a href="#" class="mp_tooltip">444.00€</a>
 		<div class="mp_tooltip_content">
 
 	<div class="mp_tooltip_content_item">
-		<div class="mp_tooltip_content_item_label">Taxes:</div><!-- end mp_tooltip_content_item_label -->
-		<div class="mp_tooltip_content_item_value">$0.00</div><!-- end mp_tooltip_content_item_value -->
+		<div class="mp_tooltip_content_item_label">Steuern:</div><!-- end mp_tooltip_content_item_label -->
+		<div class="mp_tooltip_content_item_value">0.00€</div><!-- end mp_tooltip_content_item_value -->
 	</div><!-- end mp_tooltip_content_item -->
 		<div class="mp_tooltip_content_item">
-			<div class="mp_tooltip_content_item_label">Shipping:</div><!-- end mp_tooltip_content_item_label -->
+			<div class="mp_tooltip_content_item_label">Versand:</div><!-- end mp_tooltip_content_item_label -->
 			<div class="mp_tooltip_content_item_value">—</div><!-- end mp_tooltip_content_item_value -->
 		</div><!-- end mp_tooltip_content_item -->
 
