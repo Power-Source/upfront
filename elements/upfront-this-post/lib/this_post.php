@@ -225,7 +225,10 @@ class Upfront_ThisPostView extends Upfront_Object {
 
 	public static function get_template_markup($post, $properties) {
 		$post = !empty($post) ? $post : new WP_Post(new StdClass);
-		$markup = Upfront_ThisPostView::get_post_markup($post->ID, $post->post_type, $properties);
+		$markup = empty($post->ID)
+			? Upfront_ThisPostView::post_template($post, $properties)
+			: Upfront_ThisPostView::get_post_markup($post->ID, $post->post_type, $properties)
+		;
 		$markup = upfront_get_template(
 			'this-post',
 			array(

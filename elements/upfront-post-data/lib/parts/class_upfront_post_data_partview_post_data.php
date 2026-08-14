@@ -195,6 +195,9 @@ class Upfront_Post_Data_PartView_Post_data extends Upfront_Post_Data_PartView {
 */
 		$content = '<div class="upfront-indented_content">' . $content . '</div>';
 		$out = $this->_get_template('content');
+		if (false === strpos($out, '{{content}}')) {
+			$out = preg_replace('/(?:<\?php\s*)?the_content\s*\(\s*\)\s*;?(?:\s*\?>)?/', '{{content}}', $out, 1);
+		}
 
 		$out = Upfront_Codec::get()->expand($out, "content", $content);
 

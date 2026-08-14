@@ -16,16 +16,19 @@ class Upfront_Post_Data_Model {
 	 * @return WP_Post
 	 */
 	public static function get_post ($post_id = null) {
-		global $wp_query;
-		$post = get_post($post_id);
-		if (!$post && empty($post_id) && $wp_query instanceof WP_Query) {
+		global $post, $wp_query;
+		$resolved_post = get_post($post_id);
+		if (!$resolved_post && empty($post_id) && $wp_query instanceof WP_Query) {
 			$queried_object = $wp_query->get_queried_object();
 			if ($queried_object instanceof WP_Post) {
-				$post = $queried_object;
+				$resolved_post = $queried_object;
 			}
 		}
-		$wp_query->in_the_loop = true;
-		return $post;
+		if (!$post_id && !$resolved_post && $post instanceof WP_Post) {
+			$resolved_post = $post;
+		}
+		if ($wp_query instanceof WP_Query) $wp_query->in_the_loop = true;
+		return $resolved_post;
 	}
 
 	/**

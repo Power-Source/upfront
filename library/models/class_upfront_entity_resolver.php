@@ -33,7 +33,7 @@ abstract class Upfront_EntityResolver {
 	public static function get_entity_cascade ($query=false) {
 		$query = self::_get_query($query);
 
-		if ($query->post_count <= 1 && !$query->tax_query) return self::resolve_singular_entity($query);
+		if ($query->is_singular() || $query->get_queried_object() instanceof WP_Post) return self::resolve_singular_entity($query);
 		else return self::resolve_archive_entity($query);
 	}
 

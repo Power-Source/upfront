@@ -1,22 +1,22 @@
 <?php
 class Upfront_ThisPageView extends Upfront_Object {
 	public function get_markup () {
-		global $post;
-
 		$element_id = $this->_get_property('element_id');
 		$display = $this->_get_property('display');
 		return
 			'<div class=" upfront-this_page" id="' . $element_id . '">' .
-				self::get_page_markup($display, get_the_ID()) .
+				self::get_page_markup($display) .
 			'</div>';
 	}
 
 	public static function get_page_markup ($display = 'title', $post_id = 0) {
 		global $post;
-		$post = get_post($post_id);
-		setup_postdata($post);
+		$current_post = $post;
+		$post = Upfront_Post_Data_Model::get_post($post_id);
+		if ($post) setup_postdata($post);
 		$data = upfront_get_template('this-page-' . $display, array('post' => $post), dirname(dirname(__FILE__)) . '/tpl/this-page-' . $display . '.php');
-		wp_reset_postdata();
+		$post = $current_post;
+		if ($post) setup_postdata($post);
 		return $data;
 	}
 	public static function get_new_page ($display) {

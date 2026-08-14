@@ -348,6 +348,13 @@ abstract class Upfront_PostPart_View {
 	protected function _get_content () {
 		$content = apply_filters('upfront-post_data-get_content-before', false);
 		if (!empty($content)) return $content;
+		static $content_cache = array();
+		global $wp_query;
+		$cache_key = !empty($this->_post->ID)
+			? 'post:' . $this->_post->ID
+			: 'query:' . spl_object_hash($wp_query) . ':' . $this->_post->post_type
+		;
+		if (isset($content_cache[$cache_key])) return $content_cache[$cache_key];
 
 		global $post;
 		$post = $this->_post;
@@ -358,6 +365,7 @@ abstract class Upfront_PostPart_View {
 		wp_reset_postdata();
 
 		$content = apply_filters('upfront-post_data-get_content-after', $content);
+		$content_cache[$cache_key] = $content;
 		return $content;
 	}
 
