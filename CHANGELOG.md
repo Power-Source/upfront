@@ -2,6 +2,16 @@ Change Log
 ============
 
 
+1.2.0 - 2026-08-14
+-------------------------------------------------------------------------------
+- Virtuelle Seiten (zB BuddyPress Seiten) werden wieder korrekt ausgegeben
+
+1.1.9 - 2026-08-11
+-------------------------------------------------------------------------------
+- Fix: Neue Menünamen lassen sich im Navigationselement wieder zuverlässig eingeben
+- Fix: Eingabefelder und interaktive Steuerelemente lösen beim Bearbeiten kein Modul-Dragging mehr aus
+- Fix: Textcursor und Fokusrahmen im Feld für neue Menünamen sind wieder deutlich sichtbar
+
 1.1.8 - 2026-08-09
 -------------------------------------------------------------------------------
 - Fix: Add-Region-Modal im Builder ist wieder vollständig anklickbar (kein blockierendes Overlay mehr)

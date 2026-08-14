@@ -5,7 +5,7 @@ Tags: classicpress-theme, classicpress, theme, framework, awesome
 Requires at least: 4.9
 Tested up to: 5.0
 ClassicPress: 2.7.0
-Stable tag: 1.1.9
+Stable tag: 1.2.0
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -37,6 +37,9 @@ Füge Designfarben hinzu, pass Typografie an und bearbeite globale Einstellungen
 
 
 == ChangeLog ==
+
+= 1.2.0 =
+* Virtuelle Seiten (zB BuddyPress Seiten) werden wieder korrekt ausgegeben
 
 = 1.1.9 =
 * Fix: Neue Menünamen lassen sich im Navigationselement wieder zuverlässig eingeben
