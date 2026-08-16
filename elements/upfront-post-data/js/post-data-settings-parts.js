@@ -298,7 +298,7 @@ var Options = {
 				model: this.model,
 				property: "allow_splitting",
 				default_value: global_split,
-				values: [{ label: 'Allow content splitting', value: '1' }]
+				values: [{ label: 'Aufteilung von Inhalten zulassen', value: '1' }]
 			});
 			this._content_part_field = new Upfront.Views.Editor.Field.Number({
 				model: this.model,
@@ -345,7 +345,7 @@ var Options = {
 					property: "full_featured_image",
 					multiple: false,
 					values: [
-						{label: 'Show Full-Size featured image', value: '1'}
+						{label: 'Beitragsbild in voller Größe anzeigen', value: '1'}
 					]
 				}),
 				new Upfront.Views.Editor.Field.Select({
@@ -353,20 +353,20 @@ var Options = {
 					property: "fallback_option",
 					multiple: false,
 					values: [
-						{label: 'Hide region', value: 'hide'},
-						{label: 'Use this color', value: 'color'},
-						{label: 'Use default image', value: 'image'}
+						{label: 'Bereich ausblenden', value: 'hide'},
+						{label: 'Diese Farbe verwenden', value: 'color'},
+						{label: 'Standardbild verwenden', value: 'image'}
 					]
 				}),
 				new Upfront.Views.Editor.Field.Color({
 					model: this.model,
 					property: "fallback_color",
-					label: "Fallback Color"
+					label: "Fallback-Farbe"
 				}),
 				new Upfront.Views.Editor.Field.Text({
 					model: this.model,
 					property: "fallback_image",
-					label: "Fallback Image"
+					label: "Fallback-Bild"
 				})
 			];
 		}
@@ -385,10 +385,10 @@ var Options = {
 			this._fld_disable = new Upfront.Views.Editor.Field.Checkboxes({
 				model: this.model,
 				property: "disable",
-				label: "For this post:",
+				label: "Für diesen Beitrag:",
 				values: [
-					{label: 'Disable comments', value: 'comments'},
-					{label: 'Disable trackbacks', value: 'trackbacks'}
+					{label: 'Kommentare deaktivieren', value: 'comments'},
+					{label: 'Trackbacks deaktivieren', value: 'trackbacks'}
 				]
 			});
 
@@ -397,9 +397,9 @@ var Options = {
 				new Upfront.Views.Editor.Field.Checkboxes({
 					model: this.model,
 					property: "disable_showing",
-					label: "Do not show:",
+					label: "Nicht anzeigen:",
 					values: [
-						{label: 'Comments', value: 'comments'},
+						{label: 'Kommentare', value: 'comments'},
 						{label: 'Trackbacks', value: 'trackbacks'}
 					]
 				})
@@ -412,7 +412,7 @@ var Options = {
 					new Upfront.Views.Editor.Field.Number({
 						model: this.model,
 						property: "limit",
-						label: 'Comments per page'
+						label: 'Kommentare pro Seite'
 					})
 				);
 			}
@@ -422,9 +422,9 @@ var Options = {
 				new Upfront.Views.Editor.Field.Radios({
 					model: this.model,
 					property: "order",
-					label: "Order by:",
+					label: "Sortieren nach:",
 					values: [
-						{label: 'Date', value: 'comment_date_gmt'},
+						{label: 'Datum', value: 'comment_date_gmt'},
 						{label: 'Karma', value: 'comment_karma'},
 						{label: 'Parent', value: 'comment_parent'}
 					]
@@ -434,10 +434,10 @@ var Options = {
 				new Upfront.Views.Editor.Field.Radios({
 					model: this.model,
 					property: "direction",
-					label: "Direction:",
+					label: "Richtung:",
 					values: [
-						{label: 'Oldest first', value: 'ASC'},
-						{label: 'Newest first', value: 'DESC'}
+						{label: 'Älteste zuerst', value: 'ASC'},
+						{label: 'Neueste zuerst', value: 'DESC'}
 					]
 				})
 			);

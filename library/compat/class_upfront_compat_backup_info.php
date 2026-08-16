@@ -56,7 +56,6 @@ class Upfront_Compat_Backup_Info {
 	 *
 	 * If Snapshot is active, return backup link
 	 * If Snapshot is not active but it's there, return activation link
-	 * If no Snapshot and yes Dashboard, go with Dashboard install link
 	 * Otherwise, go with project URL
 	 *
 	 * @return string
@@ -64,10 +63,7 @@ class Upfront_Compat_Backup_Info {
 	public function get_plugin_link () {
 		if ($this->is_plugin_active()) return $this->_get_backup_url();
 		if ($this->is_plugin_present() && current_user_can('activate_plugins')) return $this->_get_activation_url();
-		return $this->_has_dashboard()
-			? $this->_get_dashboard_url()
-			: $this->_get_project_url()
-		;
+		return $this->_get_project_url();
 	}
 
 	/**

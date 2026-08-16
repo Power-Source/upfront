@@ -29,7 +29,7 @@ define([
 			return modulesConfig;
 		},
 
-		title: 'Advanced Settings'
+		title: 'Erweiterte Einstellungen',
 	});
 
 	return AdvancedSettings;

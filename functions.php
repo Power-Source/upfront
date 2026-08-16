@@ -368,15 +368,15 @@ class Upfront {
 			do_action('upfront-core-inject_dependencies'); // Also trigger the dependencies injection hook
 			return false; // Do not inject for users that can't use this
 		}
-		if (empty($_GET['editmode'])) {
+		if (empty($_GET['editmode']) && !apply_filters('upfront-load-editor-dependencies', false)) {
 			do_action('upfront-core-inject_dependencies');
 			return false;
 		}
 
 		$url = self::get_root_url();
 
-		// Boot Edit Mode if the querystring contains the editmode param
-		echo upfront_boot_editor_trigger();
+		// Boot Edit Mode if requested by querystring or a virtual editor page.
+		echo upfront_boot_editor_trigger(apply_filters('upfront-editor-boot-mode', ''));
 
 		$storage_key = apply_filters('upfront-data-storage-key', Upfront_Layout::STORAGE_KEY);
 		$save_storage_key = $storage_key;

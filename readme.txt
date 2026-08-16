@@ -5,7 +5,7 @@ Tags: classicpress-theme, classicpress, theme, framework, awesome
 Requires at least: 4.9
 Tested up to: 5.0
 ClassicPress: 2.7.0
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -41,6 +41,10 @@ Füge Designfarben hinzu, pass Typografie an und bearbeite globale Einstellungen
 = 1.2.1 =
 * Fix: Editor-Skripte werden im Frontend nur noch bei aktivem Upfront-Builder geladen
 * Fix: Unnötige upfront_data-AJAX-Aufrufe und dadurch verursachte 500-Fehler auf normalen Liveseiten verhindert
+* Fix: Virtuelle Editorseiten können die No-Build-Core-Abhängigkeiten ohne editmode-Parameter laden und im gewünschten Modus starten
+* Fix: Der veraltete WPMUDEV-Dashboard-Fallback für Snapshot verursacht keinen PHP-Fatal-Error mehr
+* Fix: Eingabefelder im Dialog zum Hinzufügen von Regionen lassen sich wieder zuverlässig fokussieren und bedienen
+* Fix: Der Region-Dialog liegt über konkurrierenden Overlays und übernimmt Pointer-Ereignisse korrekt
 
 = 1.2.0 =
 * Virtuelle Seiten (zB BuddyPress Seiten) werden wieder korrekt ausgegeben

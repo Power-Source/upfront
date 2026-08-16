@@ -9,18 +9,18 @@ define(function() {
 
 
   // Allow focus on click for inputs and textareas - draggable hijacks it
-	var nonDraggableSelectors = '#page input[type="text"], #page input[type="email"], #page input[type="password"], #page textarea, #page select, #page .upfront-field-select';
-	$('body').on('mouseover', nonDraggableSelectors, function(event) {
+	var nonDraggableSelectors = '#page :input, #upfront-popup :input, .upfront-inline-modal :input, #page [contenteditable="true"], #upfront-popup [contenteditable="true"], .upfront-inline-modal [contenteditable="true"], #page .upfront-field-select, #upfront-popup .upfront-field-select, .upfront-inline-modal .upfront-field-select';
+	$('body').on('mouseover mousedown focusin', nonDraggableSelectors, function(event) {
 		try {
 			$(event.target).closest('.ui-draggable').draggable('disable');
-		} catch (event) {
+		} catch (error) {
 			// We don't do anything but have to guard here
 		}
 	});
-	$('body').on('mouseout', nonDraggableSelectors, function(event) {
+	$('body').on('mouseout focusout', nonDraggableSelectors, function(event) {
 		try {
 			$(event.target).closest('.ui-draggable').draggable('enable');
-		} catch (event) {
+		} catch (error) {
 			// We don't do anything but have to guard here
 		}
 	});

@@ -22,6 +22,8 @@
             events: {
                 "click": "on_click",
                 "click .upfront-inline-modal-content": "on_click_content",
+                "mousedown .upfront-inline-modal-content": "on_press_content",
+                "touchstart .upfront-inline-modal-content": "on_press_content",
                 "click .upfront-inline-modal-save": "on_click_save"
             },
             render: function () {
@@ -112,6 +114,9 @@
                 this.close(false);
             },
             on_click_content: function (e) {
+                e.stopPropagation();
+            },
+            on_press_content: function (e) {
                 e.stopPropagation();
             },
             on_click_save: function () {

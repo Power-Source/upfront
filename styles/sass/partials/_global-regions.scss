@@ -22,7 +22,14 @@
 	margin-bottom: 20px;
 }
 
+.upfront-add-region-modal {
+  z-index: 1000000000;
+}
+
 .upfront-add-region-modal .upfront-inline-modal-wrap .upfront-inline-modal-content {
+  position: relative;
+  z-index: 1;
+  pointer-events: auto;
 	padding: 30px;
 }
 
