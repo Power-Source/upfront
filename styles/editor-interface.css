@@ -9930,7 +9930,7 @@ body.upfront-disable-selection * {
 }
 
 #element-settings-sidebar .add-menu-item {
-  margin-left: 44px;
+  margin-left: 24px;
   margin-right: 0px;
 }
 
@@ -9944,7 +9944,7 @@ body.upfront-disable-selection * {
 
 #settings .select-menu-field,
 #settings .select-menu-field .upfront-field-select {
-  width: 173px;
+  width: 160px;
   overflow: hidden;
 }
 
@@ -23892,7 +23892,7 @@ div.preset-manager-panel .edit_preset_label {
 div.preset-manager-panel .edit_preset_label input {
   cursor: default;
   position: relative;
-  top: 15px;
+  top: 10px;
   color: #a6a6a6;
   font-size: 11px;
   text-transform: uppercase;

@@ -1,6 +1,7 @@
 Change Log
 ============
 
+
 1.2.1 - 2026-08-16
 -------------------------------------------------------------------------------
 - Fix: Editor-Skripte werden im Frontend nur noch bei aktivem Upfront-Builder geladen
@@ -9,7 +10,6 @@ Change Log
 - Fix: Der veraltete WPMUDEV-Dashboard-Fallback für Snapshot verursacht keinen PHP-Fatal-Error mehr
 - Fix: Eingabefelder im Dialog zum Hinzufügen von Regionen lassen sich wieder zuverlässig fokussieren und bedienen
 - Fix: Der Region-Dialog liegt über konkurrierenden Overlays und übernimmt Pointer-Ereignisse korrekt
-
 
 1.2.0 - 2026-08-14
 -------------------------------------------------------------------------------
