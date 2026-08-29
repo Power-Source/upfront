@@ -307,7 +307,7 @@ define([
 		},
 
 		getTitle: function() {
-			return __('Darstellung', 'upfront');
+			return 'Darstellung';
 		},
 
 		getPresetDefaultsMigration: function(presetName) {

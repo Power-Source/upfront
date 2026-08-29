@@ -1645,9 +1645,9 @@ var UgalleryView = Upfront.Views.ObjectView.extend({
 			}
 
 			//Remove labels
-			var labelId = $.trim(label.replace('"label_', '').replace(/"/g, ''));
+			var labels = me.imageLabels[imageId].split(',');
 			_.each(labels, function(label){
-				var labelId = $.trim(label.replace('"label_', '').replace('"', ''));
+				var labelId = $.trim(label.replace('"label_', '').replace(/"/g, ''));
 				me.deleteLabel(labelId, imageId);
 			});
 			me.imageLabels[imageId] = '';

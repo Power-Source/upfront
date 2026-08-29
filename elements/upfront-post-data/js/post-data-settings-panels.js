@@ -134,7 +134,7 @@ define([
 		},
 		
 		getTitle: function() {
-			return __('Voreinstellungen', 'upfront');
+			return 'Voreinstellungen';
 		},
 
 		update_parts: function () {
