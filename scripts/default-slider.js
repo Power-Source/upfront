@@ -72,7 +72,7 @@
 		this.update_configs();
 		this.update_items($items);
 
-		this.$slider.append($('<div class="' + data.classname.nav + '" />'));
+		this.$slider.append($('<div />').addClass(data.classname.nav));
 		this.update_nav();
 
 		// Next and previous navigation
