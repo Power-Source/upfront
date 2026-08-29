@@ -67,7 +67,7 @@ $.fn.cycle = function(options, arg2) {
 		this.cycleStop = 0; // issue #108
 
 		var $cont = $(this);
-		var $slides = opts.slideExpr ? $(opts.slideExpr, this) : $cont.children();
+		var $slides = $cont.children();
 		var els = $slides.get();
 
 		if (els.length < 2) {
