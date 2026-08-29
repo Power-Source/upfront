@@ -1886,8 +1886,26 @@
                 {
                     html = this.clean.savePreCode(html);
 
-                    // convert script tag
-                    html = html.replace(/<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi, '<pre class="redactor-script-tag" style="display: none;" $1>$2</pre>');
+                    // convert script tags
+                    var $cleanDiv = $('<div>').html(html);
+
+                    $cleanDiv.find('script').each(function() {
+                        var $script = $(this);
+                        var $pre = $('<pre>', {
+                            'class': 'redactor-script-tag',
+                            'style': 'display: none;'
+                        });
+
+                        $.each(this.attributes, function() {
+                            $pre.attr(this.name, this.value);
+                        });
+
+                        $pre.text($script.html());
+                        $script.replaceWith($pre);
+                    });
+
+                    html = $cleanDiv.html();
+                    $cleanDiv.remove();
 
                     // replace dollar sign to entity
                     html = html.replace(/\$/g, '&#36;');
