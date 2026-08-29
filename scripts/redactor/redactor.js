@@ -1887,7 +1887,7 @@
                     html = this.clean.savePreCode(html);
 
                     // convert script tag
-                    html = html.replace(/<script(.*?[^>]?)>([\w\W]*?)<\/script>/gi, '<pre class="redactor-script-tag" style="display: none;" $1>$2</pre>');
+                    html = html.replace(/<script(.*?[^>]?)>([\w\W]*?)<\/script\s*>/gi, '<pre class="redactor-script-tag" style="display: none;" $1>$2</pre>');
 
                     // replace dollar sign to entity
                     html = html.replace(/\$/g, '&#36;');
