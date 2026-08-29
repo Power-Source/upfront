@@ -51,7 +51,7 @@ function gm_authFailure() {return google_maps_auth_error = true};
 		key = key ? '&key=' + key : '';
 		script.type = "text/javascript";
 		script.async = true;
-		script.src = protocol + "//maps.googleapis.com/maps/api/js?" + (key ? key.substring(1) + "&" : "") + "libraries=places&loading=async&callback=upfront_maps_loaded";
+		script.src = "https://maps.googleapis.com/maps/api/js?" + (key ? key.substring(1) + "&" : "") + "libraries=places&loading=async&callback=upfront_maps_loaded";
 		document.body.appendChild(script);
 	}
 
