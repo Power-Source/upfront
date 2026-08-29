@@ -37,6 +37,14 @@ define([
 			var me = this;
 			this.$el.html(this.template({slides: this.model.slideCollection, l10n: l10n}));
 
+			this.$('.uslider_content_img').each(function() {
+				var src = $(this).data('src');
+
+				if (src) {
+					$(this).css('background-image', 'url("' + src.replace(/"/g, '\\"') + '")');
+				}
+			});
+
 			//Make the thumbs sortable
 			this.$('.uslider-slides-setting').sortable({
 				items: '.uslider_content_imgslide',

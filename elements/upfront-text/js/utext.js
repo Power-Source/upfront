@@ -36,9 +36,9 @@
 			},
 			on_lightbox_show: function() {
 				// Turn off the editor, hide the redactor bars, clean up the view
-				ed = this.$el.find('.upfront-object-content').data("ueditor");
+				var ed = this.$el.find('.upfront-object-content').data('ueditor');
 
-				if(!ed.options.autostart && ed.redactor){
+				if (ed && !ed.options.autostart && ed.redactor) {
 					ed.stop();
 				}
 			},

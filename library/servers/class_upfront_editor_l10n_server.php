@@ -744,7 +744,7 @@ class Upfront_EditorL10n_Server implements IUpfront_Server {
 				'autoexpand' => __('Automatisch erweitern, um <br />Elemente anzupassen, wenn sie <br />hinzugefügt werden %s', 'upfront'),
 				'new_region_below' => __('Neue Region darunter einfügen', 'upfront'),
 				'new_region_above' => __('Neue Region darüber einfügen', 'upfront'),
-				'add_region' => __('Region hinzufügen', 'upfront'),
+				'add_region' => __('Hinzufügen', 'upfront'),
 				'above' => __('Darüber', 'upfront'),
 				'below' => __('Darunter', 'upfront'),
 				'new_sidebar_region' => __('Neue Seitenleistenregion einfügen', 'upfront'),
