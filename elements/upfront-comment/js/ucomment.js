@@ -54,12 +54,26 @@ var UcommentView = Upfront.Views.ObjectView.extend({
 		if (!post_id && "themeExporter" in Upfront && Upfront.Application.mode.current === Upfront.Application.MODE.THEME) {
 			post_id = 'fake_post';
 		}
-		Upfront.Util.post({"action": "ucomment_get_comment_markup", "data": JSON.stringify({"post_id": post_id})})
-			.done(function (ret) {
-				var html = ret.data.replace(/<script.*?>.*?<\/script\s*>/gim, ''); // strip script
-				$(document).data('upfront-comment-' + _upfront_post_data.post_id, html || '&nbsp;');
-				me.render();
-			})
+		Upfront.Util.post({
+			"action": "ucomment_get_comment_markup",
+			"data": JSON.stringify({"post_id": post_id})
+		})
+		.done(function (ret) {
+			var $commentMarkup = $('<div>').html(ret.data);
+
+			$commentMarkup.find('script').remove();
+
+			var html = $commentMarkup.html();
+
+			$commentMarkup.remove();
+
+			$(document).data(
+				'upfront-comment-' + _upfront_post_data.post_id,
+				html || '&nbsp;'
+			);
+
+			me.render();
+		})
 			.fail(function (ret) {
 				Upfront.Util.log(l10n.loading_error);
 			})
