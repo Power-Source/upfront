@@ -41,7 +41,10 @@ define([
 				var src = $(this).data('src');
 
 				if (src) {
-					$(this).css('background-image', 'url("' + src.replace(/"/g, '\\"') + '")');
+					$(this).css(
+						'background-image',
+						'url("' + src.replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '")'
+					);
 				}
 			});
 
