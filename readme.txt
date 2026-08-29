@@ -38,6 +38,9 @@ Füge Designfarben hinzu, pass Typografie an und bearbeite globale Einstellungen
 
 == ChangeLog ==
 
+= 1.2.2 =
+* Incomplete string escaping or encoding an mehreren Stellen behoben
+
 = 1.2.1 =
 * Fix: Editor-Skripte werden im Frontend nur noch bei aktivem Upfront-Builder geladen
 * Fix: Unnötige upfront_data-AJAX-Aufrufe und dadurch verursachte 500-Fehler auf normalen Liveseiten verhindert

@@ -442,7 +442,7 @@
 
 				styles = Upfront.Util.colors.convert_string_color_to_ufc(this.get_style_element().html().replace(/div#page.upfront-layout-view .upfront-editable_entity.upfront-module/g, '#page'));
 				if (this.is_global_stylesheet === false) {
-					selector = this.get_css_selector().replace(/[.+*\[\]]/g, '\\$&');
+					selector = this.get_css_selector().replace(/[\\.+*?^$()[\]{}|]/g, '\\$&');
 					scope = new RegExp(selector + '\\s*', 'g');
 					styles = styles.replace(scope, '');
 				}

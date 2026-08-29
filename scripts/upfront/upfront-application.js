@@ -560,7 +560,7 @@ var LayoutEditorSubapplication = Subapplication.extend({
 			region = new Upfront.Models.Region({
 				"name": "lightbox",
 				"container": "lightbox",
-				"title": "lightbox Region"
+				"title": __("Lightbox Region", "upfront")
 			});
 			region.add_to(regions, regions.length-1);
 		}
@@ -582,7 +582,7 @@ var LayoutEditorSubapplication = Subapplication.extend({
 			lightbox = new Upfront.Models.Region(_.extend({}, Upfront.data.region_default_args, {
 				name: safeName,
 				container: 'lightbox',
-				title: (regionName || '').replace(/[><&]/, ''),
+				title: (regionName || '').replace(/[><&]/g, ''),
 				type: 'lightbox',
 				sub: 'lightbox'
 			}))

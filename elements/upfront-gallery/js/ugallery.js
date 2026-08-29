@@ -1645,7 +1645,7 @@ var UgalleryView = Upfront.Views.ObjectView.extend({
 			}
 
 			//Remove labels
-			var labels = me.imageLabels[imageId].split(',');
+			var labelId = $.trim(label.replace('"label_', '').replace(/"/g, ''));
 			_.each(labels, function(label){
 				var labelId = $.trim(label.replace('"label_', '').replace('"', ''));
 				me.deleteLabel(labelId, imageId);
