@@ -1,10 +1,7 @@
 /** vim: et:ts=4:sw=4:sts=4
- * @license RequireJS 2.3.3 Copyright jQuery Foundation and other contributors.
+ * @license RequireJS 2.3.8 Copyright jQuery Foundation and other contributors.
  * Released under MIT license, https://github.com/requirejs/requirejs/blob/master/LICENSE
  */
-
-// UPFRONT DEV NOTICE: do not replace with minified version, this needs to be full version for proper build!!!
-
 //Not using strict: uneven strict support in browsers, #392, and causes
 //problems with requirejs.exec()/transpiler plugins that may not be strict.
 /*jslint regexp: true, nomen: true, sloppy: true */
@@ -14,7 +11,7 @@ var requirejs, require, define;
 (function (global, setTimeout) {
     var req, s, head, baseElement, dataMain, src,
         interactiveScript, currentlyAddingScript, mainScript, subPath,
-        version = '2.3.3',
+        version = '2.3.8',
         commentRegExp = /\/\*[\s\S]*?\*\/|([^:"'=]|^)\/\/.*$/mg,
         cjsRequireRegExp = /[^.]\s*require\s*\(\s*["']([^'"\s]+)["']\s*\)/g,
         jsSuffixRegExp = /\.js$/,
@@ -36,7 +33,6 @@ var requirejs, require, define;
         contexts = {},
         cfg = {},
         globalDefQueue = [],
-        externalDefineCounter = 0,
         useInteractive = false;
 
     //Could match something like ')//comment', do not lose the prefix to comment.
@@ -98,7 +94,7 @@ var requirejs, require, define;
     function eachProp(obj, func) {
         var prop;
         for (prop in obj) {
-            if (hasProp(obj, prop)) {
+            if (hasProp(obj, prop) && prop !== '__proto__' && prop !== 'constructor') {
                 if (func(obj[prop], prop)) {
                     break;
                 }
@@ -169,7 +165,7 @@ var requirejs, require, define;
      * @returns {Error}
      */
     function makeError(id, msg, err, requireModules) {
-        var e = new Error(msg + '\nhttp://requirejs.org/docs/errors.html#' + id);
+        var e = new Error(msg + '\nhttps://requirejs.org/docs/errors.html#' + id);
         e.requireType = id;
         e.requireModules = requireModules;
         if (err) {
@@ -2077,20 +2073,6 @@ var requirejs, require, define;
         if (!isArray(deps)) {
             callback = deps;
             deps = null;
-        }
-
-        // Bind anonymous modules to the script that declared them. WordPress
-        // may load unrelated AMD-aware scripts outside RequireJS.
-        if (!name && isBrowser && document.currentScript) {
-            node = document.currentScript;
-            if (node.getAttribute('data-requiremodule')) {
-                name = node.getAttribute('data-requiremodule');
-                context = contexts[node.getAttribute('data-requirecontext')];
-            } else {
-                externalDefineCounter += 1;
-                name = '_@upfront-external-' + externalDefineCounter;
-                context = contexts[defContextName];
-            }
         }
 
         //If no name, and callback is a function, then figure out if it a
