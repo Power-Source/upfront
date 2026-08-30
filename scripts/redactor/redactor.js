@@ -7294,7 +7294,7 @@
                 {
                     if (!this.tidy.settings.removeComments) return html;
 
-                    return html.replace(/<!--[\s\S]*?-->/gi, '');
+                    return html.replace(/<!--[\s\S]*?-->/g, '');
                 },
                 replaceTags: function(html)
                 {
