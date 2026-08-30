@@ -2476,8 +2476,12 @@
                 },
                 encodeEntities: function(str)
                 {
-                    str = String(str).replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
-                    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+                    str = String(str);
+                    return str
+                        .replace(/&(?!(?:amp|lt|gt|quot);)/g, '&amp;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;')
+                        .replace(/"/g, '&quot;');
                 },
                 removeDirtyStyles: function(html)
                 {
