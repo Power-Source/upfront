@@ -8238,8 +8238,7 @@
                     // remove empty tags
                     if (removeEmptyTags !== false)
                     {
-                        html = html.replace(/<[^\/>][^>]*><\/[^>]+>/gi, '');
-                        html = html.replace(/<[^\/>][^>]*><\/[^>]+>/gi, '');
+                        html = html.replace(/<([a-z][a-z0-9]*)\b[^>]*>\s*<\/\1>/gi, '');
                     }
 
                     html = String(html || '').trim();
