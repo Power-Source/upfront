@@ -3497,9 +3497,14 @@
                 {
                     this.$editor.find('img[data-save-url]').each(function()
                     {
-                        var $el = $(this);
-                        $el.attr('src', $el.attr('data-save-url'));
-                        $el.removeAttr('data-save-url');
+                        var el = this;
+                        var saveUrl = el.getAttribute('data-save-url');
+
+                        if (saveUrl) {
+                            el.setAttribute('src', saveUrl);
+                        }
+
+                        el.removeAttribute('data-save-url');
                     });
                 },
                 hideResize: function(e)
