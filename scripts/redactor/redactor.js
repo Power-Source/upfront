@@ -2131,15 +2131,21 @@
                 },
                 onPasteWord: function(html)
                 {
-                    // comments
-                    html = html.replace(/<!--[\s\S]*?-->/gi, '');
-
-                    // style
+                    // Remove comments and style elements.
                     var container = document.createElement('div');
                     container.innerHTML = html;
 
-                    var styles = container.querySelectorAll('style');
+                    var walker = document.createTreeWalker(
+                        container,
+                        NodeFilter.SHOW_COMMENT
+                    );
 
+                    var comment;
+                    while ((comment = walker.nextNode())) {
+                        comment.parentNode.removeChild(comment);
+                    }
+
+                    var styles = container.querySelectorAll('style');
                     for (var i = 0; i < styles.length; i++) {
                         styles[i].remove();
                     }
