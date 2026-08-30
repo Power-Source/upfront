@@ -2135,7 +2135,16 @@
                     html = html.replace(/<!--[\s\S]*?-->/gi, '');
 
                     // style
-                    html = html.replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '');
+                    var container = document.createElement('div');
+                    container.innerHTML = html;
+
+                    var styles = container.querySelectorAll('style');
+
+                    for (var i = 0; i < styles.length; i++) {
+                        styles[i].remove();
+                    }
+
+                    html = container.innerHTML;
 
                     if (/(class=\"?Mso|style=\"[^\"]*\bmso\-|w:WordDocument)/.test(html))
                     {
