@@ -3355,7 +3355,8 @@
 
                         if ($link.length === 0)
                         {
-                            var a = $('<a href="' + link + '">' + this.utils.getOuterHtml($image) + '</a>');
+                            var a = $('<a />').attr('href', link).append($image);
+
                             if (target) a.attr('target', '_blank');
 
                             $image.replaceWith(a);
