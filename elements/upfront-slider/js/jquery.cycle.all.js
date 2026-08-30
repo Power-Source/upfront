@@ -842,12 +842,16 @@ $.fn.cycle.createPagerAnchor = function(i, el, $p, els, opts) {
 		a = opts.pagerAnchorBuilder(i,el);
 		debug('pagerAnchorBuilder('+i+', el) returned: ' + a);
 	}
-	else
-		a = '<a href="#">'+(i+1)+'</a>';
-		
+	else {
+		a = document.createElement('a');
+		a.href = '#';
+		a.textContent = i + 1;
+	}
+
 	if (!a)
 		return;
-	var $a = $(a);
+
+	var $a = a.jquery ? a : $(a);
 	// don't reparent if anchor is in the dom
 	if ($a.parents('body').length === 0) {
 		var arr = [];
