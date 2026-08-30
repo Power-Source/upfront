@@ -7294,7 +7294,26 @@
                 {
                     if (!this.tidy.settings.removeComments) return html;
 
-                    return html.replace(/<!--[\s\S]*?-->/g, '');
+                    var container = document.createElement('div');
+                    container.innerHTML = html;
+
+                    var walker = document.createTreeWalker(
+                        container,
+                        NodeFilter.SHOW_COMMENT
+                    );
+
+                    var comments = [];
+                    var node;
+
+                    while ((node = walker.nextNode())) {
+                        comments.push(node);
+                    }
+
+                    comments.forEach(function(comment) {
+                        comment.parentNode.removeChild(comment);
+                    });
+
+                    return container.innerHTML;
                 },
                 replaceTags: function(html)
                 {
