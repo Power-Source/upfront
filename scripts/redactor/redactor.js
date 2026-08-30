@@ -2143,7 +2143,7 @@
 
                         // shapes
                         html = html.replace(/<img(.*?)v:shapes=(.*?)>/gi, '');
-                        html = html.replace(/src="file\:\/\/(.*?)"/, 'src=""');
+                        html = html.replace(/src="file:\/\/[^"]*"/gi, 'src=""');
 
                         // list
                         html = html.replace(/<p(.*?)class="MsoListParagraphCxSpFirst"([\w\W]*?)<\/p>/gi, '<ul><li$2</li>');
