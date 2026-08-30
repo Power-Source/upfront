@@ -32,7 +32,7 @@
                 element.$el.on('mousedown', function (e) {
                     // Trigger shadow element drag
                     var $main = $(Upfront.Settings.LayoutEditor.Selectors.main),
-                        $shadow = $('[data-shadow='+element.shadow_id+']'),
+                        $shadow = element.shadow_id ? $('[data-shadow="' + element.shadow_id + '"]') : $(),
                         main_off = $main.offset(),
                         pos = $shadow.position(),
                         off = $shadow.offset(),
