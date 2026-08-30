@@ -829,7 +829,7 @@ function advance(opts, moveForward) {
 }
 
 function buildPager(els, opts) {
-	var $p = $(opts.pager);
+	var $p = opts.pager ? $(opts.pager) : $();
 	$.each(els, function(i,o) {
 		$.fn.cycle.createPagerAnchor(i,o,$p,els,opts);
 	});
