@@ -607,7 +607,7 @@ $.fn.cycle.resetState = function(opts, fx) {
 	// re-init
 	var init = $.fn.cycle.transitions[fx];
 	if ($.isFunction(init))
-		init(opts.$cont, $(opts.elements), opts);
+		init(opts.$cont, opts.elements, opts);
 };
 
 // this is the main engine fn, it handles the timeouts, callbacks and slide index mgmt
