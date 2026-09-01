@@ -1,5 +1,7 @@
 # Upfront Theme Framework
 
+**Deutsch** | [English](README.en.md)
+
 [![Version](https://img.shields.io/badge/Version-1.2.2-2271b1?style=flat-square)](readme.txt)
 ![PHP](https://img.shields.io/badge/PHP-8.0%2B-777bb4?style=flat-square&logo=php&logoColor=white)
 ![WordPress](https://img.shields.io/badge/WordPress-bis%207.1.0-21759b?style=flat-square&logo=wordpress&logoColor=white)
