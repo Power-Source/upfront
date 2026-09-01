@@ -395,6 +395,17 @@ var BehaviorPanel = RootSettingsPanel.extend({
 								this.model.set_property('loop', value);
 							}
 					}),
+					new Fields.Toggle({
+						model: this.model,
+							property: 'fullscreen',
+							className: 'fullscreen',
+							values: [
+								{ label: l10n.fullscreen, value: 'fullscreen' }
+							],
+							change: function(value) {
+								this.model.set_property('fullscreen', value);
+							}
+					}),
 				]
 			}),
 			new SettingsItem({

@@ -821,12 +821,8 @@ class Upfront_Editor_Ajax extends Upfront_Server {
 		}
 
 		// Re-sanitize the whole post
-		$layout = false === empty($data['layout']) ? $data['layout'] : array();
 		unset($data['layout']);
 		$data = sanitize_post($data, 'edit');
-		if (false === empty($layout)) {
-			$data['layout'] = $layout;
-		}
 
 		// Initialize data
 		$post = false;

@@ -37,7 +37,8 @@ class Upfront_UyoutubeView extends Upfront_Object {
 			'player_height' => 0,
 			'youtube_status' => 'starting',
 			'loop' => false,
-			'autoplay' => false
+			'autoplay' => false,
+			'fullscreen' => array('fullscreen')
 		);
 	}
 
@@ -122,6 +123,7 @@ class Upfront_UyoutubeView extends Upfront_Object {
 			'first_to_thumbnails' => __('Erstes Video zu den Thumbnails hinzufügen', 'upfront'),
 			'autoplay' => __('Video beim Laden der Seite abspielen', 'upfront'),
 			'loop' => __('Schleife', 'upfront'),
+			'fullscreen' => __('Vollbild erlauben', 'upfront'),
 			'playback' => __('Wiedergabe', 'upfront'),
 			'play_video' => __('Video abspielen', 'upfront'),
 			'thumbnail_size' => __('Thumbnail-Größe', 'upfront'),

@@ -4617,6 +4617,10 @@ msgstr ""
 msgid "Schleife"
 msgstr ""
 
+#: elements/upfront-youtube/lib/uyoutube.php:126
+msgid "Vollbild erlauben"
+msgstr ""
+
 #: elements/upfront-youtube/lib/uyoutube.php:122
 msgid "Wiedergabe"
 msgstr ""

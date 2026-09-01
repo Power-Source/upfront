@@ -778,7 +778,7 @@
 					});
 					selector = Upfront.Application.cssEditor.get_css_selector();
 					if ( prev_selector != selector )
-						styles = styles.replace(new RegExp(prev_selector.replace(/^\./, '\.'), 'g'), selector);
+						styles = styles.replace(new RegExp(prev_selector.replace(/^\./, '\\.'), 'g'), selector);
 					Upfront.Application.cssEditor.get_style_element().html(styles);
 					Upfront.Application.cssEditor.saveCall(false);
 				}

@@ -241,7 +241,7 @@ define([
 
 				migrateElementStyle: function(styles, selector) {
 					//add class for specificity
-					var search = new RegExp(selector.replace('.', '\.'), 'g');
+					var search = new RegExp(selector.replace('.', '\\.'), 'g');
 					styles = styles.replace(search, selector + ' .upfront-accordion-container ');
 
 					return styles;

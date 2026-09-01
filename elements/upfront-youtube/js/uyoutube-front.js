@@ -44,10 +44,20 @@
 		var loop = ph.data('loop');
 		var width = ph.data('width') || parseInt(ph.width(), 10);
 		var height = ph.data('height') || parseInt(ph.height(), 10);
+		var fullscreen = ph.attr('data-fullscreen') === 'true';
+		var iframe = document.createElement('iframe');
 
 		if (loop) loop = '&' + loop;
 
-		ph.after('<iframe src="https://www.youtube.com/embed/'+video_id+'?modestbranding=1'+loop+'&autoplay=true" width="'+width+'" height="'+height+'"></iframe>');
+		iframe.src = 'https://www.youtube.com/embed/' + video_id + '?modestbranding=1' + loop + '&autoplay=1';
+		iframe.width = width;
+		iframe.height = height;
+		iframe.title = ph.find('img').attr('title') || 'YouTube video player';
+		if (fullscreen) {
+			iframe.setAttribute('allow', 'fullscreen');
+			iframe.setAttribute('allowfullscreen', '');
+		}
+		ph.after(iframe);
 		ph.remove();
 	}
 
