@@ -13,7 +13,11 @@
 			var scheme = normalized.match(/^([a-z][a-z0-9+.-]*):/i);
 
 			if (scheme && !/^(https?|ftp|mailto|tel)$/i.test(scheme[1])) return '';
-			return url;
+			try {
+				return encodeURI(url);
+			} catch (error) {
+				return '';
+			}
 		}
 		$.fn.ueditor = function(options){
 			var isMethod = false,
