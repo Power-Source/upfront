@@ -80,7 +80,11 @@ class Upfront_Output {
 	 * @return mixed (number)Post ID, or (bool)false if we're not dealing with a singular view
 	 */
 	public static function get_post_id () {
-		return is_singular() ? Upfront_EntityResolver::get_persisted_post_id() : false;
+		global $wp_query;
+		return is_singular() || Upfront_EntityResolver::get_virtual_post($wp_query)
+			? Upfront_EntityResolver::get_persisted_post_id($wp_query)
+			: false
+		;
 	}
 
 	/**

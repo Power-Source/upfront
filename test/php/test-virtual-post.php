@@ -64,6 +64,55 @@ class UpfrontVirtualPostTest extends WP_UnitTestCase {
 		$this->assertFalse(Upfront_EntityResolver::get_persisted_post_id($query));
 	}
 
+	public function test_virtual_post_injected_into_archive_uses_single_layout () {
+		register_post_status('virtual', array('public' => true));
+		$post_id = self::factory()->post->create(array('post_status' => 'virtual'));
+		$post = get_post($post_id);
+		$query = new WP_Query();
+		$query->posts = array($post);
+		$query->post_count = 1;
+		$query->is_archive = true;
+
+		$this->assertSame($post, Upfront_EntityResolver::get_virtual_post($query));
+		$this->assertSame(array(
+			'item' => 'post',
+			'specificity' => $post_id,
+			'type' => 'single',
+		), Upfront_EntityResolver::get_entity_cascade($query));
+	}
+
+	public function test_single_result_archive_stays_archive_without_virtual_status () {
+		$post_id = self::factory()->post->create();
+		$query = new WP_Query();
+		$query->posts = array(get_post($post_id));
+		$query->post_count = 1;
+		$query->is_archive = true;
+
+		$this->assertFalse(Upfront_EntityResolver::get_virtual_post($query));
+		$this->assertSame('archive', Upfront_EntityResolver::get_entity_cascade($query)['type']);
+	}
+
+	public function test_post_data_prefers_injected_virtual_post_over_global_post () {
+		global $post, $wp_query;
+		$original_post = $post;
+		$original_query = $wp_query;
+		$virtual_post = new WP_Post((object)array(
+			'ID' => 123,
+			'post_type' => 'jbp_pro',
+			'post_status' => 'virtual',
+			'post_content' => '[jbp-expert-archive-page]',
+		));
+		$wp_query = new WP_Query();
+		$wp_query->posts = array($virtual_post);
+		$wp_query->post_count = 1;
+		$wp_query->is_archive = true;
+		$post = self::factory()->post->create_and_get();
+
+		$this->assertSame($virtual_post, Upfront_Post_Data_Model::get_post());
+		$post = $original_post;
+		$wp_query = $original_query;
+	}
+
 	public function test_post_data_uses_runtime_queried_object_without_global_post () {
 		global $post, $wp_query;
 		$original_post = $post;

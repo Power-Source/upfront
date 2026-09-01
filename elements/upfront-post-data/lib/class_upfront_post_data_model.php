@@ -17,7 +17,11 @@ class Upfront_Post_Data_Model {
 	 */
 	public static function get_post ($post_id = null) {
 		global $post, $wp_query;
-		$resolved_post = get_post($post_id);
+		$resolved_post = !$post_id && $wp_query instanceof WP_Query
+			? Upfront_EntityResolver::get_virtual_post($wp_query)
+			: false
+		;
+		if (!$resolved_post) $resolved_post = get_post($post_id);
 		if (!$resolved_post && empty($post_id) && $wp_query instanceof WP_Query) {
 			$queried_object = $wp_query->get_queried_object();
 			if ($queried_object instanceof WP_Post) {

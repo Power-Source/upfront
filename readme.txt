@@ -40,6 +40,8 @@ Füge Designfarben hinzu, pass Typografie an und bearbeite globale Einstellungen
 
 = 1.2.2 =
 * Incomplete string escaping or encoding an mehreren Stellen behoben
+* Fix: Von Plugins in Archiv-Queries injizierte virtuelle Seiten werden wieder als Einzelseiten erkannt und mit ihrem tatsächlichen Inhalt gerendert
+* Fix: PS-Jobboard-Expertenseiten verwenden wieder das passende Single-Layout statt der generischen Beitragsliste
 
 = 1.2.1 =
 * Fix: Editor-Skripte werden im Frontend nur noch bei aktivem Upfront-Builder geladen

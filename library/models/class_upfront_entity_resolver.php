@@ -33,8 +33,19 @@ abstract class Upfront_EntityResolver {
 	public static function get_entity_cascade ($query=false) {
 		$query = self::_get_query($query);
 
-		if ($query->is_singular() || $query->get_queried_object() instanceof WP_Post) return self::resolve_singular_entity($query);
+		if ($query->is_singular() || $query->get_queried_object() instanceof WP_Post || self::get_virtual_post($query)) return self::resolve_singular_entity($query);
 		else return self::resolve_archive_entity($query);
+	}
+
+	/**
+	 * Returns a virtual post injected into an otherwise archive-like query.
+	 */
+	public static function get_virtual_post ($query=false) {
+		$query = self::_get_query($query);
+		if (1 !== (int)$query->post_count || empty($query->posts) || 1 !== count($query->posts)) return false;
+
+		$post = reset($query->posts);
+		return $post instanceof WP_Post && 'virtual' === $post->post_status ? $post : false;
 	}
 
 	/**
@@ -44,7 +55,8 @@ abstract class Upfront_EntityResolver {
 		$query = self::_get_query($query);
 
 		$wp_entity = array();
-		$wp_object = $query->get_queried_object();
+		$wp_object = self::get_virtual_post($query);
+		if (!$wp_object) $wp_object = $query->get_queried_object();
 		$wp_id = self::get_persisted_post_id($query);
 
 		if (!$wp_id && $query->is_404) {
@@ -67,8 +79,9 @@ abstract class Upfront_EntityResolver {
 	 */
 	public static function get_persisted_post_id ($query=false) {
 		$query = self::_get_query($query);
-		$wp_object = $query->get_queried_object();
-		$wp_id = $query->get_queried_object_id();
+		$wp_object = self::get_virtual_post($query);
+		if (!$wp_object) $wp_object = $query->get_queried_object();
+		$wp_id = $wp_object instanceof WP_Post ? $wp_object->ID : $query->get_queried_object_id();
 		$persisted_id = false;
 
 		if (is_numeric($wp_id) && (int)$wp_id > 0) {
