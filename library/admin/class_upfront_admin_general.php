@@ -70,7 +70,7 @@ class Upfront_Admin_General extends Upfront_Admin_Page {
 							</div>
 							<div class="upfront-debug-block">
 								<h4><?php _e("PSOURCE Hilfe", Upfront::TextDomain) ?></h4>
-								<a class="upfront_button visit-forum" href="https://psource.eimen.net/" target="_blank"><?php esc_html_e("Besuche unsere Webseite", Upfront::TextDomain) ?></a> <a class="upfront_button" href="https://github.com/Power-Source/upfront" target="_blank"><?php esc_html_e("Hilf auf GitHub mit", Upfront::TextDomain) ?></a>
+								<a class="upfront_button visit-forum" href="https://psource.eimen.net/" target="_blank"><?php esc_html_e("Besuche unsere Webseite", Upfront::TextDomain) ?></a> <a class="upfront_button" href="https://github.com/Power-Source/upfront" target="_blank"><?php esc_html_e("Hilf auf GitHub mit", Upfront::TextDomain) ?></a> <a class="upfront_button find-themes" href="https://psource.eimen.net/ps-upfront-theme-framework/ps-upfront-themes/" target="_blank"><?php esc_html_e("FINDE UPFRONT THEMES", Upfront::TextDomain) ?></a>
 							</div>
 							<div class="upfront-debug-block">
 								<h4><?php esc_html_e('Theme-Werkzeuge', Upfront::TextDomain); ?></h4>

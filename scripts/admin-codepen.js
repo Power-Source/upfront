@@ -22,6 +22,10 @@
 		return String(value).replace(/[\r\n;{}]/g, '');
 	}
 
+	function cssStringValue(value) {
+		return cssValue(value).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+	}
+
 	function colorValue(value) {
 		var color = cssValue(value);
 		return color.indexOf('#ufc') === 0 ? '$' + color.substring(1) : color;
@@ -46,7 +50,7 @@
 			if (!style) return;
 			output += selector + ' {\n';
 			if (style.color) output += '\tcolor: ' + colorValue(style.color) + ';\n';
-			if (style.font_face) output += '\tfont-family: "' + cssValue(style.font_face).replace(/"/g, '\\"') + '", ' + cssValue(style.font_family || 'sans-serif') + ';\n';
+			if (style.font_face) output += '\tfont-family: "' + cssStringValue(style.font_face) + '", ' + cssValue(style.font_family || 'sans-serif') + ';\n';
 			if (style.line_height) output += '\tline-height: ' + cssValue(style.line_height) + 'em;\n';
 			if (style.size) output += '\tfont-size: ' + cssValue(style.size) + 'px;\n';
 			if (style.style) output += '\tfont-style: ' + cssValue(style.style) + ';\n';

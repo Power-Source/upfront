@@ -3,8 +3,8 @@
 <div class="uslider-slides-setting">
 {[ slides.each(function(slide){ ]}
 <div class="uslider_content_imgslide uslider_content_slide" rel="{{slide.id}}">
-	<div class="uslider_content_img" data-src="<%- slide.get('src') %>"></div>
-	<img src="<%- slide.get('src') %>" />
+	<div class="uslider_content_img" data-src="{{ _.escape(slide.get('src')) }}"></div>
+	<img src="{{ _.escape(slide.get('src')) }}" />
 	<span class="remove-slide"></span>
 </div>
 {[ }) ]}

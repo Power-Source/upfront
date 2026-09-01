@@ -31,6 +31,16 @@
     var reUrlYoutube = /https?:\/\/(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube\.com\S*[^\w\-\s])([\w\-]{11})(?=[^\w\-]|$)(?![?=&+%\w.\-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/ig;
     var reUrlVimeo = /https?:\/\/(www\.)?vimeo.com\/(\d+)($|\/)/;
 
+    function sanitizeLinkUrl(value)
+    {
+        var url = String(value || '').trim();
+        var normalized = url.replace(/[\x00-\x20\x7f-\x9f]/g, '');
+        var scheme = normalized.match(/^([a-z][a-z0-9+.-]*):/i);
+
+        if (scheme && !/^(https?|ftp|mailto|tel)$/i.test(scheme[1])) return '';
+        return url;
+    }
+
     // Plugin
     $.fn.redactor = function(options)
     {
@@ -3351,9 +3361,11 @@
                             link = this.opts.linkProtocol + '://' + link;
                         }
 
+                        link = sanitizeLinkUrl(link);
+
                         var target = ($('#redactor-image-link-blank').prop('checked')) ? true : false;
 
-                        if ($link.length === 0)
+                        if (link !== '' && $link.length === 0)
                         {
                             var a = $('<a />').attr('href', link).append($image);
 
@@ -3361,7 +3373,7 @@
 
                             $image.replaceWith(a);
                         }
-                        else
+                        else if (link !== '')
                         {
                             $link.attr('href', link);
                             if (target)
@@ -3372,6 +3384,10 @@
                             {
                                 $link.removeAttr('target');
                             }
+                        }
+                        else if ($link.length !== 0)
+                        {
+                            $link.replaceWith($image);
                         }
                     }
                     else if ($link.length !== 0)

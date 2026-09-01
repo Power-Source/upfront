@@ -7,6 +7,14 @@
 	], function(tpl, Inserts, redactor_plugins, InlineTooltip){
 		var hackedRedactor = false;
 		var UeditorEvents = redactor_plugins.UeditorEvents;
+		function sanitizeLinkUrl(value) {
+			var url = String(value || '').trim();
+			var normalized = url.replace(/[\x00-\x20\x7f-\x9f]/g, '');
+			var scheme = normalized.match(/^([a-z][a-z0-9+.-]*):/i);
+
+			if (scheme && !/^(https?|ftp|mailto|tel)$/i.test(scheme[1])) return '';
+			return url;
+		}
 		$.fn.ueditor = function(options){
 			var isMethod = false,
 				elements = this,
@@ -1361,7 +1369,7 @@
 				this.$el.find('a').each(function(){
 					var $link = $(this),
 						linkType = String(me.guessLinkTypeTag($link) || '').replace(/[^a-z0-9_-]/gi, ''),
-						href = $link.attr('href'),
+						href = sanitizeLinkUrl($link.attr('href')),
 						$flag;
 					if($link.find('i.visit_link').length > 0 || !href || $link.text().trim() == '')
 						return;
@@ -1375,14 +1383,19 @@
 			},
 			hideLinkFlags: function(area)  {
 				this.$el.find('a').each(function() {
-					$(this).css('position', '');
-					$(this).attr('href', $(this).children('i.visit_link').attr('data-href'));
-					$(this).children('i.visit_link').remove();
+					var $link = $(this),
+						href = sanitizeLinkUrl($link.children('i.visit_link').attr('data-href'));
+					$link.css('position', '');
+					if (href) $link.attr('href', href);
+					else $link.removeAttr('href');
+					$link.children('i.visit_link').remove();
 					//$(this).attr('onclick', '');
 				});
 			},
 			visitLink: function(url) {
 				var me = this;
+				url = sanitizeLinkUrl(url);
+				if (!url) return;
 				var linktype = me.guessLinkType(url);
 				if(linktype == 'lightbox') {
 					var regions = Upfront.Application.layout.get('regions');
@@ -2414,12 +2427,12 @@
 							// Data changes to apply
 							alt = $details.find(".upfront-image-detail-alt :text").val(),
 							link_to = $details.find(".upfront-image-detail-link :radio:checked").val(),
-							link_url = $details.find(".upfront-image-detail-link :text").val()
+							link_url = sanitizeLinkUrl($details.find(".upfront-image-detail-link :text").val())
 						;
 
 						$img.attr("alt", alt);
 
-						if (link_to) {
+						if (link_to && (link_to !== "link" || link_url)) {
 							var $link = $old_link.length ? $old_link : $('<a href="#" />');
 							switch (link_to) {
 								case "popup":
