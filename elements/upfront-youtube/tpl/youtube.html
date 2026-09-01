@@ -9,7 +9,7 @@
 		<?php if ( !empty($multiple_videos[0] ) ) { ?>
 			<?php if ( !empty($autoplay_string) ) { ?>
 			<!-- Video if autoplay -->
-			<iframe src="https://www.youtube.com/embed/<?php echo $escape_attr($multiple_videos[0]['id']) ?>?modestbranding=1<?php echo $escape_attr($loop_string) ?><?php echo $escape_attr($autoplay_string) ?>" height="<?php echo $escape_attr($player_height) ?>" width="<?php echo $escape_attr($player_width) ?>" title="<?php echo $escape_attr(!empty($multiple_videos[0]['title']) ? $multiple_videos[0]['title'] : 'YouTube video player') ?>"<?php if (!empty($fullscreen)) { ?> allow="fullscreen" allowfullscreen<?php } ?>></iframe>
+			<iframe src="https://www.youtube.com/embed/<?php echo $escape_attr($multiple_videos[0]['id']) ?>?modestbranding=1<?php echo $escape_attr($loop_string) ?><?php echo $escape_attr($autoplay_string) ?>" height="<?php echo $escape_attr($player_height) ?>" width="<?php echo $escape_attr($player_width) ?>" title="<?php echo $escape_attr(!empty($multiple_videos[0]['title']) ? $multiple_videos[0]['title'] : 'YouTube video player') ?>"<?php if (!empty($fullscreen)) { ?> allow="fullscreen"<?php } ?>></iframe>
 			<?php } else { ?>
 			<!-- Video placeholder -->
 			<div class="ufyt_main-video-placeholder" data-loop="<?php echo $escape_attr($loop_string) ?>" data-width="<?php echo $escape_attr($player_width) ?>" data-height="<?php echo $escape_attr($player_height) ?>" data-video-id="<?php echo $escape_attr($multiple_videos[0]['id']) ?>" data-fullscreen="<?php echo !empty($fullscreen) ? 'true' : 'false' ?>">

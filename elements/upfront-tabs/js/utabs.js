@@ -10,7 +10,7 @@ define([
 	var l10n = Upfront.Settings.l10n.utabs_element;
 
 	// Kill live site tab handling
-	$('body').off('touchstart click', '.tabs-tab');
+	$('body').off('click', '.tabs-tab');
 
 	var UtabsView = Upfront.Views.ObjectView.extend({
 		model: UtabsModel,

@@ -55,7 +55,6 @@
 		iframe.title = ph.find('img').attr('title') || 'YouTube video player';
 		if (fullscreen) {
 			iframe.setAttribute('allow', 'fullscreen');
-			iframe.setAttribute('allowfullscreen', '');
 		}
 		ph.after(iframe);
 		ph.remove();

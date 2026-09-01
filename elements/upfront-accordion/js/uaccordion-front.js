@@ -12,7 +12,7 @@
 		});
 		$('.accordion-panel:not(.accordion-panel-active) .accordion-panel-content').hide();	
 		
-		$('body').on('touchstart click', '.accordion-panel', function(event) {
+		$('body').on('click', '.accordion-panel', function(event) {
 			var $panel = $(event.currentTarget);
 			var contentId;
 

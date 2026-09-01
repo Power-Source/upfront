@@ -1,6 +1,6 @@
 ;(function($){
 	$(function () {
-		$('body').on('touchstart click', '.tabs-tab', function(event) {
+		$('body').on('click', '.tabs-tab', function(event) {
 			var $tab = $(event.currentTarget);
 			var contentId;
 
