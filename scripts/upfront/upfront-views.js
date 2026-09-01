@@ -2437,6 +2437,10 @@ define([
 				}
 			},
 			on_click: function (e) {
+				if ($(e.target).closest('input, textarea, select, button, [contenteditable]').length) {
+					e.stopPropagation();
+					return;
+				}
 				_Upfront_EditableEntity.prototype.on_click.call(this, e);
 				if ( this.object_group_view && "editing" in this.object_group_view && this.object_group_view.editing ) {
 					// On object group edit, do not propagate

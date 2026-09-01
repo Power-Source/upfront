@@ -3376,7 +3376,7 @@
                     }
                     else if ($link.length !== 0)
                     {
-                        $link.replaceWith(this.utils.getOuterHtml($image));
+                        $link.replaceWith($image);
 
                     }
 

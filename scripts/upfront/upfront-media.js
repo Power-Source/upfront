@@ -2798,25 +2798,30 @@ define([
 			this.media_manager.render();
 			return false;
 		},
-		results_html: function (result) {
-			var html = '';
-			if (result && result.each) result.each(function (item) {
-				var data = item.toJSON(),
+		result_data: function (item, type) {
+			var data = item.toJSON(),
 					selected_size = item.get("selected_size") || MEDIA_SIZES.FULL,
 					all_sizes = item.get("additional_sizes")
 				;
-				if (selected_size && MEDIA_SIZES.FULL != selected_size) {
-					_(all_sizes).each(function (size) {
-						if (MEDIA_SIZES.to_size(size) != selected_size) return true;
-						data.image = size;
-					});
-				}
-				if ( result.type == 'gallery' )
-					data.link = {
-						href: '#',
-						"class": 'popup'
-					};
-				data.type = result.type;
+			if (selected_size && MEDIA_SIZES.FULL != selected_size) {
+				_(all_sizes).each(function (size) {
+					if (MEDIA_SIZES.to_size(size) != selected_size) return true;
+					data.image = size;
+				});
+			}
+			if ( type == 'gallery' )
+				data.link = {
+					href: '#',
+					"class": 'popup'
+				};
+			data.type = type;
+			return data;
+		},
+		results_html: function (result) {
+			var html = '',
+				me = this;
+			if (result && result.each) result.each(function (item) {
+				var data = me.result_data(item, result.type);
 				html += _.template( (data.link ? Upfront.Media.Templates.image_link : Upfront.Media.Templates.image), data);
 			});
 			if (result && result.length && result.length > 1) {

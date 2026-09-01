@@ -1359,11 +1359,17 @@
 			displayLinkFlags: function() {
 				var me = this;
 				this.$el.find('a').each(function(){
-					if($(this).find('i.visit_link').length > 0 || !$(this).attr('href') || $(this).text().trim() == '')
+					var $link = $(this),
+						linkType = String(me.guessLinkTypeTag($link) || '').replace(/[^a-z0-9_-]/gi, ''),
+						href = $link.attr('href'),
+						$flag;
+					if($link.find('i.visit_link').length > 0 || !href || $link.text().trim() == '')
 						return;
-					$(this).css('position', 'relative');
-					$(this).append('<i class="visit_link visit_link_'+me.guessLinkTypeTag($(this))+'" data-href="'+$(this).attr('href')+'"></i>');
-					$(this).removeAttr('href');
+					$flag = $('<i />').addClass('visit_link').attr('data-href', href);
+					if (linkType) $flag.addClass('visit_link_' + linkType);
+					$link.css('position', 'relative');
+					$link.append($flag);
+					$link.removeAttr('href');
 					//$(this).attr('onclick', 'return false;');
 				});
 			},
@@ -2249,15 +2255,23 @@
 					return $($(target).closest("#upfront-image-details").data('ref'));
 				},
 				change_image: function (e) {
-					var $img = e.data.get_target(e.target);
+					var $wrapper = e.data.get_target(e.target);
 					Upfront.Media.Manager.open({
 						multiple_selection: false,
 						button_text: "Change image"
 					}).done(function (popup, result) {
 						if (!result) return false;
 						if (!result.length) return false;
-						var html = Upfront.Media.Manager.results_html(result);
-						$img.replaceWith(html);
+						var data = Upfront.Media.Manager.result_data(result.at(0), result.type),
+							$image = $wrapper.find('img').first();
+						if (!$image.length || !data.image) return false;
+						$image.attr({
+							src: data.image.src,
+							title: data.post_title || '',
+							alt: data.post_title || '',
+							height: data.image.height,
+							width: data.image.width
+						});
 						e.data.redactor.code.sync();
 						e.data.bind_events();
 					});
