@@ -303,7 +303,27 @@
             }
             else {
 
-                var appendTo = opts.appendTo === "parent" ? boundElement.parent() : $(opts.appendTo);
+                var appendTo;
+                if (opts.appendTo === "parent") {
+                    appendTo = boundElement.parent();
+                }
+                else if (opts.appendTo && opts.appendTo.jquery) {
+                    appendTo = opts.appendTo;
+                }
+                else if (opts.appendTo && (opts.appendTo.nodeType || opts.appendTo === window)) {
+                    appendTo = $([opts.appendTo]);
+                }
+                else if (typeof opts.appendTo === "string") {
+                    try {
+                        appendTo = $($.find(opts.appendTo));
+                    }
+                    catch (ignore) {
+                        appendTo = $();
+                    }
+                }
+                else {
+                    appendTo = $();
+                }
                 if (appendTo.length !== 1) {
                     appendTo = $("body");
                 }

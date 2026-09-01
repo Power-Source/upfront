@@ -49,6 +49,41 @@ var mfp, // As we have only one instance of MagnificPopup object, we define it l
 var _mfpOn = function(name, f) {
 		mfp.ev.on(NS + name + EVENT_NS, f);
 	},
+	_parseSafeMarkup = function(markup) {
+		var nodes = $.parseHTML(String(markup), document, false) || [],
+			$markup = $(nodes);
+
+		$markup.find('*').addBack().each(function() {
+			var attribute,
+				attributeName,
+				attributeValue,
+				index;
+			if(!this.attributes) {
+				return;
+			}
+
+			for(index = this.attributes.length - 1; index >= 0; index--) {
+				attribute = this.attributes[index];
+				attributeName = attribute.name.toLowerCase();
+				attributeValue = attribute.value.replace(/[\u0000-\u0020\u007f-\u009f]/g, '').toLowerCase();
+
+				if(
+					attributeName.indexOf('on') === 0 ||
+					attributeName === 'srcdoc' ||
+					(
+						/^(href|src|xlink:href|action|formaction|poster)$/.test(attributeName) &&
+						/^(javascript|vbscript|data):/.test(attributeValue)
+					)
+				) {
+					this.removeAttribute(attribute.name);
+				}
+			}
+		});
+
+		$markup.filter('script, object, embed').remove();
+		$markup.find('script, object, embed').remove();
+		return $markup;
+	},
 	_getEl = function(className, appendTo, html, raw) {
 		var el = document.createElement('div');
 		el.className = 'mfp-'+className;
@@ -509,7 +544,7 @@ MagnificPopup.prototype = {
 			_mfpTrigger('FirstMarkupParse', markup);
 
 			if(markup) {
-				mfp.currTemplate[type] = $(markup);
+				mfp.currTemplate[type] = _parseSafeMarkup(markup);
 			} else {
 				// if there is no markup found we just define that template is parsed
 				mfp.currTemplate[type] = true;

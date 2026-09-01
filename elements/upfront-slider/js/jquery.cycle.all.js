@@ -92,8 +92,26 @@ $.fn.cycle = function(options, arg2) {
 	});
 };
 
+function resolveCycleElements(value) {
+	if (!value)
+		return $();
+	if (value.jquery)
+		return value;
+	if (value.nodeType || value === window)
+		return $(value);
+	if (typeof value === 'string') {
+		try {
+			return $($.find(value));
+		}
+		catch (ignore) {
+			return $();
+		}
+	}
+	return $();
+}
+
 function triggerPause(cont, byHover, onPager) {
-	var opts = $(cont).data('cycle.opts');
+	var opts = $.data(cont, 'cycle.opts');
 	if (!opts)
 		return;
 	var paused = !!cont.cyclePause;
@@ -113,7 +131,7 @@ function handleArguments(cont, options, arg2) {
 		switch(options) {
 		case 'destroy':
 		case 'stop':
-			var opts = $(cont).data('cycle.opts');
+			var opts = $.data(cont, 'cycle.opts');
 			if (!opts)
 				return false;
 			cont.cycleStop++; // callbacks look for change
@@ -122,7 +140,7 @@ function handleArguments(cont, options, arg2) {
 			cont.cycleTimeout = 0;
 			if (opts.elements)
 				$(opts.elements).stop();
-			$(cont).removeData('cycle.opts');
+			$.removeData(cont, 'cycle.opts');
 			if (options == 'destroy')
 				destroy(cont, opts);
 			return false;
@@ -142,7 +160,7 @@ function handleArguments(cont, options, arg2) {
 			return false;
 		case 'prev':
 		case 'next':
-			opts = $(cont).data('cycle.opts');
+			opts = $.data(cont, 'cycle.opts');
 			if (!opts) {
 				log('options not found, "prev/next" ignored');
 				return false;
@@ -157,7 +175,7 @@ function handleArguments(cont, options, arg2) {
 	else if (options.constructor == Number) {
 		// go to the requested slide
 		var num = options;
-		options = $(cont).data('cycle.opts');
+		options = $.data(cont, 'cycle.opts');
 		if (!options) {
 			log('options not found, can not advance slide');
 			return false;
@@ -180,7 +198,7 @@ function handleArguments(cont, options, arg2) {
 	
 	function checkInstantResume(isPaused, arg2, cont) {
 		if (!isPaused && arg2 === true) { // resume now!
-			var options = $(cont).data('cycle.opts');
+			var options = $.data(cont, 'cycle.opts');
 			if (!options) {
 				log('options not found, can not resume');
 				return false;
@@ -548,7 +566,9 @@ function supportMultiTransitions(opts) {
 // provide a mechanism for adding slides after the slideshow has started
 function exposeAddSlide(opts, els) {
 	opts.addSlide = function(newSlide, prepend) {
-		var $s = $(newSlide), s = $s[0];
+		var $s = resolveCycleElements(newSlide), s = $s[0];
+		if (!s)
+			return;
 		if (!opts.autostopCount)
 			opts.countdown++;
 		els[prepend?'unshift':'push'](s);
@@ -563,7 +583,10 @@ function exposeAddSlide(opts, els) {
 		}
 
 		$s.css('position','absolute');
-		$s[prepend?'prependTo':'appendTo'](opts.$cont);
+		if (prepend)
+			$s.prependTo(opts.$cont);
+		else
+			$s.appendTo(opts.$cont);
 
 		if (prepend) {
 			opts.currSlide++;
@@ -583,7 +606,7 @@ function exposeAddSlide(opts, els) {
 		$s.css(opts.cssBefore);
 
 		if (opts.pager || opts.pagerAnchorBuilder)
-			$.fn.cycle.createPagerAnchor(els.length-1, s, $(opts.pager), els, opts);
+			$.fn.cycle.createPagerAnchor(els.length-1, s, resolveCycleElements(opts.pager), els, opts);
 
 		if ($.isFunction(opts.onAddSlide))
 			opts.onAddSlide($s);
@@ -829,14 +852,7 @@ function advance(opts, moveForward) {
 }
 
 function buildPager(els, opts) {
-        var $p = $();
-
-        if (opts.pager && opts.pager.jquery) {
-                $p = opts.pager;
-        }
-        else if (opts.pager && opts.pager.nodeType) {
-                $p = $(opts.pager);
-        }
+	var $p = resolveCycleElements(opts.pager);
 
         $.each(els, function(i,o) {
                 $.fn.cycle.createPagerAnchor(i,o,$p,els,opts);
@@ -859,7 +875,9 @@ $.fn.cycle.createPagerAnchor = function(i, el, $p, els, opts) {
 	if (!a)
 		return;
 
-	var $a = a.jquery ? a : $(a);
+	var $a = resolveCycleElements(a);
+	if (!$a.length)
+		return;
 	// don't reparent if anchor is in the dom
 	if ($a.parents('body').length === 0) {
 		var arr = [];
