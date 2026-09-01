@@ -989,6 +989,7 @@
 	cursor: move;
 	cursor: -moz-grab;
 	cursor: -webkit-grab;
+	cursor: grab;
 	border: 1px solid #f2f2f2;
 }
 
@@ -1017,6 +1018,7 @@
 	cursor: move;
 	cursor: -moz-grabbing;
 	cursor: -webkit-grabbing;
+	cursor: grabbing;
 }
 
 .draggable-element:hover {

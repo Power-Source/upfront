@@ -820,8 +820,21 @@ class Upfront_Editor_Ajax extends Upfront_Server {
 			$data[$ping_field] = implode("\n", $ping_values);
 		}
 
-		// Re-sanitize the whole post
-		unset($data['layout']);
+		$sticky = isset($data['sticky']) ? $data['sticky'] : false;
+		$post_fields = array(
+			'ID', 'post_author', 'post_date', 'post_date_gmt', 'post_content',
+			'post_title', 'post_excerpt', 'post_status', 'comment_status',
+			'ping_status', 'post_password', 'post_name', 'to_ping', 'pinged',
+			'post_modified', 'post_modified_gmt', 'post_content_filtered',
+			'post_parent', 'guid', 'menu_order', 'post_type', 'post_mime_type',
+			'comment_count',
+		);
+		$data = array_intersect_key($data, array_flip($post_fields));
+		foreach ($data as $post_field => $post_value) {
+			if (!is_scalar($post_value) && null !== $post_value) unset($data[$post_field]);
+		}
+
+		// Re-sanitize the post fields
 		$data = sanitize_post($data, 'edit');
 
 		// Initialize data
@@ -853,9 +866,9 @@ class Upfront_Editor_Ajax extends Upfront_Server {
 		if (is_wp_error($id)) $this->_out(new Upfront_JsonResponse_Error($id->get_error_message()));
 
 		// Handle the sticky attribute
-		if (isset($data['sticky']) && $data['sticky']) {	
+		if ($sticky) {
 		
-			if($data['sticky']=='false'){
+			if($sticky == 'false'){
 				unstick_post($data['ID']);
 			}
 			else{

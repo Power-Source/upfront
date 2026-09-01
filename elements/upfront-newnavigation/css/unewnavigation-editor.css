@@ -271,7 +271,6 @@ div.upfront-navigation div.new_menu_button input[disabled] {
 	border-bottom-color: rgb(99, 134, 166);
 }
 
-`
 #unewnavigation-tooltip div.upfront-field-wrap-select {
 	display: inline-block;
 	vertical-align: middle;
@@ -611,7 +610,7 @@ div.preset-manager-panel .menustyle_settings_item .menu_alignment {
 }
 
 div.preset-manager-panel div.menustyle_settings_item .upfront-settings-item-title span {
-	color: #
+	color: #4f4f4f;
 }
 
 div.preset-manager-panel .menustyle_settings_item  .burger_alignment {
