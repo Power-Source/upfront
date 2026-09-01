@@ -340,7 +340,7 @@ class Upfront_Editor_Ajax extends Upfront_Server {
 			$year = $arc_row->year;
 
 			$value = esc_attr( $year . $month );
-			$label = sprintf( __( '%1$s %2$d' ), $wp_locale->get_month( $month ), $year );
+			$label = sprintf( __( '%1$s %2$d', 'upfront' ), $wp_locale->get_month( $month ), $year );
 			$date_values_and_labels[] = array(
 				'value' => $value,
 				'name' => $value,

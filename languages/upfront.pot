@@ -3,41 +3,21 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Upfront 1.2.1\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/upfront\n"
+"Report-Msgid-Bugs-To: https://github.com/Power-Source/upfront/issues\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-01T21:42:30+00:00\n"
+"POT-Creation-Date: 2026-09-01T22:04:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: upfront\n"
 
 #. Theme Name of the theme
 #: style.css
 #: functions.php:203
-#: library/class_upfront_admin.php:78
 msgid "Upfront"
-msgstr ""
-
-#. Theme URI of the theme
-#: style.css
-msgid "https://psource.eimen.net/wiki/upfront-dokumentation/"
-msgstr ""
-
-#. Description of the theme
-#: style.css
-msgid "Eine benutzerfreundliche, extrem vielseitige und unbegrenzt anpassbare Drag-and-Drop-Theme-Plattform."
-msgstr ""
-
-#. Author of the theme
-#: style.css
-msgid "PSOURCE"
-msgstr ""
-
-#. Author URI of the theme
-#: style.css
-msgid "http://psource.eimen.net/"
 msgstr ""
 
 #: elements/upfront-accordion/lib/uaccordion.php:116
@@ -169,7 +149,6 @@ msgstr ""
 #: elements/upfront-slider/lib/upfront_slider.php:234
 #: elements/upfront-tabs/lib/utabs.php:140
 #: functions.php:152
-#: library/class_upfront_behavior.php:72
 #: library/servers/class_upfront_editor_l10n_server.php:183
 #: library/servers/class_upfront_editor_l10n_server.php:539
 #: library/servers/class_upfront_presets_server.php:616
@@ -404,7 +383,6 @@ msgstr ""
 #: elements/upfront-code/lib/upfront_code.php:134
 #: elements/upfront-image/lib/uimage.php:236
 #: library/servers/class_upfront_editor_l10n_server.php:211
-#: library/servers/class_upfront_editor_l10n_server.php:346
 msgid "Bild verlinken"
 msgstr ""
 
@@ -430,7 +408,6 @@ msgstr ""
 #: elements/upfront-maps/lib/upfront_maps.php:133
 #: library/admin/class_upfront_admin_general.php:113
 #: library/admin/class_upfront_admin_general.php:146
-#: library/admin/class_upfront_admin_general.php:268
 #: library/servers/class_upfront_editor_l10n_server.php:213
 #: library/servers/class_upfront_editor_l10n_server.php:375
 #: library/servers/class_upfront_editor_l10n_server.php:866
@@ -827,10 +804,6 @@ msgstr ""
 #: elements/upfront-slider/lib/upfront_slider.php:181
 #: elements/upfront-widget/lib/class_upfront_widget_view.php:91
 #: elements/upfront-youtube/lib/uyoutube.php:136
-#: library/admin/class_upfront_admin_general.php:7
-#: library/admin/class_upfront_admin_general.php:26
-#: library/class_upfront_admin.php:78
-#: library/class_upfront_admin.php:93
 #: library/servers/class_upfront_editor_l10n_server.php:253
 msgid "Allgemeine Einstellungen"
 msgstr ""
@@ -2495,7 +2468,6 @@ msgstr ""
 
 #: elements/upfront-newnavigation/lib/unewnavigation.php:282
 #: library/servers/class_upfront_editor_l10n_server.php:260
-#: library/servers/class_upfront_editor_l10n_server.php:341
 #: library/servers/class_upfront_editor_l10n_server.php:660
 msgid "Links"
 msgstr ""
@@ -2503,7 +2475,6 @@ msgstr ""
 #: elements/upfront-newnavigation/lib/unewnavigation.php:283
 #: elements/upfront-newnavigation/lib/unewnavigation.php:287
 #: library/servers/class_upfront_editor_l10n_server.php:261
-#: library/servers/class_upfront_editor_l10n_server.php:342
 #: library/servers/class_upfront_editor_l10n_server.php:661
 msgid "Rechts"
 msgstr ""
@@ -3491,7 +3462,6 @@ msgid "Weiter"
 msgstr ""
 
 #: elements/upfront-posts/lib/class_upfront_posts_data.php:155
-#: library/admin/class_upfront_admin_general.php:7
 #: library/servers/class_upfront_editor_l10n_server.php:254
 msgid "Allgemein"
 msgstr ""
@@ -4647,101 +4617,6 @@ msgstr ""
 msgid "Du kannst den API-Schlüssel <a href=\"%s\" target=\"_blank\">hier</a> erhalten"
 msgstr ""
 
-#: library/admin/class_upfront_admin_codepen.php:12
-msgid "Upfront zu CodePen"
-msgstr ""
-
-#: library/admin/class_upfront_admin_codepen.php:13
-#: library/admin/class_upfront_admin_codepen.php:52
-msgid "CodePen-Styleguide"
-msgstr ""
-
-#: library/admin/class_upfront_admin_codepen.php:55
-msgid "Theme-Stile exportieren"
-msgstr ""
-
-#: library/admin/class_upfront_admin_codepen.php:57
-msgid "Erstellt einen neuen CodePen mit den Farben und Typografie-Einstellungen des aktiven Upfront-Themes."
-msgstr ""
-
-#: library/admin/class_upfront_admin_codepen.php:60
-msgid "Neuen Pen erstellen"
-msgstr ""
-
-#: library/admin/class_upfront_admin_experimental.php:11
-msgid "Experimentelle Features"
-msgstr ""
-
-#: library/admin/class_upfront_admin_experimental.php:11
-msgid "Experimentell"
-msgstr ""
-
-#: library/admin/class_upfront_admin_experimental.php:63
-msgid "Experimental Features"
-msgstr ""
-
-#: library/admin/class_upfront_admin_experimental.php:66
-msgid "Dies sind verschiedene experimentelle Funktionen, die in Upfront verfügbar sind. Bitte sei vorsichtig, einige dieser Einstellungen könnten mit Plugins interferieren."
-msgstr ""
-
-#: library/admin/class_upfront_admin_experimental.php:71
-msgid "Performance Optimierungen"
-msgstr ""
-
-#: library/admin/class_upfront_admin_experimental.php:75
-msgid "Performance-verbessernde Verhaltensänderungen"
-msgstr ""
-
-#: library/admin/class_upfront_admin_experimental.php:82
-msgid "Aus"
-msgstr ""
-
-#: library/admin/class_upfront_admin_experimental.php:91
-msgid "Ein"
-msgstr ""
-
-#: library/admin/class_upfront_admin_experimental.php:92
-msgid "Aktiviert die Standard-Optimierung"
-msgstr ""
-
-#: library/admin/class_upfront_admin_experimental.php:103
-#: library/class_upfront_behavior.php:73
-msgid "Aggressiv"
-msgstr ""
-
-#: library/admin/class_upfront_admin_experimental.php:104
-msgid "Entprellt die verwendeten internen Skripte und lädt sie asynchron"
-msgstr ""
-
-#: library/admin/class_upfront_admin_experimental.php:113
-#: library/class_upfront_behavior.php:74
-msgid "Extrem"
-msgstr ""
-
-#: library/admin/class_upfront_admin_experimental.php:114
-msgid "Alle eingebauten Abhängigkeiten sowie jQuery werden entprellt und in den Footer verschoben. (Dieser Modus wird sehr wahrscheinlich Plugins beschädigen, bitte vorsichtig verwenden)."
-msgstr ""
-
-#: library/admin/class_upfront_admin_experimental.php:119
-msgid "Asset-Caching (Freeze-Modus)"
-msgstr ""
-
-#: library/admin/class_upfront_admin_experimental.php:130
-msgid "Gefrorene Assets cachen"
-msgstr ""
-
-#: library/admin/class_upfront_admin_experimental.php:131
-msgid "Alle Assets in ihrem aktuellen Zustand einfrieren und aus dem Cache ausliefern. Diese Option verbessert die Leistung und sollte am besten verwendet werden, sobald Sie Änderungen an Ihrer Website abgeschlossen haben."
-msgstr ""
-
-#: library/admin/class_upfront_admin_experimental.php:136
-msgid "Freeze-Dauer"
-msgstr ""
-
-#: library/admin/class_upfront_admin_experimental.php:137
-msgid "Wie lange gewartet werden soll, bevor der Cache der gefrorenen Assets aktualisiert wird"
-msgstr ""
-
 #: library/admin/class_upfront_admin_experimental.php:140
 msgid "Two minutes (debug)"
 msgstr ""
@@ -4774,176 +4649,9 @@ msgstr ""
 msgid "One month"
 msgstr ""
 
-#: library/admin/class_upfront_admin_experimental.php:159
-msgid "Aktiviere Upfront komprimierte Antwort"
-msgstr ""
-
-#: library/admin/class_upfront_admin_experimental.php:160
-msgid "Wendet GZip-Komprimierung auf alle von Upfront generierten Antworten (AJAX) an"
-msgstr ""
-
-#: library/admin/class_upfront_admin_experimental.php:166
-#: library/admin/class_upfront_admin_restrictions.php:128
-msgid "Änderungen speichern"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:30
-msgid "Versions-Info"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:36
-#, php-format
-msgid "%s (Aktives Theme)"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:54
-msgid "Hilfreiche Resourcen"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:60
-msgid "UpFront Wiki"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:63
-msgid "Upfront 1.0"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:64
-msgid "Upfront Part 1: Die Basics, Themefarben und Schriftarten"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:65
-msgid "Upfront Teil 2: Strukturierung Deiner Webseite mit Bereichen"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:66
-msgid "Upfront Teil 3: Layout Deiner Webseite mit Elementen"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:67
-msgid "Upfront Teil 4: Elemente mit individuellem Code anpassen"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:68
-msgid "Upfront Teil 5: Plugins hinzufügen und Powerform Formulare stylen"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:69
-msgid "Upfront Teil 6: Erstellung von responsiven Webseiten"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:70
-msgid "Upfront Teil 7: Arbeiten mit Seiten und Beiträgen"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:74
-msgid "PSOURCE Hilfe"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:75
-msgid "Besuche unsere Webseite"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:75
-msgid "Hilf auf GitHub mit"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:75
-msgid "FINDE UPFRONT THEMES"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:78
-msgid "Theme-Werkzeuge"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:79
-msgid "CodePen-Styleguide erstellen"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:102
-msgid "API Schlüssel"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:135
-msgid "Anforderungswarteschlange und Caching-Strategie"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:164
-msgid "Debug-Optionen"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:167
-#, php-format
-msgid "Hier findest Du verschiedene Debug-Hilfen, die Du ausprobieren kannst, wenn etwas schief geht. Bevor Du die untenstehenden Optionen ausprobierst, stelle bitte sicher, dass Du einen <a target=\"_blank\" href=\"%s\"><strong>Leeren Cache &amp; Hard Reload</strong></a> durchgeführt hast, das löst normalerweise die meisten Probleme."
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:170
-msgid "Kann nach Core-Upgrades hilfreich sein."
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:171
-msgid "Upfront Cache leeren"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:174
-msgid "Google Maps API ausschließen"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:184
-msgid "Externe Avatare laden"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:192
-msgid "Aus: nur lokale Platzhalterbilder. An: Gravatar/andere externe Avatar-Dienste laden."
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:196
-msgid "Setzt das Layout auf das Standard-Erscheinungsbild zurück – Vorsicht!"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:203
-msgid "Bitte wähle ein Layout zum Zurücksetzen"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:216
-msgid "Globale Bereiche einbeziehen"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:219
-msgid "Du hast kein gespeichertes Layout zum Zurücksetzen"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:222
-msgid "Layout zurücksetzen"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:225
-msgid "Theme auf Standardzustand zurücksetzen"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:226
-msgid "<small><strong class=\"warning-text\">ACHTUNG:</strong> Dies setzt Dein aktives Theme auf den Zustand zurück, in dem es sich bei der ersten Installation befand. Dies kann nicht rückgängig gemacht werden, also bitte vorher sichern.</small>"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:227
-msgid "Theme zurücksetzen"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:250
-msgid "Website-Wartung"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:252
-msgid "Wartungsmodus der Website aktivieren"
-msgstr ""
-
 #: library/admin/class_upfront_admin_general.php:263
 #, php-format
 msgid "Du kannst die Wartungsseite <a href=\"%s\" target=\"_blank\">hier</a> bearbeiten"
-msgstr ""
-
-#: library/admin/class_upfront_admin_general.php:284
-msgid "Changelog"
 msgstr ""
 
 #: library/admin/class_upfront_admin_general.php:299
@@ -4994,125 +4702,8 @@ msgstr ""
 msgid "Warteschlangenbildung für Anfragen mit Caching der Antworten im lokalen Speicher. Gechachte Antworten bleiben gecacht, bis sie bereinigt werden."
 msgstr ""
 
-#: library/admin/class_upfront_admin_restrictions.php:19
-#: library/admin/class_upfront_admin_restrictions.php:20
-msgid "Benutzerrechte"
-msgstr ""
-
-#: library/admin/class_upfront_admin_restrictions.php:45
-msgid "Benutzerbeschränkungen"
-msgstr ""
-
-#: library/admin/class_upfront_admin_restrictions.php:49
-msgid "Funktionalität"
-msgstr ""
-
 #: library/admin/class_upfront_admin_restrictions.php:51
 msgid "Super Admin"
-msgstr ""
-
-#: library/admin/class_upfront_admin_restrictions.php:196
-#, php-format
-msgid "Kein Label gesetzt für &quot;%s&quot;"
-msgstr ""
-
-#: library/admin/class_upfront_admin_theme_catalog.php:38
-msgid "Upfront Theme-Katalog"
-msgstr ""
-
-#: library/admin/class_upfront_admin_theme_catalog.php:43
-msgid "Entdecke freigegebene Upfront-Child-Themes von PSOURCE und installiere sie direkt."
-msgstr ""
-
-#: library/admin/class_upfront_admin_theme_catalog.php:47
-msgid "Aktuell sind keine installierbaren Upfront-Themes verfügbar."
-msgstr ""
-
-#: library/admin/class_upfront_admin_theme_catalog.php:72
-#, php-format
-msgid "Version %1$s von %2$s"
-msgstr ""
-
-#: library/admin/class_upfront_admin_theme_catalog.php:76
-msgid "Installiert"
-msgstr ""
-
-#: library/admin/class_upfront_admin_theme_catalog.php:83
-msgid "Installieren"
-msgstr ""
-
-#: library/admin/class_upfront_admin_theme_catalog.php:87
-msgid "Details"
-msgstr ""
-
-#: library/admin/class_upfront_admin_theme_catalog.php:124
-msgid "Unbekannt"
-msgstr ""
-
-#: library/admin/class_upfront_admin_theme_catalog.php:149
-msgid "Der Theme-Katalog hat ungültige Daten geliefert."
-msgstr ""
-
-#: library/admin/class_upfront_admin_theme_catalog.php:154
-msgid "Ungültiges Theme."
-msgstr ""
-
-#: library/admin/class_upfront_admin_theme_catalog.php:196
-msgid "Der Theme-Katalog ist derzeit nicht erreichbar."
-msgstr ""
-
-#: library/admin/class_upfront_admin_theme_catalog.php:231
-msgid "Du darfst keine Themes installieren."
-msgstr ""
-
-#: library/admin/class_upfront_admin_theme_catalog.php:232
-msgid "Zugriff verweigert"
-msgstr ""
-
-#: library/admin/class_upfront_admin_theme_catalog.php:240
-msgid "Ungültige Installationsanfrage."
-msgstr ""
-
-#: library/admin/class_upfront_admin_theme_catalog.php:242
-msgid "Dieses Theme ist nicht im freigegebenen Katalog enthalten."
-msgstr ""
-
-#: library/admin/class_upfront_admin_theme_catalog.php:243
-msgid "Dieses Theme ist bereits installiert."
-msgstr ""
-
-#: library/admin/class_upfront_admin_theme_catalog.php:246
-#: library/admin/class_upfront_admin_theme_catalog.php:280
-msgid "Das Paket ist kein gültiges Upfront-Child-Theme."
-msgstr ""
-
-#: library/admin/class_upfront_admin_theme_catalog.php:257
-msgid "Das Theme konnte nicht installiert werden."
-msgstr ""
-
-#: library/admin/class_upfront_admin_theme_catalog.php:258
-#, php-format
-msgid "%s wurde erfolgreich installiert."
-msgstr ""
-
-#: library/admin/class_upfront_admin_theme_catalog.php:274
-msgid "Das Theme-Paket konnte nicht geprüft werden."
-msgstr ""
-
-#: library/admin/class_upfront_admin_theme_catalog.php:276
-msgid "Das Paket enthält keine style.css im Theme-Stammverzeichnis."
-msgstr ""
-
-#: library/admin/class_upfront_admin_theme_catalog.php:278
-msgid "Die style.css des Themes konnte nicht gelesen werden."
-msgstr ""
-
-#: library/admin/class_upfront_admin_theme_catalog.php:283
-msgid "Das Theme-Verzeichnis existiert bereits."
-msgstr ""
-
-#: library/admin/class_upfront_admin_theme_catalog.php:284
-msgid "Das Theme-Paket konnte nicht vorbereitet werden."
 msgstr ""
 
 #: library/class_upfront_admin.php:61
@@ -5123,36 +4714,8 @@ msgstr ""
 msgid "Bist Du sicher, dass Du das Layout \"{layout}\" auf den Standardzustand zurücksetzen möchtest? Bitte beachte, dass dieser Vorgang nicht rückgängig gemacht werden kann."
 msgstr ""
 
-#: library/class_upfront_behavior.php:71
-msgid "Niedrig"
-msgstr ""
-
 #: library/class_upfront_compat.php:312
 msgid "We’ve put a lot of time into getting the migration process right, however given the variety of layouts that can be achieved with Upfront and the amazing improvements we’ve added in version 1.0, we strongly advise that you to make a full backup of your site with <b>Snapshot</b> before proceeding to edit your site. "
-msgstr ""
-
-#: library/class_upfront_form.php:110
-msgid "Inspect your submission for errors outlined below"
-msgstr ""
-
-#: library/class_upfront_form.php:170
-msgid "Please, enter the correct string"
-msgstr ""
-
-#: library/class_upfront_form.php:184
-msgid "Valid usernames begin with a letter and have only alphanumeric characters."
-msgstr ""
-
-#: library/class_upfront_form.php:225
-msgid "Your password has to have at least 8 characters."
-msgstr ""
-
-#: library/class_upfront_form.php:232
-msgid "Your passwords do not match."
-msgstr ""
-
-#: library/class_upfront_form.php:282
-msgid "Please, enter a valid email"
 msgstr ""
 
 #: library/class_upfront_logger.php:171
@@ -5174,78 +4737,6 @@ msgstr ""
 #: library/class_upfront_logger.php:175
 #: library/media/class_upfront_media_server.php:167
 msgid "Info"
-msgstr ""
-
-#: library/class_upfront_permissions.php:488
-msgid "Kann auf den Editor-Modus zugreifen"
-msgstr ""
-
-#: library/class_upfront_permissions.php:489
-msgid "Kann Upfront-Layouts bearbeiten"
-msgstr ""
-
-#: library/class_upfront_permissions.php:490
-msgid "Kann Einzelbeitrag-Layout bearbeiten"
-msgstr ""
-
-#: library/class_upfront_permissions.php:491
-msgid "Kann Seiten-Layout bearbeiten"
-msgstr ""
-
-#: library/class_upfront_permissions.php:492
-msgid "Kann Homepage-Layout bearbeiten"
-msgstr ""
-
-#: library/class_upfront_permissions.php:493
-msgid "Kann Archiv-Layout bearbeiten"
-msgstr ""
-
-#: library/class_upfront_permissions.php:494
-msgid "Kann Medien hochladen"
-msgstr ""
-
-#: library/class_upfront_permissions.php:495
-msgid "Kann Element-Voreinstellungen erstellen / bearbeiten"
-msgstr ""
-
-#: library/class_upfront_permissions.php:496
-msgid "Kann Element-Voreinstellungen löschen"
-msgstr ""
-
-#: library/class_upfront_permissions.php:497
-msgid "Kann zwischen Element-Voreinstellungen wechseln"
-msgstr ""
-
-#: library/class_upfront_permissions.php:498
-msgid "Kann globale Optionen bearbeiten / speichern <p class=\"description\">(Theme-Farben, Kommentare etc.)</p>"
-msgstr ""
-
-#: library/class_upfront_permissions.php:499
-msgid "Kann Beiträge & Seiten von Upfront aus erstellen"
-msgstr ""
-
-#: library/class_upfront_permissions.php:500
-msgid "Kann bestehende Beiträge & Seiten von allen bearbeiten"
-msgstr ""
-
-#: library/class_upfront_permissions.php:501
-msgid "Kann eigene bestehende Beiträge & Seiten bearbeiten"
-msgstr ""
-
-#: library/class_upfront_permissions.php:502
-msgid "Kann Embeds verwenden (Code El, Media Embeds)"
-msgstr ""
-
-#: library/class_upfront_permissions.php:503
-msgid "Kann Layouts im Responsive-Modus betreten & bearbeiten"
-msgstr ""
-
-#: library/class_upfront_permissions.php:504
-msgid "Kann Benutzerbeschränkungen bearbeiten"
-msgstr ""
-
-#: library/class_upfront_permissions.php:505
-msgid "Kann Debug-Steuerelemente sehen / verwenden"
 msgstr ""
 
 #: library/compat/class_upfront_compat_backup_info.php:79
@@ -6384,7 +5875,6 @@ msgstr ""
 
 #: library/servers/class_upfront_editor_l10n_server.php:225
 #: library/servers/class_upfront_editor_l10n_server.php:289
-#: library/servers/class_upfront_editor_l10n_server.php:361
 msgid "Lightbox öffnen"
 msgstr ""
 
@@ -6576,7 +6066,6 @@ msgid "Neue Lightbox erstellen"
 msgstr ""
 
 #: library/servers/class_upfront_editor_l10n_server.php:292
-#: library/servers/class_upfront_editor_l10n_server.php:362
 msgid "Link-URL eingeben:"
 msgstr ""
 
@@ -6721,40 +6210,6 @@ msgstr ""
 msgid "Kursiv"
 msgstr ""
 
-#: library/servers/class_upfront_editor_l10n_server.php:336
-msgid "Links ausrichten"
-msgstr ""
-
-#: library/servers/class_upfront_editor_l10n_server.php:337
-msgid "Rechts ausrichten"
-msgstr ""
-
-#: library/servers/class_upfront_editor_l10n_server.php:338
-msgid "Keine Ausrichtung"
-msgstr ""
-
-#: library/servers/class_upfront_editor_l10n_server.php:339
-#: library/servers/class_upfront_editor_l10n_server.php:343
-msgid "Zentrieren"
-msgstr ""
-
-#: library/servers/class_upfront_editor_l10n_server.php:340
-msgid "Bildeinfügung: "
-msgstr ""
-
-#: library/servers/class_upfront_editor_l10n_server.php:344
-#: library/servers/class_upfront_editor_l10n_server.php:790
-msgid "Bild ändern"
-msgstr ""
-
-#: library/servers/class_upfront_editor_l10n_server.php:345
-msgid "Stil"
-msgstr ""
-
-#: library/servers/class_upfront_editor_l10n_server.php:347
-msgid "Beschriftung umschalten"
-msgstr ""
-
 #: library/servers/class_upfront_editor_l10n_server.php:350
 msgid "Überschrift 01"
 msgstr ""
@@ -6793,10 +6248,6 @@ msgstr ""
 
 #: library/servers/class_upfront_editor_l10n_server.php:359
 msgid "Standardformatierung:"
-msgstr ""
-
-#: library/servers/class_upfront_editor_l10n_server.php:363
-msgid "Telefonnummer eingeben:"
 msgstr ""
 
 #: library/servers/class_upfront_editor_l10n_server.php:366
@@ -8126,6 +7577,10 @@ msgstr ""
 #: library/servers/class_upfront_editor_l10n_server.php:787
 #, php-format
 msgid "Du hast den Desktop-Hintergrund für %s geändert. Möchtest du die Tablet- und Mobile-Breakpoints ebenfalls aktualisieren, um diesen Hintergrund zu verwenden?"
+msgstr ""
+
+#: library/servers/class_upfront_editor_l10n_server.php:790
+msgid "Bild ändern"
 msgstr ""
 
 #: library/servers/class_upfront_editor_l10n_server.php:791

@@ -309,9 +309,9 @@ class Upfront_Post_Data_PartView_Comments extends Upfront_Post_Data_PartView {
 	 */
 	private function _get_comment_form_field () {
 		return '<p class="comment-form-comment">' .
-			'<label for="comment">' . _x( 'Comment', 'noun' ) . '</label>' .
+			'<label for="comment">' . _x( 'Comment', 'noun', 'upfront' ) . '</label>' .
 			' ' .
-			'<textarea placeholder="' . esc_attr(__('Leave a Reply')) . '" id="comment" name="comment" cols="45" rows="8" aria-describedby="form-allowed-tags" aria-required="true" required="required"></textarea>' .
+			'<textarea placeholder="' . esc_attr(__('Leave a Reply', 'upfront')) . '" id="comment" name="comment" cols="45" rows="8" aria-describedby="form-allowed-tags" aria-required="true" required="required"></textarea>' .
 		'</p>';
 	}
 

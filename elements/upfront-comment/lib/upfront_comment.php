@@ -176,9 +176,9 @@ class Upfront_UcommentView extends Upfront_Object {
 	 */
 	private static function _get_comment_form_field () {
 		return '<p class="comment-form-comment">' .
-			'<label for="comment">' . _x( 'Comment', 'noun' ) . '</label>' .
+			'<label for="comment">' . _x( 'Comment', 'noun', 'upfront' ) . '</label>' .
 			' ' .
-			'<textarea placeholder="' . esc_attr(__('Leave a Reply')) . '" id="comment" name="comment" cols="45" rows="8" aria-describedby="form-allowed-tags" aria-required="true" required="required"></textarea>' .
+			'<textarea placeholder="' . esc_attr(__('Leave a Reply', 'upfront')) . '" id="comment" name="comment" cols="45" rows="8" aria-describedby="form-allowed-tags" aria-required="true" required="required"></textarea>' .
 		'</p>';
 	}
 
@@ -464,13 +464,13 @@ class Upfront_UcommentAjax extends Upfront_Server {
 
 		if (isset($data['avatar_default'])) {
 			$avatar_defaults = apply_filters('avatar_defaults', array(
-				'mystery' => __('Mystery Man'),
-				'blank' => __('Blank'),
-				'gravatar_default' => __('Gravatar Logo'),
-				'identicon' => __('Identicon (Generated)'),
-				'wavatar' => __('Wavatar (Generated)'),
-				'monsterid' => __('MonsterID (Generated)'),
-				'retro' => __('Retro (Generated)')
+				'mystery' => __('Mystery Man', 'upfront'),
+				'blank' => __('Blank', 'upfront'),
+				'gravatar_default' => __('Gravatar Logo', 'upfront'),
+				'identicon' => __('Identicon (Generated)', 'upfront'),
+				'wavatar' => __('Wavatar (Generated)', 'upfront'),
+				'monsterid' => __('MonsterID (Generated)', 'upfront'),
+				'retro' => __('Retro (Generated)', 'upfront')
 			));
 			if (in_array($data['avatar_default'], array_keys($avatar_defaults))) {
 				Upfront_Cache_Utils::update_option('avatar_default', $data['avatar_default']);
@@ -486,13 +486,13 @@ class Upfront_UcommentAjax extends Upfront_Server {
 		if (!Upfront_Permissions::current(Upfront_Permissions::OPTIONS)) $this->_out(new Upfront_JsonResponse_Error(self::_get_l10n('error_permissions')));
 		global $current_user;
 		$avatar_defaults = apply_filters('avatar_defaults', array(
-			'mystery' => __('Mystery Man'),
-			'blank' => __('Blank'),
-			'gravatar_default' => __('Gravatar Logo'),
-			'identicon' => __('Identicon (Generated)'),
-			'wavatar' => __('Wavatar (Generated)'),
-			'monsterid' => __('MonsterID (Generated)'),
-			'retro' => __('Retro (Generated)')
+			'mystery' => __('Mystery Man', 'upfront'),
+			'blank' => __('Blank', 'upfront'),
+			'gravatar_default' => __('Gravatar Logo', 'upfront'),
+			'identicon' => __('Identicon (Generated)', 'upfront'),
+			'wavatar' => __('Wavatar (Generated)', 'upfront'),
+			'monsterid' => __('MonsterID (Generated)', 'upfront'),
+			'retro' => __('Retro (Generated)', 'upfront')
 		));
 
 		// Temporary options toggle

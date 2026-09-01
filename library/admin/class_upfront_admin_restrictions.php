@@ -57,7 +57,7 @@ class Upfront_Admin_Restrictions extends Upfront_Admin_Page {
 
 					<?php foreach( Upfront_Permissions::boot()->get_upfront_capability_map() as $cap_id => $capability ) { ?>
 					<ul class="upfront_restrictions_functionality_row" data-capability_id="<?php echo esc_attr($cap_id); ?>">
-						<li class="upfront_restrictions_functionality_name"><?php _e($this->_get_cap_label( $cap_id )) ?></li>
+						<li class="upfront_restrictions_functionality_name"><?php _e($this->_get_cap_label( $cap_id ), 'upfront') ?></li>
 						<?php
 						// Only multi-site super_admin can see this
 						if ( is_multisite() && is_super_admin() ) {

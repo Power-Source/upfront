@@ -315,15 +315,15 @@ class Upfront_JavascriptMain extends Upfront_Server {
 
 
 		$specificity = json_encode(array(
-			'specificity' => __('This post only'),
-			'item' => __('All posts of this type'),
-			'type' => __('All posts'),
+			'specificity' => __('This post only', 'upfront'),
+			'item' => __('All posts of this type', 'upfront'),
+			'type' => __('All posts', 'upfront'),
 		));
 
 		$archive_specificity = json_encode(array(
-			'specificity' => __('This archive only'),
-			'item' => __('All archives of this type'),
-			'type' => __('All archives'),
+			'specificity' => __('This archive only', 'upfront'),
+			'item' => __('All archives of this type', 'upfront'),
+			'type' => __('All archives', 'upfront'),
 		));
 
 		$content = json_encode(array(

@@ -2,7 +2,7 @@
 
 $header = upfront_create_region(array(
 	'name' => 'header',
-	'title' => __("Header Area"),
+	'title' => __("Header Area", 'upfront'),
 	'scope' => 'global'
 ));
 

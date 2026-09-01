@@ -24,14 +24,14 @@ switch ( $comment->comment_type ){
 			</a>
 		</header>
 		<?php if ( '0' == $comment->comment_approved ): ?>
-			<p class="comment-awaiting-moderation"><?php _e('Dein Kommentar wartet auf Moderation.') ?></p>
+			<p class="comment-awaiting-moderation"><?php _e('Dein Kommentar wartet auf Moderation.', 'upfront') ?></p>
 		<?php endif ?>
 		<div class="comment-content">
 			<?php comment_text(); ?>
-			<?php edit_comment_link( __( 'Bearbeiten' ), '<p class="edit-link">', '</p>' ); ?>
+			<?php edit_comment_link( __( 'Bearbeiten', 'upfront' ), '<p class="edit-link">', '</p>' ); ?>
 		</div>
 		<div class="reply">
-			<?php comment_reply_link( array_merge( $args, array( 'reply_text' => __( 'Antworten' ), 'after' => ' <span>&darr;</span>', 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
+			<?php comment_reply_link( array_merge( $args, array( 'reply_text' => __( 'Antworten', 'upfront' ), 'after' => ' <span>&darr;</span>', 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
 		</div>
 	</article>
 

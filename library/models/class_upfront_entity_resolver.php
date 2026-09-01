@@ -254,21 +254,21 @@ abstract class Upfront_EntityResolver {
 			;
 		} else if ('archive' === $type) {
 			if ('home' === $item) {
-				return __("Home Page");
+				return __("Home Page", 'upfront');
 			} else if ('date' === $item || empty($item)) {
 				return !empty($specificity) && is_numeric($specificity)
 					? sprintf("Archive: %s", jdmonthname($specificity, CAL_MONTH_GREGORIAN_LONG))
-					: __("Archive")
+					: __("Archive", 'upfront')
 				;
 			} else if ('search' === $item) {
 				return !empty($specificity)
 					? sprintf("Search term: %s", $specificity)
-					: __("Search")
+					: __("Search", 'upfront')
 				;
 			} else if ('author' === $item) {
 				return !empty($specificity)
 					? sprintf("Author: %s", $specificity)
-					: __("Author")
+					: __("Author", 'upfront')
 				;
 			} else {
 				// means this is taxonomy

@@ -9,7 +9,7 @@ $right_sidebar = !empty($right_sidebar) ? $right_sidebar : false;
 
 $main = upfront_create_region(array(
 	'name' => "main",
-	'title' => __("Main Area"),
+  'title' => __("Main Area", 'upfront'),
 	'scope' => "local",
 	'type' => $type,
 	'default' => true,
@@ -190,7 +190,7 @@ $main->add_element("Posts", array (
 if ( $left_sidebar ){
 	$left = upfront_create_region(array(
 		'name' => "left-sidebar",
-		'title' => __("Left Sidebar"),
+    'title' => __("Left Sidebar", 'upfront'),
 		'scope' => "local",
 	), array(
 		'col' => 6,
@@ -217,7 +217,7 @@ if ( $left_sidebar ){
 if ( $right_sidebar ){
 	$right = upfront_create_region(array(
 		'name' => "right-sidebar",
-		'title' => __("Right Sidebar"),
+    'title' => __("Right Sidebar", 'upfront'),
 		'scope' => "local",
 	), array(
 		'col' => 6,

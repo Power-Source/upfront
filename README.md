@@ -22,8 +22,7 @@ Der **Upfront Builder ist ein separates Plugin**. Mit ihm werden Themes visuell 
 
 ## Die Upfront-Architektur
 
-```mermaid
-flowchart LR
+```
     Builder[Upfront Builder Plugin] -->|erstellt und exportiert| Child[Upfront Child-Theme]
     Framework[Upfront Theme Framework] -->|lädt und rendert| Child
     Extension[Eigenes Plugin] -->|registriert Elemente| Framework

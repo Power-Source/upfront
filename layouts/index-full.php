@@ -7,7 +7,7 @@ $extended = $extended ? $extended : false;
 
 $main = upfront_create_region(array(
 	'name' => "main",
-	'title' => __("Main Area"),
+  'title' => __("Main Area", 'upfront'),
 	'scope' => "local",
 	'type' => 'full',
 	'default' => true
@@ -187,7 +187,7 @@ $main->add_element("Posts", array (
 if ( $extended ){
 	$nav = upfront_create_region(array(
 		'name' => "main-nav",
-		'title' => __("Navigation"),
+    'title' => __("Navigation", 'upfront'),
 		'scope' => "local",
 	), array(
 		'background_type' => 'color',
@@ -215,7 +215,7 @@ if ( $extended ){
 
 	$content = upfront_create_region(array(
 		'name' => "content",
-		'title' => __("Content Area"),
+    'title' => __("Content Area", 'upfront'),
 		'scope' => "local",
 		'type' => 'wide'
 	), array(

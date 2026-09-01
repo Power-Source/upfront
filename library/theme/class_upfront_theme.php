@@ -74,7 +74,7 @@ class Upfront_Theme {
 		if ( !$this->has_region('main') )
 			$this->add_region(array(
 				'name' => "main",
-				'title' => __("Main Area"),
+				'title' => __("Main Area", 'upfront'),
 				'scope' => "local",
 				'container' => "main",
 				'default' => true,

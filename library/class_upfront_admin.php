@@ -58,8 +58,8 @@ class Upfront_Admin
 		wp_register_script( 'upfront_admin_js', Upfront::get_root_url() . "/scripts/admin.js", array("jquery"), Upfront_ChildTheme::get_version(), true);
 		wp_localize_script( 'upfront_admin_js', "Upfront_Data", array(
 			'l10n' => array(
-				"sure_to_reset_theme" => __('Bist Du sicher, dass Du das Theme auf den Standardzustand zurücksetzen möchtest? Bitte beachte, dass dieser Vorgang nicht rückgängig gemacht werden kann.'),
-				"sure_to_reset_layout" => __('Bist Du sicher, dass Du das Layout "{layout}" auf den Standardzustand zurücksetzen möchtest? Bitte beachte, dass dieser Vorgang nicht rückgängig gemacht werden kann.')
+				"sure_to_reset_theme" => __('Bist Du sicher, dass Du das Theme auf den Standardzustand zurücksetzen möchtest? Bitte beachte, dass dieser Vorgang nicht rückgängig gemacht werden kann.', 'upfront'),
+				"sure_to_reset_layout" => __('Bist Du sicher, dass Du das Layout "{layout}" auf den Standardzustand zurücksetzen möchtest? Bitte beachte, dass dieser Vorgang nicht rückgängig gemacht werden kann.', 'upfront')
 			)
 		) );
 		wp_enqueue_script('upfront_admin_js');
