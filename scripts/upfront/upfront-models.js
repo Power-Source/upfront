@@ -1274,8 +1274,8 @@ var _alpha = "alpha",
 			ping_status: '',
 			post_password: '',
 			post_name: '',
-			to_ping: [], // To do initialize
-			pinged: [], // To do initialize
+			to_ping: '',
+			pinged: '',
 			post_modified: new Date(),
 			post_modified_gmt: new Date(),
 			post_content_filtered: '',

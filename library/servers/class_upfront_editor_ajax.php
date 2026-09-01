@@ -811,6 +811,15 @@ class Upfront_Editor_Ajax extends Upfront_Server {
 			$data['post_excerpt'] = strip_shortcodes(wp_strip_all_tags($data['post_excerpt']));
 		}
 
+		foreach (array('to_ping', 'pinged') as $ping_field) {
+			if (!isset($data[$ping_field]) || !is_array($data[$ping_field])) continue;
+			$ping_values = array();
+			foreach ($data[$ping_field] as $ping_value) {
+				if (is_scalar($ping_value)) $ping_values[] = (string)$ping_value;
+			}
+			$data[$ping_field] = implode("\n", $ping_values);
+		}
+
 		// Re-sanitize the whole post
 		$layout = false === empty($data['layout']) ? $data['layout'] : array();
 		unset($data['layout']);

@@ -178,30 +178,38 @@ class Upfront_Uyoutube_Server extends Upfront_Server {
 
 	function get_single_video_data() {
 		$data = stripslashes_deep($_POST);
+		$video_id = isset($data['data']['video_id']) ? $data['data']['video_id'] : '';
 
-		if(! $data['data']['video_id'])
+		if (!$video_id)
 			return $this->_out(new Upfront_JsonResponse_Error("No video id sent"));
 
-		$gdata_video_url = sprintf(
-			'http://www.youtube.com/oembed?url=%s&format=json',
-			rawurlencode($data['data']['video_id'])
+		$gdata_video_url = add_query_arg(
+			array(
+				'url' => $video_id,
+				'format' => 'json',
+			),
+			'https://www.youtube.com/oembed'
 		);
 		try {
-			$response = wp_remote_get($gdata_video_url);
+			do {
+				$this->yt_requests++;
+				$response = wp_remote_get($gdata_video_url);
+			} while (is_wp_error($response) && $this->yt_requests < 3);
 
-			if (is_wp_error($response) && $this->yt_requests !== 3) {
-				// Try again
-				if (isset($this->yt_requests) === false) {
-					$this->yt_requests = 1;
-				} else {
-					$this->yt_requests++;
-				}
-				$this->get_single_video_data();
-				return;
-			} else if (is_wp_error($response)) {
-				return $this->_out(new Upfront_JsonResponse_Error("something fucked up " . json_encode($response)));
+			if (is_wp_error($response)) {
+				return $this->_out(new Upfront_JsonResponse_Error("YouTube could not be reached"));
 			}
-			$response_json = json_decode($response['body'], true);
+
+			$response_code = wp_remote_retrieve_response_code($response);
+			$response_json = json_decode(wp_remote_retrieve_body($response), true);
+			if (
+				200 !== $response_code ||
+				!is_array($response_json) ||
+				!isset($response_json['title'], $response_json['thumbnail_url'])
+			) {
+				return $this->_out(new Upfront_JsonResponse_Error("YouTube video data could not be loaded"));
+			}
+
 			$data = array(
 				'title' => $response_json['title'],
 				'thumbnail_url' => $response_json['thumbnail_url']
