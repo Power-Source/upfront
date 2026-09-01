@@ -5,6 +5,7 @@ include_once "admin/class_upfront_admin_restrictions.php";
 include_once "admin/class_upfront_admin_experimental.php";
 include_once "admin/class_upfront_admin_api_keys.php";
 include_once "admin/class_upfront_admin_response_cache.php";
+include_once "admin/class_upfront_admin_codepen.php";
 
 /**
  * Constructs Upfront admin pages
@@ -17,7 +18,8 @@ class Upfront_Admin
 	public static $menu_slugs = array(
 		"main" => "upfront",
 		"restrictions" => "upfront_restrictions",
-		"experimental" => "upfront_experimental"
+		"experimental" => "upfront_experimental",
+		"codepen" => "upfront_to_codepen"
 	);
 
 	/**
@@ -76,6 +78,7 @@ class Upfront_Admin
 		new Upfront_Admin_General();
 		new Upfront_Admin_Restrictions();
 		new Upfront_Admin_Experimental();
+		new Upfront_Admin_CodePen();
 	}
 
 	/**

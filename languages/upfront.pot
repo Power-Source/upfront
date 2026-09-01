@@ -4621,6 +4621,35 @@ msgstr ""
 msgid "Vollbild erlauben"
 msgstr ""
 
+#: library/admin/class_upfront_admin_codepen.php:12
+msgid "Upfront zu CodePen"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:13
+#: library/admin/class_upfront_admin_codepen.php:52
+msgid "CodePen-Styleguide"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:55
+msgid "Theme-Stile exportieren"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:57
+msgid "Erstellt einen neuen CodePen mit den Farben und Typografie-Einstellungen des aktiven Upfront-Themes."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:60
+msgid "Neuen Pen erstellen"
+msgstr ""
+
+#: library/admin/class_upfront_admin_general.php:76
+msgid "Theme-Werkzeuge"
+msgstr ""
+
+#: library/admin/class_upfront_admin_general.php:77
+msgid "CodePen-Styleguide erstellen"
+msgstr ""
+
 #: elements/upfront-youtube/lib/uyoutube.php:122
 msgid "Wiedergabe"
 msgstr ""

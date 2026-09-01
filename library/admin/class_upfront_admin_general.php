@@ -52,7 +52,7 @@ class Upfront_Admin_General extends Upfront_Admin_Page {
 						<h2 class="title"><?php esc_html_e("Hilfreiche Resourcen", Upfront::TextDomain) ?></h2>
 						<div class="inside">
 							<div class="upfront-debug-block">
-								<a target="_blank" href="https://psource.eimen.net/wiki/upfront-dokumentation/" class="documentation">Upfront Dokumentation</a> <a target="_blank" href="https://psource.eimen.net/wiki/upfront-dokumentation/upfront-builder-dokumentation/" class="documentation">Erstelle Upfront Themes</a>
+								<a target="_blank" href="https://psource.eimen.net/wiki/upfront-dokumentation/" class="documentation">Upfront Dokumentation</a> <a target="_blank" href="https://psource.eimen.net/wiki/upfront-dokumentation/upfront-builder-dokumentation/" class="documentation">Erstelle Upfront Themes</a> <a target="_blank" href="https://psource.eimen.net/wiki/psource-manager-dokumentation/" class="documentation">PSOURCE MANAGER</a>
 							</div>
 							<div class="upfront-debug-block">
 								<h4><?php esc_html_e("UpFront Wiki", Upfront::TextDomain) ?></h4>
@@ -71,6 +71,10 @@ class Upfront_Admin_General extends Upfront_Admin_Page {
 							<div class="upfront-debug-block">
 								<h4><?php _e("PSOURCE Hilfe", Upfront::TextDomain) ?></h4>
 								<a class="upfront_button visit-forum" href="https://psource.eimen.net/" target="_blank"><?php esc_html_e("Besuche unsere Webseite", Upfront::TextDomain) ?></a> <a class="upfront_button" href="https://github.com/Power-Source/upfront" target="_blank"><?php esc_html_e("Hilf auf GitHub mit", Upfront::TextDomain) ?></a>
+							</div>
+							<div class="upfront-debug-block">
+								<h4><?php esc_html_e('Theme-Werkzeuge', Upfront::TextDomain); ?></h4>
+								<a class="upfront_button" href="<?php echo esc_url(admin_url('admin.php?page=' . Upfront_Admin::$menu_slugs['codepen'])); ?>"><?php esc_html_e('CodePen-Styleguide erstellen', Upfront::TextDomain); ?></a>
 							</div>
 						</div>
 					</div>
