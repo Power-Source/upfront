@@ -194,11 +194,14 @@ describe('Elements', function () {
 					maps: {
 						Map: function (el, hash) {
 							values.map = hash;
+							this.getCenter = function () { return hash.center; };
+							this.setCenter = function (center) { values.center = center; };
 						},
 						LatLng: function (a, b) { return [a, b]; },
 						MapTypeId: { ROADMAP: 'roadmap' },
 						event: {
-							addListener: function () {}
+							addListener: function () {},
+							trigger: function () {}
 						}
 					}
 				};

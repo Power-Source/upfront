@@ -1,16 +1,25 @@
 /*global module, require */
 module.exports = function(grunt) {
-	require('load-grunt-tasks')(grunt);
-	grunt.loadNpmTasks('grunt-wp-i18n');
+	var spawnSync = require('child_process').spawnSync;
 
-	grunt.initConfig({
-		makepot: {
-			target: {
-				options: {
-					domainPath: 'languages/',
-					type: 'wp-theme'
-				}
-			}
+	grunt.registerTask('makepot', 'Generate the Upfront translation template.', function() {
+		var result = spawnSync('wp', [
+			'i18n',
+			'make-pot',
+			'.',
+			'languages/upfront.pot',
+			'--ignore-domain',
+			'--exclude=node_modules,test',
+			'--skip-audit'
+		], {
+			stdio: 'inherit'
+		});
+
+		if (result.error) {
+			grunt.fail.fatal(result.error.message);
+		}
+		if (result.status !== 0) {
+			grunt.fail.fatal('WP-CLI could not generate languages/upfront.pot.');
 		}
 	});
 
