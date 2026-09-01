@@ -3379,19 +3379,21 @@
                         }
                         else if (link !== '')
                         {
-                            $link.attr('href', link);
+                            $link[0].setAttribute('href', link);
                             if (target)
                             {
-                                $link.attr('target', '_blank');
+                                $link[0].setAttribute('target', '_blank');
                             }
                             else
                             {
-                                $link.removeAttr('target');
+                                $link[0].removeAttribute('target');
                             }
                         }
                         else if ($link.length !== 0)
                         {
-                            $link.replaceWith($image);
+                            var linkNode = $link[0];
+                            var linkParent = linkNode.parentNode;
+                            if (linkParent) linkParent.replaceChild($image[0], linkNode);
                         }
                     }
                     else if ($link.length !== 0)
