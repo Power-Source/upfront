@@ -2005,10 +2005,10 @@
                     // remove verified
                     html = html.replace(new RegExp('<div(.*?[^>]) data-tagblock="redactor"(.*?[^>])>', 'gi'), '<div$1$2>');
                     html = html.replace(new RegExp('<(.*?) data-verified="redactor"(.*?[^>])>', 'gi'), '<$1$2>');
-                    html = html.replace(new RegExp('<span(.*?[^>])\srel="(.*?[^>])"(.*?[^>])>', 'gi'), '<span$1$3>');
-                    html = html.replace(new RegExp('<img(.*?[^>])\srel="(.*?[^>])"(.*?[^>])>', 'gi'), '<img$1$3>');
-                    html = html.replace(new RegExp('<img(.*?[^>])\sstyle="" (.*?[^>])>', 'gi'), '<img$1 $2>');
-                    html = html.replace(new RegExp('<img(.*?[^>])\sstyle (.*?[^>])>', 'gi'), '<img$1 $2>');
+                    html = html.replace(new RegExp('<span(.*?[^>])\\srel="(.*?[^>])"(.*?[^>])>', 'gi'), '<span$1$3>');
+                    html = html.replace(new RegExp('<img(.*?[^>])\\srel="(.*?[^>])"(.*?[^>])>', 'gi'), '<img$1$3>');
+                    html = html.replace(new RegExp('<img(.*?[^>])\\sstyle="" (.*?[^>])>', 'gi'), '<img$1 $2>');
+                    html = html.replace(new RegExp('<img(.*?[^>])\\sstyle (.*?[^>])>', 'gi'), '<img$1 $2>');
                     html = html.replace(new RegExp('<span class="redactor-invisible-space">(.*?)</span>', 'gi'), '$1');
                     html = html.replace(/ data-save-url="(.*?[^>])"/gi, '');
 
@@ -3367,11 +3367,15 @@
 
                         if (link !== '' && $link.length === 0)
                         {
-                            var a = $('<a />').attr('href', link).append($image);
+                            var imageNode = $image[0];
+                            var imageParent = imageNode.parentNode;
+                            var anchor = document.createElement('a');
+                            anchor.setAttribute('href', link);
 
-                            if (target) a.attr('target', '_blank');
+                            if (target) anchor.setAttribute('target', '_blank');
 
-                            $image.replaceWith(a);
+                            if (imageParent) imageParent.replaceChild(anchor, imageNode);
+                            anchor.appendChild(imageNode);
                         }
                         else if (link !== '')
                         {
@@ -5464,7 +5468,7 @@
                         var pattern = '((xn--)?[a-z0-9]+(-[a-z0-9]+)*\\.)+[a-z]{2,}';
                         var re = new RegExp('^(http|ftp|https)://' + pattern, 'i');
                         var re2 = new RegExp('^' + pattern, 'i');
-                        var re3 = new RegExp('\.(html|php)$', 'i');
+                        var re3 = new RegExp('\\.(html|php)$', 'i');
                         if (link.search(re) == -1 && link.search(re3) == -1 && link.search(re2) === 0 && this.opts.linkProtocol)
                         {
                             link = this.opts.linkProtocol + '://' + link;
@@ -8608,7 +8612,7 @@
     // LINKIFY
     $.Redactor.fn.formatLinkify = function(protocol, convertLinks, convertUrlLinks, convertImageLinks, convertVideoLinks, linkSize)
     {
-        var urlCheck = '((?:http[s]?:\\/\\/(?:www\\.)?|www\\.){1}(?:[0-9A-Za-z\\-%_]+\\.)+[a-zA-Z]{2,}(?::[0-9]+)?(?:(?:/[0-9A-Za-z\\-#\\.%\+_]*)+)?(?:\\?(?:[0-9A-Za-z\\-\\.%_]+(?:=[0-9A-Za-z\\-\\.%_\\+]*)?)?(?:&(?:[0-9A-Za-z\\-\\.%_]+(?:=[0-9A-Za-z\\-\\.%_\\+]*)?)?)*)?(?:#[0-9A-Za-z\\-\\.%_\\+=\\?&;]*)?)';
+        var urlCheck = '((?:http[s]?:\\/\\/(?:www\\.)?|www\\.){1}(?:[0-9A-Za-z\\-%_]+\\.)+[a-zA-Z]{2,}(?::[0-9]+)?(?:(?:/[0-9A-Za-z\\-#\\.%+_]*)+)?(?:\\?(?:[0-9A-Za-z\\-\\.%_]+(?:=[0-9A-Za-z\\-\\.%_\\+]*)?)?(?:&(?:[0-9A-Za-z\\-\\.%_]+(?:=[0-9A-Za-z\\-\\.%_\\+]*)?)?)*)?(?:#[0-9A-Za-z\\-\\.%_\\+=\\?&;]*)?)';
         var regex = new RegExp(urlCheck, 'gi');
         var rProtocol = /(https?|ftp):\/\//i;
         var urlImage = new RegExp('(?:([^:/?#]+):)?(?:\/\/([^/?#]*))?([^?#]*\\.(?:jpg|gif|png))(?:\\?([^#]*))?(?:#(.*))?', 'gi');

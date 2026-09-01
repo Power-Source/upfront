@@ -98,7 +98,7 @@ function resolveCycleElements(value) {
 	if (value.jquery)
 		return value;
 	if (value.nodeType || value === window)
-		return $(value);
+		return $([value]);
 	if (typeof value === 'string') {
 		try {
 			return $($.find(value));
@@ -566,8 +566,10 @@ function supportMultiTransitions(opts) {
 // provide a mechanism for adding slides after the slideshow has started
 function exposeAddSlide(opts, els) {
 	opts.addSlide = function(newSlide, prepend) {
-		var $s = resolveCycleElements(newSlide), s = $s[0];
-		if (!s)
+		var $s = resolveCycleElements(newSlide),
+			s = $s[0],
+			container = opts.$cont && opts.$cont[0];
+		if (!s || !container || !container.nodeType)
 			return;
 		if (!opts.autostopCount)
 			opts.countdown++;
@@ -583,10 +585,10 @@ function exposeAddSlide(opts, els) {
 		}
 
 		$s.css('position','absolute');
-		if (prepend)
-			$s.prependTo(opts.$cont);
+		if (prepend && container.firstChild)
+			container.insertBefore(s, container.firstChild);
 		else
-			$s.appendTo(opts.$cont);
+			container.appendChild(s);
 
 		if (prepend) {
 			opts.currSlide++;

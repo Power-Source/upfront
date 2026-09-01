@@ -1386,8 +1386,8 @@
 					var $link = $(this),
 						href = sanitizeLinkUrl($link.children('i.visit_link').attr('data-href'));
 					$link.css('position', '');
-					if (href) $link.attr('href', href);
-					else $link.removeAttr('href');
+					if (href) this.setAttribute('href', href);
+					else this.removeAttribute('href');
 					$link.children('i.visit_link').remove();
 					//$(this).attr('onclick', '');
 				});
@@ -1414,8 +1414,12 @@
 					var anchors = me.get_anchors();
 					$('html,body').animate({scrollTop: $('#'+me.getUrlanchor(url)).offset().top},'slow');
 				}
-				else if(linktype == 'entry')
-					window.location.href = url.replace('&editmode=true', '').replace('editmode=true', '')+((url.indexOf('?')>0)?'&editmode=true':'?editmode=true');
+				else if(linktype == 'entry') {
+					var entryUrl = new URL(url, window.location.href);
+					if (!/^https?:$/.test(entryUrl.protocol) || entryUrl.origin !== window.location.origin) return;
+					entryUrl.searchParams.set('editmode', 'true');
+					window.location.assign(entryUrl.href);
+				}
 				else
 					window.open(url);
 			},
@@ -2439,7 +2443,7 @@
 									$link.addClass("popup");
 									break;
 								case "link":
-									$link.attr("href", link_url);
+										$link[0].setAttribute("href", link_url);
 									break;
 								case "post":
 									$link.attr("href", 'http://localhost/upfront/edit/post/8');

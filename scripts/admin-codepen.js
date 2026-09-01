@@ -23,7 +23,9 @@
 	}
 
 	function cssStringValue(value) {
-		return cssValue(value).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+		return cssValue(value).replace(/[\\"]/g, function(character) {
+			return '\\' + character;
+		});
 	}
 
 	function colorValue(value) {
