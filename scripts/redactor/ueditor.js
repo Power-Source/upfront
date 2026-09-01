@@ -1386,7 +1386,7 @@
 					var $link = $(this),
 						href = sanitizeLinkUrl($link.children('i.visit_link').attr('data-href'));
 					$link.css('position', '');
-					if (href) this.setAttribute('href', href);
+					if (href) this.href = href;
 					else this.removeAttribute('href');
 					$link.children('i.visit_link').remove();
 					//$(this).attr('onclick', '');
@@ -2443,7 +2443,7 @@
 									$link.addClass("popup");
 									break;
 								case "link":
-										$link[0].setAttribute("href", link_url);
+									$link[0].href = link_url;
 									break;
 								case "post":
 									$link.attr("href", 'http://localhost/upfront/edit/post/8');

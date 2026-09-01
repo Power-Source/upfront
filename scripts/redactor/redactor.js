@@ -3370,7 +3370,7 @@
                             var imageNode = $image[0];
                             var imageParent = imageNode.parentNode;
                             var anchor = document.createElement('a');
-                            anchor.setAttribute('href', link);
+                            anchor.href = link;
 
                             if (target) anchor.setAttribute('target', '_blank');
 
@@ -3379,7 +3379,7 @@
                         }
                         else if (link !== '')
                         {
-                            $link[0].setAttribute('href', link);
+                            $link[0].href = link;
                             if (target)
                             {
                                 $link[0].setAttribute('target', '_blank');
