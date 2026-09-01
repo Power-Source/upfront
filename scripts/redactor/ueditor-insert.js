@@ -57,7 +57,8 @@ var UeditorInsert = Backbone.View.extend({
 
 	importInserts: function(contentElement){
 		var me = this,
-			regExp = new RegExp('(\[' + this.shortcodeName.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '[^\]]*?\])', 'ig'),
+			escapedShortcodeName = this.shortcodeName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'),
+			regExp = new RegExp('(\\[' + escapedShortcodeName + '[^\\x5D]*?\\])', 'ig'),
 			content = contentElement.html(),
 			container = $('<div></div>')
 		;
@@ -75,7 +76,7 @@ var UeditorInsert = Backbone.View.extend({
 	},
 	parseShortcode: function(text){
 		var regexp = /\[([^\s\]]+)([^\]]*?)\]/i,
-			attrRegExp = /(\w+)\s*=\s*"([^"]*)"(?:\s|$)|(\w+)\s*=\s*\'([^\']*)\'(?:\s|$)|(\w+)\s*=\s*([^\s\'"]+)(?:\s|$)|"([^"]*)"(?:\s|$)|(\S+)(?:\s|$)/ig,
+			attrRegExp = /(\w+)\s*=\s*"([^"]*)"(?:\s|$)|(\w+)\s*=\s*'([^']*)'(?:\s|$)|(\w+)\s*=\s*([^\s'"]+)(?:\s|$)|"([^"]*)"(?:\s|$)|(\S+)(?:\s|$)/ig,
 			scData = text.match(regexp),
 			shortcode = {},
 			attrs

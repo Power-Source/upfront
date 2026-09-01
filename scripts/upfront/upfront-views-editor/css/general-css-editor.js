@@ -149,7 +149,8 @@
 										me.trigger('change', styles_with_selector);
 								});
 
-								var scope = new RegExp('\.' + this.options.page_class + '\s*', 'g'),
+								var escapedPageClass = this.options.page_class.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'),
+									scope = new RegExp('\\.' + escapedPageClass + '\\s*', 'g'),
 										styles = this.model.get('styles') ? this.model.get('styles').replace(scope, '') : ''
 								;
 
