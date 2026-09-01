@@ -16,6 +16,118 @@
     border-bottom: none;
 }
 
+.upfront-theme-catalog .inside > .description {
+    margin: 18px 0;
+}
+
+.upfront-theme-catalog-grid {
+    display: grid;
+    gap: 16px;
+    padding-bottom: 18px;
+}
+
+.upfront-theme-catalog-item {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.upfront-theme-catalog-screenshot {
+    aspect-ratio: 16 / 9;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background: #f0f0f1;
+    color: #8c8f94;
+}
+
+.upfront-theme-catalog-screenshot img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.upfront-theme-catalog-screenshot .dashicons {
+    width: 40px;
+    height: 40px;
+    font-size: 40px;
+}
+
+.upfront-theme-catalog-content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 180px;
+    padding: 16px;
+}
+
+.upfront-theme-catalog-content h3 {
+    margin: 0 0 4px;
+    color: #1d2327;
+    font-size: 16px;
+    line-height: 1.3;
+}
+
+.upfront-theme-catalog-content > p {
+    margin: 10px 0;
+}
+
+.upfront-theme-catalog-content .upfront-theme-catalog-meta {
+    margin-top: 0;
+    color: #646970;
+    font-size: 12px;
+}
+
+.upfront-theme-catalog-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 14px;
+}
+
+.upfront-theme-catalog-actions form {
+    margin: 0;
+}
+
+.upfront-theme-catalog-actions .button {
+    color: #2271b1;
+}
+
+.upfront-theme-catalog-actions .button-primary {
+    color: #fff;
+}
+
+.upfront-theme-installed {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    color: #008a20;
+    font-weight: 600;
+}
+
+@media screen and (min-width: 920px) {
+    .upfront-theme-catalog-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        max-height: calc((350px * 4) + (16px * 3) + 18px);
+        padding-right: 6px;
+        overflow-y: auto;
+    }
+
+    .upfront-theme-catalog-content {
+        padding: 12px;
+    }
+
+    .upfront-theme-catalog-content > p {
+        margin: 7px 0;
+    }
+}
+
 .upfront-col-right,
 .upfront-col-left {
     margin-top: 20px;
@@ -111,7 +223,7 @@
     background-repeat: no-repeat;
 }
 .upfront_help_icon {
-    background-image: url("../../img/uf-admin-sprite.svg");
+    background-image: url("../img/uf-admin-sprite.svg");
     background-repeat: no-repeat;
     display: block;
     background-position: -10px -153px;

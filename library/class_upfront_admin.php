@@ -1,5 +1,6 @@
 <?php
 include_once "admin/class_upfront_admin_page.php";
+include_once "admin/class_upfront_admin_theme_catalog.php";
 include_once "admin/class_upfront_admin_general.php";
 include_once "admin/class_upfront_admin_restrictions.php";
 include_once "admin/class_upfront_admin_experimental.php";
@@ -29,6 +30,7 @@ class Upfront_Admin
 	 */
 	function __construct()
 	{
+		Upfront_Admin_Theme_Catalog::get_instance();
 		add_action( 'admin_menu', array( $this, "add_menus" ) );
 		add_action("admin_enqueue_scripts", array( $this, "enqueue_scripts" ) );
 	}
@@ -50,8 +52,9 @@ class Upfront_Admin
 			? '/styles/admin.css'
 			: '/styles/build/admin.css'
 		;
+		$admin_css_version = filemtime(Upfront::get_root_dir() . $admin_css);
 
-		wp_enqueue_style( 'upfront_admin', Upfront::get_root_url() . $admin_css, array(), Upfront_ChildTheme::get_version() );// todo Sam: add proper version
+		wp_enqueue_style( 'upfront_admin', Upfront::get_root_url() . $admin_css, array(), $admin_css_version );
 		wp_register_script( 'upfront_admin_js', Upfront::get_root_url() . "/scripts/admin.js", array("jquery"), Upfront_ChildTheme::get_version(), true);
 		wp_localize_script( 'upfront_admin_js', "Upfront_Data", array(
 			'l10n' => array(

@@ -45,8 +45,10 @@ class Upfront_Admin_General extends Upfront_Admin_Page {
 				<?php $this->_render_api_options(); ?>
 				<?php $this->_render_response_cache_options(); ?>
 				<?php $this->_render_debug_options(); ?>
+				<?php $this->_render_changelog_box(); ?>
 			</div>
 			<div class="upfront-col-right">
+				<?php Upfront_Admin_Theme_Catalog::get_instance()->render(); ?>
 				<div class="postbox-container helpful-resources">
 					<div class='postbox'>
 						<h2 class="title"><?php esc_html_e("Hilfreiche Resourcen", Upfront::TextDomain) ?></h2>
@@ -79,7 +81,6 @@ class Upfront_Admin_General extends Upfront_Admin_Page {
 						</div>
 					</div>
 				</div>
-				<?php $this->_render_changelog_box(); ?>
 			</div>
 		</div>
 		<?php
@@ -309,6 +310,7 @@ class Upfront_Admin_General extends Upfront_Admin_Page {
 					</div>
 				</div>
 			</div>
+		</div>
 		<?php
 	}
 
