@@ -1,6 +1,10 @@
 define([
 	'scripts/upfront/settings/root-modules-panel'
 ], function(RootModulesPanel) {
+	var l10n = Upfront.Settings && Upfront.Settings.l10n
+		? Upfront.Settings.l10n.global.views
+		: Upfront.mainData.l10n.global.views;
+
 	var AdvancedSettings = RootModulesPanel.extend({
 		className: 'uf-settings-panel upfront-settings_panel advanced-settings',
 		modules: [
@@ -29,7 +33,7 @@ define([
 			return modulesConfig;
 		},
 
-		title: 'Erweiterte Einstellungen',
+		title: l10n.advanced_settings,
 	});
 
 	return AdvancedSettings;

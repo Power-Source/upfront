@@ -551,7 +551,37 @@ class Upfront_Layout extends Upfront_JsonModel {
 			);
 		}
 		Upfront_Cache_Utils::update_option(self::_get_scope_id($scope), json_encode($region_scope_data));
+
+		foreach (self::get_db_layouts($storage_key) as $layout_option => $layout_name) {
+			$layout_data = json_decode(Upfront_Cache_Utils::get_option($layout_option, json_encode(array())), true);
+			if (empty($layout_data['regions']) || !is_array($layout_data['regions'])) continue;
+
+			$region_count = count($layout_data['regions']);
+			$layout_data['regions'] = array_values(array_filter($layout_data['regions'], function($region) use ($name) {
+				return (!isset($region['name']) || $region['name'] !== $name)
+					&& (!isset($region['container']) || $region['container'] !== $name);
+			}));
+			if ($region_count !== count($layout_data['regions'])) {
+				Upfront_Cache_Utils::update_option($layout_option, json_encode($layout_data));
+			}
+		}
+
 		return $return;
+	}
+
+	public static function rename_scoped_region ($name, $title, $scope, $storage_key = '') {
+		self::set_storage_key($storage_key);
+		$region_scope_data = json_decode(Upfront_Cache_Utils::get_option(self::_get_scope_id($scope), json_encode(array())), true);
+		if (!is_array($region_scope_data)) return false;
+
+		foreach ($region_scope_data as $index => $region) {
+			if (empty($region['name']) || $region['name'] !== $name || !empty($region['trashed'])) continue;
+			$region_scope_data[$index]['title'] = $title;
+			Upfront_Cache_Utils::update_option(self::_get_scope_id($scope), json_encode($region_scope_data));
+			return true;
+		}
+
+		return false;
 	}
 
 	protected static function _get_regions ($add_global_regions = false) {

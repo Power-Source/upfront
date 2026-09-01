@@ -1,531 +1,107 @@
-#upfront-popup .upfront-social-media-save_settings
-{
-    width: auto;
-    font-family: 'Open Sans', Helvetica Neueu, Helvetica, Arial, sans-serif;
-    background: #1fcd8f;
-    border: none !important;
-    border-radius:0;
-    color: #fff;
-    font-size: 18px;
-    line-height: 35px;
-    width: 101px;
-    float: right;
-}
-.upfront-popup-social-media-meta
-{
-    background: #e5f3fe;
-}
-.alert-url
-{
-    color: #fff;
-    background: #871b15;
-    -webkit-border-radius: 100px;
-    border-radius: 100px;
-    position: absolute;
-    font-size: 12px;
-    width: 15px;
-    line-height: 15px;
-    text-align: center;
-    top: -4px;
-    right: -4px;
-}
-.upfront-global-social-settings
-{
-    margin: 0;
-    padding: 20px 32px 13px 32px;
+.upfront-social {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
 }
 
-.upfront-global-social-settings .upfront-settings-item
-{
-    width: 100%;
-}
-
-.location_top_box, .button_counter_top_box
-{
-    margin-bottom:12px ;
-}
-
-.upfront-social-popup-hd {
-    color: #263a4d !important;
-    font-size: 24px !important;
-    font-weight: 200;
-}
-.usocial-inpost-center {
-    text-align: center;
-}
-
-.usocial-inpost-right {
-    text-align: right;
-}
-
-.usocial-button
-{
-    display: block;
-}
-.upfront-button-style-1 .usocial-button
-{
-    background: url("../images/SM_Sprite_Style_01-01.svg") no-repeat;
-}
-.upfront-button-style-2 .usocial-button
-{
-    background: url("../images/SM_Sprite_Style_02-01.svg") no-repeat;
-}
-.upfront-button-style-3 .usocial-button
-{
-    background: url("../images/SM_Sprite_Style_11-01.svg") no-repeat;
-}
-/* Keep legacy button styles available, but use the flatter icon set by default */
-.upfront-button-style-2 .usocial-button {
-	background: url("../images/SM_Sprite_Style_11-01.svg") no-repeat;
-}
-.usocial-button-small .usocial-button
-{
-    width: 16px;
-    height: 16px;
-    background-size: 40px 280px;
-}
-.usocial-button-medium .usocial-button
-{
-    width: 24px;
-    height: 24px;
-    background-size: 60px 420px;
-}
-.usocial-button-large .usocial-button
-{
-    width: 40px;
-    height: 40px;
-}
-.usocial-button-large .usocial-button.facebook-link {
-    background-position: -30px -30px;
-}
-.usocial-button-large .usocial-button.twitter-link {
-    background-position: -30px -130px;
-}
-.usocial-button-large .usocial-button.instagram-link {
-    background-position: -30px -230px;
-}
-.usocial-button-large .usocial-button.linked-in-link {
-    background-position: -30px -430px;
-}
-.usocial-button-large .usocial-button.linkedin-link {
-	background-position: -30px -430px;
-}
-.usocial-button-large .usocial-button.pinterest-link {
-    background-position: -30px -630px;
-}
-.usocial-button-large .usocial-button.youtube-link {
-    background-position: -30px -330px;
-}
-
-.usocial-button-medium .usocial-button.facebook-link {
-    background-position: -18px -18px;
-}
-.usocial-button-medium .usocial-button.twitter-link {
-    background-position: -18px -78px;
-}
-.usocial-button-medium .usocial-button.instagram-link {
-    background-position: -18px -138px;
-}
-.usocial-button-medium .usocial-button.linked-in-link {
-    background-position: -18px -258px;
-}
-.usocial-button-medium .usocial-button.linkedin-link {
-	background-position: -18px -258px;
-}
-.usocial-button-medium .usocial-button.pinterest-link {
-    background-position: -18px -378px;
-}
-.usocial-button-medium .usocial-button.youtube-link {
-    background-position: -18px -198px;
-}
-
-
-.usocial-button-small .usocial-button.facebook-link {
-    background-position: -12px -12px;
-}
-.usocial-button-small .usocial-button.twitter-link {
-    background-position: -12px -52px;
-}
-.usocial-button-small .usocial-button.instagram-link {
-    background-position: -12px -92px;
-}
-.usocial-button-small .usocial-button.linked-in-link {
-    background-position: -12px -172px;
-}
-.usocial-button-small .usocial-button.pinterest-link {
-    background-position: -12px -252px;
-}
-.usocial-button-small .usocial-button.youtube-link {
-    background-position: -12px -132px;
-}
-.usocial-button-small .usocial-button.linkedin-link {
-	background-position: -12px -172px;
-}
-
-.upfront-fan-counts
-{
-    background: url("../images/SM_Sprite_Style_11-01.svg") no-repeat;
-    min-height: 40px;
-    min-width: 40px;
-    display: inline-block;
-}
-.upfront-fan-count
-{
-    display: inline-block;
-    vertical-align: middle;
-}
-.upfront-fan-counts {
-    vertical-align: middle;
-    padding-left: 50px;
-    line-height: 40px;
-}
-.upfront-fan-counts .upfront-fan-count strong{
-}
-.upfront-fan-counts.facebook-count {
-    background-position: -30px -30px;
-}
-.upfront-fan-counts.twitter-count {
-    background-position: -30px -130px;
-}
-.upfront-fan-counts.instagram-count {
-    background-position: -30px -230px;
-}
-
-.upfront-fan-counts.instagram-count {
-    background: none;
-    padding-left: 54px;
-    position: relative;
-}
-
-.upfront-fan-counts.instagram-count:before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, #f58529 0%, #dd2a7b 45%, #8134af 75%, #515bd4 100%);
-}
-.upfront-fan-counts.instagram-count:after {
-    content: '';
-    position: absolute;
-    left: 12px;
-    top: 12px;
-    width: 12px;
-    height: 12px;
-    border: 2px solid #fff;
-    border-radius: 4px;
-}
-
-.usocial-button.instagram-link:before {
-    content: '';
-    position: absolute;
-    left: 24%;
-    top: 24%;
-    width: 52%;
-    height: 52%;
-    border: 2px solid #fff;
-    border-radius: 28%;
-    box-sizing: border-box;
-}
-
-.usocial-button.instagram-link {
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(135deg, #f58529 0%, #dd2a7b 45%, #8134af 75%, #515bd4 100%);
-    border-radius: 22%;
-}
-
-.usocial-button.instagram-link:after {
-    content: '';
-    position: absolute;
-    right: 23%;
-    top: 23%;
-    width: 10%;
-    height: 10%;
-    background: #fff;
-    border-radius: 50%;
-}
-
-.usocial-instagram-like-btn {
-    display: inline-block;
-    padding: 0 12px;
-    height: 24px;
-    line-height: 24px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 600;
-    color: #fff;
-    text-decoration: none;
-    background: linear-gradient(135deg, #f58529 0%, #dd2a7b 45%, #8134af 75%, #515bd4 100%);
-}
-
-.usocial-instagram.horizontal {
-    width: 90px;
-    height: 24px;
-}
-
-.usocial-instagram.vertical {
-    width: 70px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-}
-/* New settings*/
-/* TODO: Need to remove this width  */
-#settings .upfront-settings-item-tab-radio .upfront-settings-item-tab {
-    max-width: 75px !important;
-}
-.upfront-default-tabbed .upfront-field-multiple-vertical{
-    min-width: 89px !important;
-}
-.social_media_services_list{
-    padding: 0;
-}
-.social_media_services_list li{
-    border-top: solid 1px #e3edf6;
-    /*height: 30px;*/
-    margin: 0 !important;
-    padding: 0 0 0 0px !important;
-    cursor:pointer;
-}
-.social_media_services_list li.ui-sortable-helper{
-    background-color: #e3edf6;
-}
-.social_media_services_list .upfront-field-multiple{
-    margin: 0;
-}
-.social_media_services_list .upfront-field-multiple label{
-    height: 30px;
-}
-.social_media_services_list li.upfront-field-multiple input.upfront-field-checkbox{
-    position: static;
-    margin-top: 8px;
-    float: left;
-}
-.upfront-field-icon-social-sort {
-    float: right;
-    cursor: move;
-    margin-right: 0 !important;
-    margin-top: 3px !important;
-    width: 18px;
-}
-.upfront-field-icon-social-down{
-    cursor: pointer;
-}
-#settings .upfront-social-services-item .upfront-settings-item {
-    margin-bottom:0;
-}
-.upfront-social-back .upfront-field-wrap{
-    font-size: 10px;
-    color: #6386a6;
-}
-.upfront-social-back .upfront-field-wrap .upfront-back-global-settings-info{
-    line-height: 22px;
-}
-.upfront-social-back .upfront-field-wrap .upfront-back-global-settings-info a{
-    color: #30475e;
-    text-decoration: underline;
-}
-.upfront-field-icon-social-back {
-    height: 25px;
-}
-.upfront-social-back{
-    margin-top: 4px;
-}
-.social-toggle,
-.social-sort{
-    font-size: 12px;
-    color: #263a4d;
-}
-.social-toggle{
-    cursor: pointer;
-}
-.social-sort{
-    float: right;
-}
-.upfront-global-social-settings .social_media_services_list .upfront-field-multiple label{
-    height: 35px;
-}
-.upfront-global-social-settings .social_media_services_list li.upfront-field-multiple input.upfront-field-checkbox {
-    margin-top: 11px;
-}
-.upfront-global-social-settings .upfront-field-icon-social-sort {
-    margin-top: 6px !important;
-}
-.upfront-global-social-settings .social_media_services_list{
-    margin: 2px 0 1px 0;
-}
-.upfront-global-social-settings .social_media_services_list li{
-    border-top: solid 1px #b3cbdf;
-    padding-bottom: 10px !important;
-}
-.upfront-global-social-settings .social_media_services_list li:first-child{
-    border-top: none;
-}
-.social-global-in-post{
-    font-weight: bold;
-    color: #6b8399;
-    font-size: 15px;
-    font-family: 'Open Sans', Helvetica Neueu, Helvetica, Arial, sans-serif;
-    margin-top: 9px;
-    margin-bottom: 15px;
-}
-.social-add-float-left{
-    float: left;
-    height: 30px;
-}
-.upfront-global-social-settings div:nth-child(2) .upfront-settings-item{
-    display: inline-block;
-}
-.social-global-in-post + .upfront-field-wrap,
-.social-global-in-post + .upfront-field-wrap + .upfront-field-wrap + .upfront-field-wrap{
-    width: 135px;
-}
-.social-global-in-post + .upfront-field-wrap + .upfront-field-wrap + .upfront-field-wrap + .upfront-field-wrap + .upfront-field-wrap{
-    width: 100%;
-    height: auto;
-}
-.social-global-in-post + .upfront-field-wrap + .upfront-field-wrap .upfront-field-multiple,
-.social-global-in-post + .upfront-field-wrap + .upfront-field-wrap + .upfront-field-wrap + .upfront-field-wrap .upfront-field-multiple{
-    margin-right: 9px;
-}
-.social-global-in-post + .upfront-field-wrap + .upfront-field-wrap,
-.social-global-in-post + .upfront-field-wrap + .upfront-field-wrap + .upfront-field-wrap + .upfront-field-wrap{
-    width: 240px;
-}
-.social-alignment-detail
-{
-    float: right;
-    line-height: 23px;
-    text-align: left;
-    width: 155px;
-}
-.upfront-field-wrap-checkboxes-float{
-    float: left;
-    height: 27px;
-}
-.upfront-field-wrap-select-inline{
-    display: inline-block;
-}
-.upfront-social-services-item .upfront-field-icon-social-add{
-    cursor: pointer;
-    margin: 2px 0 0 190px;
-}
-.upfront-field-wrap-text-inline{
-    display: inline-block;
-    width: 190px;
-}
 .upfront-social-icon {
-    display: inline-block;
-    position: relative;
-    margin-right: 10px;
-    margin-bottom: 5px;
-    vertical-align: top;
+	--usocial-color: #455a64;
+	display: inline-flex;
+	position: relative;
+	box-sizing: border-box;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	background: var(--usocial-color);
+	color: #fff;
+	text-decoration: none;
+	transition: filter 150ms ease, transform 150ms ease;
 }
 
-
-
-.usocial-global-triangle {
-    float: right;
-    cursor: pointer;
+.upfront-social-icon:hover,
+.upfront-social-icon:focus {
+	color: #fff;
+	filter: brightness(1.12);
+	transform: translateY(-1px);
 }
 
-.usocial-global-triangle:before{
-    content: '▼';
-    margin-top:10px;
-    display: block;
-    text-align: center;
-    width: 30px;
-    font-size: 8px;
-}
-.open .usocial-global-triangle:before{
-    content: '▲';
+.upfront-button-style-1 .upfront-social-icon { border-radius: 0; }
+.upfront-button-style-2 .upfront-social-icon { border-radius: 7px; }
+.upfront-button-style-3 .upfront-social-icon { border-radius: 50%; }
+.usocial-button-small .upfront-social-icon { width: 24px; height: 24px; }
+.usocial-button-medium .upfront-social-icon { width: 32px; height: 32px; }
+.usocial-button-large .upfront-social-icon { width: 44px; height: 44px; }
+
+.usocial-icon {
+	display: block;
+	width: 58%;
+	height: 58%;
+	fill: currentColor;
+	stroke: currentColor;
 }
 
-i.usocial-align-icon {
-    display: block;
-    height: 30px;
+.usocial-facebook { --usocial-color: #1877f2; }
+.usocial-twitter { --usocial-color: #111; }
+.usocial-instagram { --usocial-color: #d62976; }
+.usocial-linkedin { --usocial-color: #0a66c2; }
+.usocial-youtube { --usocial-color: #f00; }
+.usocial-pinterest { --usocial-color: #bd081c; }
+.usocial-tiktok { --usocial-color: #111; }
+.usocial-threads { --usocial-color: #111; }
+.usocial-bluesky { --usocial-color: #1686f7; }
+.usocial-mastodon { --usocial-color: #6364ff; }
+.usocial-reddit { --usocial-color: #ff4500; }
+.usocial-whatsapp { --usocial-color: #25d366; }
+.usocial-telegram { --usocial-color: #229ed9; }
+.usocial-github { --usocial-color: #24292f; }
+.usocial-email { --usocial-color: #607d8b; }
+
+.usocial-missing-url {
+	cursor: default;
+	opacity: 0.55;
 }
 
-.usocial-global-align {
-    clear: both;
-    opacity: 0.8;
+.alert-url {
+	position: absolute;
+	top: -5px;
+	right: -5px;
+	box-sizing: border-box;
+	width: 15px;
+	height: 15px;
+	border-radius: 50%;
+	background: #b42318;
+	color: #fff;
+	font: 700 10px/15px sans-serif;
+	text-align: center;
 }
 
-.usocial-global-align.align-active{
-    opacity:1;
+.usocial-inpost-center { justify-content: center; }
+.usocial-inpost-right { justify-content: flex-end; }
+
+.usocial-settings-panel .usocial-service-list {
+	display: grid;
+	gap: 10px;
 }
 
-.usocial-global-add-post {
-    float:left;
-    width: 30%;
-    margin-bottom: 20px;
+.usocial-settings-panel .usocial-service-row {
+	display: grid;
+	gap: 5px;
+	padding-bottom: 9px;
+	border-bottom: 1px solid #dfe5e9;
 }
 
-.upfront-global-social-settings .upfront-field-label-block {
-    clear: both;
+.usocial-settings-panel .usocial-service-row label {
+	display: flex;
+	align-items: center;
+	gap: 7px;
 }
 
-.upfront-global-social-settings .upfront-field-multiple-horizontal-inline {
-    margin-right: 9px;
-}
-
-.upfront-global-social-settings .upfront-field-multiple {
-    opacity: 1;
-}
-
-.upfront-social-services-item .usocial-select {
-    max-height: none;
-    position: absolute;
-    height:auto;
-}
-.upfront-social-services-item .usocial-select.usocial-select-closed {
-    max-height: 26px;
-}
-.usocial-select-list {
-    margin:0;
-    padding:0;
-    width:180px;
-}
-
-.usocial_service_meta {
-    margin-top: 10px;
-}
-
-.usocial-select-label {
-    display: block;
-}
-
-.social-frame {
-    max-width:100px;
-}
-
-.social-frame.vertical{
-    width:70px;
-}
-.social-frame.horizontal{
-    width:100px;
-    height: 23px;
-}
-.usocial-instagram.vertical{
-    margin-top: 2px;
-    height: 60px;
-}
-.usocial-fb.vertical{
-    margin-top: 1px;
-    height: 65px;
-}
-.usocial-twitter.vertical{
-    height: 63px;
-}
-.usocial-twitter.horizontal{
-    width: 90px;
-}
-
-
-
-.upfront-global-social-settings label.upfront-field-label-block {
-	margin: 20px 0 0;
+.usocial-settings-panel .usocial-service-row input[type=url] {
+	box-sizing: border-box;
+	width: 100%;
+	height: 30px;
+	border: 1px solid #b8c6d1;
+	padding: 4px 7px;
 }

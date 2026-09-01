@@ -1388,7 +1388,7 @@ var Application = new (Backbone.Router.extend({
 		;
 
 		_.each(rules, function (rl) {
-			var src = $.trim(rl).split('{');
+			var src = (rl || '').toString().trim().split('{');
 
 			if (src.length != 2) return true; // wtf
 

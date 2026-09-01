@@ -269,7 +269,7 @@ define([
 				}
 			}
 		},
-		title: 'Accordion Settings'
+		title: l10n.settings
 	});
 
 	// Generate presets styles to page

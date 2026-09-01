@@ -123,6 +123,10 @@ License: MIT
 	display: none;
 }
 
+.sp-container.sp-palette-buttons-disabled .sp-palette-toggle {
+	display: none;
+}
+
 .sp-palette-only .sp-picker-container {
 	display: none;
 }

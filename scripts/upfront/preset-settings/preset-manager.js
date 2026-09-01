@@ -307,7 +307,7 @@ define([
 		},
 
 		getTitle: function() {
-			return 'Darstellung';
+			return l10n.appearance;
 		},
 
 		getPresetDefaultsMigration: function(presetName) {

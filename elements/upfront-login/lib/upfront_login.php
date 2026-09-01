@@ -207,7 +207,7 @@ class Upfront_LoginView extends Upfront_Object {
 			'login' => __("Anmelden", 'upfront'),
 			'log_in' => __("Anmelden", 'upfront'),
 			'log_out' => __("Abmelden", 'upfront'),
-			'logged_in_preview' => __("Angemeldete Benutzer sehen", 'upfront'),
+			'logged_in_preview' => __("Abgemeldet:", 'upfront'),
 			'preview' => __("Vorschau", 'upfront'),
 			'nothing' => __("Nichts", 'upfront'),
 			'log_out_link' => __("Abmelde-Link", 'upfront'),

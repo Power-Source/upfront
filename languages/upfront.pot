@@ -1119,6 +1119,10 @@ msgstr ""
 msgid "Labels-Sortierung aktivieren"
 msgstr ""
 
+#: elements/upfront-gallery/lib/ugallery.php:382
+msgid "Label-Filter"
+msgstr ""
+
 #: elements/upfront-gallery/lib/ugallery.php:381
 msgid "Gleichmäßiges Padding"
 msgstr ""
@@ -1151,6 +1155,10 @@ msgstr ""
 
 #: elements/upfront-gallery/lib/ugallery.php:387
 msgid "Stil der Bildunterschrift"
+msgstr ""
+
+#: elements/upfront-gallery/lib/ugallery.php:390
+msgid "Bildunterschrift-Einstellungen"
 msgstr ""
 
 #: elements/upfront-gallery/lib/ugallery.php:388

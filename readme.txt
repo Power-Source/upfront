@@ -42,6 +42,11 @@ Füge Designfarben hinzu, pass Typografie an und bearbeite globale Einstellungen
 * Incomplete string escaping or encoding an mehreren Stellen behoben
 * Fix: Von Plugins in Archiv-Queries injizierte virtuelle Seiten werden wieder als Einzelseiten erkannt und mit ihrem tatsächlichen Inhalt gerendert
 * Fix: PS-Jobboard-Expertenseiten verwenden wieder das passende Single-Layout statt der generischen Beitragsliste
+* Fix: URL-Felder in Bild-Linkmasken behalten den Eingabefokus und die Zielauswahl zeigt ihre Beschriftungen vollständig an
+* Fix: Fußleisten, Suchfelder und Seitennavigationen in Auswahl- und Medien-Popups werden wieder vollständig dargestellt
+* Fix: Aktive Untertabs werden beim Öffnen von Sidebar-Akkordeons sofort mit ihrem Inhalt dargestellt
+* Verbesserung: Farbwähler bleiben vollständig geöffnet und globale Regionen sowie Lightboxes lassen sich im Manager umbenennen oder löschen
+* Modernisierung: Suche und Social verwenden die zentrale Element-Settings-Sidebar; Social nutzt lokale moderne SVG-Icons ohne externe Widgets oder Zähler-APIs
 
 = 1.2.1 =
 * Fix: Editor-Skripte werden im Frontend nur noch bei aktivem Upfront-Builder geladen

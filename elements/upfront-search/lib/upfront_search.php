@@ -9,6 +9,7 @@ class Upfront_UsearchView extends Upfront_Object {
 		$data = $this->properties_to_array();
 		$data['action'] = home_url('/');
 		$data['iconClass'] = $data['label'] == '__image__' ? 'icon' : 'text';
+		$data['roundedClass'] = !empty($data['is_rounded']) ? 'rounded' : '';
 
 		return upfront_get_template('usearch', $data, dirname(dirname(__FILE__)) . '/tpl/usearch.html');
 	}
@@ -67,6 +68,7 @@ class Upfront_UsearchView extends Upfront_Object {
 			'field' => __('Feld', 'upfront'),
 			'field_settings' => __('Feldeinstellungen', 'upfront'),
 			'btn_content' => __('Schaltflächeninhalt', 'upfront'),
+			'rounded' => __('Abgerundete Form', 'upfront'),
 		);
 		return !empty($key)
 			? (!empty($l10n[$key]) ? $l10n[$key] : $key)

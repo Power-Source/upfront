@@ -1,5 +1,9 @@
 (function ($) {
-define(['text!elements/upfront-search/tpl/usearch.html'], function(tplSource) {
+define([
+	'scripts/upfront/element-settings/settings',
+	'scripts/upfront/element-settings/root-settings-panel',
+	'text!elements/upfront-search/tpl/usearch.html'
+], function(ElementSettings, RootSettingsPanel, tplSource) {
 
 var l10n = Upfront.Settings.l10n.search_element;
 
@@ -44,7 +48,8 @@ var UsearchView = Upfront.Views.ObjectView.extend({
 				label: label,
 				action: '/',
 				iconClass: label == '__image__' ? 'icon' : 'text',
-				element_id: this.model.get_property_value_by_name("element_id")
+				element_id: this.model.get_property_value_by_name("element_id"),
+				roundedClass: this.model.get_property_value_by_name("is_rounded") == 1 ? 'rounded' : ''
 			}
 		;
 
@@ -54,7 +59,7 @@ var UsearchView = Upfront.Views.ObjectView.extend({
 	on_render: function () {
 		var rounded = this.model.get_property_value_by_name("is_rounded"),
 			color = this.model.get_property_value_by_name("color"),
-			$me = this.$el.find('.upfront-editable_entity:first');
+			$me = this.$el.find('.upfront-search:first');
 		if ( rounded == 1 )
 			$me.addClass('rounded');
 		else
@@ -121,7 +126,8 @@ var UsearchElement = Upfront.Views.Editor.Sidebar.Element.extend({
  * Field settings panel.
  * @type {Upfront.Views.Editor.Settings.Panel}
  */
-var UsearchSettingsPanel = Upfront.Views.Editor.Settings.Panel.extend({
+var UsearchSettingsPanel = RootSettingsPanel.extend({
+	title: l10n.element_name,
 	/**
 	 * Initialize the view, and populate the internal
 	 * setting items array with Item instances.
@@ -137,10 +143,19 @@ var UsearchSettingsPanel = Upfront.Views.Editor.Settings.Panel.extend({
 						model: this.model,
 						property: 'placeholder',
 						label: l10n.placeholder_label
+					}),
+					new Upfront.Views.Editor.Field.Toggle({
+						model: this.model,
+						property: 'is_rounded',
+						label: '',
+						values: [
+							{label: l10n.rounded, value: 1}
+						]
 					})
 				]
 			}),
-			new UsearchButtonSetting_Label({model: this.model})
+			new UsearchButtonSetting_Label({model: this.model}),
+			new Upfront.Views.Editor.Settings.Settings_CSS({model: this.model})
 		]);
 	},
 	/**
@@ -226,25 +241,11 @@ var UsearchButtonSetting_Label = Upfront.Views.Editor.Settings.Item.extend({
  * Search settings hub, populated with the panels we'll be showing.
  * @type {Upfront.Views.Editor.Settings.Settings}
  */
-var UsearchSettings = Upfront.Views.Editor.Settings.Settings.extend({
-	/**
-	 * Bootstrap the object - populate the internal
-	 * panels array with the panel instances we'll be showing.
-	 */
-	initialize: function (opts) {
-    this.has_tabs = false;
-		this.options = opts;
-		this.panels = _([
-			new UsearchSettingsPanel({model: this.model})
-		]);
+var UsearchSettings = ElementSettings.extend({
+	panels: {
+		Settings: UsearchSettingsPanel
 	},
-	/**
-	 * Get the title (goes into settings title area)
-	 * @return {string} Title
-	 */
-	get_title: function () {
-		return l10n.settings;
-	}
+	title: l10n.settings
 });
 
 

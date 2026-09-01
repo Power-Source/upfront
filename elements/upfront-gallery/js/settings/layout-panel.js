@@ -36,7 +36,7 @@ define([
 				}),
 				new ThumbnailFields({model: this.model, parent: me}),
 				new Upfront.Views.Editor.Settings.Item({
-					title: 'Caption Settings',
+					title: l10n.panel.caption_settings,
 					fields: [
 						new fields.Radios({
 							model: this.model,

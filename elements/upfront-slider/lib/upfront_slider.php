@@ -207,6 +207,7 @@ class Upfront_UsliderView extends Upfront_Object {
 			'caption_bg' => __('Hintergrund der Bildunterschrift', 'upfront'),
 			'none' => __('Keine', 'upfront'),
 			'pick_color' => __('Farbe wählen', 'upfront'),
+			'colors' => __('Farben', 'upfront'),
 			'rotate_every' => __('Automatisch drehen alle ', 'upfront'),
 			'slide_down' => __('Nach unten gleiten', 'upfront'),
 			'slide_up' => __('Nach oben gleiten', 'upfront'),

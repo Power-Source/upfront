@@ -602,6 +602,7 @@ abstract class Upfront_Presets_Server extends Upfront_Server {
 	private static function _get_l10n ($key=false) {
 		$l10n = array(
 			'select_preset' => __('Preset auswählen', 'upfront'),
+			'appearance' => __('Darstellung', 'upfront'),
 			'preset' => __('Preset', 'upfront'),
 			'select_preset_label' => __('Wähle oder erstelle ein Preset:', 'upfront'),
 			'delete_label' => __('Löschen', 'upfront'),

@@ -26,12 +26,13 @@ class Upfront_Ajax extends Upfront_Server {
 
 			upfront_add_ajax('upfront_list_scoped_regions', array($this, "list_scoped_regions"));
 			upfront_add_ajax('upfront_get_scoped_regions', array($this, "get_scoped_regions"));
-			upfront_add_ajax('upfront_delete_scoped_regions', array($this, "delete_scoped_regions"));
 			upfront_add_ajax('upfront_user_done_font_intro', array($this, "user_done_font_intro"));
 		}
 
 		if (Upfront_Permissions::current(Upfront_Permissions::SAVE)) {
 			upfront_add_ajax('upfront_save_layout', array($this, "save_layout"));
+			upfront_add_ajax('upfront_delete_scoped_regions', array($this, "delete_scoped_regions"));
+			upfront_add_ajax('upfront_rename_scoped_region', array($this, "rename_scoped_region"));
 			upfront_add_ajax('upfront_save_layout_meta', array($this, "save_page_layout_meta"));
 			upfront_add_ajax('upfront_delete_page_template', array($this, "delete_page_template"));
 			upfront_add_ajax('upfront_reset_layout', array($this, "reset_layout"));
@@ -616,11 +617,33 @@ class Upfront_Ajax extends Upfront_Server {
 	}
 
 	function delete_scoped_regions () {
-		$storage_key = $_POST['storage_key'];
-		$scope = $_POST['scope'];
-		$name = $_POST['name'];
+		if (!Upfront_Permissions::current(Upfront_Permissions::SAVE)) $this->_reject();
+
+		$storage_key = isset($_POST['storage_key']) ? sanitize_text_field(wp_unslash($_POST['storage_key'])) : '';
+		$scope = isset($_POST['scope']) ? sanitize_key(wp_unslash($_POST['scope'])) : '';
+		$name = isset($_POST['name']) ? sanitize_text_field(wp_unslash($_POST['name'])) : '';
+		if ($scope !== 'global' || $name === '') {
+			return $this->_out(new Upfront_JsonResponse_Error("Invalid region delete request"));
+		}
 		$regions = Upfront_Layout::delete_scoped_regions($name, $scope, $storage_key);
 		$this->_out(new Upfront_JsonResponse_Success($regions));
+	}
+
+	function rename_scoped_region () {
+		if (!Upfront_Permissions::current(Upfront_Permissions::SAVE)) $this->_reject();
+
+		$storage_key = isset($_POST['storage_key']) ? sanitize_text_field(wp_unslash($_POST['storage_key'])) : '';
+		$scope = isset($_POST['scope']) ? sanitize_key(wp_unslash($_POST['scope'])) : '';
+		$name = isset($_POST['name']) ? sanitize_text_field(wp_unslash($_POST['name'])) : '';
+		$title = isset($_POST['title']) ? sanitize_text_field(wp_unslash($_POST['title'])) : '';
+		if ($scope !== 'global' || $name === '' || $title === '') {
+			return $this->_out(new Upfront_JsonResponse_Error("Invalid region rename request"));
+		}
+
+		$renamed = Upfront_Layout::rename_scoped_region($name, $title, $scope, $storage_key);
+		if (!$renamed) return $this->_out(new Upfront_JsonResponse_Error("Region not found"));
+
+		$this->_out(new Upfront_JsonResponse_Success(true));
 	}
 
 	function delete_page_template () {

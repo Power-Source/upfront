@@ -32,6 +32,15 @@ define([
 			}
 			Upfront.Views.ObjectView.prototype.initialize.call(this);
 			var me = this;
+			this.settings_open = false;
+			this.listenTo(this.model, 'settings:open', function () {
+				this.settings_open = true;
+				this.update_form_preview();
+			});
+			this.listenTo(Upfront.Events, 'element:settings:saved element:settings:canceled', function () {
+				this.settings_open = false;
+				this.update_form_preview();
+			});
 			this.listenTo(this.model.get("properties"), 'change', function (model) {
 				if (!model || !model.get) return true;
 				if ("row" != model.get("name")) {
@@ -49,6 +58,7 @@ define([
 			Upfront.Views.ObjectView.prototype.render.call(this);
 		},
 		on_render: function () {
+			this.update_form_preview();
 			if (Upfront.Application.user_can_modify_layout()) {
 				var me = this;
 
@@ -154,6 +164,12 @@ define([
 			});
 			this.delegateEvents();
 
+		},
+		update_form_preview: function () {
+			this.$el.toggleClass(
+				'upfront-login-form-preview',
+				this.settings_open && this.model.get_property_value_by_name('style') !== 'form'
+			);
 		},
 		trigger_login_click: function (e) {
 			if (Upfront.Application.user_can_modify_layout()) {

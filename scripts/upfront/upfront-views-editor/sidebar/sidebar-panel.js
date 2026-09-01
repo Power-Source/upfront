@@ -63,12 +63,21 @@
 								return this.sections.find(function(section){ return section.get_name() == name; });
 						},
 						on_click: function () {
+								var activeTab = this.$el.find('.sidebar-panel-tab.active').first(),
+									activeTarget = activeTab.data('target');
+
 								$('.sidebar-panel').not(this.$el).removeClass('expanded');
 								this.$el.addClass('expanded');
 
 								// take care of tabs if any
 								$('.sidebar-panel').not(this.$el).find(".sidebar-panel-tabspane").hide();
 								this.$el.find(".sidebar-panel-tabspane").not(".sidebar-panel-tabspane-hidden").show();
+								this.$el.find('.sidebar-tab-content').hide();
+								if (activeTarget) {
+									this.$el.find('#' + activeTarget).show();
+								} else {
+									this.$el.find('.sidebar-tab-content').first().show();
+								}
 
 									// Update JS Scrollbar.
 									perfectScrollbar.withDebounceUpdate(

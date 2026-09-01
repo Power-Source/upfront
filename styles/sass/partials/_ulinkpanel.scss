@@ -529,9 +529,8 @@ div.ulinkpanel.ulinkpanel-dark .upfront-field-wrap{
 	height: 24px;
 }
 .link-control-panel .upfront-settings-link-target {
-	top: 5px;
-    position: absolute;
-	right: 40px;
+	width: 90px;
+	margin-top: 5px;
 }
 .link-control-panel .upfront-settings-link-target,
 .link-control-panel .upfront-settings-link-field {
@@ -550,12 +549,12 @@ div.ulinkpanel.ulinkpanel-dark .upfront-field-wrap{
 	margin-top: 0px;
 }
 .link-control-panel .uf-link-target-select {
-	width: 38px;
+	width: 90px;
 }
 .link-control-panel .uf-link-target-select .upfront-field-select {
 	background: #4e4e4e;
 	color: #fff;
-	width: 38px;
+	width: 90px;
 	height: 16px;
 	border: none;
 }

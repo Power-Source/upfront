@@ -169,7 +169,7 @@ define([
 		renderCss: function(rawCss) {
 			var styles_with_selector;
 			var preset_class = this.get_css_selector();
-			styles_with_selector = this.stylesAddSelector($.trim(rawCss), '#page ' + preset_class);
+			styles_with_selector = this.stylesAddSelector((rawCss || '').toString().trim(), '#page ' + preset_class);
 			// Solve case of button loosing its styles
 			styles_with_selector = Upfront.Util.colors.convert_string_ufc_to_color(styles_with_selector.replace(new RegExp(Upfront.Util.preg_quote(this.get_css_selector()) + ' .upfront-button', 'g'), this.get_css_selector() + '.upfront-button'));
 
@@ -220,7 +220,7 @@ define([
 
 			var styles = this.options.preset.get('preset_style') ? this.options.preset.get('preset_style') : '';
 			styles = this.cleanUpStyles(styles);
-			editor.setValue($.trim(styles), -1);
+			editor.setValue(String(styles).trim(), -1);
 
 			// Set up the proper vscroller width to go along with new change.
 			editor.renderer.scrollBar.width = 5;
@@ -461,7 +461,7 @@ define([
 				processed = ''
 			;
 			_.each(rules, function (rl) {
-				var src = $.trim(rl).split('{');
+				var src = (rl || '').toString().trim().split('{');
 				if (src.length != 2) return true; // wtf
 				var individual_selectors = src[0].split(','),
 					processed_selectors = []

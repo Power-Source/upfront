@@ -1263,6 +1263,43 @@ var LayoutEditor = {
 		var ed = Upfront.Behaviors.LayoutEditor,
 			collection = Upfront.Application.layout.get("regions"),
 			me = this,
+			finishRename = function($input, save) {
+				if ($input.data('renameHandled')) return;
+				$input.data('renameHandled', true);
+
+				var title = $.trim($input.val()),
+					name = $input.attr('data-name'),
+					scope = $input.attr('data-scope'),
+					model = collection.get_by_name(name),
+					updateCurrentModel = function() {
+						if (!model) return;
+						model.set({title: title}, {silent: true});
+						if (model.get('properties')) model.get('properties').trigger('change');
+					};
+
+				if (!save || !title) {
+					ed._render_global_region_manager($el);
+					return;
+				}
+
+				if (scope === 'global') {
+					Upfront.Util.post({
+						action: 'upfront_rename_scoped_region',
+						scope: 'global',
+						name: name,
+						title: title,
+						storage_key: _upfront_save_storage_key
+					}).done(function() {
+						updateCurrentModel();
+						ed._refresh_global_regions().done(function(){
+							ed._render_global_region_manager($el);
+						});
+					});
+				} else {
+					updateCurrentModel();
+					ed._render_global_region_manager($el);
+				}
+			},
 			region_managers = [
 				{
 					title: Upfront.Settings.l10n.global.behaviors.global_regions,
@@ -1293,19 +1330,32 @@ var LayoutEditor = {
 			// don't propagate scroll
 			Upfront.Views.Mixins.Upfront_Scroll_Mixin.stop_scroll_propagation($content);
 		});
-		// Remove previous event listener.
-		$el.off('click', '.region-list-edit');
-		$el.on('click', '.region-list-edit', function(e){
+		$el.off('click', '.region-list-rename');
+		$el.on('click', '.region-list-rename', function(e){
 			e.preventDefault();
 			e.stopPropagation();
-			
-			// Close region manager
-			Upfront.Popup.close();
-
-			// Open lightbox
-			var name = $(this).attr('data-name');
-			Upfront.Application.LayoutEditor.openLightboxRegion(name);
-
+			var $control = $(this),
+				$name = $control.closest('.global-region-manager-list').find('.region-list-name'),
+				$input = $('<input type="text" class="region-list-rename-input">')
+					.val($name.text())
+					.attr('data-name', $control.attr('data-name'))
+					.attr('data-scope', $control.attr('data-scope'));
+			$name.empty().append($input);
+			$input.trigger('focus').select();
+		});
+		$el.off('keydown', '.region-list-rename-input');
+		$el.on('keydown', '.region-list-rename-input', function(e){
+			if (e.which === 13) {
+				e.preventDefault();
+				finishRename($(this), true);
+			} else if (e.which === 27) {
+				e.preventDefault();
+				finishRename($(this), false);
+			}
+		});
+		$el.off('blur', '.region-list-rename-input');
+		$el.on('blur', '.region-list-rename-input', function(){
+			finishRename($(this), true);
 		});
 		// Remove previous event listener.
 		$el.off('click', '.region-list-trash');
@@ -1346,7 +1396,9 @@ var LayoutEditor = {
 				}
 			} else {
 				// Local Lightboxes.
-				me.remove_from_global_region_list(name, target, collection, $el, ed);
+				if (confirm(Upfront.Settings.l10n.global.behaviors.confirm_delete_lightbox)) {
+					me.remove_from_global_region_list(name, target, collection, $el, ed);
+				}
 			}
 		});
 	},
@@ -1363,7 +1415,10 @@ var LayoutEditor = {
 		var $lists = $('<ul class="global-region-manager-lists"></ul>');
 		_.each(regions, function(region){
 			var classes = ['global-region-manager-list'],
-				has_main = false;
+				has_main = false,
+				regionName = _.escape(region.name),
+				regionScope = _.escape(region.scope || (type === 'global' ? 'global' : 'local')),
+				regionTitle = _.escape(region.title);
 			if ( !region.container || region.name == region.container ){
 				classes.push('region-list-main');
 			}
@@ -1376,17 +1431,10 @@ var LayoutEditor = {
 			}
 			$lists.append(
 				'<li class="' + classes.join(' ') + '">' +
-					'<span class="region-list-name">' + region.title + '</span>' +
+					'<span class="region-list-name">' + regionTitle + '</span>' +
 					'<span class="region-list-control">' +
-						(
-							type === 'lightbox' ?
-							'<a href="#" class="region-list-edit" data-name="' + region.name + '">' + Upfront.Settings.l10n.global.behaviors.edit + '</a>' :
-							''
-						) + (
-							false === Upfront.plugins.isForbiddenByPlugin('show region list trash') ?
-							'<a href="#" class="region-list-trash" data-name="' + region.name + '" data-scope="' + region.scope + '">' + Upfront.Settings.l10n.global.behaviors.trash + '</a>' :
-							''
-						) +
+						'<a href="#" class="region-list-rename upfront-icon upfront-icon-region-labelEdit" data-name="' + regionName + '" data-scope="' + regionScope + '" title="' + _.escape(Upfront.Settings.l10n.global.behaviors.rename_region) + '" aria-label="' + _.escape(Upfront.Settings.l10n.global.behaviors.rename_region) + '"></a>' +
+						'<a href="#" class="region-list-trash upfront-icon upfront-icon-region-remove" data-name="' + regionName + '" data-scope="' + regionScope + '" title="' + _.escape(Upfront.Settings.l10n.global.behaviors.trash) + '" aria-label="' + _.escape(Upfront.Settings.l10n.global.behaviors.trash) + '"></a>' +
 					'</span>' +
 				'</li>'
 			);

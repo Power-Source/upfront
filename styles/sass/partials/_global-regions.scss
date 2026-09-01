@@ -130,6 +130,17 @@
   line-height: 20px;
   position: relative;
 }
+.global-region-manager-list .region-list-name {
+  display: block;
+  padding-right: 56px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.global-region-manager-list .region-list-rename-input {
+  width: 100%;
+  height: 22px;
+}
 .region-list-empty {
   padding: 0px 20px;
   line-height: 30px;
@@ -175,29 +186,26 @@
 }
 .global-region-manager-list .region-list-control {
   position: absolute;
-  right: 20px;
+  right: 6px;
   top: 0;
   bottom: 0;
-  padding: 5px 0;
+  padding: 4px 0;
 }
-.global-region-manager-list .region-list-edit,
+.global-region-manager-list .region-list-rename,
 .global-region-manager-list .region-list-trash {
-  border-radius: 3px;
-  padding: 0 10px;
-  display: none;
-}
-.global-region-manager-list:hover .region-list-edit,
-.global-region-manager-list:hover .region-list-trash {
   display: inline-block;
+  width: 24px;
+  height: 22px;
+  padding: 0;
+  border-radius: 3px;
+  vertical-align: top;
 }
-.global-region-manager-list .region-list-edit {
-  margin: 0 10px 0 0;
+.global-region-manager-list .region-list-rename {
+  margin-right: 4px;
   background: #385268;
-  color: #00d08b;
 }
 .global-region-manager-list .region-list-trash {
   background: #e70000;
-  color: #fff;
 }
 
 

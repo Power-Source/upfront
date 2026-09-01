@@ -446,7 +446,7 @@
 					scope = new RegExp(selector + '\\s*', 'g');
 					styles = styles.replace(scope, '');
 				}
-				editor.setValue($.trim(styles), -1);
+				editor.setValue(String(styles).trim(), -1);
 
 				// Set up the proper vscroller width to go along with new change.
 				editor.renderer.scrollBar.width = 5;

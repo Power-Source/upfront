@@ -30,9 +30,6 @@
                     view_pos = $view.offset(),
                     view_outer_width = $view.outerWidth(),
                     view_pos_right = view_pos.left + view_outer_width,
-                    $button = ($view.hasClass('upfront-object') ? $view.closest('.upfront-module') : $view).find("> .upfront-element-controls .upfront-icon-region-settings"),
-                    button_pos = $button.offset(),
-                    button_pos_right = button_pos.left + $button.outerWidth(),
                     $main = $(Upfront.Settings.LayoutEditor.Selectors.main),
                     main_pos = $main.offset(),
                     main_pos_right = main_pos.left + $main.outerWidth()
@@ -72,7 +69,9 @@
                 this.toggle_panel(this.panels.first());
 
                 var label_width = this.panels.first().$el.find('.upfront-settings_label').outerWidth(),
-                    panel_width = this.panels.first().$el.find('.upfront-settings_panel').outerWidth();
+                    panel_width = this.panels.first().$el.find('.upfront-settings_panel').outerWidth(),
+                    settings_width,
+                    settings_left;
 
                 // This will remove tabs from left side if element settings have specified so.
                 // Default is to show tabs.
@@ -81,6 +80,13 @@
                     this.$el.addClass('settings-no-tabs');
                 }
 
+                settings_width = label_width + panel_width;
+                settings_left = view_pos_right;
+                if (settings_left + settings_width > main_pos_right) {
+                    settings_left = view_pos.left - settings_width;
+                }
+                settings_left = Math.max(main_pos.left, Math.min(settings_left, main_pos_right - settings_width));
+
                 this.$el
                     .css({
                         "position": "absolute",
@@ -88,7 +94,7 @@
                     })
                     .offset({
                         "top": view_pos.top /*+ $view.height() + 16*/,
-                        "left": view_pos.left + view_outer_width - ((view_pos_right+label_width+panel_width > main_pos_right) ? label_width+panel_width+(view_pos_right-button_pos.left)+5 : 0)
+                        "left": settings_left
                     })
                     .addClass('upfront-ui')
                 ;

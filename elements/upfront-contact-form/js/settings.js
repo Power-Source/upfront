@@ -545,7 +545,7 @@ define([
 
 				return styles;
 		},
-		title: 'Contact Element'
+		title: l10n.settings
 	});
 
 	// Generate presets styles to page

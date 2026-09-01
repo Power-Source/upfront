@@ -270,7 +270,7 @@ define([
       {
 				type: 'SettingsItem',
 				className: 'general_settings_item',
-				title: 'Label filters',
+				title: l10n.panel.label_filters,
 				fields: [
 					{
 						type: 'Toggle',
@@ -287,7 +287,7 @@ define([
 				]
 			}
 		],
-		title: 'General Settings'
+		title: l10n.panel.general_settings
 	});
 
 	return ThumbnailFields;

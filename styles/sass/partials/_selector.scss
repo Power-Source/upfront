@@ -79,3 +79,113 @@
 	padding-top:4px;
 }
 
+#upfront-popup.upfront-postselector-popup #upfront-popup-bottom {
+	height: 50px;
+}
+
+#upfront-popup.upfront-postselector-popup .use_selection_container {
+	float: right;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	background: #1fcd8f;
+}
+
+#upfront-popup.upfront-postselector-popup .use_selection_container.inactive {
+	background: #cee1f2;
+}
+
+#upfront-popup.upfront-postselector-popup .use_selection_container a {
+	display: block;
+	padding: 0 32px;
+	color: #fff;
+	text-decoration: none;
+}
+
+#upfront-popup.upfront-postselector-popup .use_selection_container.inactive a {
+	color: #99b3cc;
+	cursor: default;
+}
+
+#upfront-popup.upfront-postselector-popup .search_container {
+	position: relative;
+	float: right;
+	width: 200px;
+	height: 50px;
+}
+
+#upfront-popup.upfront-postselector-popup .search_container input {
+	width: 100%;
+	height: 50px;
+	padding: 15px 45px 15px 15px;
+	color: #e5f2ff;
+	background: #2f4355;
+	border: 1px solid transparent;
+	outline: 0;
+}
+
+#upfront-popup.upfront-postselector-popup .search_container input:focus {
+	color: #30475e;
+	background: #fff;
+	border-color: #1691fb;
+	box-shadow: inset 0 0 0 1px rgba(22, 145, 251, .2);
+}
+
+#upfront-popup.upfront-postselector-popup .search_container input:focus::-webkit-input-placeholder {
+	color: #7b8f9f;
+}
+
+#upfront-popup.upfront-postselector-popup .search_container .search {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 45px;
+	height: 50px;
+	cursor: pointer;
+}
+
+#upfront-popup.upfront-postselector-popup .search_container .search:hover {
+	background: rgba(255, 255, 255, .08);
+}
+
+#upfront-popup.upfront-postselector-popup .search_container .upfront-icon-popup-search:before {
+	position: absolute;
+	top: 14px;
+	left: 13px;
+	width: 13px;
+	height: 13px;
+	margin: 0;
+	background: none;
+	border: 2px solid #fff;
+	border-radius: 50%;
+}
+
+#upfront-popup.upfront-postselector-popup .search_container .upfront-icon-popup-search:after {
+	content: '';
+	position: absolute;
+	top: 28px;
+	left: 27px;
+	width: 8px;
+	height: 2px;
+	background: #fff;
+	transform: rotate(45deg);
+	transform-origin: left center;
+}
+
+#upfront-popup.upfront-postselector-popup .search_container input:focus + .upfront-icon-popup-search:before {
+	border-color: #1691fb;
+}
+
+#upfront-popup.upfront-postselector-popup .search_container input:focus + .upfront-icon-popup-search:after {
+	background: #1691fb;
+}
+
+#upfront-popup.upfront-postselector-popup .upfront-selector-navigation {
+	float: left;
+	height: 50px;
+}
+
+#upfront-popup.upfront-postselector-popup .upfront-single-page-pagination {
+	display: none;
+}
+

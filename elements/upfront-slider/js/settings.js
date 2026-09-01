@@ -37,7 +37,7 @@ define([
 				{
 					moduleType: 'Colors',
 					options: {
-						title: 'Colors',
+						title: l10n.colors,
 						multiple: false,
 						single: true,
 						abccolors: [

@@ -1,12 +1,9 @@
-<div class="upfront-search">
-	<form action="<?php echo $action ?>" method="GET">
-		<input type="search" class="search-field search-<?php echo $iconClass ?>" name="s" value="" placeholder="<?php echo $placeholder ?>"/>
-		<?php if($label == '__image__') { ?>
-			<i class="icon-search"></i>
-		<?php } ?>
-		<?php if($label && $label != '__image__') { ?>
-			<button class="search-button search-<?php echo $iconClass ?>"><?php echo $label ?></button>
-		<?php } ?>
-    </form>
-
+<div class="upfront-search <?php echo $roundedClass ?>">
+	<form action="<?php echo $action ?>" method="GET" role="search">
+		<input type="search" class="search-field search-<?php echo $iconClass ?>" name="s" value="" placeholder="<?php echo $placeholder ?>" aria-label="<?php echo $placeholder ?>"/>
+		<button type="submit" class="search-button search-<?php echo $iconClass ?>" aria-label="<?php echo $label == '__image__' ? $placeholder : $label ?>">
+			<?php if($label == '__image__') { ?><span class="usearch-icon" aria-hidden="true"></span><?php } ?>
+			<?php if($label && $label != '__image__') { ?><?php echo $label ?><?php } ?>
+		</button>
+	</form>
 </div>

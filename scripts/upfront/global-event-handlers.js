@@ -9,7 +9,7 @@ define(function() {
 
 
   // Allow focus on click for inputs and textareas - draggable hijacks it
-	var nonDraggableSelectors = '#page :input, #upfront-popup :input, .upfront-inline-modal :input, #page [contenteditable="true"], #upfront-popup [contenteditable="true"], .upfront-inline-modal [contenteditable="true"], #page .upfront-field-select, #upfront-popup .upfront-field-select, .upfront-inline-modal .upfront-field-select';
+	var nonDraggableSelectors = '#page :input, #upfront-popup :input, .upfront-inline-modal :input, .inline-panel-control-dialog-link :input, #page [contenteditable="true"], #upfront-popup [contenteditable="true"], .upfront-inline-modal [contenteditable="true"], #page .upfront-field-select, #upfront-popup .upfront-field-select, .upfront-inline-modal .upfront-field-select, .inline-panel-control-dialog-link .upfront-field-select';
 	$('body').on('mouseover mousedown focusin', nonDraggableSelectors, function(event) {
 		try {
 			$(event.target).closest('.ui-draggable').draggable('disable');

@@ -51,9 +51,6 @@
 			this.onElementResize(this, this.model);
 		},
 
-		setUrl: function(){
-			this.property('facebook_url' , Upfront.data.social.panel.model.get_property_value_by_name('global_social_media_services-facebook-url'));
-		},
 		hideFrame: function(view, model) {
 			if (this.parent_module_view == view) {
 				this.$el.find('iframe').css('display', 'none');
@@ -94,16 +91,6 @@
 				return this.model.set_property(name, value);
 			return this.model.get_property_value_by_name(name);
 		},
-		events: function(){
-			return _.extend({},Upfront.Views.ObjectView.prototype.events,{
-				'click a.back_global_settings' : 'backToGlobalSettings'
-			});
-		},
-		backToGlobalSettings: function(e){
-			e.preventDefault();
-			Upfront.data.social.panel.popupFunc();
-		},
-
 		getGlobalFBUrl: function(){
 			if(!Upfront.data.usocial.globals)
 				return false;

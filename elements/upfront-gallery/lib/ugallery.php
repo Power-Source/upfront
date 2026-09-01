@@ -377,7 +377,9 @@ class Upfront_UgalleryView extends Upfront_Object {
 			'settings' => __('Einstellungen', 'upfront'),
 			'toggle_dnd' => __('Drag\'n\'Drop-Sortierung der Bilder umschalten', 'upfront'),
 			'panel' => array(
+				'general_settings' => __('Allgemeine Einstellungen', 'upfront'),
 				'sort' => __('Labels-Sortierung aktivieren', 'upfront'),
+				'label_filters' => __('Label-Filter', 'upfront'),
 				'even_padding' => __('Gleichmäßiges Padding', 'upfront'),
 				'show_caption' => __('Bildunterschriften anzeigen', 'upfront'),
 				'never' => __('nie', 'upfront'),
@@ -385,6 +387,7 @@ class Upfront_UgalleryView extends Upfront_Object {
 				'always' => __('Immer', 'upfront'),
 				'caption_location' => __('Position der Bildunterschrift', 'upfront'),
 				'caption_style' => __('Stil der Bildunterschrift', 'upfront'),
+				'caption_settings' => __('Bildunterschrift-Einstellungen', 'upfront'),
 				'caption_height' => __('Höhe der Bildunterschrift', 'upfront'),
 				'none' => __('Keine', 'upfront'),
 				'over' => __('Über dem Bild', 'upfront'),

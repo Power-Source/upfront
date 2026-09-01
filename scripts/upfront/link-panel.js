@@ -86,6 +86,8 @@ define([
 		events: {
 			'click .js-ulinkpanel-input-entry': 'openPostSelector',
 			'keydown .js-ulinkpanel-lightbox-input': 'onLightboxNameInputChange',
+			'mousedown .js-ulinkpanel-input-external': 'stopInputDrag',
+			'touchstart .js-ulinkpanel-input-external': 'stopInputDrag',
 			'click .upfront-apply': 'saveControls',
 			'blur .js-ulinkpanel-input-external': 'onUrlInputBlur',
 			//'click .js-ulinkpanel-ok': 'onOkClick',
@@ -95,6 +97,10 @@ define([
 		},
 
 		className: 'ulinkpanel-dark upfront-panels-shadow',
+
+		stopInputDrag: function(event) {
+			event.stopPropagation();
+		},
 
 		visit_lightbox: function(e) {
 			e.preventDefault();
@@ -327,7 +333,7 @@ define([
 		onUrlInputBlur: function(event) {
 			var userInput = $(event.currentTarget).val().trim();
 			if ((!this.model.get('type') || this.model.get('type') === 'external' || this.model.get('type') === 'unlink') && !userInput.match(/https?:\/\//) && !_.isEmpty( userInput ) && !userInput.startsWith('#') ) {
-				userInput = 'http://' + userInput;
+				userInput = 'https://' + userInput;
 			}
 			if (this.model.get('type') === 'email' && !userInput.match(/^mailto:/)) {
 				userInput = 'mailto:' + userInput;
@@ -337,7 +343,7 @@ define([
 				this.model.set({'target': "_self"});
 			}
 			this.model.set({'url': userInput});
-			this.render();
+			$(event.currentTarget).val(userInput);
 		},
 
 		/* Rendering stuff below */
@@ -431,7 +437,7 @@ define([
 				if($(element).hasClass('upfront-field-post-pages')) {
 					elementWidth = parseInt($(element).find('.js-ulinkpanel-input-entry').outerWidth(), 10);
 				} else {
-					elementWidth = $(element).hasClass('upfront-settings-link-target') ? 0 : parseInt($(element).width(), 10);
+					elementWidth = parseInt($(element).width(), 10);
 				}
 
 				totalWidth = totalWidth + elementWidth;

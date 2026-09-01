@@ -1,6 +1,10 @@
 (function ($) {
 define([
 ], function () {
+	var l10n = Upfront.Settings && Upfront.Settings.l10n
+		? Upfront.Settings.l10n.global.views
+		: Upfront.mainData.l10n.global.views;
+
 	var RootPanelMixin = {
 		className: 'uf-settings-panel upfront-settings_panel',
 
@@ -10,7 +14,7 @@ define([
 
 		getTitle: function () {
 			var title = this.options.title ? this.options.title : this.title;
-			title = title ? title : 'Default Panel Title';
+			title = title ? title : l10n.settings;
 			return title;
 		},
 
