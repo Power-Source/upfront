@@ -73,6 +73,9 @@ class Upfront_UyoutubeView extends Upfront_Object {
 			$video_id = $data['multiple_videos'][0]['id'];
 			$data['loop_string'] = $data['loop'] ? "&loop=1&playlist=$video_id" : '';
 			$data['autoplay_string'] = $data['autoplay'] ? "&autoplay=1" : '';
+			$data['play_video_label'] = self::_get_l10n('play_video');
+			$data['escape_attr'] = 'esc_attr';
+			$data['escape_html'] = 'esc_html';
 
 			$markup = upfront_get_template('uyoutube', $data, dirname(dirname(__FILE__)) . '/tpl/youtube.html');
 
@@ -120,6 +123,7 @@ class Upfront_UyoutubeView extends Upfront_Object {
 			'autoplay' => __('Video beim Laden der Seite abspielen', 'upfront'),
 			'loop' => __('Schleife', 'upfront'),
 			'playback' => __('Wiedergabe', 'upfront'),
+			'play_video' => __('Video abspielen', 'upfront'),
 			'thumbnail_size' => __('Thumbnail-Größe', 'upfront'),
 			'thumbnail_size_info' => __('Schiebe, um die Thumbnails zu skalieren.', 'upfront'),
 			'videos_title' => __('VIDEO', 'upfront'),

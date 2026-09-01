@@ -1,4 +1,39 @@
 ;(function($){
+	function get_dimension(element, attribute) {
+		var value = parseFloat(element.getAttribute(attribute));
+		return isFinite(value) && value >= 0 ? value : null;
+	}
+
+	function apply_dimensions(context) {
+		var $context = $(context);
+
+		$context.find('.ufyt_main-video-placeholder, .uyoutube-player').each(function () {
+			var width = get_dimension(this, 'data-width');
+			var height = get_dimension(this, 'data-height');
+			if (width !== null) $(this).css('width', width);
+			if (height !== null) $(this).css('height', height);
+		});
+
+		$context.find('.uyoutube-gallery-item, .uyoutube-thumb-holder').each(function () {
+			var width = get_dimension(this, 'data-thumb-width');
+			if (width !== null) $(this).css('width', width);
+		});
+
+		$context.find('.uyoutube-thumb-mask').each(function () {
+			var width = get_dimension(this, 'data-thumb-width');
+			var height = get_dimension(this, 'data-thumb-height');
+			if (width !== null) $(this).css('width', width);
+			if (height !== null) $(this).css('height', height);
+		});
+
+		$context.find('.uyoutube-thumb').each(function () {
+			var width = get_dimension(this, 'data-thumb-width');
+			var offset = get_dimension(this, 'data-thumb-offset');
+			if (width !== null) $(this).css('width', width);
+			if (offset !== null) $(this).css('margin-top', -offset);
+		});
+	}
+
 	/*
 	 * Replace main video placeholder image+button with actual main video.
 	 */
@@ -48,4 +83,6 @@
 	$('.ufyt_main-video-placeholder').on('click', function(event) {
 		replace_ph_with_video($(this));
 	});
+
+	apply_dimensions(document);
 })(jQuery);

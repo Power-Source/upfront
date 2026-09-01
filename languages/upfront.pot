@@ -4621,6 +4621,10 @@ msgstr ""
 msgid "Wiedergabe"
 msgstr ""
 
+#: elements/upfront-youtube/lib/uyoutube.php:125
+msgid "Video abspielen"
+msgstr ""
+
 #: elements/upfront-youtube/lib/uyoutube.php:124
 msgid "Schiebe, um die Thumbnails zu skalieren."
 msgstr ""

@@ -72,6 +72,9 @@ var UyoutubeView = Upfront.Views.ObjectView.extend({
 		// Autoplay should never happen in editor! This is called only in editor
 		// props.autoplay_string = autoplay ? '&autoplay=1' : '';
 		props.autoplay_string = '';
+		props.play_video_label = l10n.play_video;
+		props.escape_attr = _.escape;
+		props.escape_html = _.escape;
 
 		rendered = this.youtubeTpl(props);
 
@@ -138,6 +141,7 @@ var UyoutubeView = Upfront.Views.ObjectView.extend({
 
 	on_render: function() {
 		me = this;
+		this.apply_dimensions();
 
 		this.$el.find('.upfront-youtube-button').on('click', function(e) {
 
@@ -172,6 +176,41 @@ var UyoutubeView = Upfront.Views.ObjectView.extend({
 		});
 
 		Upfront.Events.trigger('entity:object:refresh', this);
+	},
+
+	get_dimension: function(element, attribute) {
+		var value = parseFloat(element.getAttribute(attribute));
+		return isFinite(value) && value >= 0 ? value : null;
+	},
+
+	apply_dimensions: function() {
+		var me = this;
+
+		this.$el.find('.ufyt_main-video-placeholder, .uyoutube-player').each(function () {
+			var width = me.get_dimension(this, 'data-width');
+			var height = me.get_dimension(this, 'data-height');
+			if (width !== null) $(this).css('width', width);
+			if (height !== null) $(this).css('height', height);
+		});
+
+		this.$el.find('.uyoutube-gallery-item, .uyoutube-thumb-holder').each(function () {
+			var width = me.get_dimension(this, 'data-thumb-width');
+			if (width !== null) $(this).css('width', width);
+		});
+
+		this.$el.find('.uyoutube-thumb-mask').each(function () {
+			var width = me.get_dimension(this, 'data-thumb-width');
+			var height = me.get_dimension(this, 'data-thumb-height');
+			if (width !== null) $(this).css('width', width);
+			if (height !== null) $(this).css('height', height);
+		});
+
+		this.$el.find('.uyoutube-thumb').each(function () {
+			var width = me.get_dimension(this, 'data-thumb-width');
+			var offset = me.get_dimension(this, 'data-thumb-offset');
+			if (width !== null) $(this).css('width', width);
+			if (offset !== null) $(this).css('margin-top', -offset);
+		});
 	},
 
 	property: function(name, value, silent) {
