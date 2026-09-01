@@ -7,7 +7,6 @@
 		"scripts/upfront/element-settings/sidebar",
 		"scripts/upfront/link-panel",
 		"upfront/post-editor/upfront-post-edit",
-		"scripts/upfront/upfront-views-editor/jquery-plugins",
 		"scripts/upfront/upfront-views-editor/mixins",
 		"scripts/upfront/upfront-views-editor/fields",
 		"scripts/upfront/upfront-views-editor/fonts",
@@ -51,7 +50,6 @@
 			ElementSettingsSidebar,
 			LinkPanel,
 			PostEditorBox,
-			__jquery_plugins,
 			Mixins,
 			Fields,
 			Fonts,
@@ -91,7 +89,7 @@
 		];
 
 		// Auto-assign the template contents to internal variable
-		var _template_args = _.rest(arguments, 29),
+		var _template_args = _.rest(arguments, 28),
 			_Upfront_Templates = {}
 			;
 		_(_template_files).each(function (file, idx) {

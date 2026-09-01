@@ -54,8 +54,16 @@ class Upfront_JavascriptMain extends Upfront_Server {
 		$paths = array(
 			"backbone" => $includes_url . "js/backbone.min",
 			"underscore" => $includes_url . "js/underscore.min",
-			"jquery.ui.widget" => $includes_url . "js/jquery/ui/widget.min",
 			"dragselect" => "scripts/vendor/dragselect/DragSelect",
+			"interact" => "scripts/vendor/interact/interact.min",
+			"sortable" => "scripts/vendor/sortable/Sortable.min",
+			"nouislider" => "scripts/vendor/nouislider/nouislider.min",
+			"flatpickr" => "scripts/vendor/flatpickr/flatpickr.min",
+			"modern-ui-draggable" => "scripts/upfront/modern-ui-draggable",
+			"modern-ui-resizable" => "scripts/upfront/modern-ui-resizable",
+			"modern-ui-sortable" => "scripts/upfront/modern-ui-sortable",
+			"modern-ui-slider" => "scripts/upfront/modern-ui-slider",
+			"modern-ui-datepicker" => "scripts/upfront/modern-ui-datepicker",
 			"upfront-data" => $upfront_data_url,
 			"text" => 'scripts/text',
 			"async" => "scripts/async",
@@ -80,8 +88,7 @@ class Upfront_JavascriptMain extends Upfront_Server {
 			"chosen" => "scripts/chosen/chosen.jquery.min",
 			"findandreplace" => "scripts/findandreplace/findAndReplaceDOMText",
 			"pako" => "scripts/pako/pako.min",
-			"fileupload" => "scripts/file_upload/jquery.fileupload",
-			"fileuploadiframe" => "scripts/file_upload/jquery.iframe-transport"
+			"fileupload" => "scripts/file_upload/jquery.fileupload"
 		);
 		$paths = apply_filters('upfront-settings-requirement_paths', $paths + $registered);
 
@@ -134,7 +141,7 @@ class Upfront_JavascriptMain extends Upfront_Server {
 
 
 		$layout_editor_requirements = array(
-			"core" => array('models', 'views', 'editor_views', 'behaviors', $upfront_data_url, 'media', 'content', 'spectrum', 'responsive', 'redactor', 'ueditor' ),
+			"core" => array('modern-ui-draggable', 'modern-ui-resizable', 'modern-ui-sortable', 'modern-ui-slider', 'modern-ui-datepicker', 'models', 'views', 'editor_views', 'behaviors', $upfront_data_url, 'media', 'content', 'spectrum', 'responsive', 'redactor', 'ueditor' ),
 			"entities" => array_merge(array('objects'), array_keys($registered)),
 		);
 		$layout_editor_requirements = json_encode(

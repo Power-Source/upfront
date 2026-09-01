@@ -137,6 +137,9 @@ function upfront_set_breakpoint_property_value ($prop, $value, &$data, $breakpoi
 	if (is_object($model_breakpoint)) {
 		$model_breakpoint = (array) $model_breakpoint;
 	}
+	if (!is_array($model_breakpoint)) {
+		$model_breakpoint = array();
+	}
 	$breakpoint_id = is_string($breakpoint) ? $breakpoint : $breakpoint->get_id();
 	$breakpoint_data = $model_breakpoint && !empty($model_breakpoint[$breakpoint_id]) ? $model_breakpoint[$breakpoint_id] : array();
 	if (is_object($breakpoint_data)) {

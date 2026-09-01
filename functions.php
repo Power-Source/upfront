@@ -271,30 +271,12 @@ class Upfront {
 
 		if (Upfront_Behavior::compression()->has_experiments()) {
 			if (defined('DOING_AJAX') && DOING_AJAX) {
-				$deps->add_wp_script('jquery-ui-core');
-				$deps->add_wp_script('jquery-ui-widget');
-				$deps->add_wp_script('jquery-ui-mouse');
-				$deps->add_wp_script('jquery-ui-draggable');
-				$deps->add_wp_script('jquery-ui-droppable');
-				$deps->add_wp_script('jquery-ui-resizable');
-				$deps->add_wp_script('jquery-ui-selectable');
-				$deps->add_wp_script('jquery-ui-sortable');
-				$deps->add_wp_script('jquery-ui-slider');
-				$deps->add_wp_script('jquery-ui-datepicker');
 			} else {
 				$deps->add_script(admin_url('admin-ajax.php?action=wp_scripts'));
 			}
-		} else {
-			// Non-experiments load
-			wp_enqueue_script('jquery-ui-core');
-			wp_enqueue_script('jquery-ui-draggable');
-			wp_enqueue_script('jquery-ui-droppable');
-			wp_enqueue_script('jquery-ui-resizable');
-			wp_enqueue_script('jquery-ui-selectable');
-			wp_enqueue_script('jquery-ui-sortable');
-			wp_enqueue_script('jquery-ui-slider');
-			wp_enqueue_script('jquery-ui-datepicker');
 		}
+		wp_enqueue_style('upfront-nouislider', self::get_root_url() . '/scripts/vendor/nouislider/nouislider.min.css', array(), '15.8.1');
+		wp_enqueue_style('upfront-flatpickr', self::get_root_url() . '/scripts/vendor/flatpickr/flatpickr.min.css', array(), '4.6.13');
 
 		/**
 		 * Todo Sam: make it cleaner

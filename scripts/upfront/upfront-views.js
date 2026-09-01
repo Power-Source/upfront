@@ -1867,6 +1867,9 @@ define([
 			className: "upfront-object-view",
 			display_size_hint: true,
 			events: {
+				"mousedown input, textarea, select, button, [contenteditable]": "on_interactive_pointer_down",
+				"touchstart input, textarea, select, button, [contenteditable]": "on_interactive_pointer_down",
+				"pointerdown input, textarea, select, button, [contenteditable]": "on_interactive_pointer_down",
 				// "click .upfront-object > .upfront-entity_meta > a.upfront-entity-settings_trigger": "on_settings_click",
 				"click .upfront-object > .upfront-entity_meta > a.upfront-entity-delete_trigger": "on_delete_click",
 				"click .upfront-object > .upfront-entity_meta > a.upfront-entity-hide_trigger": "on_hide_click",
@@ -1876,6 +1879,9 @@ define([
 				"mouseover": "fully_render",
 				//"dblclick": "on_edit",
 				"contextmenu": "on_context_menu"
+			},
+			on_interactive_pointer_down: function (event) {
+				event.stopPropagation();
 			},
 			initialize: function () {
 				var callback = this.update || this.render;
