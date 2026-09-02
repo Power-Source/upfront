@@ -1,6 +1,11 @@
 Change Log
 ============
 
+1.2.4 - 2026-09-02
+-------------------------------------------------------------------------------
+- Fix: Virtuelle Builder-Seiten laden WP_Screen im Frontend wieder versionskompatibel und verursachen keinen PHP-Fatal-Error mehr
+- Fix: WordPress-Backbone kollidiert bei verzögerter Skriptausführung nicht mehr mit RequireJS und vertauscht keine Editor-Module mehr
+
 1.2.3 - 2026-09-02
 -------------------------------------------------------------------------------
 - Neu: CodePen-Styleguides enthalten einen versionierten Upfront-Datensatz und lassen sich über ihre öffentliche Pen-URL prüfen

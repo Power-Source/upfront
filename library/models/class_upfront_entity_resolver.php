@@ -157,8 +157,13 @@ abstract class Upfront_EntityResolver {
 			$stored_current_screen = $current_screen->id;
 		}
 		else {
-			require_once(ABSPATH . '/wp-admin/includes/screen.php');
-			$current_screen = WP_Screen::get('front');
+			if (!class_exists('WP_Screen')) {
+				$wp_screen_file = ABSPATH . 'wp-admin/includes/class-wp-screen.php';
+				$screen_file = ABSPATH . 'wp-admin/includes/screen.php';
+				if (file_exists($wp_screen_file)) require_once($wp_screen_file);
+				else if (file_exists($screen_file)) require_once($screen_file);
+			}
+			if (class_exists('WP_Screen')) $current_screen = WP_Screen::get('front');
 		}
 
 		$_SERVER['REQUEST_URI'] = $url;

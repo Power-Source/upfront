@@ -290,6 +290,10 @@ class Upfront {
 	function inject_global_dependencies () {
 		$deps = Upfront_CoreDependencies_Registry::get_instance();
 		wp_enqueue_script('jquery');
+		if (Upfront_Permissions::current(Upfront_Permissions::BOOT) && wp_script_is('backbone', 'enqueued')) {
+			wp_add_inline_script('backbone', 'if (window.define && window.define.amd) { window._upfrontDefineAmd = window.define.amd; window.define.amd = false; }', 'before');
+			wp_add_inline_script('backbone', 'if (window._upfrontDefineAmd) { window.define.amd = window._upfrontDefineAmd; delete window._upfrontDefineAmd; }', 'after');
+		}
 
 		// Basic styles for upfront to work are always loaded.
 		$global_style = Upfront_Behavior::compression()->has_experiments()

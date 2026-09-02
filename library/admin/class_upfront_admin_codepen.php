@@ -88,6 +88,17 @@ class Upfront_Admin_CodePen extends Upfront_Admin_Page {
 			),
 		));
 		wp_add_inline_style('upfront_admin',
+			'.upfront-codepen-header{display:flex;align-items:flex-start;justify-content:space-between;gap:32px;margin:20px 0;padding:24px 28px;border-left:4px solid #1abc9c;background:#fff;box-shadow:0 1px 2px rgba(36,57,77,.12)}' .
+			'.upfront-codepen-header-main{max-width:760px}' .
+			'.upfront_admin .upfront-codepen-header h1{margin:0 0 8px;padding:0}' .
+			'.upfront-codepen-header-intro{max-width:680px;margin:0;color:#4d5963;font-size:15px;line-height:1.55}' .
+			'.upfront-codepen-header-meta{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:14px;color:#66727c;font-size:12px}' .
+			'.upfront-codepen-header-meta span{display:inline-flex;align-items:center;gap:5px}' .
+			'.upfront-codepen-header-meta .dashicons{width:16px;height:16px;color:#159b80;font-size:16px;line-height:16px}' .
+			'.upfront-codepen-header-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;min-width:330px}' .
+			'.upfront-codepen-header-actions .button{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:38px;margin:0;padding:4px 12px;text-align:center}' .
+			'.upfront-codepen-header-actions .button:last-child{grid-column:1/-1}' .
+			'.upfront-codepen-header-actions .dashicons{width:17px;height:17px;font-size:17px;line-height:17px}' .
 			'.upfront-codepen-comparison{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:20px 0}' .
 			'.upfront-codepen-column{min-width:0;border:1px solid #ddd;padding:16px;background:#fff}' .
 			'.upfront-codepen-column h4{margin-top:0}' .
@@ -103,16 +114,35 @@ class Upfront_Admin_CodePen extends Upfront_Admin_Page {
 			'.upfront-codepen-gallery-item h3{margin:0 0 8px}' .
 			'.upfront-codepen-gallery-item iframe{display:block;width:100%;height:360px;border:1px solid #ddd;background:#fff}' .
 			'.upfront-codepen-gallery-empty{padding:24px;border:1px solid #ddd;background:#fff}' .
-			'@media(max-width:900px){.upfront-codepen-comparison{grid-template-columns:1fr}}'
+			'@media(max-width:900px){.upfront-codepen-header{flex-direction:column;gap:20px;padding:20px}.upfront-codepen-header-actions{width:100%;min-width:0}.upfront-codepen-comparison{grid-template-columns:1fr}}' .
+			'@media(max-width:520px){.upfront-codepen-header-actions{grid-template-columns:1fr}.upfront-codepen-header-actions .button:last-child{grid-column:auto}}'
 		);
 	}
 
 	public function render_page () {
+		$theme = wp_get_theme();
 		?>
 		<div class="wrap upfront_admin upfront-codepen">
-			<h1><?php esc_html_e('CodePen-Styleguide', 'upfront'); ?></h1>
+			<header class="upfront-codepen-header">
+				<div class="upfront-codepen-header-main">
+					<h1><?php esc_html_e('CodePen-Styleguide', 'upfront'); ?></h1>
+					<p class="upfront-codepen-header-intro"><?php esc_html_e('Übertrage Farben, Schriften und Typografie zwischen Deinem aktiven Upfront-Theme und kompatiblen CodePens.', 'upfront'); ?></p>
+					<div class="upfront-codepen-header-meta">
+						<span><span class="dashicons dashicons-admin-appearance" aria-hidden="true"></span><?php esc_html_e('Aktives Theme', 'upfront'); ?>: <strong><?php echo esc_html($theme->get('Name')); ?></strong></span>
+						<?php if ($theme->get('Version')) { ?>
+							<span><span class="dashicons dashicons-tag" aria-hidden="true"></span><?php printf(esc_html__('Theme-Version %s', 'upfront'), esc_html($theme->get('Version'))); ?></span>
+						<?php } ?>
+						<span><span class="dashicons dashicons-editor-code" aria-hidden="true"></span><?php printf(esc_html__('Style-Schema v%s', 'upfront'), esc_html(self::SCHEMA_VERSION)); ?></span>
+					</div>
+				</div>
+				<nav class="upfront-codepen-header-actions" aria-label="<?php esc_attr_e('Schnellzugriff', 'upfront'); ?>">
+					<a class="button button-primary" href="#upfront-codepen-export-section"><span class="dashicons dashicons-upload" aria-hidden="true"></span><?php esc_html_e('Style exportieren', 'upfront'); ?></a>
+					<a class="button" href="#upfront-codepen-import-section"><span class="dashicons dashicons-download" aria-hidden="true"></span><?php esc_html_e('Style importieren', 'upfront'); ?></a>
+					<a class="button" href="<?php echo esc_url(self::COLLECTION_URL); ?>" target="_blank" rel="noopener noreferrer"><span class="dashicons dashicons-external" aria-hidden="true"></span><?php esc_html_e('Offizielle Collection', 'upfront'); ?></a>
+				</nav>
+			</header>
 			<div class="postbox-container">
-				<div class="postbox">
+				<div class="postbox" id="upfront-codepen-export-section">
 					<h2 class="title"><?php esc_html_e('Theme-Stile exportieren', 'upfront'); ?></h2>
 					<div class="inside">
 						<p><?php esc_html_e('Erstellt einen neuen CodePen mit den Farben und Typografie-Einstellungen des aktiven Upfront-Themes.', 'upfront'); ?></p>
@@ -122,7 +152,7 @@ class Upfront_Admin_CodePen extends Upfront_Admin_Page {
 						</form>
 					</div>
 				</div>
-				<div class="postbox">
+				<div class="postbox" id="upfront-codepen-import-section">
 					<h2 class="title"><?php esc_html_e('Theme-Stile finden und importieren', 'upfront'); ?></h2>
 					<div class="inside">
 						<ol>

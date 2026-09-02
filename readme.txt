@@ -4,8 +4,8 @@ Theme URI: https://github.com/Power-Source/upfront
 Tags: classicpress-theme, classicpress, theme, framework, awesome
 Requires at least: 4.9
 Tested up to: 7.1
-ClassicPress: 2.7.1
-Stable tag: 1.2.3
+ClassicPress: 2.7.2
+Stable tag: 1.2.4
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -37,6 +37,10 @@ Füge Designfarben hinzu, pass Typografie an und bearbeite globale Einstellungen
 
 
 == ChangeLog ==
+
+= 1.2.4 =
+* Fix: Virtuelle Builder-Seiten laden WP_Screen im Frontend wieder versionskompatibel und verursachen keinen PHP-Fatal-Error mehr
+* Fix: WordPress-Backbone kollidiert bei verzögerter Skriptausführung nicht mehr mit RequireJS und vertauscht keine Editor-Module mehr
 
 = 1.2.3 =
 * Neu: CodePen-Styleguides enthalten einen versionierten Upfront-Datensatz und lassen sich über ihre öffentliche Pen-URL prüfen
