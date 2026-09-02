@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Upfront 1.2.1\n"
-"Report-Msgid-Bugs-To: https://github.com/Power-Source/upfront/issues\n"
+"Project-Id-Version: Upfront 1.2.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/upfront\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-01T22:04:39+00:00\n"
+"POT-Creation-Date: 2026-09-02T01:51:19+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: upfront\n"
@@ -173,6 +173,8 @@ msgstr ""
 #: elements/upfront-slider/lib/upfront_slider.php:210
 #: elements/upfront-tabs/lib/utabs.php:143
 #: elements/upfront-text/lib/upfront_text.php:152
+#: library/admin/class_upfront_admin_codepen.php:69
+#: library/admin/class_upfront_admin_codepen.php:170
 #: library/servers/class_upfront_editor_l10n_server.php:833
 msgid "Farben"
 msgstr ""
@@ -243,6 +245,8 @@ msgstr ""
 #: elements/upfront-contact-form/lib/contact_form.php:541
 #: elements/upfront-newnavigation/lib/unewnavigation.php:301
 #: elements/upfront-text/lib/upfront_text.php:154
+#: library/admin/class_upfront_admin_codepen.php:73
+#: library/admin/class_upfront_admin_codepen.php:172
 #: library/servers/class_upfront_editor_l10n_server.php:498
 #: library/servers/class_upfront_presets_server.php:637
 msgid "Typografie"
@@ -285,6 +289,7 @@ msgstr ""
 
 #: elements/upfront-button/lib/upfront_button.php:124
 #: elements/upfront-text/lib/upfront_text.php:135
+#: library/admin/class_upfront_admin_codepen.php:77
 #: library/servers/class_upfront_editor_l10n_server.php:328
 #: library/servers/class_upfront_editor_l10n_server.php:494
 #: library/servers/class_upfront_presets_server.php:624
@@ -4038,6 +4043,7 @@ msgid "Dienste"
 msgstr ""
 
 #: elements/upfront-social-media/lib/upfront-social-media.php:150
+#: library/admin/class_upfront_admin_codepen.php:76
 #: library/servers/class_upfront_editor_l10n_server.php:495
 msgid "Größe"
 msgstr ""
@@ -4617,6 +4623,261 @@ msgstr ""
 msgid "Du kannst den API-Schlüssel <a href=\"%s\" target=\"_blank\">hier</a> erhalten"
 msgstr ""
 
+#: library/admin/class_upfront_admin_codepen.php:19
+msgid "Upfront zu CodePen"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:20
+#: library/admin/class_upfront_admin_codepen.php:113
+msgid "CodePen-Styleguide"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:63
+msgid "Style wird geprüft …"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:64
+msgid "Style wird importiert …"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:65
+msgid "Der Theme-Style wurde importiert."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:66
+msgid "Die ausgewählten Einstellungen des aktiven Themes werden ersetzt. Fortfahren?"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:67
+msgid "CodePen konnte nicht verarbeitet werden."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:68
+msgid "Dieser Pen zeigt seinen Styleguide, übermittelt aber noch keine Importdaten. Erstelle ihn einmal mit dem aktuellen Upfront-Export neu."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:70
+msgid "Keine Farben"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:71
+#: library/admin/class_upfront_admin_codepen.php:171
+msgid "Schriften"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:72
+msgid "Keine Schriften"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:74
+#: library/servers/class_upfront_editor_l10n_server.php:580
+msgid "Element"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:75
+#: library/servers/class_upfront_editor_l10n_server.php:493
+msgid "Schrift"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:78
+msgid "Keine Typografie-Regeln"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:79
+msgid "Style wird geprüft ..."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:80
+msgid "CodePen-Style-Vorschau"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:81
+msgid "Keine Importdaten verfügbar."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:82
+msgid "Überschrift"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:83
+msgid "Beispiel-Link"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:84
+msgid "Beispieltext für die Typografie des aktiven Themes."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:85
+msgid "Listeneintrag"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:86
+msgid "Beispiel für ein Zitat."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:87
+msgid "Alternatives Zitat."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:116
+msgid "Theme-Stile exportieren"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:118
+msgid "Erstellt einen neuen CodePen mit den Farben und Typografie-Einstellungen des aktiven Upfront-Themes."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:121
+msgid "Neuen Pen erstellen"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:126
+msgid "Theme-Stile finden und importieren"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:130
+msgid "Theme-Style auswählen:"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:131
+msgid "Suche in der offiziellen UF-CodePens-Collection oder in Deinen eigenen Pens nach dem gewünschten Style."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:133
+msgid "Offizielle Collection öffnen"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:134
+msgid "Meine UF CodePens öffnen"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:138
+msgid "Pen-URL kopieren:"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:139
+msgid "Öffne den gewünschten Pen und kopiere seine normale CodePen-Adresse aus der Browserzeile."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:142
+msgid "Style prüfen und importieren:"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:143
+msgid "Füge die Pen-URL hier ein. Nach der Prüfung kannst Du Farben, Schriften und Typografie gezielt übernehmen."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:147
+msgid "CodePen-URL"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:149
+msgid "Style prüfen"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:154
+msgid "Aktives Upfront-Theme"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:158
+msgid "Zu importierender CodePen-Style"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:159
+msgid "Noch kein Style geprüft."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:162
+msgid "Gerenderte CodePen-Vorschau"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:163
+msgid "Füge oben eine Pen-URL ein, um die Vorschau zu laden."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:167
+msgid "Bis hierher wurde Dein aktives Theme nicht verändert."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:169
+msgid "Was möchtest Du übernehmen?"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:174
+msgid "Ausgewählte Werte übernehmen"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:179
+msgid "Hilfreiche CodePens"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:193
+msgid "In dieser Collection sind aktuell noch keine Pens."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:194
+msgid "Sobald hilfreiche Erweiterungen ausgewählt sind, erscheinen sie hier als direkt nutzbare Vorschau."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:198
+msgid "Collection extern öffnen"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:199
+msgid "Eigenen CodePen einreichen und prüfen lassen"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:230
+msgid "Wähle mindestens einen Bereich für den Import aus."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:250
+msgid "Du hast keine Berechtigung für diesen Import."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:257
+#: library/admin/class_upfront_admin_codepen.php:295
+msgid "Der Upfront-Style im Pen ist beschädigt."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:266
+msgid "Der eingefügte Code ist zu groß."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:280
+#: library/admin/class_upfront_admin_codepen.php:285
+msgid "Der Pen ist nicht erreichbar oder nicht öffentlich."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:283
+msgid "CodePen blockiert den direkten Abruf. Kopiere stattdessen den vollständigen Inhalt des JavaScript-Panels und füge ihn hier ein."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:291
+msgid "Dieser Pen enthält keinen importierbaren Upfront-Style."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:303
+#: library/admin/class_upfront_admin_codepen.php:313
+msgid "Bitte gib eine gültige öffentliche CodePen-URL ein."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:317
+msgid "Die URL muss direkt auf einen CodePen verweisen."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:325
+msgid "Diese Upfront-Style-Version wird nicht unterstützt."
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:328
+msgid "Upfront Theme Style"
+msgstr ""
+
+#: library/admin/class_upfront_admin_codepen.php:397
+msgid "CodePen-Inspiration"
+msgstr ""
+
 #: library/admin/class_upfront_admin_experimental.php:140
 msgid "Two minutes (debug)"
 msgstr ""
@@ -4706,11 +4967,11 @@ msgstr ""
 msgid "Super Admin"
 msgstr ""
 
-#: library/class_upfront_admin.php:61
+#: library/class_upfront_admin.php:62
 msgid "Bist Du sicher, dass Du das Theme auf den Standardzustand zurücksetzen möchtest? Bitte beachte, dass dieser Vorgang nicht rückgängig gemacht werden kann."
 msgstr ""
 
-#: library/class_upfront_admin.php:62
+#: library/class_upfront_admin.php:63
 msgid "Bist Du sicher, dass Du das Layout \"{layout}\" auf den Standardzustand zurücksetzen möchtest? Bitte beachte, dass dieser Vorgang nicht rückgängig gemacht werden kann."
 msgstr ""
 
@@ -6682,10 +6943,6 @@ msgstr ""
 msgid "Blockzitat Alternative (BLOCKQUOTE)"
 msgstr ""
 
-#: library/servers/class_upfront_editor_l10n_server.php:493
-msgid "Schrift"
-msgstr ""
-
 #: library/servers/class_upfront_editor_l10n_server.php:496
 msgid "Zeilenhöhe"
 msgstr ""
@@ -6929,10 +7186,6 @@ msgstr ""
 
 #: library/servers/class_upfront_editor_l10n_server.php:577
 msgid "Body"
-msgstr ""
-
-#: library/servers/class_upfront_editor_l10n_server.php:580
-msgid "Element"
 msgstr ""
 
 #: library/servers/class_upfront_editor_l10n_server.php:584

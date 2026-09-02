@@ -87,16 +87,147 @@
 		});
 		output += '\t</ul>\n\t<div class="typography">\n';
 		['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].forEach(function(tag, index) {
-			output += '\t\t<' + tag + '>Überschrift ' + (index + 1) + '</' + tag + '>\n';
+			output += '\t\t<' + tag + '>' + escapeHtml(data.messages.sampleHeading) + ' ' + (index + 1) + '</' + tag + '>\n';
 		});
-		output += '\t\t<a href="#">Beispiel-Link</a>\n\t\t<p>Beispieltext für die Typografie des aktiven Themes.</p>\n';
-		output += '\t\t<ul><li>Listeneintrag</li><li>Listeneintrag</li></ul>\n';
-		output += '\t\t<ol><li>Listeneintrag</li><li>Listeneintrag</li></ol>\n';
-		output += '\t\t<blockquote>Beispiel für ein Zitat.</blockquote>\n';
-		output += '\t\t<blockquote class="upfront-quote-alternative">Alternatives Zitat.</blockquote>\n';
+		output += '\t\t<a href="#">' + escapeHtml(data.messages.sampleLink) + '</a>\n\t\t<p>' + escapeHtml(data.messages.sampleText) + '</p>\n';
+		output += '\t\t<ul><li>' + escapeHtml(data.messages.listItem) + '</li><li>' + escapeHtml(data.messages.listItem) + '</li></ul>\n';
+		output += '\t\t<ol><li>' + escapeHtml(data.messages.listItem) + '</li><li>' + escapeHtml(data.messages.listItem) + '</li></ol>\n';
+		output += '\t\t<blockquote>' + escapeHtml(data.messages.quote) + '</blockquote>\n';
+		output += '\t\t<blockquote class="upfront-quote-alternative">' + escapeHtml(data.messages.alternativeQuote) + '</blockquote>\n';
 		output += '\t</div>\n</div>\n';
 		return output;
 	}
+
+	function buildImportData() {
+		return {
+			schema: data.schema || 'upfront-theme-style',
+			version: data.schemaVersion || 1,
+			name: data.themeName || 'Upfront Theme Style',
+			colors: data.themeColors || { colors: [], range: 0 },
+			fonts: fonts,
+			typography: typography
+		};
+	}
+
+	function buildImportSource() {
+		var payload = JSON.stringify(buildImportData());
+		return '/* UPFRONT_THEME_STYLE\n' + payload + '\nEND_UPFRONT_THEME_STYLE */\n' +
+			'window.top.postMessage({type:"upfront-theme-style",payload:' + payload + '}, "*");';
+	}
+
+	function showStatus(message, type) {
+		var status = $('#upfront-codepen-status');
+		status.removeClass('notice-info notice-success notice-error')
+			.addClass('notice-' + type)
+			.prop('hidden', false)
+			.find('p').text(message);
+	}
+
+	function responseMessage(xhr) {
+		return xhr.responseJSON && xhr.responseJSON.data && xhr.responseJSON.data.message ?
+			xhr.responseJSON.data.message : data.messages.requestFailed;
+	}
+
+	function responseData(response) {
+		if (!response || true !== response.success) {
+			return {
+				error: response && response.data && response.data.message ?
+					response.data.message : data.messages.requestFailed
+			};
+		}
+
+		var result = response.data;
+		if (result && result.data && !result.payload) result = result.data;
+		if (!result || !result.payload || !result.summary) {
+			return {error: data.messages.requestFailed};
+		}
+
+		return {result: result};
+	}
+
+	function embedUrl(url) {
+		var match = String(url).match(/^https:\/\/codepen\.io\/(?:editor\/)?([A-Za-z0-9_-]+)\/(?:pen|details|full)\/([A-Za-z0-9-]+)/i);
+		return match ? 'https://codepen.io/' + encodeURIComponent(match[1]) + '/embed/' + encodeURIComponent(match[2]) + '?default-tab=result' : '';
+	}
+
+	function renderStyleValues(selector, payload) {
+		var container = $(selector).empty();
+		var colorItems = payload.colors && Array.isArray(payload.colors.colors) ? payload.colors.colors : [];
+		$('<h5></h5>').text(data.messages.colors).appendTo(container);
+		var swatches = $('<div class="upfront-codepen-swatches"></div>').appendTo(container);
+		colorItems.forEach(function(item, index) {
+			if (!item || !item.color) return;
+			var swatch = $('<div class="upfront-codepen-swatch"></div>').appendTo(swatches);
+			$('<span></span>').css('background-color', item.color).appendTo(swatch);
+			$('<code></code>').text('#ufc' + index + ' ' + item.color).appendTo(swatch);
+		});
+		if (!colorItems.length) $('<p></p>').text(data.messages.noColors).appendTo(swatches);
+
+		$('<h5></h5>').text(data.messages.fonts).appendTo(container);
+		var fontNames = [];
+		(payload.fonts || []).forEach(function(font) {
+			var family = font && font.font ? font.font.family : '';
+			if (family && -1 === fontNames.indexOf(family)) fontNames.push(family);
+		});
+		$('<p></p>').text(fontNames.length ? fontNames.join(', ') : data.messages.noFonts).appendTo(container);
+
+		$('<h5></h5>').text(data.messages.typography).appendTo(container);
+		var table = $('<table class="upfront-codepen-values"><thead><tr></tr></thead><tbody></tbody></table>').appendTo(container);
+		[data.messages.element, data.messages.font, data.messages.size, data.messages.color].forEach(function(label) {
+			$('<th></th>').text(label).appendTo(table.find('thead tr'));
+		});
+		var body = table.find('tbody');
+		Object.keys(payload.typography || {}).forEach(function(element) {
+			var rule = payload.typography[element] || {};
+			var row = $('<tr></tr>').appendTo(body);
+			$('<th scope="row"></th>').text(element).appendTo(row);
+			$('<td></td>').text(rule.font_face || rule.font_family || '-').appendTo(row);
+			$('<td></td>').text(rule.size ? rule.size + ' px' : '-').appendTo(row);
+			$('<td></td>').text(rule.color || '-').appendTo(row);
+		});
+		if (!body.children().length) $('<tr><td colspan="4"></td></tr>').find('td').text(data.messages.noTypography).end().appendTo(body);
+	}
+
+	var receivedPayload = null;
+	var pendingPreview = null;
+	renderStyleValues('#upfront-codepen-current-values', buildImportData());
+
+	function requestPreview(params, button) {
+		params.action = 'upfront_codepen_preview';
+		params.nonce = data.nonce;
+		$.post(data.ajaxUrl, params).done(function(response) {
+			var normalized = responseData(response);
+			if (normalized.error) {
+				showStatus(normalized.error, 'error');
+				return;
+			}
+			var result = normalized.result;
+			receivedPayload = result.payload;
+			$('#upfront-codepen-preview-title').text(result.payload.name);
+			$('#upfront-codepen-preview-summary').text(
+				result.summary.colors + ' ' + data.messages.colors + ', ' +
+				result.summary.fonts + ' ' + data.messages.fonts + ', ' +
+				result.summary.typography + ' ' + data.messages.typography
+			);
+			renderStyleValues('#upfront-codepen-import-values', result.payload);
+			$('#upfront-codepen-preview').prop('hidden', false);
+			$('#upfront-codepen-status').prop('hidden', true);
+		}).fail(function(xhr) {
+			showStatus(responseMessage(xhr), 'error');
+		}).always(function() {
+			button.prop('disabled', false);
+		});
+	}
+
+	window.addEventListener('message', function(event) {
+		if (!pendingPreview || !event.data || 'upfront-theme-style' !== event.data.type) return;
+		if (!/^https:\/\/([a-z0-9-]+\.)?(codepen\.io|cdpn\.io|codepenusercontent\.com)$/i.test(event.origin)) return;
+
+		window.clearTimeout(pendingPreview.timeout);
+		receivedPayload = event.data.payload;
+		requestPreview({payload: JSON.stringify(receivedPayload)}, pendingPreview.button);
+		pendingPreview = null;
+	});
 
 	$('#upfront-codepen-form').on('submit', function() {
 		var version = data.themeVersion ? ' v' + data.themeVersion : '';
@@ -108,7 +239,69 @@
 			css_starter: 'normalize',
 			css_pre_processor: 'scss',
 			css: buildScss(),
-			js: ''
+			js: buildImportSource()
 		}));
+	});
+
+	$('#upfront-codepen-import-form').on('submit', function(event) {
+		event.preventDefault();
+		var button = $(this).find('button[type="submit"]');
+		var url = $('#upfront-codepen-url').val();
+		var source = embedUrl(url);
+		button.prop('disabled', true);
+		$('#upfront-codepen-preview').prop('hidden', true);
+		$('#upfront-codepen-import-values').empty().append($('<p></p>').text(data.messages.checkingShort));
+		showStatus(data.messages.checking, 'info');
+		receivedPayload = null;
+
+		if (!source) {
+			button.prop('disabled', false);
+			showStatus(data.messages.requestFailed, 'error');
+			return;
+		}
+
+		if (pendingPreview) {
+			window.clearTimeout(pendingPreview.timeout);
+			pendingPreview.iframe.remove();
+		}
+		var iframe = $('<iframe></iframe>').attr({src: source, title: data.messages.previewTitle});
+		$('#upfront-codepen-render').empty().append(iframe);
+		pendingPreview = {
+			button: button,
+			iframe: iframe,
+			timeout: window.setTimeout(function() {
+				pendingPreview = null;
+				button.prop('disabled', false);
+				$('#upfront-codepen-import-values').empty().append($('<p></p>').text(data.messages.noImportData));
+				showStatus(data.messages.legacyPen, 'error');
+			}, 15000)
+		};
+	});
+
+	$('#upfront-codepen-import').on('click', function() {
+		var button = $(this);
+		var parts = $('input[name="upfront-codepen-parts"]:checked').map(function() {
+			return this.value;
+		}).get();
+		if (!parts.length || !window.confirm(data.messages.confirm)) return;
+
+		button.prop('disabled', true);
+		showStatus(data.messages.importing, 'info');
+		$.post(data.ajaxUrl, {
+			action: 'upfront_codepen_import',
+			nonce: data.nonce,
+			payload: JSON.stringify(receivedPayload),
+			parts: parts
+		}).done(function(response) {
+			if (!response || true !== response.success) {
+				showStatus(response && response.data && response.data.message ? response.data.message : data.messages.requestFailed, 'error');
+				return;
+			}
+			showStatus(data.messages.imported, 'success');
+		}).fail(function(xhr) {
+			showStatus(responseMessage(xhr), 'error');
+		}).always(function() {
+			button.prop('disabled', false);
+		});
 	});
 })(jQuery);

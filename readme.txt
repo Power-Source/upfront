@@ -38,6 +38,13 @@ Füge Designfarben hinzu, pass Typografie an und bearbeite globale Einstellungen
 
 == ChangeLog ==
 
+= 1.2.3 =
+* Neu: CodePen-Styleguides enthalten einen versionierten Upfront-Datensatz und lassen sich über ihre öffentliche Pen-URL prüfen
+* Neu: Aktiver Theme-Style und zu importierender CodePen-Style werden mit Farben, Schriften und Typografie direkt verglichen
+* Neu: Geprüfte Farben, Schriften und Typografie lassen sich einzeln auswählen und bewusst in das aktive Upfront-Theme übernehmen
+* Neu: CodePens werden vor dem Import als gerenderte HTML-, CSS- und JavaScript-Vorschau angezeigt
+* Neu: Eine Galerie für hilfreiche CodePens ergänzt Links zur externen Collection und zur Einreichung eigener Pens
+
 = 1.2.2 =
 * Incomplete string escaping or encoding an mehreren Stellen behoben
 * Fix: Von Plugins in Archiv-Queries injizierte virtuelle Seiten werden wieder als Einzelseiten erkannt und mit ihrem tatsächlichen Inhalt gerendert

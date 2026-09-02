@@ -31,6 +31,7 @@ class Upfront_Admin
 	function __construct()
 	{
 		Upfront_Admin_Theme_Catalog::get_instance();
+		Upfront_Admin_CodePen::register_ajax();
 		add_action( 'admin_menu', array( $this, "add_menus" ) );
 		add_action("admin_enqueue_scripts", array( $this, "enqueue_scripts" ) );
 	}
