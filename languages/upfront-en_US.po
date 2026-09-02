@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Upfront 1.2.1\n"
+"Project-Id-Version: Upfront 1.2.3\n"
 "Report-Msgid-Bugs-To: https://github.com/Power-Source/upfront/issues\n"
 "Last-Translator: PSOURCE\n"
 "Language-Team: English (United States)\n"
