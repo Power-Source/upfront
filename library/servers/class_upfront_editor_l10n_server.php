@@ -627,6 +627,7 @@ class Upfront_EditorL10n_Server implements IUpfront_Server {
 				'region_name_placeholder' => __('Gib den Namen der Region ein', 'upfront'),
 				'contained_region_width' => __('Breite der enthaltenen Region:', 'upfront'),
 				'full_width' => __('100% breit', 'upfront'),
+				'fullwidth_content' => __('Grid-Inhalt auf 100% Breite', 'upfront'),
 				'contained' => __('Begrenzt', 'upfront'),
 				'full_screen' => __('Vollbild', 'upfront'),
 				'use_as_global_header' => __('Diesen Bereich als globalen Theme-Header verwenden', 'upfront'),

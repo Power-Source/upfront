@@ -5194,6 +5194,7 @@ define([
 					expand_lock = this.model.get_property_value_by_name('expand_lock'),
 					type = this._get_region_type(),
 					previous_type = this._get_previous_region_type(),
+					fullwidth_content = this.model.get('fullwidth_content'),
 					default_breakpoint = Upfront.Views.breakpoints_storage.get_breakpoints().get_default().toJSON(),
 					default_width = (default_breakpoint.columns * grid.column_width),
 					contained_width = Upfront.Application.layout.get_property_value_by_name('contained_region_width') || default_width
@@ -5204,6 +5205,7 @@ define([
 				else {
 					this.$bg.css('max-width', '');
 				}
+				this.$layout.toggleClass('upfront-grid-layout-fullwidth', fullwidth_content === true || fullwidth_content === 1 || fullwidth_content === '1');
 				this.update_background();
 				if ( previous_type != type ){
 					this.$el.removeClass('upfront-region-container-' + previous_type);

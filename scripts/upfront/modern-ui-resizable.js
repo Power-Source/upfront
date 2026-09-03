@@ -128,7 +128,7 @@ define(['interact'], function (interact) {
 			if (this.axis.indexOf('e') !== -1 || this.axis.indexOf('w') !== -1) height = width / ratio;
 			else width = height * ratio;
 		}
-		if ($.isArray(this.options.grid)) {
+		if (Array.isArray(this.options.grid)) {
 			if (this.options.grid[0]) width = Math.round(width / this.options.grid[0]) * this.options.grid[0];
 			if (this.options.grid[1]) height = Math.round(height / this.options.grid[1]) * this.options.grid[1];
 		}

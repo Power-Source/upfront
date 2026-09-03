@@ -478,7 +478,7 @@ class Upfront_MediaServer extends Upfront_Server {
 				if(preg_match('/\.(jpg|jpeg|gif|svg|png)$/i', $file)) {
 					$imageWidth = 0;
 					$imageHeight = 0;
-					$imageSize = getimagesize($dirUrl .$file);
+					$imageSize = getimagesize(trailingslashit($dirPath) . $file);
 					if ( $imageSize ) {
 						$imageWidth = isset($imageSize[0]) ? $imageSize[0] : $imageWidth;
 						$imageHeight = isset($imageSize[1]) ? $imageSize[1] : $imageHeight;
@@ -499,11 +499,11 @@ class Upfront_MediaServer extends Upfront_Server {
 				}
 			}
 		}
-		$meta = array('max_pages' => 1);
-		if (sizeof($images))
-			$this->_out(new Upfront_JsonResponse_Success(array('items' => $images, 'meta' => $meta)));
-		else
-			$this->_out(new Upfront_JsonResponse_Error("No items"));
+		$meta = array(
+			'max_pages' => 1,
+			'max_items' => sizeof($images)
+		);
+		$this->_out(new Upfront_JsonResponse_Success(array('items' => $images, 'meta' => $meta)));
 	}
 
 	public function upload_theme_image () {
@@ -534,7 +534,9 @@ class Upfront_MediaServer extends Upfront_Server {
 		$filename = Upfront_UploadHandler::to_clean_file_name($filename);
 
 		$destination = $dirPath . $filename;
-		move_uploaded_file($file["tmp_name"], $destination);
+		if (!move_uploaded_file($file["tmp_name"], $destination)) {
+			$this->_out(new Upfront_JsonResponse_Error("Unable to save theme image"));
+		}
 		if (!preg_match('/\.svg$/i', $filename)) {
 			$data = getimagesize($destination);
 			if (empty($data['mime']) || !preg_match('/^image\//i', $data['mime'])) {

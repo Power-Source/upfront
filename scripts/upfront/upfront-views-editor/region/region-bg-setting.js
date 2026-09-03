@@ -408,6 +408,20 @@
 							Upfront.Events.trigger('command:region:edit_toggle', true);
 						}
 					}),
+					fullwidth_content = new Fields.Toggle({
+						model: this.model,
+						name: 'fullwidth_content',
+						default_value: '',
+						layout: 'horizontal-inline',
+						values: [
+							{ label: l10n.fullwidth_content, value: '1' }
+						],
+						change: function () {
+							this.model.set({fullwidth_content: this.get_value()}, {silent: true});
+							this.model.get('properties').trigger('change');
+						},
+						multiple: false
+					}),
 					// backward compatible with old nav_region property
 					region_nav_value = this.model.get_property_value_by_name('nav_region'),
 					region_nav = new Fields.Toggle({
@@ -487,6 +501,7 @@
 						}
 					}),
 					$region_type = $content.find('.upfront-region-bg-setting-region-type'),
+					$fullwidth_content = $content.find('.upfront-region-bg-setting-fullwidth-content'),
 					$region_nav = $content.find('.upfront-region-bg-setting-region-nav'),
 					$region_behavior = $content.find('.upfront-region-bg-setting-region-behavior')
 				;
@@ -494,6 +509,8 @@
 				if ( !is_responsive && this.model.is_main() ) {
 					region_type.render();
 					$region_type.append(region_type.$el);
+					fullwidth_content.render();
+					$fullwidth_content.append(fullwidth_content.$el);
 					region_nav.render();
 					$region_nav.append(region_nav.$el);
 					region_behavior.render();
@@ -501,6 +518,7 @@
 				}
 				else {
 					$region_type.hide();
+					$fullwidth_content.hide();
 					$region_nav.hide();
 					$region_behavior.hide();
 				}

@@ -23,7 +23,7 @@
 		 * Outputs array that contains above listed tokens.
 		 */
 		var tokenize = function(css) {
-			var brokenByStart = css.innerText.split('/*');
+			var brokenByStart = String(css || '').split('/*');
 			var sortedByStart = [];
 			brokenByStart.forEach(function(arg) {
 				if (arg.trim() === '') {

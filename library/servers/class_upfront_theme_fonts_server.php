@@ -22,6 +22,7 @@ class Upfront_Server_ThemeFontsServer extends Upfront_Server {
 		if (!has_action('upfront_update_theme_fonts')) {
 			update_option('upfront_' . get_stylesheet() . '_theme_fonts', json_encode($theme_fonts));
 		}
+		Upfront_Local_Fonts_Server::sync_theme_fonts($theme_fonts);
 
 		$this->_out(new Upfront_JsonResponse_Success(get_stylesheet() . ' theme fonts updated'));
 	}

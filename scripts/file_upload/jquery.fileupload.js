@@ -77,7 +77,7 @@ define([], function () {
 	};
 
 	NativeFileUpload.prototype.appendFormData = function (payload, values) {
-		if ($.isArray(values)) {
+		if (Array.isArray(values)) {
 			$.each(values, function (index, field) { if (field && field.name) payload.append(field.name, field.value); });
 		} else {
 			$.each(values || {}, function (name, value) { payload.append(name, value); });

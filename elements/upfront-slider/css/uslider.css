@@ -128,17 +128,6 @@ div.uslide-text-current {
 	height: 100%;
 }
 
-/*.uslide-bottomCover .uslide-caption:before,*/
-/*.uslide-middleCover .uslide-caption:before,*/
-/*.uslide-topCover .uslide-caption:before {*/
-	/*height: 100%;*/
-	/*content: ' ';*/
-	/*width: 1px;*/
-	/*margin-right: -0.25em;*/
-	/*display: inline-block;*/
-	/*vertical-align: middle*/
-/*}*/
-
 .uslide-bottomCover .uslide-editable-text,
 .uslide-middleCover .uslide-editable-text,
 .uslide-topCover .uslide-editable-text,

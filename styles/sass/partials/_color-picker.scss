@@ -11,8 +11,6 @@ License: MIT
 	top: 0;
 	left: 0;
 	display: inline-block;
-	*display: inline;
-	*zoom: 1;
 	z-index: 99;
 	overflow: hidden;
 }
@@ -219,10 +217,6 @@ License: MIT
 	clear: both;
 }
 
-.sp-cf {
-	*zoom: 1;
-}
-
 /* Mobile devices, make hue slider bigger so it is easier to slide */
 @media (max-device-width: 480px) {
 	.sp-color {
@@ -411,8 +405,6 @@ License: MIT
 	overflow: hidden;
 	cursor: pointer;
 	display: inline-block;
-	*zoom: 1;
-	*display: inline;
 	vertical-align: middle;
 	position: relative;
 }
@@ -447,7 +439,6 @@ License: MIT
 }
 
 .sp-palette {
-	*width: 220px;
 	max-width: 220px;
 }
 

@@ -320,7 +320,6 @@
 	display: none !important;
 }
 .show-debug .upfront-module {
-	/*border: 1px solid #b3da11;*/
 	background: rgba(44, 62, 80, 0.3)
 }
 
@@ -502,10 +501,6 @@
 .upfront-object {
 	position: relative;
 	/*z-index: 10;*/
-}
-.show-debug .upfront-object {
-	/*border: 1px solid #bada55;
-	background: rgba(255, 255, 255, 0.4);*/
 }
 .upfront-object-group-on-edit .upfront-active_entity > .upfront-object {
 	box-shadow: inset 0px 0px 0px 2px #6fbcf8;

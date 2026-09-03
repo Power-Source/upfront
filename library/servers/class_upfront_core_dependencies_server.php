@@ -53,13 +53,7 @@ class Upfront_CoreDependencies_Server extends Upfront_Server {
 		$deps = Upfront_CoreDependencies_Registry::get_instance();
 		$fonts = $deps->get_fonts();
 
-		if ('admin_head' === current_filter()) return $this->_output_normal_fonts($fonts);
-
-		if (Upfront_Behavior::compression()->has_experiments()) {
-			if (!empty($fonts)) $deps->add_script('//ajax.googleapis.com/ajax/libs/webfont/1.5.10/webfont.js');
-			return false;
-		}
-		$this->_output_normal_fonts($fonts);
+		return $this->_output_normal_fonts($fonts);
 	}
 
 	/**
@@ -68,9 +62,6 @@ class Upfront_CoreDependencies_Server extends Upfront_Server {
 	public function dispatch_dependencies_output () {
 		$deps = Upfront_CoreDependencies_Registry::get_instance();
 		if (Upfront_Behavior::compression()->has_experiments()) {
-			$fonts = $deps->get_fonts();
-			if (!empty($fonts)) $this->_output_experimental_fonts($fonts);
-
 			$this->_output_experimental($deps);
 		} else {
 			$this->_output_normal($deps);
@@ -222,7 +213,10 @@ class Upfront_CoreDependencies_Server extends Upfront_Server {
 		if (empty($request)) return false;
 
 
-		echo '<link rel="stylesheet" type="text/css" media="all" href="//fonts.googleapis.com/css?family=' . esc_attr(join('|', $request)) . '" />';
+		$base_url = Upfront_Local_Fonts_Server::get_endpoint_url();
+		$url = add_query_arg('family', join('|', $request), $base_url);
+
+		echo '<link rel="stylesheet" type="text/css" media="all" href="' . esc_url($url) . '" />';
 	}
 
 	/**

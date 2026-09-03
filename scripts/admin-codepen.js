@@ -39,7 +39,7 @@
 			var family = font && font.font ? font.font.family : '';
 			var variant = font ? font.variant : '';
 			if (!family) return;
-			links.push('<link href="https://fonts.googleapis.com/css?family=' + encodeURIComponent(family).replace(/%20/g, '+') + (variant ? ':' + encodeURIComponent(variant) : '') + '" rel="stylesheet">');
+			links.push('<link href="' + Upfront_CodePen.googleFontsStylesheetUrl + (Upfront_CodePen.googleFontsStylesheetUrl.indexOf('?') === -1 ? '?' : '&') + 'family=' + encodeURIComponent(family + (variant ? ':' + variant : '')) + '" rel="stylesheet">');
 		});
 		return links.join('\n');
 	}

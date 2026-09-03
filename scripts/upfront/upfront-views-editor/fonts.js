@@ -839,7 +839,7 @@
 								_.each(model.get('variants'), function(variant) {
 										// Add font to page so we can make preview with real fonts
 										if ($('#' + model.get('family').toLowerCase() + variant + '-css').length === 0) {
-												$('head').append('<link rel="stylesheet" id="' + model.get('family').toLowerCase() + '-' + variant + '-css" href="//fonts.googleapis.com/css?family=' + model.get('family') + '%3A' + variant + '" type="text/css" media="all">');
+												$('head').append('<link rel="stylesheet" id="' + model.get('family').toLowerCase() + '-' + variant + '-css" href="' + Upfront.mainData.googleFontsStylesheetUrl + (Upfront.mainData.googleFontsStylesheetUrl.indexOf('?') === -1 ? '?' : '&') + 'family=' + encodeURIComponent(model.get('family') + ':' + variant) + '" type="text/css" media="all">');
 										}
 										var weight_style = Font_Model.parse_variant(variant);
 										variants.add({

@@ -101,7 +101,6 @@
 	width: 33.3%;
 }
 .upfront-media_manager-post_image li.upfront-media_item.selected .thumbnail {
-	/*border:1px solid #1FCD8F;*/
 	outline: 2px solid #1691fb;
 }
 .upfront-media_manager-post_image li.upfront-media_item.selected:before {
@@ -123,7 +122,6 @@
 	height: 75px;
 	overflow: hidden;
 	position: relative;
-	/*border:1px solid #A1C5E6;*/
 	background-color: #C5D8EA;
 	background-image: -webkit-linear-gradient(bottom left, #A6C1DA 25%, transparent 25%, transparent 75%, #A6C1DA 75%, #A6C1DA),
 										-webkit-linear-gradient(bottom left, #A6C1DA 25%, transparent 25%, transparent 75%, #A6C1DA 75%, #A6C1DA);
@@ -789,9 +787,6 @@
 .upfront-embed_media .upfront-pane {
 	width: 50%;
 	float: left;
-}
-.upfront-embed_media .upfront-pane input {
-	/*width: 100%;*/
 }
 .upfront-media_manager-embed-preview .progress {
 	width: 100%;

@@ -12,7 +12,7 @@ define(['nouislider'], function (noUiSlider) {
 	}
 
 	Slider.prototype.getStart = function () {
-		if ($.isArray(this.options.values)) return this.options.values;
+		if (Array.isArray(this.options.values)) return this.options.values;
 		return [this.options.value !== undefined ? this.options.value : this.options.min];
 	};
 
@@ -84,7 +84,7 @@ define(['nouislider'], function (noUiSlider) {
 
 	Slider.prototype.getValue = function () {
 		var value = this.element.noUiSlider.get();
-		return $.isArray(value) ? Number(value[0]) : Number(value);
+		return Array.isArray(value) ? Number(value[0]) : Number(value);
 	};
 
 	Slider.prototype.setValue = function (value) {
@@ -106,7 +106,7 @@ define(['nouislider'], function (noUiSlider) {
 	$.fn.slider = function (command, key, value) {
 		var first = this.first().data(DATA_KEY), options;
 		if (command === 'value' && key === undefined) return first ? first.getValue() : undefined;
-		if (command === 'values' && key === undefined) return first && $.isArray(first.element.noUiSlider.get()) ? $.map(first.element.noUiSlider.get(), Number) : [];
+		if (command === 'values' && key === undefined) return first && Array.isArray(first.element.noUiSlider.get()) ? $.map(first.element.noUiSlider.get(), Number) : [];
 		if (command === 'option' && value === undefined && typeof key === 'string') return first ? first.options[key] : undefined;
 
 		if (typeof command === 'string') {

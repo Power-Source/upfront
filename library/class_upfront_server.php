@@ -105,6 +105,7 @@ require_once('servers/class_upfront_image.php');
 require_once('servers/class_upfront_javascript_main.php');
 require_once('servers/class_upfront_stylesheet_main.php');
 require_once('servers/class_upfront_stylesheet_editor.php');
+require_once('servers/class_upfront_local_fonts_server.php');
 require_once('servers/class_upfront_core_dependencies_server.php');
 require_once('servers/class_upfront_element_styles.php');
 require_once('servers/class_upfront_layout_revisions.php');

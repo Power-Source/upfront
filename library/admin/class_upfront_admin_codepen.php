@@ -54,6 +54,7 @@ class Upfront_Admin_CodePen extends Upfront_Admin_Page {
 			'themeVersion' => $theme->get('Version'),
 			'themeColors' => $this->decode_setting($theme_colors),
 			'themeFonts' => $this->decode_setting($theme_fonts),
+			'googleFontsStylesheetUrl' => Upfront_Local_Fonts_Server::get_endpoint_url(),
 			'typography' => $this->decode_setting($typography),
 			'ajaxUrl' => admin_url('admin-ajax.php'),
 			'nonce' => wp_create_nonce('upfront_codepen_import'),

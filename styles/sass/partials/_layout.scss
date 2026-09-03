@@ -42,6 +42,9 @@
 	z-index: 10;
 	min-height: 100%;
 }
+.upfront-grid-layout.upfront-grid-layout-fullwidth {
+	width: 100% !important;
+}
 .upfront-grid-layout:before, .upfront-grid-layout:after {
 	content: "";
 	display: table;

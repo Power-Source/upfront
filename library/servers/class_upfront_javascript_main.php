@@ -238,6 +238,7 @@ class Upfront_JavascriptMain extends Upfront_Server {
 		if (empty($icon_fonts)) $icon_fonts = json_encode(array());
 
 		$additional_fonts = $child_instance ? $child_instance->getAdditionalFonts() : json_encode(array());
+		$google_fonts_stylesheet_url = json_encode(Upfront_Local_Fonts_Server::get_endpoint_url());
 
 		$current_user = wp_get_current_user();
 		$user_done_font_intro = in_array($current_user->user_login, Upfront_Cache_Utils::get_option('upfront_users_done_font_intro', array())) ?
@@ -464,6 +465,7 @@ Upfront.mainData = {
 	gridInfo: {$grid_info},
 	themeInfo: {$theme_info},
 	themeFonts: {$theme_fonts},
+	googleFontsStylesheetUrl: {$google_fonts_stylesheet_url},
 	iconFonts: {$icon_fonts},
 	additionalFonts: {$additional_fonts},
 	userDoneFontsIntro: {$user_done_font_intro},

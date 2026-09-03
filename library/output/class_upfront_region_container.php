@@ -12,6 +12,10 @@ class Upfront_Region_Container extends Upfront_Container {
 		}
 
 		$additional_classes = array();
+		$layout_classes = array('upfront-grid-layout');
+		if (isset($this->_data['fullwidth_content']) && in_array($this->_data['fullwidth_content'], array(true, 1, '1'), true)) {
+			$layout_classes[] = 'upfront-grid-layout-fullwidth';
+		}
 		// Additional test for background type - only if we're dealing with the featured image regions
 		if ('featured' === $this->get_background_type() && !has_post_thumbnail(Upfront_Output::get_post_id())) {
 			$additional_classes[] = 'no-featured_image'; // We don't seem to have a featured image here
@@ -26,7 +30,7 @@ class Upfront_Region_Container extends Upfront_Container {
 
 		$bg_node_start = "<div class='upfront-region-container-bg upfront-image-lazy upfront-image-lazy-bg {$extras}' {$bg_attr}>";
 		$bg_node_end = "</div>";
-		return parent::wrap("{$bg_node_start}{$before}<div class='upfront-grid-layout'>{$out}</div>\n{$overlay}{$after}{$bg_node_end}");
+		return parent::wrap("{$bg_node_start}{$before}<div class='" . join(' ', $layout_classes) . "'>{$out}</div>\n{$overlay}{$after}{$bg_node_end}");
 	}
 
 	public function get_css_inline () {

@@ -413,8 +413,7 @@
                         }
                         if (!font_family) return true; // Missing typeface family, pretend we're normal
                         // If so, let's do this - load up the font
-                        url = '//fonts.googleapis.com/css?family=' + font_family.get('family').replace(/ /g, '+');
-                        if (400 !== parseInt("" + weight, 10) && 'inherit' !== weight) url += ':' + weight; // If not default weight, DO include the info
+                        url = Upfront.mainData.googleFontsStylesheetUrl + (Upfront.mainData.googleFontsStylesheetUrl.indexOf('?') === -1 ? '?' : '&') + 'family=' + encodeURIComponent(font_family.get('family') + (400 !== parseInt("" + weight, 10) && 'inherit' !== weight ? ':' + weight : ''));
                         $("head").append('<link href="' + url + '" rel="stylesheet" type="text/css" />');
                     }
 

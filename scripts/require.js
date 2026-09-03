@@ -2111,6 +2111,19 @@ var requirejs, require, define;
             }
         }
 
+        // Modern browsers expose the script whose code is currently running.
+        // Bind anonymous modules immediately so parallel script loads cannot
+        // assign a factory from the global queue to the wrong module.
+        if (!context && isBrowser && document.currentScript) {
+            node = document.currentScript;
+            if (node.getAttribute('data-requiremodule')) {
+                if (!name) {
+                    name = node.getAttribute('data-requiremodule');
+                }
+                context = contexts[node.getAttribute('data-requirecontext')];
+            }
+        }
+
         //Always save off evaluating the def call until the script onload handler.
         //This allows multiple modules to be in a file without prematurely
         //tracing dependencies, and allows for anonymous module support,
