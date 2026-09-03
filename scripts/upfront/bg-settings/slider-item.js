@@ -6,7 +6,8 @@ var l10n = Upfront.Settings && Upfront.Settings.l10n
 ;
 
 define([
-	'scripts/upfront/bg-settings/mixins'
+	'scripts/upfront/bg-settings/mixins',
+	'modern-ui-sortable'
 ], function(Mixins) {
 	
 	var SliderItem = Upfront.Views.Editor.Settings.Item.extend(_.extend({}, Mixins, {

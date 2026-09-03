@@ -2,7 +2,9 @@
 
 define([
 	'scripts/upfront/behaviors/dragdrop',
-	'scripts/upfront/behaviors/resize'
+	'scripts/upfront/behaviors/resize',
+	'modern-ui-draggable',
+	'modern-ui-resizable'
 ], function (DragDrop, Resize) {
 
 var GridEditor = {
@@ -2919,16 +2921,19 @@ var GridEditor = {
 			$me = view.$el,
 			$main = $(Upfront.Settings.LayoutEditor.Selectors.main),
 			sub = model.get('sub'),
-			direction = 's',
+			directions = ['n', 's'],
 			handles = {},
 			$layout = $main.find('.upfront-layout')
 		;
 		if ( $me.data('ui-resizable') )
 			return false;
 		if ( !model.is_main() && sub == 'bottom' )
-			direction = 'n';
-		$me.append('<div class="upfront-icon-control-region upfront-icon-control-region-resize upfront-icon-control-region-resize-' + direction + ' upfront-region-resize-handle upfront-region-resize-handle-' + direction + ' ui-resizable-handle ui-resizable-' + direction + '"></div>');
-		handles[direction] = '.upfront-region-resize-handle-' + direction;
+			directions = ['n'];
+		_.each(directions, function(direction){
+			var hidden = direction == 'n' && model.is_main() ? ' ui-resizable-handle-hidden' : '';
+			$me.append('<div class="upfront-icon-control-region upfront-icon-control-region-resize upfront-icon-control-region-resize-' + direction + ' upfront-region-resize-handle upfront-region-resize-handle-' + direction + ' ui-resizable-handle ui-resizable-' + direction + hidden + '"></div>');
+			handles[direction] = '.upfront-region-resize-handle-' + direction;
+		});
 		$me.resizable({
 			containment: "document",
 			//handles: "n, e, s, w",
@@ -3011,6 +3016,15 @@ var GridEditor = {
 				// Prevents quick scroll when resizing
 				ed.resizing = false;
 			}
+		});
+	},
+
+	refresh_last_region_resize_handle: function(){
+		_.defer(function(){
+			var $containers = $('.upfront-region-container').not('.upfront-region-container-shadow'),
+				$north_handles = $containers.children('.upfront-region-resize-handle-n');
+			$north_handles.addClass('ui-resizable-handle-hidden');
+			$containers.last().children('.upfront-region-resize-handle-n').removeClass('ui-resizable-handle-hidden');
 		});
 	},
 

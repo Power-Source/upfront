@@ -338,6 +338,9 @@ var LayoutEditorSubapplication = Subapplication.extend({
 		this.listenTo(ue, "entity:region_container:after_render", lay_ed.create_mergeable);
 		this.listenTo(ue, "entity:region_container:after_render", gr_ed.create_region_container_resizable);
 		this.listenTo(ue, "entity:region_sub_container:after_render", gr_ed.create_region_container_resizable);
+		this.listenTo(ue, "entity:region_container:after_render", gr_ed.refresh_last_region_resize_handle);
+		this.listenTo(ue, "entity:region:added", gr_ed.refresh_last_region_resize_handle);
+		this.listenTo(ue, "entity:region:removed", gr_ed.refresh_last_region_resize_handle);
 
 		// Defensive rebinding: ensure grouping selection hooks are present even
 		// if region container views were rendered before listeners were attached.

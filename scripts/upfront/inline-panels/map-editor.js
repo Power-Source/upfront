@@ -6,7 +6,8 @@ var l10n = Upfront.Settings && Upfront.Settings.l10n
 ;
 
 define([
-	'text!scripts/upfront/templates/map-editor.html'
+	'text!scripts/upfront/templates/map-editor.html',
+	'modern-ui-resizable'
 ], function (editorTpl) {
 
 	var MapEditorView = Upfront.Views.ObjectView.extend({

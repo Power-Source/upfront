@@ -38,6 +38,11 @@ Füge Designfarben hinzu, pass Typografie an und bearbeite globale Einstellungen
 
 == ChangeLog ==
 
+= 1.2.6 =
+* Modernisierung: Die verbliebenen jQuery-UI-Skripte wurden aus dem Editor-Boot entfernt und durch explizit geladene moderne Adapter ersetzt
+* Fix: Datepicker-, Drag-, Sortier- und Größenänderungsfunktionen stehen durch direkte RequireJS-Abhängigkeiten zuverlässig vor ihrer ersten Verwendung bereit
+* Fix: Die jeweils letzte Region erhält an ihrer Oberkante einen erreichbaren Griff zur vertikalen Größenänderung; der Griff folgt automatisch neu hinzugefügten oder entfernten Regionen
+
 = 1.2.5 =
 * Fix: RequireJS ordnet anonyme AMD-Module auch bei parallelem Laden zuverlässig dem aufrufenden Skript zu; Pako und direkt verwendete Editor-Abhängigkeiten verunreinigen die Modulwarteschlange nicht mehr
 * Fix: Globale Theme-Farbreferenzen wie ufc0 und ufc1 bleiben gespeichert und werden für Regionshintergründe erst bei der CSS-Ausgabe in ihre aktuellen Farbwerte aufgelöst

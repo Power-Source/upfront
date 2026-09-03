@@ -1,7 +1,8 @@
 ;(function ($) {
 	define([
 		"text!upfront/templates/post-editor/edition-box.html",
-		"upfront/post-editor/post-box-metadesc"
+		"upfront/post-editor/post-box-metadesc",
+		"modern-ui-datepicker"
 	], function (editionBox_tpl, Post_Box_Metadesc) {
 
 		var l10n = Upfront.Settings && Upfront.Settings.l10n

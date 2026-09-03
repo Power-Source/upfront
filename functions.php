@@ -317,15 +317,6 @@ class Upfront {
 
 		if (Upfront_Permissions::current(Upfront_Permissions::BOOT)) {
 			do_action('upfront-core-wp_dependencies');
-			$deps->add_header_script(includes_url('js/jquery/ui/core.min.js'));
-			$deps->add_header_script(includes_url('js/jquery/ui/mouse.min.js'));
-			$deps->add_header_script(includes_url('js/jquery/ui/draggable.min.js'));
-			$deps->add_header_script(includes_url('js/jquery/ui/droppable.min.js'));
-			$deps->add_header_script(includes_url('js/jquery/ui/resizable.min.js'));
-			$deps->add_header_script(includes_url('js/jquery/ui/selectable.min.js'));
-			$deps->add_header_script(includes_url('js/jquery/ui/sortable.min.js'));
-			$deps->add_header_script(includes_url('js/jquery/ui/slider.min.js'));
-			$deps->add_header_script(includes_url('js/jquery/ui/datepicker.min.js'));
 
 			//wp_enqueue_style('upfront-editor-interface', self::get_root_url() . ( $this->_debugger->is_dev()  ?  '/styles/editor-interface.css' : '/styles/editor-interface.min.css' ) , array(), Upfront_ChildTheme::get_version());
 			$deps->add_header_style(self::get_root_url() . ( $this->_debugger->is_dev()  ?  '/styles/editor-interface.css' : '/styles/editor-interface.min.css' ));

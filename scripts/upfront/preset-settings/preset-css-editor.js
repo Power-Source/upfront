@@ -1,7 +1,8 @@
 (function ($) {
 define([
 	'text!upfront/templates/popup.html',
-	'scripts/perfect-scrollbar/perfect-scrollbar'
+	'scripts/perfect-scrollbar/perfect-scrollbar',
+	'modern-ui-resizable'
 ], function(popupTemplate, perfectScrollbar) {
 	var l10n = Upfront.Settings && Upfront.Settings.l10n
 		? Upfront.Settings.l10n.global.views

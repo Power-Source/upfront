@@ -6,7 +6,8 @@
 	define([
 		'scripts/upfront/upfront-views-editor/region/region-bg-setting',
 		'scripts/upfront/upfront-views-editor/fields',
-		"text!upfront/templates/region_edit_panel.html"
+		"text!upfront/templates/region_edit_panel.html",
+		'modern-ui-draggable'
 	], function (RegionBgSetting, Fields, region_edit_panel_tpl) {
 
 

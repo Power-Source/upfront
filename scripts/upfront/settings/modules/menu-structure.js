@@ -2,7 +2,8 @@
 	define([
 		'elements/upfront-newnavigation/js/menu-util',
 		'scripts/upfront/settings/modules/menu-structure/menu-item',
-		'text!scripts/upfront/settings/modules/menu-structure/menu-structure.tpl'
+		'text!scripts/upfront/settings/modules/menu-structure/menu-structure.tpl',
+		'modern-ui-sortable'
 	], function(MenuUtil, MenuStructureItem, tpl) {
 		var l10n = Upfront.Settings.l10n.preset_manager;
 		var scrollDown = false;
