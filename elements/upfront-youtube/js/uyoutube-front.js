@@ -1,4 +1,15 @@
 ;(function($){
+	function get_safe_youtube_url(value, hostname, path_pattern) {
+		var url;
+		try {
+			url = new URL(value);
+		} catch (error) {
+			return null;
+		}
+		if (url.protocol !== 'https:' || url.hostname !== hostname || url.port || url.username || url.password) return null;
+		return path_pattern.test(url.pathname) ? url.href : null;
+	}
+
 	function get_dimension(element, attribute) {
 		var value = parseFloat(element.getAttribute(attribute));
 		return isFinite(value) && value >= 0 ? value : null;
@@ -36,7 +47,12 @@
 
 	function load_deferred_thumbnails(context) {
 		$(context).find('img[data-youtube-src]').each(function () {
-			this.src = this.getAttribute('data-youtube-src');
+			var thumbnail_url = get_safe_youtube_url(
+				this.getAttribute('data-youtube-src'),
+				'img.youtube.com',
+				/^\/vi\/[A-Za-z0-9_-]+\/(?:default|hqdefault|mqdefault|sddefault|maxresdefault)\.jpg$/
+			);
+			if (thumbnail_url) this.src = thumbnail_url;
 			this.removeAttribute('data-youtube-src');
 		});
 	}
@@ -94,7 +110,7 @@
 		// Setup ifram and title for selected video
 		var videoUrl = 'https://www.youtube-nocookie.com/embed/' + video_id + '?modestbranding=1';
 		el.find('iframe').attr('src', videoUrl);
-		el.find('.ufyt_main-video-title').html(list_item.find('h4').html());
+		el.find('.ufyt_main-video-title').text(list_item.find('h4').text());
 
 		// Handle hidding active video thumbnail
 		if(el.data('first-hidden')) {
@@ -116,7 +132,13 @@
 		var ph = $(this).closest('.uyoutube-consent-placeholder');
 		var container = ph.closest('.upfront-youtube-container');
 		var iframe = prepare_iframe(document.createElement('iframe'), get_placeholder_data(ph));
-		iframe.src = ph.attr('data-embed-url');
+		var embed_url = get_safe_youtube_url(
+			ph.attr('data-embed-url'),
+			'www.youtube-nocookie.com',
+			/^\/embed\/[A-Za-z0-9_-]+$/
+		);
+		if (!embed_url) return;
+		iframe.src = embed_url;
 		document.cookie = 'upfront_youtube_consent=1; Max-Age=31536000; Path=/; SameSite=Lax' + (window.location.protocol === 'https:' ? '; Secure' : '');
 		ph.replaceWith(iframe);
 		load_deferred_thumbnails(container);

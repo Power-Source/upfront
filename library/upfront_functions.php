@@ -379,8 +379,78 @@ function upfront_ajax_url ($action, $args = '') {
 
 	if ( current_user_can('switch_themes') && Upfront_Behavior::debug()->is_dev() )
 		$args['load_dev'] = 1;
-	return admin_url( 'admin-ajax.php?' . http_build_query($args) );
+	return upfront_https_same_origin_url(admin_url( 'admin-ajax.php?' . http_build_query($args) ));
 }
+
+/**
+ * Detect HTTPS requests when WordPress runs behind a TLS-terminating proxy.
+ *
+ * @return bool
+ */
+function upfront_is_https_request () {
+	if (is_ssl()) return true;
+	$forwarded_proto = isset($_SERVER['HTTP_X_FORWARDED_PROTO']) ? explode(',', strtolower((string)wp_unslash($_SERVER['HTTP_X_FORWARDED_PROTO']))) : array();
+	return !empty($forwarded_proto) && 'https' === trim($forwarded_proto[0]);
+}
+
+/**
+ * Upgrade HTTP URLs on the current host without modifying external links.
+ *
+ * @param string $url URL to normalize.
+ *
+ * @return string
+ */
+function upfront_https_same_origin_url ($url) {
+	if (!upfront_is_https_request() || !is_string($url) || 0 !== stripos($url, 'http://')) return $url;
+	$request_host = isset($_SERVER['HTTP_HOST']) ? wp_parse_url('http://' . wp_unslash($_SERVER['HTTP_HOST']), PHP_URL_HOST) : '';
+	$url_host = wp_parse_url($url, PHP_URL_HOST);
+	if (!$request_host || !$url_host || 0 !== strcasecmp($request_host, $url_host)) return $url;
+	return set_url_scheme($url, 'https');
+}
+
+/**
+ * Normalize upload URLs generated from legacy HTTP site options.
+ *
+ * @param array $uploads WordPress upload directory data.
+ *
+ * @return array
+ */
+function upfront_https_upload_urls ($uploads) {
+	foreach (array('url', 'baseurl') as $key) {
+		if (isset($uploads[$key])) $uploads[$key] = upfront_https_same_origin_url($uploads[$key]);
+	}
+	return $uploads;
+}
+
+/**
+ * Ask browsers to upgrade resource URLs embedded in stored layout CSS or markup.
+ *
+ * @param array $headers Response headers.
+ *
+ * @return array
+ */
+function upfront_https_security_headers ($headers) {
+	if (!upfront_is_https_request()) return $headers;
+	$header_name = 'Content-Security-Policy';
+	foreach (array_keys($headers) as $name) {
+		if (0 === strcasecmp($name, $header_name)) {
+			$header_name = $name;
+			break;
+		}
+	}
+	if (empty($headers[$header_name])) {
+		$headers[$header_name] = 'upgrade-insecure-requests; block-all-mixed-content';
+	} else if (false === stripos($headers[$header_name], 'upgrade-insecure-requests')) {
+		$headers[$header_name] = rtrim($headers[$header_name], '; ') . '; upgrade-insecure-requests; block-all-mixed-content';
+	}
+	return $headers;
+}
+
+foreach (array('admin_url', 'content_url', 'home_url', 'includes_url', 'network_home_url', 'network_site_url', 'plugins_url', 'script_loader_src', 'site_url', 'style_loader_src', 'stylesheet_directory_uri', 'template_directory_uri', 'theme_file_uri', 'wp_get_attachment_url') as $upfront_https_url_filter) {
+	add_filter($upfront_https_url_filter, 'upfront_https_same_origin_url', 99);
+}
+add_filter('upload_dir', 'upfront_https_upload_urls', 99);
+add_filter('wp_headers', 'upfront_https_security_headers', 99);
 
 /**
  * Register scripts

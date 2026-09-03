@@ -4,7 +4,7 @@ class Upfront_Local_Fonts_Server extends Upfront_Server {
 
 	const ACTION = 'upfront_local_fonts_css';
 	const CACHE_DIRECTORY = 'upfront-fonts';
-	const CACHE_VERSION = '1';
+	const CACHE_VERSION = '2';
 	const UNUSED_CACHE_LIFETIME = 2592000;
 
 	public static function serve () {
@@ -79,13 +79,13 @@ class Upfront_Local_Fonts_Server extends Upfront_Server {
 		$css_path = trailingslashit($directory) . 'font.css';
 		if (is_readable($css_path)) {
 			touch($css_path);
-			return file_get_contents($css_path);
+			return self::normalize_cached_urls(file_get_contents($css_path), $locations);
 		}
 		if (!wp_mkdir_p($directory)) return false;
 		$lock = fopen(trailingslashit($directory) . '.cache.lock', 'c');
 		if (!$lock || !flock($lock, LOCK_EX)) return false;
 		if (is_readable($css_path)) {
-			$css = file_get_contents($css_path);
+			$css = self::normalize_cached_urls(file_get_contents($css_path), $locations);
 			touch($css_path);
 			flock($lock, LOCK_UN);
 			fclose($lock);
@@ -171,12 +171,21 @@ class Upfront_Local_Fonts_Server extends Upfront_Server {
 		return preg_match('/\.(?:ttf|otf|woff2?|eot)$/i', $filename) ? $filename : false;
 	}
 
+	private static function normalize_cached_urls ($css, $locations) {
+		return str_replace(array(
+			set_url_scheme($locations['absolute_url'], 'http'),
+			set_url_scheme($locations['absolute_url'], 'https')
+		), $locations['url'], $css);
+	}
+
 	private static function get_cache_locations () {
 		$uploads = wp_upload_dir();
 		if (!empty($uploads['error'])) return false;
+		$absolute_url = trailingslashit($uploads['baseurl']) . self::CACHE_DIRECTORY;
 		return array(
 			'directory' => trailingslashit($uploads['basedir']) . self::CACHE_DIRECTORY,
-			'url' => trailingslashit($uploads['baseurl']) . self::CACHE_DIRECTORY
+			'url' => set_url_scheme($absolute_url, 'relative'),
+			'absolute_url' => $absolute_url
 		);
 	}
 

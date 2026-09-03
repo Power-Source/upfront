@@ -18,9 +18,11 @@ define(['interact'], function (interact) {
 		}, options);
 		this.drag = null;
 		this.syntheticDrag = null;
+		this.enabled = false;
 		this.interactable = interact(element);
 		this.bindSyntheticMouseBridge();
-		this.enable();
+		if (this.options.disabled) this.disable();
+		else this.enable();
 	}
 
 	Draggable.prototype.bindSyntheticMouseBridge = function () {
@@ -57,6 +59,8 @@ define(['interact'], function (interact) {
 	Draggable.prototype.enable = function () {
 		var me = this;
 
+		if (this.enabled) return this;
+		this.enabled = true;
 		this.options.disabled = false;
 		this.$element.addClass('ui-draggable').removeClass('ui-draggable-disabled');
 		this.interactable.draggable({
@@ -74,12 +78,15 @@ define(['interact'], function (interact) {
 	Draggable.prototype.disable = function () {
 		this.options.disabled = true;
 		this.$element.addClass('ui-draggable ui-draggable-disabled');
+		if (!this.enabled) return this;
+		this.enabled = false;
 		this.interactable.draggable({enabled: false});
 		return this;
 	};
 
 	Draggable.prototype.destroy = function () {
 		this.interactable.draggable(false);
+		this.enabled = false;
 		this.$element.off(this.syntheticNamespace);
 		$(document).off(this.syntheticNamespace);
 		this.$element.removeClass('ui-draggable ui-draggable-disabled ui-draggable-dragging');

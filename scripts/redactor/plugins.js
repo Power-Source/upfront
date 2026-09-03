@@ -864,7 +864,7 @@
 						}
 
 						// And now, we escape the URL before anything else
-						href = encodeURI(decodeURI(href));
+						href = this.normalizeUrlEncoding(href);
 
 						this.linkModel = new LinkModel({
 							type: type,
@@ -981,6 +981,14 @@
 
 					close: function (e, redactor) {
 						redactor.selection.restore();
+					},
+
+					normalizeUrlEncoding: function (url) {
+						try {
+							return encodeURI(decodeURI(url));
+						} catch (error) {
+							return url;
+						}
 					},
 
 					unlink: function (e) {
