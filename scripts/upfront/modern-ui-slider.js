@@ -33,7 +33,7 @@ define(['nouislider'], function (noUiSlider) {
 	};
 
 	Slider.prototype.trigger = function (name, values, handle, tap) {
-		if ($.isFunction(this.options[name])) {
+		if (typeof this.options[name] === 'function') {
 			this.options[name].call(this.element, $.Event(name, {originalEvent: tap || null}), this.getUi(values, handle));
 		}
 	};

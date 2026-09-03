@@ -5,6 +5,8 @@ Change Log
 -------------------------------------------------------------------------------
 - Modernisierung: Die verbliebenen jQuery-UI-Skripte wurden aus dem Editor-Boot entfernt und durch explizit geladene moderne Adapter ersetzt
 - Fix: Datepicker-, Drag-, Sortier- und Größenänderungsfunktionen stehen durch direkte RequireJS-Abhängigkeiten zuverlässig vor ihrer ersten Verwendung bereit
+- Fix: Beim Ziehen aus der Element-Sidebar folgt wieder das Elementicon der Maus, während der Zielumriss im Layout erscheint; die modernen UI-Adapter verwenden keine veraltete jQuery.isFunction-API mehr
+- Fix: Hilfe & Support im Editormenü verlinkt direkt auf die Upfront-Dokumentation von PSOURCE statt auf die nicht mehr verfügbare WPMUDEV-Dokumentation
 - Fix: Die jeweils letzte Region erhält an ihrer Oberkante einen erreichbaren Griff zur vertikalen Größenänderung; der Griff folgt automatisch neu hinzugefügten oder entfernten Regionen
 - Neu: Das YouTube-Element bietet optional eine eigene Zwei-Klick-Freigabe und ordnet sich vorrangigen YouTube-Entscheidungen von PS-DSGVO unter
 - Datenschutz: YouTube-Player verwenden den No-Cookie-Endpunkt; bei aktiver Sperre werden auch Vorschaubilder erst nach Zustimmung geladen und ein Noscript-Link angeboten

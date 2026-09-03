@@ -103,7 +103,7 @@ define(['interact'], function (interact) {
 
 	Resizable.prototype._trigger = function (type, event, ui) {
 		ui = ui || this.getUi();
-		if ($.isFunction(this.options[type])) this.options[type].call(this.element, event, ui);
+		if (typeof this.options[type] === 'function') this.options[type].call(this.element, event, ui);
 		this.$element.triggerHandler(type, [ui]);
 	};
 
@@ -129,7 +129,7 @@ define(['interact'], function (interact) {
 			this.position = {left: offset.left, top: offset.top};
 		}
 		this.$element.addClass('ui-resizable-resizing');
-		if ($.isFunction(this.options.start)) this.options.start.call(this.element, event, this.getUi());
+		if (typeof this.options.start === 'function') this.options.start.call(this.element, event, this.getUi());
 		this.$element.triggerHandler('resizestart', [this.getUi()]);
 	};
 
@@ -160,7 +160,7 @@ define(['interact'], function (interact) {
 		this.size = {width: width, height: height};
 		ui = this.getUi();
 		$target.css({left: ui.position.left, top: ui.position.top, width: ui.size.width, height: ui.size.height});
-		if ($.isFunction(this.options.resize)) this.options.resize.call(this.element, event, ui);
+		if (typeof this.options.resize === 'function') this.options.resize.call(this.element, event, ui);
 		this.$element.triggerHandler('resize', [ui]);
 	};
 
@@ -170,7 +170,7 @@ define(['interact'], function (interact) {
 		if (this.$helper) {
 			this.$element.css({width: this.$helper.width(), height: this.$helper.height()});
 		}
-		if ($.isFunction(this.options.stop)) this.options.stop.call(this.element, event, ui);
+		if (typeof this.options.stop === 'function') this.options.stop.call(this.element, event, ui);
 		this.$element.triggerHandler('resizestop', [ui]);
 		if (this.$helper) this.$helper.remove();
 		this.$helper = null;

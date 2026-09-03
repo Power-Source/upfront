@@ -6,17 +6,20 @@
 	define([
 		'scripts/upfront/upfront-views-editor/commands/command'
 	], function ( Command ) {
+		var supportUrl = 'https://psource.eimen.net/wiki/upfront-dokumentation/';
 
 		return Command.extend({
+			initialize: function () {
+				this.el.addEventListener('click', function (event) {
+					event.preventDefault();
+					event.stopImmediatePropagation();
+					window.open(supportUrl, '_blank', 'noopener,noreferrer');
+				}, true);
+			},
 			render: function () {
 				this.$el.html(l10n.help_and_support);
 			},
-			on_click: function () {
-				var url = 'https://psource.eimen.net/wiki/upfront-dokumentation/',
-					win = window.open(url, "_blank")
-				;
-				win.focus();
-			}
+			on_click: function () {}
 		});
 
 	});

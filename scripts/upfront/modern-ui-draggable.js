@@ -17,9 +17,42 @@ define(['interact'], function (interact) {
 			zIndex: false
 		}, options);
 		this.drag = null;
+		this.syntheticDrag = null;
 		this.interactable = interact(element);
+		this.bindSyntheticMouseBridge();
 		this.enable();
 	}
+
+	Draggable.prototype.bindSyntheticMouseBridge = function () {
+		var me = this,
+			namespace = '.upfront-draggable-' + Math.random().toString(36).slice(2);
+		this.syntheticNamespace = namespace;
+		this.$element.on('mousedown' + namespace, function (event) {
+			if (!event.isTrigger || me.options.disabled) return;
+			var lastX = event.pageX,
+				lastY = event.pageY;
+			me.syntheticDrag = {started: false};
+			$(document)
+				.off(namespace)
+				.on('mousemove' + namespace, function (moveEvent) {
+					if (!me.syntheticDrag) return;
+					moveEvent.dx = moveEvent.pageX - lastX;
+					moveEvent.dy = moveEvent.pageY - lastY;
+					if (!me.syntheticDrag.started) {
+						me.syntheticDrag.started = true;
+						me.start(moveEvent);
+					}
+					me.move(moveEvent);
+					lastX = moveEvent.pageX;
+					lastY = moveEvent.pageY;
+				})
+				.one('mouseup' + namespace, function (upEvent) {
+					if (me.syntheticDrag && me.syntheticDrag.started) me.stop(upEvent);
+					me.syntheticDrag = null;
+					$(document).off(namespace);
+				});
+		});
+	};
 
 	Draggable.prototype.enable = function () {
 		var me = this;
@@ -47,6 +80,8 @@ define(['interact'], function (interact) {
 
 	Draggable.prototype.destroy = function () {
 		this.interactable.draggable(false);
+		this.$element.off(this.syntheticNamespace);
+		$(document).off(this.syntheticNamespace);
 		this.$element.removeClass('ui-draggable ui-draggable-disabled ui-draggable-dragging');
 		this.$element.removeData(DATA_KEY).removeData('ui-draggable');
 	};
@@ -55,7 +90,7 @@ define(['interact'], function (interact) {
 		var helper = this.options.helper,
 			$helper;
 
-		if ($.isFunction(helper)) {
+		if (typeof helper === 'function') {
 			$helper = $(helper.call(this.element, event));
 		} else if (helper === 'clone') {
 			$helper = this.$element.clone().removeAttr('id');
@@ -72,6 +107,14 @@ define(['interact'], function (interact) {
 			height: this.$element.outerHeight()
 		});
 		return $helper;
+	};
+
+	Draggable.prototype.triggerDragEvent = function (type, event, ui) {
+		var dragEvent = $.Event(type);
+		dragEvent.pageX = typeof event.pageX === 'number' ? event.pageX : this.drag.pointer.pageX;
+		dragEvent.pageY = typeof event.pageY === 'number' ? event.pageY : this.drag.pointer.pageY;
+		dragEvent.originalEvent = event.originalEvent || event;
+		this.$element.triggerHandler(dragEvent, [ui]);
 	};
 
 	Draggable.prototype.getUi = function () {
@@ -111,11 +154,11 @@ define(['interact'], function (interact) {
 		$helper.addClass('ui-draggable-dragging');
 		if (this.options.zIndex !== false) $helper.css('z-index', this.options.zIndex);
 
-		if ($.isFunction(this.options.start) && this.options.start.call(this.element, event, this.getUi()) === false) {
+		if (typeof this.options.start === 'function' && this.options.start.call(this.element, event, this.getUi()) === false) {
 			this.stop(event);
 			return false;
 		}
-		this.$element.triggerHandler('dragstart', [this.getUi()]);
+		this.triggerDragEvent('dragstart', event, this.getUi());
 	};
 
 	Draggable.prototype.move = function (event) {
@@ -126,11 +169,13 @@ define(['interact'], function (interact) {
 		this.drag.position.top += event.dy;
 		this.drag.offset.left += event.dx;
 		this.drag.offset.top += event.dy;
+		if (typeof event.pageX === 'number') this.drag.pointer.pageX = event.pageX;
+		if (typeof event.pageY === 'number') this.drag.pointer.pageY = event.pageY;
 		ui = this.getUi();
-		if ($.isFunction(this.options.drag)) this.options.drag.call(this.element, event, ui);
+		if (typeof this.options.drag === 'function') this.options.drag.call(this.element, event, ui);
 
 		this.drag.$helper.css({left: ui.offset.left, top: ui.offset.top});
-		this.$element.triggerHandler('drag', [ui]);
+		this.triggerDragEvent('drag', event, ui);
 	};
 
 	Draggable.prototype.stop = function (event) {
@@ -138,8 +183,8 @@ define(['interact'], function (interact) {
 		if (!this.drag) return;
 
 		ui = this.getUi();
-		if ($.isFunction(this.options.stop)) this.options.stop.call(this.element, event, ui);
-		this.$element.triggerHandler('dragstop', [ui]);
+		if (typeof this.options.stop === 'function') this.options.stop.call(this.element, event, ui);
+		this.triggerDragEvent('dragstop', event, ui);
 		this.drag.$helper.removeClass('ui-draggable-dragging');
 
 		if (!this.drag.isOriginal) {

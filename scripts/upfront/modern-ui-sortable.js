@@ -43,17 +43,17 @@ define(['sortable'], function (Sortable) {
 			group: this.options.connectWith ? {name: this.options.connectWith, pull: true, put: true} : undefined,
 			onStart: function (event) {
 				me.$element.addClass('upfront-sortable-active');
-				if ($.isFunction(me.options.start)) me.options.start.call(me.element, event.originalEvent || event, me.getUi(event));
+				if (typeof me.options.start === 'function') me.options.start.call(me.element, event.originalEvent || event, me.getUi(event));
 			},
 			onAdd: function (event) {
-				if ($.isFunction(me.options.receive)) me.options.receive.call(me.element, event.originalEvent || event, me.getUi(event));
+				if (typeof me.options.receive === 'function') me.options.receive.call(me.element, event.originalEvent || event, me.getUi(event));
 			},
 			onUpdate: function (event) {
-				if ($.isFunction(me.options.update)) me.options.update.call(me.element, event.originalEvent || event, me.getUi(event));
+				if (typeof me.options.update === 'function') me.options.update.call(me.element, event.originalEvent || event, me.getUi(event));
 			},
 			onEnd: function (event) {
 				me.$element.removeClass('upfront-sortable-active');
-				if ($.isFunction(me.options.stop)) me.options.stop.call(me.element, event.originalEvent || event, me.getUi(event));
+				if (typeof me.options.stop === 'function') me.options.stop.call(me.element, event.originalEvent || event, me.getUi(event));
 			}
 		});
 		this.setDisabled(this.options.disabled);

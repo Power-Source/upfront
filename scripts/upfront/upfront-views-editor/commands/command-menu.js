@@ -8,7 +8,7 @@
 		'scripts/upfront/upfront-views-editor/commands/commands',
 		'scripts/upfront/upfront-views-editor/commands/menu/command-close',
 		'scripts/upfront/upfront-views-editor/commands/menu/command-wpadmin',
-		'scripts/upfront/upfront-views-editor/commands/menu/command-help',
+		'scripts/upfront/upfront-views-editor/commands/menu/command-help-psource',
 	], function ( Command, Commands, Command_Close, Command_WPAdmin, Command_Help ) {
 
 		var Menu = Commands.extend({

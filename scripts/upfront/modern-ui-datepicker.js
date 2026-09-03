@@ -74,13 +74,13 @@ define(['flatpickr'], function (flatpickr) {
 				lastYear = instance.currentYear;
 			},
 			onChange: function (dates, value) {
-				if ($.isFunction(me.options.onSelect)) me.options.onSelect.call(me.element, value, me);
+				if (typeof me.options.onSelect === 'function') me.options.onSelect.call(me.element, value, me);
 			}
 		});
 	};
 
 	Datepicker.prototype.monthYearChanged = function (instance, previousMonth, previousYear) {
-		if (!$.isFunction(this.options.onChangeMonthYear)) return;
+		if (typeof this.options.onChangeMonthYear !== 'function') return;
 		if (instance.currentMonth === previousMonth && instance.currentYear === previousYear) return;
 		var selected = instance.selectedDates[0] || new Date();
 		this.options.onChangeMonthYear.call(this.element, instance.currentYear, instance.currentMonth + 1, {
