@@ -7,18 +7,27 @@
 		'scripts/upfront/upfront-views-editor/commands/command',
 		'scripts/upfront/upfront-views-editor/commands/commands',
 		'scripts/upfront/upfront-views-editor/commands/menu/command-close',
-		'scripts/upfront/upfront-views-editor/commands/menu/command-wpadmin',
-		'scripts/upfront/upfront-views-editor/commands/menu/command-help-psource',
-	], function ( Command, Commands, Command_Close, Command_WPAdmin, Command_Help ) {
+		'scripts/upfront/upfront-views-editor/commands/menu/command-wpadmin'
+	], function ( Command, Commands, Command_Close, Command_WPAdmin ) {
+		var supportUrl = 'https://psource.eimen.net/wiki/upfront-dokumentation/';
 
 		var Menu = Commands.extend({
 			className: "command-more-menu-list",
 			initialize: function () {
 				this.commands = _([
 					new Command_Close({"model": this.model}),
-					new Command_WPAdmin({"model": this.model}),
-					new Command_Help({"model": this.model})
+					new Command_WPAdmin({"model": this.model})
 				]);
+			},
+			render: function () {
+				var help = document.createElement('li');
+				Commands.prototype.render.call(this);
+				help.innerHTML = l10n.help_and_support;
+				help.addEventListener('click', function (event) {
+					event.stopPropagation();
+					window.open(supportUrl, '_blank', 'noopener,noreferrer');
+				});
+				this.el.appendChild(help);
 			}
 		});
 
@@ -37,10 +46,6 @@
 			},
 			on_click: function () {
 				this.toggle_menu();
-				// Make sure each menu event is bound
-				this.menu.commands.each(function(command){
-					command.delegateEvents();
-				});
 			},
 			on_document_click: function (e) {
 				var $target = $(e.target),
