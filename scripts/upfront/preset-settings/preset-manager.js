@@ -6,8 +6,9 @@ define([
 	'scripts/upfront/settings/modules/migrate-preset',
 	'scripts/upfront/settings/modules/preset-css',
 	'scripts/upfront/preset-settings/util',
-	'scripts/upfront/preset-settings/preset-css-editor'
-], function(RootSettingsPanel, SelectPresetModule, EditPresetModule, MigratePresetModule, PresetCssModule, Util, PresetCSSEditor) {
+	'scripts/upfront/preset-settings/preset-css-editor',
+	'scripts/upfront/preset-settings/preset-saver'
+], function(RootSettingsPanel, SelectPresetModule, EditPresetModule, MigratePresetModule, PresetCssModule, Util, PresetCSSEditor, PresetSaver) {
 	/**
 	 * Handles presets: load, edit, delete and update for elements.
 	 *
@@ -69,7 +70,7 @@ define([
 				}
 
 				me.model.trigger("preset:updated", properties.id);
-				Upfront.Application.presetSaver.queue(properties, me.ajaxActionSlug);
+				PresetSaver.queue(properties, me.ajaxActionSlug);
 			};
 
 			// Let's not flood server on some nuber property firing changes like crazy

@@ -1,6 +1,6 @@
 (function ($) {
 
-define(['models', 'views', 'editor_views', 'behaviors', 'upfront-data', 'jquery-df', 'jquery-simulate', 'scripts/backbone-query-parameters/backbone-query-parameters', 'responsive', 'findandreplace', 'fileupload'], function (models, views, editor, behaviors, data, findandreplace) {
+define(['models', 'views', 'editor_views', 'scripts/upfront/preset-settings/preset-saver', 'behaviors', 'upfront-data', 'jquery-df', 'jquery-simulate', 'scripts/backbone-query-parameters/backbone-query-parameters', 'responsive', 'findandreplace', 'fileupload'], function (models, views, editor, PresetSaver, behaviors, data) {
   _.extend(Upfront, data);
   Upfront.Events.trigger('data:ready');
   _.extend(Upfront, models);
@@ -1505,7 +1505,7 @@ var Application = new (Backbone.Router.extend({
 	},
 
 	create_preset_saver: function() {
-		this.presetSaver = Upfront.Views.PresetSaver;
+		this.presetSaver = PresetSaver;
 	},
 
 	create_color_saver: function() {

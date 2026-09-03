@@ -6,7 +6,10 @@
 	define([
 		"scripts/upfront/upfront-views-editor/mixins",
 		"scripts/upfront/upfront-views-editor/theme-colors",
-		"text!upfront/templates/color_picker.html"
+        "text!upfront/templates/color_picker.html",
+        "spectrum",
+        "chosen",
+        "modern-ui-slider"
 	], function (Mixins, Theme_Colors, color_picker_tpl) {
 		var Field = Backbone.View.extend({
 			className: 'upfront-field-wrap',

@@ -185,7 +185,7 @@ define([
 				;
 				this.remove_api_key_overlay();
 				if ( color ) {
-					$bg.css('background-color', color);
+					$bg.css('background-color', Upfront.Util.colors.to_color_value(color));
 				} else {
 					$bg.css('background-color', '');
 				}
@@ -342,7 +342,7 @@ define([
 							} else {
 								// fallback to set color
 								if ( bg_type == 'featured' && bg_default == 'color' && $bg.hasClass('no-featured_image') ) {
-									$bg.css('background-color', featured_fallback_background_color);
+									$bg.css('background-color', Upfront.Util.colors.to_color_value(featured_fallback_background_color));
 								}
 
 								me.$el.children('.feature_image_selector')
@@ -542,7 +542,7 @@ define([
 				;
 				this.remove_api_key_overlay();
 				if ( style == 'inside' && color ) {
-					$bg.css('background-color', color);
+					$bg.css('background-color', Upfront.Util.colors.to_color_value(color));
 				} else {
 					$bg.css('background-color', '');
 				}
@@ -590,7 +590,7 @@ define([
 
 				this.remove_api_key_overlay();
 				if ( style == 'inside' && color ) {
-					$bg.css('background-color', color);
+					$bg.css('background-color', Upfront.Util.colors.to_color_value(color));
 				} else {
 					$bg.css('background-color', '');
 				}
@@ -5837,6 +5837,7 @@ define([
 				this.listenTo(Upfront.Events, "entity:navigation:responsive_close", this.refresh_background);
 				this.listenTo(Upfront.Events, "upfront:layout_size:change_breakpoint", this.on_change_breakpoint);
 				this.listenTo(Upfront.Events, "upfront:grid:updated", this.on_grid_update);
+				this.listenTo(Upfront.Events, "theme_colors:update", this.update_background);
 				this.listenTo(Upfront.Events, "entity:region:hide_toggle", this.update_hide_toggle);
 				this.listenTo(Upfront.Events, "command:region:edit_toggle", this.update_buttons);
 				this.listenTo(Upfront.Events, "command:region:show_settings", this.region_edit_triggered);
@@ -7625,6 +7626,7 @@ define([
 				this.listenTo(this.model.get("properties"), 'add', this.update);
 				this.listenTo(this.model.get("properties"), 'remove', this.update);
 				this.listenTo(Upfront.Events, "command:layout:edit_background", this.open_edit_background);
+				this.listenTo(Upfront.Events, "theme_colors:update", this.update_background);
 				this.listenTo(Upfront.Events, "upfront:layout_size:change_breakpoint", this.on_change_breakpoint);
 				this.listenTo(Upfront.Events, "application:mode:after_switch", this.on_mode_switch);
 				$(window).on('resize.upfront_layout', this, this.on_window_resize);
@@ -7640,7 +7642,7 @@ define([
 					color = this.model.get_breakpoint_property_value('background_color', true)
 					;
 				if ( color ) {
-					$bg.css('background-color', color);
+					$bg.css('background-color', Upfront.Util.colors.to_color_value(color));
 				} else {
 					$bg.css('background-color', '');
 				}
