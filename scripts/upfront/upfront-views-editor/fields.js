@@ -1820,7 +1820,7 @@
 				e.preventDefault();
 
 				// Simulate label click
-				this.$el.find('.upfront_toggle_checkbox').click();
+				this.$el.find('.upfront_toggle_checkbox').trigger('click');
 			},
 
 			get_value_html: function (value, index) {

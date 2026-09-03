@@ -72,7 +72,15 @@ var UyoutubeView = Upfront.Views.ObjectView.extend({
 		// Autoplay should never happen in editor! This is called only in editor
 		// props.autoplay_string = autoplay ? '&autoplay=1' : '';
 		props.autoplay_string = '';
+		props.embed_url = video_id ? 'https://www.youtube-nocookie.com/embed/' + video_id + '?modestbranding=1' + props.loop_string : '';
+		props.privacy_blocked = false;
+		props.privacy_placeholder = '';
 		props.play_video_label = l10n.play_video;
+		props.privacy_title = l10n.privacy_title;
+		props.privacy_message = l10n.privacy_message;
+		props.privacy_button = l10n.privacy_button;
+		props.privacy_external_link = l10n.privacy_external_link;
+		props.noscript_message = l10n.noscript_message;
 		props.escape_attr = _.escape;
 		props.escape_html = _.escape;
 
@@ -404,6 +412,17 @@ var BehaviorPanel = RootSettingsPanel.extend({
 							],
 							change: function(value) {
 								this.model.set_property('fullscreen', value);
+							}
+						}),
+						new Fields.Toggle({
+							model: this.model,
+							property: 'privacy_consent',
+							className: 'privacy-consent',
+							values: [
+								{ label: l10n.privacy_consent, value: 'privacy_consent' }
+							],
+							change: function(value) {
+								this.model.set_property('privacy_consent', value);
 							}
 					}),
 				]

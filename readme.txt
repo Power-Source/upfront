@@ -5,7 +5,7 @@ Tags: classicpress-theme, classicpress, theme, framework, awesome
 Requires at least: 4.9
 Tested up to: 7.1
 ClassicPress: 2.7.2
-Stable tag: 1.2.5
+Stable tag: 1.2.6
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -42,6 +42,8 @@ Füge Designfarben hinzu, pass Typografie an und bearbeite globale Einstellungen
 * Modernisierung: Die verbliebenen jQuery-UI-Skripte wurden aus dem Editor-Boot entfernt und durch explizit geladene moderne Adapter ersetzt
 * Fix: Datepicker-, Drag-, Sortier- und Größenänderungsfunktionen stehen durch direkte RequireJS-Abhängigkeiten zuverlässig vor ihrer ersten Verwendung bereit
 * Fix: Die jeweils letzte Region erhält an ihrer Oberkante einen erreichbaren Griff zur vertikalen Größenänderung; der Griff folgt automatisch neu hinzugefügten oder entfernten Regionen
+* Neu: Das YouTube-Element bietet optional eine eigene Zwei-Klick-Freigabe und ordnet sich vorrangigen YouTube-Entscheidungen von PS-DSGVO unter
+* Datenschutz: YouTube-Player verwenden den No-Cookie-Endpunkt; bei aktiver Sperre werden auch Vorschaubilder erst nach Zustimmung geladen und ein Noscript-Link angeboten
 
 = 1.2.5 =
 * Fix: RequireJS ordnet anonyme AMD-Module auch bei parallelem Laden zuverlässig dem aufrufenden Skript zu; Pako und direkt verwendete Editor-Abhängigkeiten verunreinigen die Modulwarteschlange nicht mehr

@@ -21,6 +21,51 @@
 	max-width: 100%;
 }
 
+.uyoutube-consent-placeholder {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	min-height: 225px;
+	padding: 24px;
+	background: #f2f3f4;
+	border: 1px solid #c7cbd0;
+	color: #25282b;
+	text-align: center;
+}
+
+.uyoutube-consent-content {
+	max-width: 620px;
+}
+
+.uyoutube-consent-content h4 {
+	margin: 0 0 10px;
+	font-size: 20px;
+}
+
+.uyoutube-consent-content p {
+	margin: 0 0 16px;
+}
+
+.uyoutube-consent-button {
+	display: inline-block;
+	margin: 0 12px 8px 0;
+	padding: 10px 16px;
+	border: 0;
+	background: #24272a;
+	color: #fff;
+	cursor: pointer;
+}
+
+.uyoutube-consent-content a {
+	display: inline-block;
+	margin-bottom: 8px;
+}
+
+.uyoutube-thumb:not([src]) {
+	visibility: hidden;
+}
+
 .upfront-output-uyoutube {
 	max-height: 100%;
 	overflow: hidden;

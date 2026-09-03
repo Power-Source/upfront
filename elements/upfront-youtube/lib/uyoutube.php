@@ -38,6 +38,7 @@ class Upfront_UyoutubeView extends Upfront_Object {
 			'youtube_status' => 'starting',
 			'loop' => false,
 			'autoplay' => false,
+			'privacy_consent' => false,
 			'fullscreen' => array('fullscreen')
 		);
 	}
@@ -71,10 +72,38 @@ class Upfront_UyoutubeView extends Upfront_Object {
 			$data = $this->properties_to_array();
 
 			$data['wrapper_id'] = str_replace('youtube-object-', 'wrapper-', $data['element_id']);
-			$video_id = $data['multiple_videos'][0]['id'];
+			$videos = !empty($data['multiple_videos']) && is_array($data['multiple_videos']) ? $data['multiple_videos'] : array();
+			$video_id = !empty($videos[0]['id']) ? $videos[0]['id'] : '';
 			$data['loop_string'] = $data['loop'] ? "&loop=1&playlist=$video_id" : '';
 			$data['autoplay_string'] = $data['autoplay'] ? "&autoplay=1" : '';
+			$data['embed_url'] = $video_id
+				? 'https://www.youtube-nocookie.com/embed/' . rawurlencode($video_id) . '?modestbranding=1' . $data['loop_string'] . $data['autoplay_string']
+				: '';
+			$data['privacy_blocked'] = false;
+			$data['privacy_placeholder'] = '';
+			$element_privacy = !empty($data['privacy_consent']);
+			$psdsgvo_consent = isset($_COOKIE['psdsgvo_embed_youtube']) && $_COOKIE['psdsgvo_embed_youtube'] === '1';
+			$local_consent = isset($_COOKIE['upfront_youtube_consent']) && $_COOKIE['upfront_youtube_consent'] === '1';
+
+			if ($video_id && class_exists('PSDSGVO\\Includes\\Extensions\\ContentEmbeds')) {
+				$psdsgvo_url = str_replace('youtube-nocookie.com', 'youtube.com', $data['embed_url']);
+				$probe = '<iframe src="' . esc_url($psdsgvo_url) . '"></iframe>';
+				$filtered = \PSDSGVO\Includes\Extensions\ContentEmbeds::getInstance()->filterContent($probe);
+				if ($filtered !== $probe) {
+					$data['privacy_blocked'] = true;
+					$data['privacy_placeholder'] = str_replace('youtube.com', 'youtube-nocookie.com', $filtered);
+				}
+			}
+
+			if (!$data['privacy_blocked'] && $element_privacy && !$psdsgvo_consent && !$local_consent) {
+				$data['privacy_blocked'] = true;
+			}
 			$data['play_video_label'] = self::_get_l10n('play_video');
+			$data['privacy_title'] = self::_get_l10n('privacy_title');
+			$data['privacy_message'] = self::_get_l10n('privacy_message');
+			$data['privacy_button'] = self::_get_l10n('privacy_button');
+			$data['privacy_external_link'] = self::_get_l10n('privacy_external_link');
+			$data['noscript_message'] = self::_get_l10n('noscript_message');
 			$data['escape_attr'] = 'esc_attr';
 			$data['escape_html'] = 'esc_html';
 
@@ -124,6 +153,12 @@ class Upfront_UyoutubeView extends Upfront_Object {
 			'autoplay' => __('Video beim Laden der Seite abspielen', 'upfront'),
 			'loop' => __('Schleife', 'upfront'),
 			'fullscreen' => __('Vollbild erlauben', 'upfront'),
+			'privacy_consent' => __('YouTube-Inhalte bis zur ausdrücklichen Zustimmung blockieren', 'upfront'),
+			'privacy_title' => __('Externer Inhalt von YouTube', 'upfront'),
+			'privacy_message' => __('Beim Laden des Videos werden Daten an YouTube übertragen. Bitte bestätige, dass Du diesen Inhalt laden möchtest.', 'upfront'),
+			'privacy_button' => __('YouTube-Video laden', 'upfront'),
+			'privacy_external_link' => __('Video direkt auf YouTube öffnen', 'upfront'),
+			'noscript_message' => __('JavaScript ist deaktiviert. Du kannst das Video direkt auf YouTube öffnen.', 'upfront'),
 			'playback' => __('Wiedergabe', 'upfront'),
 			'play_video' => __('Video abspielen', 'upfront'),
 			'thumbnail_size' => __('Thumbnail-Größe', 'upfront'),

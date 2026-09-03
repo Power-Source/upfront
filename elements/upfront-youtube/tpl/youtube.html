@@ -7,9 +7,20 @@
 	<!-- Main video -->
 	<div class="uyoutube-main-video">
 		<?php if ( !empty($multiple_videos[0] ) ) { ?>
-			<?php if ( !empty($autoplay_string) ) { ?>
+			<?php if ( !empty($privacy_placeholder) ) { ?>
+				<?php echo $privacy_placeholder ?>
+			<?php } else if ( !empty($privacy_blocked) ) { ?>
+			<div class="uyoutube-consent-placeholder" data-embed-url="<?php echo $escape_attr($embed_url) ?>" data-width="<?php echo $escape_attr($player_width) ?>" data-height="<?php echo $escape_attr($player_height) ?>" data-fullscreen="<?php echo !empty($fullscreen) ? 'true' : 'false' ?>" data-title="<?php echo $escape_attr($multiple_videos[0]['title']) ?>">
+				<div class="uyoutube-consent-content">
+					<h4><?php echo $escape_html($privacy_title) ?></h4>
+					<p><?php echo $escape_html($privacy_message) ?></p>
+					<button type="button" class="uyoutube-consent-button" title="<?php echo $escape_attr($privacy_button) ?>"><?php echo $escape_html($privacy_button) ?></button>
+					<a href="https://www.youtube.com/watch?v=<?php echo $escape_attr($multiple_videos[0]['id']) ?>" target="_blank" rel="noopener noreferrer" title="<?php echo $escape_attr($privacy_external_link) ?>"><?php echo $escape_html($privacy_external_link) ?></a>
+				</div>
+			</div>
+			<?php } else if ( !empty($autoplay_string) ) { ?>
 			<!-- Video if autoplay -->
-			<iframe src="https://www.youtube.com/embed/<?php echo $escape_attr($multiple_videos[0]['id']) ?>?modestbranding=1<?php echo $escape_attr($loop_string) ?><?php echo $escape_attr($autoplay_string) ?>" height="<?php echo $escape_attr($player_height) ?>" width="<?php echo $escape_attr($player_width) ?>" title="<?php echo $escape_attr(!empty($multiple_videos[0]['title']) ? $multiple_videos[0]['title'] : 'YouTube video player') ?>"<?php if (!empty($fullscreen)) { ?> allow="fullscreen"<?php } ?>></iframe>
+			<iframe src="<?php echo $escape_attr($embed_url) ?>" height="<?php echo $escape_attr($player_height) ?>" width="<?php echo $escape_attr($player_width) ?>" title="<?php echo $escape_attr(!empty($multiple_videos[0]['title']) ? $multiple_videos[0]['title'] : 'YouTube video player') ?>" referrerpolicy="strict-origin-when-cross-origin"<?php if (!empty($fullscreen)) { ?> allow="fullscreen"<?php } ?>></iframe>
 			<?php } else { ?>
 			<!-- Video placeholder -->
 			<div class="ufyt_main-video-placeholder" data-loop="<?php echo $escape_attr($loop_string) ?>" data-width="<?php echo $escape_attr($player_width) ?>" data-height="<?php echo $escape_attr($player_height) ?>" data-video-id="<?php echo $escape_attr($multiple_videos[0]['id']) ?>" data-fullscreen="<?php echo !empty($fullscreen) ? 'true' : 'false' ?>">
@@ -18,6 +29,7 @@
 			</div>
 			<?php } ?>
 		<h3 class="ufyt_main-video-title"><?php echo $escape_html($multiple_videos[0]['title']) ?></h3>
+		<noscript><p class="uyoutube-noscript"><?php echo $escape_html($noscript_message) ?> <a href="https://www.youtube.com/watch?v=<?php echo $escape_attr($multiple_videos[0]['id']) ?>" target="_blank" rel="noopener noreferrer"><?php echo $escape_html($privacy_external_link) ?></a></p></noscript>
 		<?php } else { ?>
 		<!-- Element Placeholder -->
 		<div class="uyoutube-player" data-width="<?php echo $escape_attr($player_width) ?>" data-height="<?php echo $escape_attr($player_height) ?>"></div>
@@ -37,7 +49,11 @@
 					<?php } ?>
 
 						<div class="uyoutube-thumb-mask" data-thumb-width="<?php echo $escape_attr($thumbWidth) ?>" data-thumb-height="<?php echo $escape_attr($thumbHeight) ?>">
+							<?php if (!empty($privacy_blocked)) { ?>
+							<img class="uyoutube-thumb" data-youtube-src="https://img.youtube.com/vi/<?php echo $escape_attr($multiple_videos[$i]['id']) ?>/hqdefault.jpg" data-thumb-width="<?php echo $escape_attr($thumbWidth) ?>" data-thumb-offset="<?php echo $escape_attr($thumbOffset) ?>" alt="<?php echo $escape_attr($multiple_videos[$i]['title']) ?>" title="<?php echo $escape_attr($multiple_videos[$i]['title']) ?>">
+							<?php } else { ?>
 							<img class="uyoutube-thumb" src="https://img.youtube.com/vi/<?php echo $escape_attr($multiple_videos[$i]['id']) ?>/hqdefault.jpg" data-thumb-width="<?php echo $escape_attr($thumbWidth) ?>" data-thumb-offset="<?php echo $escape_attr($thumbOffset) ?>" alt="<?php echo $escape_attr($multiple_videos[$i]['title']) ?>" title="<?php echo $escape_attr($multiple_videos[$i]['title']) ?>">
+							<?php } ?>
 						</div>
 
 					<?php if ($display_style == 'list') { ?>

@@ -83,6 +83,15 @@ define(['interact'], function (interact) {
 		};
 	};
 
+	Draggable.prototype._adjustOffsetFromHelper = function (offset) {
+		if (!this.drag || !offset) return;
+		var pointerX = this.drag.pointer.pageX,
+			pointerY = this.drag.pointer.pageY;
+		if (typeof offset.left === 'number') this.drag.offset.left = pointerX - offset.left;
+		if (typeof offset.top === 'number') this.drag.offset.top = pointerY - offset.top;
+		this.drag.$helper.css({left: this.drag.offset.left, top: this.drag.offset.top});
+	};
+
 	Draggable.prototype.start = function (event) {
 		var position = this.$element.position(),
 			offset = this.$element.offset(),
@@ -93,7 +102,11 @@ define(['interact'], function (interact) {
 			isOriginal: $helper[0] === this.element,
 			originalPosition: {left: position.left, top: position.top},
 			position: {left: position.left, top: position.top},
-			offset: {left: offset.left, top: offset.top}
+			offset: {left: offset.left, top: offset.top},
+			pointer: {
+				pageX: typeof event.pageX === 'number' ? event.pageX : event.clientX + window.pageXOffset,
+				pageY: typeof event.pageY === 'number' ? event.pageY : event.clientY + window.pageYOffset
+			}
 		};
 		$helper.addClass('ui-draggable-dragging');
 		if (this.options.zIndex !== false) $helper.css('z-index', this.options.zIndex);

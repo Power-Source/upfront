@@ -1,6 +1,14 @@
 Change Log
 ============
 
+1.2.6 - 2026-09-03
+-------------------------------------------------------------------------------
+- Modernisierung: Die verbliebenen jQuery-UI-Skripte wurden aus dem Editor-Boot entfernt und durch explizit geladene moderne Adapter ersetzt
+- Fix: Datepicker-, Drag-, Sortier- und Größenänderungsfunktionen stehen durch direkte RequireJS-Abhängigkeiten zuverlässig vor ihrer ersten Verwendung bereit
+- Fix: Die jeweils letzte Region erhält an ihrer Oberkante einen erreichbaren Griff zur vertikalen Größenänderung; der Griff folgt automatisch neu hinzugefügten oder entfernten Regionen
+- Neu: Das YouTube-Element bietet optional eine eigene Zwei-Klick-Freigabe und ordnet sich vorrangigen YouTube-Entscheidungen von PS-DSGVO unter
+- Datenschutz: YouTube-Player verwenden den No-Cookie-Endpunkt; bei aktiver Sperre werden auch Vorschaubilder erst nach Zustimmung geladen und ein Noscript-Link angeboten
+
 1.2.5 - 2026-09-03
 -------------------------------------------------------------------------------
 - Fix: RequireJS ordnet anonyme AMD-Module auch bei parallelem Laden zuverlässig dem aufrufenden Skript zu; Pako und direkt verwendete Editor-Abhängigkeiten verunreinigen die Modulwarteschlange nicht mehr

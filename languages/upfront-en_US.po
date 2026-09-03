@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Upfront 1.2.5\n"
+"Project-Id-Version: Upfront 1.2.6\n"
 "Report-Msgid-Bugs-To: https://github.com/Power-Source/upfront/issues\n"
 "Last-Translator: PSOURCE\n"
 "Language-Team: English (United States)\n"
@@ -113,7 +113,7 @@ msgstr "The wrapper of the whole element."
 #: elements/upfront-newnavigation/lib/unewnavigation.php:306
 #: elements/upfront-slider/lib/upfront_slider.php:180
 #: elements/upfront-tabs/lib/utabs.php:138
-#: elements/upfront-youtube/lib/uyoutube.php:135
+#: elements/upfront-youtube/lib/uyoutube.php:170
 #: library/servers/class_upfront_editor_l10n_server.php:537
 msgid "Einstellungen"
 msgstr "Settings"
@@ -308,7 +308,7 @@ msgstr "Background Color"
 
 #: elements/upfront-button/lib/upfront_button.php:126
 #: elements/upfront-text/lib/upfront_text.php:137
-#: elements/upfront-youtube/lib/uyoutube.php:152
+#: elements/upfront-youtube/lib/uyoutube.php:187
 #: library/servers/class_upfront_presets_server.php:628
 msgid "Text bearbeiten"
 msgstr "Edit Text"
@@ -812,7 +812,7 @@ msgstr "Form's submit button"
 #: elements/upfront-posts/lib/class_upfront_posts_data.php:179
 #: elements/upfront-slider/lib/upfront_slider.php:181
 #: elements/upfront-widget/lib/class_upfront_widget_view.php:91
-#: elements/upfront-youtube/lib/uyoutube.php:136
+#: elements/upfront-youtube/lib/uyoutube.php:171
 #: library/admin/class_upfront_admin_general.php:7
 #: library/admin/class_upfront_admin_general.php:26
 #: library/class_upfront_admin.php:79
@@ -1011,7 +1011,7 @@ msgid "SMTP-Authentifizierung aktivieren"
 msgstr "Enable SMTP Authentication"
 
 #: elements/upfront-gallery/lib/ugallery.php:334
-#: elements/upfront-youtube/lib/uyoutube.php:121
+#: elements/upfront-youtube/lib/uyoutube.php:150
 #: library/servers/class_upfront_editor_l10n_server.php:558
 #: library/servers/class_upfront_presets_server.php:650
 msgid "Galerie"
@@ -2574,7 +2574,7 @@ msgid "Email"
 msgstr "Email"
 
 #: elements/upfront-post-data/lib/class_upfront_post_data_l10n_server.php:28
-#: elements/upfront-youtube/lib/uyoutube.php:140
+#: elements/upfront-youtube/lib/uyoutube.php:175
 #: library/media/class_upfront_media_server.php:103
 #: library/servers/class_upfront_editor_l10n_server.php:232
 msgid "URL"
@@ -3652,12 +3652,12 @@ msgid "Sticky-Beiträge ausschließen"
 msgstr "Exclude sticky posts"
 
 #: elements/upfront-posts/lib/class_upfront_posts_data.php:241
-#: elements/upfront-youtube/lib/uyoutube.php:129
+#: elements/upfront-youtube/lib/uyoutube.php:164
 msgid "Thumbnail-Größe"
 msgstr "Thumbnail Size"
 
 #: elements/upfront-posts/lib/class_upfront_posts_data.php:242
-#: elements/upfront-youtube/lib/uyoutube.php:148
+#: elements/upfront-youtube/lib/uyoutube.php:183
 msgid "Thumbnail"
 msgstr "Thumbnail"
 
@@ -4443,137 +4443,137 @@ msgstr "This message will not be shown to your visitors"
 msgid "Wir konnten keine Felder für das ausgewählte Widget finden. Etwas könnte nicht stimmen."
 msgstr "We haven't been able to find any fields for the selected widget. Something could be wrong."
 
-#: elements/upfront-youtube/lib/uyoutube.php:112
+#: elements/upfront-youtube/lib/uyoutube.php:141
 #: library/servers/class_upfront_editor_l10n_server.php:575
 #: library/servers/class_upfront_presets_server.php:665
 msgid "YouTube"
 msgstr "YouTube"
 
-#: elements/upfront-youtube/lib/uyoutube.php:113
+#: elements/upfront-youtube/lib/uyoutube.php:142
 msgid "Gib die YouTube-Video-URL ein"
 msgstr "Enter YouTube video URL"
 
-#: elements/upfront-youtube/lib/uyoutube.php:114
+#: elements/upfront-youtube/lib/uyoutube.php:143
 msgid "YouTube URL"
 msgstr "YouTube URL"
 
-#: elements/upfront-youtube/lib/uyoutube.php:115
+#: elements/upfront-youtube/lib/uyoutube.php:144
 msgid "Go"
 msgstr "Go"
 
-#: elements/upfront-youtube/lib/uyoutube.php:116
+#: elements/upfront-youtube/lib/uyoutube.php:145
 msgid "YouTube-Einstellungen"
 msgstr "YouTube settings"
 
-#: elements/upfront-youtube/lib/uyoutube.php:117
+#: elements/upfront-youtube/lib/uyoutube.php:146
 msgid "ERSCHEINUNGSBILD"
 msgstr "APPEARANCE"
 
-#: elements/upfront-youtube/lib/uyoutube.php:118
+#: elements/upfront-youtube/lib/uyoutube.php:147
 msgid "Videotitel begrenzen auf"
 msgstr "Limit Video Title to"
 
-#: elements/upfront-youtube/lib/uyoutube.php:119
+#: elements/upfront-youtube/lib/uyoutube.php:148
 msgid "Zeichen."
 msgstr "char."
 
-#: elements/upfront-youtube/lib/uyoutube.php:120
+#: elements/upfront-youtube/lib/uyoutube.php:149
 msgid "Anzeigestil:"
 msgstr "Display style:"
 
-#: elements/upfront-youtube/lib/uyoutube.php:122
+#: elements/upfront-youtube/lib/uyoutube.php:151
 msgid "Liste"
 msgstr "List"
 
-#: elements/upfront-youtube/lib/uyoutube.php:123
+#: elements/upfront-youtube/lib/uyoutube.php:152
 msgid "Erstes Video zu den Thumbnails hinzufügen"
 msgstr "Add 1st Video to Thumbnails"
 
-#: elements/upfront-youtube/lib/uyoutube.php:124
+#: elements/upfront-youtube/lib/uyoutube.php:153
 msgid "Video beim Laden der Seite abspielen"
 msgstr "Play Video on Page Load"
 
-#: elements/upfront-youtube/lib/uyoutube.php:125
+#: elements/upfront-youtube/lib/uyoutube.php:154
 #: library/servers/class_upfront_editor_l10n_server.php:740
 msgid "Schleife"
 msgstr "Loop"
 
-#: elements/upfront-youtube/lib/uyoutube.php:126
+#: elements/upfront-youtube/lib/uyoutube.php:155
 msgid "Vollbild erlauben"
 msgstr "Allow fullscreen"
 
-#: elements/upfront-youtube/lib/uyoutube.php:127
+#: elements/upfront-youtube/lib/uyoutube.php:162
 msgid "Wiedergabe"
 msgstr "Playback"
 
-#: elements/upfront-youtube/lib/uyoutube.php:128
+#: elements/upfront-youtube/lib/uyoutube.php:163
 msgid "Video abspielen"
 msgstr "Play video"
 
-#: elements/upfront-youtube/lib/uyoutube.php:130
+#: elements/upfront-youtube/lib/uyoutube.php:165
 msgid "Schiebe, um die Thumbnails zu skalieren."
 msgstr "Slide to resize the thumbnails."
 
-#: elements/upfront-youtube/lib/uyoutube.php:131
+#: elements/upfront-youtube/lib/uyoutube.php:166
 msgid "VIDEO"
 msgstr "VIDEO"
 
-#: elements/upfront-youtube/lib/uyoutube.php:132
+#: elements/upfront-youtube/lib/uyoutube.php:167
 msgid "Video 1 URL"
 msgstr "Video 1 URL"
 
-#: elements/upfront-youtube/lib/uyoutube.php:133
-#: elements/upfront-youtube/lib/uyoutube.php:141
+#: elements/upfront-youtube/lib/uyoutube.php:168
+#: elements/upfront-youtube/lib/uyoutube.php:176
 msgid "YouTube Video URL"
 msgstr "YouTube Video URL"
 
-#: elements/upfront-youtube/lib/uyoutube.php:134
+#: elements/upfront-youtube/lib/uyoutube.php:169
 msgid "Weiteres Video hinzufügen"
 msgstr "Add Another Video"
 
-#: elements/upfront-youtube/lib/uyoutube.php:137
+#: elements/upfront-youtube/lib/uyoutube.php:172
 msgid "Bitte gib eine gültige YouTube-Video-URL ein"
 msgstr "Please enter valid YouTube video URL"
 
-#: elements/upfront-youtube/lib/uyoutube.php:139
+#: elements/upfront-youtube/lib/uyoutube.php:174
 #: library/media/class_upfront_media_server.php:150
 msgid "Videos"
 msgstr "Videos"
 
-#: elements/upfront-youtube/lib/uyoutube.php:144
+#: elements/upfront-youtube/lib/uyoutube.php:179
 msgid "Globaler Container"
 msgstr "Global container"
 
-#: elements/upfront-youtube/lib/uyoutube.php:145
+#: elements/upfront-youtube/lib/uyoutube.php:180
 msgid "Die Ebene, die alle Inhalte des Elements enthält."
 msgstr "The layer that contains all content of the element."
 
-#: elements/upfront-youtube/lib/uyoutube.php:146
+#: elements/upfront-youtube/lib/uyoutube.php:181
 msgid "Thumbnails-Container"
 msgstr "Thumbnails container"
 
-#: elements/upfront-youtube/lib/uyoutube.php:147
+#: elements/upfront-youtube/lib/uyoutube.php:182
 msgid "Die Ebene, die die Thumbnails enthält."
 msgstr "The layer that contains thumbnails."
 
-#: elements/upfront-youtube/lib/uyoutube.php:149
+#: elements/upfront-youtube/lib/uyoutube.php:184
 msgid "Die Ebene, die das Thumbnail-Bild und den Titel enthält."
 msgstr "The layer that contains thumbnail image and title."
 
-#: functions.php:417
+#: functions.php:408
 #: library/servers/class_upfront_editor_l10n_server.php:47
 msgid "Bitte halte noch ein kleines bisschen länger durch."
 msgstr "Please, hold on for just a little bit more"
 
-#: functions.php:564
+#: functions.php:555
 msgid "Upfront: Externe Avatare"
 msgstr "Upfront: External avatars"
 
-#: functions.php:596
+#: functions.php:587
 msgid "Externe Avatar-Dienste (z.B. Gravatar) fuer Upfront laden"
 msgstr "Load external avatar services (e.g. Gravatar) for Upfront"
 
-#: functions.php:599
+#: functions.php:590
 msgid "Standard ist AUS. Wenn deaktiviert, nutzt Upfront nur lokale Platzhalterbilder."
 msgstr "Default is OFF. When disabled, Upfront uses local placeholder images only."
 
@@ -6965,6 +6965,7 @@ msgid "Inner Region"
 msgstr "Inner Region"
 
 #: library/servers/class_upfront_editor_l10n_server.php:588
+#: scripts/upfront/upfront-application.js:566
 msgid "Lightbox Region"
 msgstr "Lightbox Region"
 
@@ -8366,26 +8367,6 @@ msgstr "Example quotation."
 msgid "Alternatives Zitat."
 msgstr "Alternative quotation."
 
-#. Theme URI of the theme
-#: style.css
-msgid "https://psource.eimen.net/wiki/upfront-dokumentation/"
-msgstr "https://psource.eimen.net/wiki/upfront-dokumentation/"
-
-#. Description of the theme
-#: style.css
-msgid "Eine benutzerfreundliche, extrem vielseitige und unbegrenzt anpassbare Drag-and-Drop-Theme-Plattform."
-msgstr "A user-friendly, extremely versatile, and infinitely customizable drag-and-drop theme platform."
-
-#. Author of the theme
-#: style.css
-msgid "PSOURCE"
-msgstr "PSOURCE"
-
-#. Author URI of the theme
-#: style.css
-msgid "http://psource.eimen.net/"
-msgstr "http://psource.eimen.net/"
-
 #: library/admin/class_upfront_admin_codepen.php:130
 msgid "Übertrage Farben, Schriften und Typografie zwischen Deinem aktiven Upfront-Theme und kompatiblen CodePens."
 msgstr "Transfer colors, fonts, and typography between your active Upfront theme and compatible CodePens."
@@ -8906,3 +8887,27 @@ msgstr "Toggle Caption"
 #: library/servers/class_upfront_editor_l10n_server.php:364
 msgid "Telefonnummer eingeben:"
 msgstr "Enter phone number:"
+
+#: elements/upfront-youtube/lib/uyoutube.php:156
+msgid "YouTube-Inhalte bis zur ausdrücklichen Zustimmung blockieren"
+msgstr "Block YouTube content until explicit consent is given"
+
+#: elements/upfront-youtube/lib/uyoutube.php:157
+msgid "Externer Inhalt von YouTube"
+msgstr "External content from YouTube"
+
+#: elements/upfront-youtube/lib/uyoutube.php:158
+msgid "Beim Laden des Videos werden Daten an YouTube übertragen. Bitte bestätige, dass Du diesen Inhalt laden möchtest."
+msgstr "Loading this video transfers data to YouTube. Please confirm that you want to load this content."
+
+#: elements/upfront-youtube/lib/uyoutube.php:159
+msgid "YouTube-Video laden"
+msgstr "Load YouTube video"
+
+#: elements/upfront-youtube/lib/uyoutube.php:160
+msgid "Video direkt auf YouTube öffnen"
+msgstr "Open video directly on YouTube"
+
+#: elements/upfront-youtube/lib/uyoutube.php:161
+msgid "JavaScript ist deaktiviert. Du kannst das Video direkt auf YouTube öffnen."
+msgstr "JavaScript is disabled. You can open the video directly on YouTube."

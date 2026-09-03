@@ -37,7 +37,7 @@ define(['interact'], function (interact) {
 			directions = typeof handles === 'string' ? handles.split(',') : Object.keys(handles || {});
 
 		$.each(directions, function (index, rawDirection) {
-			var direction = $.trim(rawDirection),
+			var direction = (rawDirection || '').toString().trim(),
 				selector = me.getHandleSelector(direction);
 			if (!direction || me.$element.find(selector).length) return;
 			if (typeof handles === 'object') return;
@@ -54,7 +54,7 @@ define(['interact'], function (interact) {
 			me = this;
 
 		$.each(directions, function (index, rawDirection) {
-			var direction = $.trim(rawDirection),
+			var direction = (rawDirection || '').toString().trim(),
 				selector = me.getHandleSelector(direction);
 			if (direction.indexOf('n') !== -1) edges.top = selector;
 			if (direction.indexOf('e') !== -1) edges.right = selector;
