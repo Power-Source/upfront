@@ -1790,7 +1790,7 @@ define([
 
 				menuitems.push(new Upfront.Views.ContextMenuItem({
 					get_label: function() {
-						return 'Element bearbeiten';
+						return Upfront.Settings.l10n.global.views.edit_elements;
 					},
 					in_context: function() {
 						// Only show this menu on ObjectGroup instance

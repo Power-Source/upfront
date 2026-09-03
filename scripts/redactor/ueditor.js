@@ -7,6 +7,7 @@
 	], function(tpl, Inserts, redactor_plugins, InlineTooltip){
 		var hackedRedactor = false;
 		var UeditorEvents = redactor_plugins.UeditorEvents;
+		var globalL10n = Upfront.Settings.l10n.global;
 		function sanitizeLinkUrl(value) {
 			var url = String(value || '').trim();
 			var normalized = url.replace(/[\x00-\x20\x7f-\x9f]/g, '');
@@ -1334,7 +1335,7 @@
 				var me = this;
 
 				me.$el.addClass('ueditable-inactive')
-					.attr('title', 'Doppelklick um Text zu bearbeiten')
+					.attr('title', globalL10n.ueditor.double_click_to_edit)
 					.addClass('uf-click-to-edit-text')
 					.one('dblclick', function(e){
 						e.preventDefault();
@@ -2395,10 +2396,10 @@
 							'<div class="upfront-image-detail-link">' +
 							'<label class="upfront-field-label">Image links to:</label>' +
 							'<ul>' +
-							'<li><label><input class="upfront-field-radio" type="radio" ' + no_link + ' name="link_to" value="" /> Kein Link</label></li>' +
-							'<li><label><input class="upfront-field-radio" type="radio" ' + popup_link + ' name="link_to" value="popup" /> Größere Version (öffnet im Lightbox)</label></li>' +
+							'<li><label><input class="upfront-field-radio" type="radio" ' + no_link + ' name="link_to" value="" /> ' + globalL10n.content.no_link + '</label></li>' +
+							'<li><label><input class="upfront-field-radio" type="radio" ' + popup_link + ' name="link_to" value="popup" /> ' + globalL10n.content.larger_image + ' (' + globalL10n.content.open_lightbox + ')</label></li>' +
 							'<li><label><input class="upfront-field-radio" type="radio" ' + link_link + ' name="link_to" value="link" /> Link <input class="upfront-field upfront-field-text" type="text" placeholder="http://www.google.com" value="' + link_value + '" /></label></li>' +
-							'<li><label><input class="upfront-field-radio" type="radio" name="link_to" value="post" /> Beitrag oder Seite <em>/dein-toller-beitrag/</em></label></li>' +
+							'<li><label><input class="upfront-field-radio" type="radio" name="link_to" value="post" /> ' + globalL10n.content.post_or_page + ' <em>/your-great-post/</em></label></li>' +
 							'</ul>' +
 							'</div>' +
 							'<button class="upfront-image-detail-button" type="button">OK</button>'

@@ -76,7 +76,7 @@ class Upfront_Admin
 		global $menu, $submenu;
 
 		if (Upfront_Permissions::current( Upfront_Permissions::SEE_USE_DEBUG ) || Upfront_Permissions::current( Upfront_Permissions::MODIFY_RESTRICTIONS )) {
-			add_menu_page( __("Allgemeine Einstellungen", Upfront::TextDomain), __("Upfront", Upfront::TextDomain), "manage_options", self::$menu_slugs['main'], null, "", 58);
+			add_menu_page( __("Allgemeine Einstellungen", 'upfront'), __("Upfront", 'upfront'), "manage_options", self::$menu_slugs['main'], null, "", 58);
 		}
 
 		new Upfront_Admin_General();
@@ -91,7 +91,7 @@ class Upfront_Admin
 	function render_main_menu(){
 		?>
 			<div class="wrap upfront_admin">
-				<h1><?php _e("Allgemeine Einstellungen", Upfront::TextDomain); ?></h1>
+				<h1><?php _e("Allgemeine Einstellungen", 'upfront'); ?></h1>
 			</div>
 		<?php
 	}

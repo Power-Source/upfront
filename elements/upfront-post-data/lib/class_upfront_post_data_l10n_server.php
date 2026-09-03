@@ -53,7 +53,7 @@ class Upfront_PostData_L10n_Server implements IUpfront_Server {
 
 				'warning_pagination' => __('Die Kommentarpagination ist im Admin deaktiviert. Das Umschalten dieses Teils hat keine Wirkung.', 'upfront'),
 
-				'disable_for_post' => __('ür diesen Beitrag:', 'upfront'),
+				'disable_for_post' => __('Für diesen Beitrag:', 'upfront'),
 				'disable_comments' => __('Kommentare deaktivieren', 'upfront'),
 				'disable_trackbacks' => __('Trackbacks deaktivieren', 'upfront'),
 				'disable_showing' => __('Nicht anzeigen:', 'upfront'),

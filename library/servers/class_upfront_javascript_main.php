@@ -44,7 +44,13 @@ class Upfront_JavascriptMain extends Upfront_Server {
 		}
 
 		$admin = admin_url();
-		$upfront_data_url = $ajax . '?action=upfront_data';
+		$locale = function_exists('determine_locale') ? determine_locale() : get_locale();
+		$l10n_path = Upfront::get_root_dir() . '/languages/upfront-' . $locale . '.mo';
+		$upfront_data_url = add_query_arg(array(
+			'action' => 'upfront_data',
+			'locale' => $locale,
+			'l10n' => is_file($l10n_path) ? filemtime($l10n_path) : 0,
+		), $ajax);
 
 		$entities = Upfront_Entity_Registry::get_instance();
 		$registered = $entities->get_all();

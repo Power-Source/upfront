@@ -111,7 +111,7 @@ var PlainTxtElement = Upfront.Views.Editor.Sidebar.Element.extend({
 		var object = new PlainTxtModel({
 				"name": "",
 				"properties": [
-					{"name": "content", "value": "<p>Mein großartiger Platzhalterinhalt kommt hier hin</p>"}
+					{"name": "content", "value": "<p>" + Upfront.Settings.l10n.global.ueditor.default_post_content + "</p>"}
 				]
 			}),
 			module = new Upfront.Models.Module({

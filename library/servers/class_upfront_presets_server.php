@@ -615,6 +615,8 @@ abstract class Upfront_Presets_Server extends Upfront_Server {
 			'invalid_preset_label' => __('Ungültiger Preset-Name. Preset-Name sollte mit einem Buchstaben beginnen.', 'upfront'),
 			'default_preset' => __('Standard', 'upfront'),
 			'add_preset_label' => __('Preset hinzufügen', 'upfront'),
+			'menu_structure' => __('Menüstruktur', 'upfront'),
+			'add_element' => __('Element hinzufügen', 'upfront'),
 			'border' => __('Rahmen', 'upfront'),
 			'none' => __('Keine', 'upfront'),
 			'solid' => __('Solid', 'upfront'),

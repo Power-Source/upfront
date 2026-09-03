@@ -135,6 +135,8 @@
 					$body;
 
 				this.$el.html(tpl);
+				this.$el.find('.add-menu-label').text(l10n.menu_structure);
+				this.$el.find('.add-menu-item').text('+ ' + l10n.add_element);
 
 				if (this.menuId === false) return;
 

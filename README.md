@@ -2,7 +2,7 @@
 
 **Deutsch** | [English](README.en.md)
 
-[![Version](https://img.shields.io/badge/Version-1.2.3-2271b1?style=flat-square)](readme.txt)
+[![Version](https://img.shields.io/badge/Version-1.2.5-2271b1?style=flat-square)](readme.txt)
 ![PHP](https://img.shields.io/badge/PHP-8.0%2B-777bb4?style=flat-square&logo=php&logoColor=white)
 ![WordPress](https://img.shields.io/badge/WordPress-bis%207.1.0-21759b?style=flat-square&logo=wordpress&logoColor=white)
 ![ClassicPress](https://img.shields.io/badge/ClassicPress-2.7.1-03768e?style=flat-square)
@@ -272,7 +272,7 @@ npm run build-css
 npm run lint
 npm run test-js
 npm run test-php
-npm run pot
+./scripts/build-i18n.sh
 ```
 
 | Befehl | Aufgabe |
@@ -281,7 +281,7 @@ npm run pot
 | `npm run lint` | JavaScript-Syntax mit ESLint prüfen |
 | `npm run test-js` | JavaScript-Tests ausführen |
 | `npm run test-php` | PHP-Tests ausführen |
-| `npm run pot` | `languages/upfront.pot` neu generieren |
+| `./scripts/build-i18n.sh` | POT neu generieren, PO aktualisieren und MO kompilieren |
 | `npm test` | PHP- und JavaScript-Tests gemeinsam ausführen |
 
 Produktive Framework- und Element-Assets werden lokal ausgeliefert. Änderungen an SCSS-Quellen sollten zusammen mit den erzeugten CSS-Dateien eingecheckt werden.

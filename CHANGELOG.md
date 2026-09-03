@@ -1,6 +1,19 @@
 Change Log
 ============
 
+1.2.5 - 2026-09-03
+-------------------------------------------------------------------------------
+- Fix: RequireJS ordnet anonyme AMD-Module auch bei parallelem Laden zuverlässig dem aufrufenden Skript zu; Pako und direkt verwendete Editor-Abhängigkeiten verunreinigen die Modulwarteschlange nicht mehr
+- Fix: Globale Theme-Farbreferenzen wie ufc0 und ufc1 bleiben gespeichert und werden für Regionshintergründe erst bei der CSS-Ausgabe in ihre aktuellen Farbwerte aufgelöst
+- Neu: Regionsinhalte können unabhängig vom Regionshintergrund explizit auf 100 Prozent Grid-Breite gestellt werden
+- Neu: Webfonts werden serverseitig geladen, unter wp-content/uploads/upfront-fonts zwischengespeichert und anschließend ausschließlich same-origin mit font-display: swap ausgeliefert
+- Fix: Der CSS-Editor verarbeitet ACE-Inhalte nullsicher als Text und stürzt beim Einfügen von Selektoren nicht mehr an innerText.split ab
+- Fix: UI/Sprites funktioniert auch mit einem leeren ui-Ordner des aktiven Themes; erste Uploads, lokale Bildmetadaten und kontrollierte Speicherfehler werden korrekt verarbeitet
+- Fix: Der en_US-Sprachkatalog ist mit den aktuellen deutschen Quellstrings synchronisiert und stellt den Builder bei englischer Website-Sprache vollständig auf Englisch dar
+- Modernisierung: Slider, Größenänderung und Dateiupload verwenden Array.isArray statt des entfernten jQuery-Helfers $.isArray
+- Verbesserung: Schalter in den Regionseinstellungen stehen sauber untereinander und ihre Beschriftungen werden einheitlich rechts daneben dargestellt
+- Fix: Ungültige Bildeditor-CSS-Werte, fehlende Deklarationstrennung und die text-size-adjust-Kompatibilitätswarnung wurden behoben; veraltete IE-CSS-Hacks und tote Regeln wurden entfernt
+
 1.2.4 - 2026-09-02
 -------------------------------------------------------------------------------
 - Fix: Virtuelle Builder-Seiten laden WP_Screen im Frontend wieder versionskompatibel und verursachen keinen PHP-Fatal-Error mehr

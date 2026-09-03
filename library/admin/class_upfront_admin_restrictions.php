@@ -16,8 +16,8 @@ class Upfront_Admin_Restrictions extends Upfront_Admin_Page {
 		if ($this->_can_modify_restrictions()) {
 			$save_restriction = add_submenu_page(
 				"upfront",
-				__("Benutzerrechte", Upfront::TextDomain),
-				__("Benutzerrechte", Upfront::TextDomain),
+				__("Benutzerrechte", 'upfront'),
+				__("Benutzerrechte", 'upfront'),
 				'manage_options',
 				Upfront_Admin::$menu_slugs['restrictions'],
 				array($this, "render_page")
@@ -42,11 +42,11 @@ class Upfront_Admin_Restrictions extends Upfront_Admin_Page {
 		$can_edit = ( is_multisite() && is_super_admin() ) || ( current_user_can( 'manage_options' ) && Upfront_Permissions::role( $current_user_role, 'modify_restrictions' ) );
 	?>
 		<div class="wrap upfront_admin upfront_admin_restrictions">
-			<h1><?php esc_html_e("Benutzerbeschränkungen", Upfront::TextDomain); ?><span class="upfront_logo"></span></h1>
+			<h1><?php esc_html_e("Benutzerbeschränkungen", 'upfront'); ?><span class="upfront_logo"></span></h1>
 			<form action="<?php echo esc_url( add_query_arg( array("page" => "upfront_restrictions") ) ) ?>" method="post" id="upfront_restrictions_form">
 				<div id="upfront_user_restrictions_listing">
 					<ul class="upfront_user_restrictions_head">
-						<li class="upfront_restrictions_functionality_name"><?php esc_html_e("Funktionalität", Upfront::TextDomain); ?></li>
+						<li class="upfront_restrictions_functionality_name"><?php esc_html_e("Funktionalität", 'upfront'); ?></li>
 						<?php if( is_multisite() && is_super_admin() ) { ?>
 						<li class="upfront_restriction_role_administrator"><?php esc_html_e( 'Super Admin', 'upfront' ); ?></li>
 						<?php } ?>
@@ -125,7 +125,7 @@ class Upfront_Admin_Restrictions extends Upfront_Admin_Page {
 				</div>
 				<?php wp_nonce_field(self::FORM_NONCE_ACTION, self::FORM_NONCE_KEY); ?>
 				<?php if ( $can_edit ) { ?>
-				<button type="submit" name="upront_restrictions_submit" id="upront_restrictions_submit"><?php esc_attr_e("Änderungen speichern", Upfront::TextDomain); ?></button>
+				<button type="submit" name="upront_restrictions_submit" id="upront_restrictions_submit"><?php esc_attr_e("Änderungen speichern", 'upfront'); ?></button>
 				<?php } ?>
 			</form>
 		</div>
@@ -193,7 +193,7 @@ class Upfront_Admin_Restrictions extends Upfront_Admin_Page {
 
 	private function _get_cap_label( $cap_id ){
 		$labels = Upfront_Permissions::boot()->get_capability_labels();
-		return isset( $labels[$cap_id] ) ? $labels[$cap_id] : sprintf(__("Kein Label gesetzt für &quot;%s&quot;", Upfront::TextDomain), $cap_id);
+		return isset( $labels[$cap_id] ) ? $labels[$cap_id] : sprintf(__("Kein Label gesetzt für &quot;%s&quot;", 'upfront'), $cap_id);
 	}
 
 	/**

@@ -345,7 +345,7 @@ var Options = {
 					property: "full_featured_image",
 					multiple: false,
 					values: [
-						{label: 'Beitragsbild in voller Größe anzeigen', value: '1'}
+						{label: l10n.thumb.resize_to_fit, value: '1'}
 					]
 				}),
 				new Upfront.Views.Editor.Field.Select({
@@ -353,20 +353,20 @@ var Options = {
 					property: "fallback_option",
 					multiple: false,
 					values: [
-						{label: 'Bereich ausblenden', value: 'hide'},
-						{label: 'Diese Farbe verwenden', value: 'color'},
-						{label: 'Standardbild verwenden', value: 'image'}
+						{label: l10n.thumb.hide, value: 'hide'},
+						{label: l10n.thumb.use_color, value: 'color'},
+						{label: l10n.thumb.use_default_img, value: 'image'}
 					]
 				}),
 				new Upfront.Views.Editor.Field.Color({
 					model: this.model,
 					property: "fallback_color",
-					label: "Fallback-Farbe"
+					label: l10n.thumb.fallback_color
 				}),
 				new Upfront.Views.Editor.Field.Text({
 					model: this.model,
 					property: "fallback_image",
-					label: "Fallback-Bild"
+					label: l10n.thumb.fallback_image
 				})
 			];
 		}
@@ -385,10 +385,10 @@ var Options = {
 			this._fld_disable = new Upfront.Views.Editor.Field.Checkboxes({
 				model: this.model,
 				property: "disable",
-				label: "Für diesen Beitrag:",
+				label: l10n.comments.disable_for_post,
 				values: [
-					{label: 'Kommentare deaktivieren', value: 'comments'},
-					{label: 'Trackbacks deaktivieren', value: 'trackbacks'}
+					{label: l10n.comments.disable_comments, value: 'comments'},
+					{label: l10n.comments.disable_trackbacks, value: 'trackbacks'}
 				]
 			});
 
@@ -397,10 +397,10 @@ var Options = {
 				new Upfront.Views.Editor.Field.Checkboxes({
 					model: this.model,
 					property: "disable_showing",
-					label: "Nicht anzeigen:",
+					label: l10n.comments.disable_showing,
 					values: [
-						{label: 'Kommentare', value: 'comments'},
-						{label: 'Trackbacks', value: 'trackbacks'}
+						{label: l10n.comments.comments, value: 'comments'},
+						{label: l10n.comments.trackbacks, value: 'trackbacks'}
 					]
 				})
 			);
@@ -412,7 +412,7 @@ var Options = {
 					new Upfront.Views.Editor.Field.Number({
 						model: this.model,
 						property: "limit",
-						label: 'Kommentare pro Seite'
+						label: l10n.comments.limit
 					})
 				);
 			}
@@ -422,11 +422,11 @@ var Options = {
 				new Upfront.Views.Editor.Field.Radios({
 					model: this.model,
 					property: "order",
-					label: "Sortieren nach:",
+					label: l10n.comments.order,
 					values: [
-						{label: 'Datum', value: 'comment_date_gmt'},
-						{label: 'Karma', value: 'comment_karma'},
-						{label: 'Parent', value: 'comment_parent'}
+						{label: l10n.comments.date, value: 'comment_date_gmt'},
+						{label: l10n.comments.karma, value: 'comment_karma'},
+						{label: l10n.comments.parent, value: 'comment_parent'}
 					]
 				})
 			);
@@ -434,10 +434,10 @@ var Options = {
 				new Upfront.Views.Editor.Field.Radios({
 					model: this.model,
 					property: "direction",
-					label: "Richtung:",
+					label: l10n.comments.direction,
 					values: [
-						{label: 'Älteste zuerst', value: 'ASC'},
-						{label: 'Neueste zuerst', value: 'DESC'}
+						{label: l10n.comments.asc, value: 'ASC'},
+						{label: l10n.comments.desc, value: 'DESC'}
 					]
 				})
 			);

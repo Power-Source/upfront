@@ -128,8 +128,14 @@ class Upfront {
 	 */
 	public static function load_textdomain () {
 		$path = untrailingslashit(self::get_root_dir()) . '/languages';
+		$locale = apply_filters('theme_locale', determine_locale(), self::TextDomain);
+		$mofile = $path . '/' . self::TextDomain . '-' . $locale . '.mo';
 
-		load_theme_textdomain('upfront', $path);
+		if (is_readable($mofile)) {
+			load_textdomain(self::TextDomain, $mofile, $locale);
+		} else {
+			load_theme_textdomain(self::TextDomain, $path);
+		}
 
 		// Now let's try the child theme...
 		$current = wp_get_theme();
@@ -379,7 +385,16 @@ class Upfront {
 		$require_source = 'scripts/require.js';
 		$require_source_path = dirname(__FILE__) . '/' . $require_source;
 		$script_urls[] = add_query_arg('mtime', filemtime($require_source_path), "{$url}/{$require_source}");
-		$script_urls[] = admin_url('admin-ajax.php?action=upfront_load_main&ufver=' . $upfront->version . $is_ssl);
+		$locale = function_exists('determine_locale') ? determine_locale() : get_locale();
+		$l10n_path = dirname(__FILE__) . '/languages/upfront-' . $locale . '.mo';
+		$main_args = array(
+			'action' => 'upfront_load_main',
+			'ufver' => $upfront->version,
+			'locale' => $locale,
+			'l10n' => is_file($l10n_path) ? filemtime($l10n_path) : 0,
+		);
+		if (is_ssl()) $main_args['ssl'] = 1;
+		$script_urls[] = add_query_arg($main_args, admin_url('admin-ajax.php'));
 		$main_source_path = dirname(__FILE__) . '/' . $main_source;
 		$script_urls[] = add_query_arg('mtime', filemtime($main_source_path), "{$url}/{$main_source}");
 

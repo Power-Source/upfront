@@ -4,7 +4,7 @@ class Upfront_Admin_General extends Upfront_Admin_Page {
 
 	function __construct(){
 		if ($this->_can_access( Upfront_Permissions::SEE_USE_DEBUG )) {
-			add_submenu_page( Upfront_Admin::$menu_slugs['main'], __("Allgemeine Einstellungen", Upfront::TextDomain), __("Allgemein", Upfront::TextDomain), 'manage_options', Upfront_Admin::$menu_slugs['main'], array($this, "render_page") );
+			add_submenu_page( Upfront_Admin::$menu_slugs['main'], __("Allgemeine Einstellungen", 'upfront'), __("Allgemein", 'upfront'), 'manage_options', Upfront_Admin::$menu_slugs['main'], array($this, "render_page") );
 		}
 	}
 
@@ -23,17 +23,17 @@ class Upfront_Admin_General extends Upfront_Admin_Page {
 		}
 		?>
 		<div class="wrap upfront_admin upfront-general-settings">
-			<h1><?php esc_html_e("Allgemeine Einstellungen", Upfront::TextDomain); ?><span class="upfront_logo"></span></h1>
+			<h1><?php esc_html_e("Allgemeine Einstellungen", 'upfront'); ?><span class="upfront_logo"></span></h1>
 			<div class="upfront-col-left">
 				<div class="postbox-container version-info">
 					<div class='postbox'>
-						<h2 class="title"><?php esc_html_e("Versions-Info", Upfront::TextDomain) ?></h2>
+						<h2 class="title"><?php esc_html_e("Versions-Info", 'upfront') ?></h2>
 						<div class="inside version-info">
 							<div class="upfront-debug-block">
 								Upfront <span>V <?php echo esc_html($core_version); ?></span>
 							</div>
 							<div class="upfront-debug-block">
-								<?php echo esc_html(sprintf(__('%s (Aktives Theme)', Upfront::TextDomain), $current->Name)); ?>
+								<?php echo esc_html(sprintf(__('%s (Aktives Theme)', 'upfront'), $current->Name)); ?>
 									<span>V <?php echo esc_html($child_version); ?></span>
 							</div>
 
@@ -51,32 +51,32 @@ class Upfront_Admin_General extends Upfront_Admin_Page {
 				<?php Upfront_Admin_Theme_Catalog::get_instance()->render(); ?>
 				<div class="postbox-container helpful-resources">
 					<div class='postbox'>
-						<h2 class="title"><?php esc_html_e("Hilfreiche Resourcen", Upfront::TextDomain) ?></h2>
+						<h2 class="title"><?php esc_html_e("Hilfreiche Resourcen", 'upfront') ?></h2>
 						<div class="inside">
 							<div class="upfront-debug-block">
 								<a target="_blank" href="https://psource.eimen.net/wiki/upfront-dokumentation/" class="documentation">Upfront Dokumentation</a> <a target="_blank" href="https://psource.eimen.net/wiki/upfront-dokumentation/upfront-builder-dokumentation/" class="documentation">Erstelle Upfront Themes</a> <a target="_blank" href="https://psource.eimen.net/wiki/psource-manager-dokumentation/" class="documentation">PSOURCE MANAGER</a>
 							</div>
 							<div class="upfront-debug-block">
-								<h4><?php esc_html_e("UpFront Wiki", Upfront::TextDomain) ?></h4>
+								<h4><?php esc_html_e("UpFront Wiki", 'upfront') ?></h4>
 								<ul>
 
-									<li><a href='https://psource.eimen.net/wiki/upfront-dokumentation/' target="_blank"><?php esc_html_e("Upfront 1.0", Upfront::TextDomain) ?></a></li>
-									<li><a href='https://psource.eimen.net/wiki/upfront-dokumentation/upfront-part-1-die-basics-themefarben-und-schriftarten/' target="_blank"><?php esc_html_e("Upfront Part 1: Die Basics, Themefarben und Schriftarten", Upfront::TextDomain) ?></a></li>
-									<li><a href='https://psource.eimen.net/wiki/upfront-dokumentation/upfront-teil-2-strukturierung-deiner-webseite-mit-bereichen/' target="_blank"><?php esc_html_e("Upfront Teil 2: Strukturierung Deiner Webseite mit Bereichen", Upfront::TextDomain) ?></a></li>
-									<li><a href='https://psource.eimen.net/wiki/upfront-dokumentation/upfront-teil-3-layout-deiner-webseite-mit-elementen/' target="_blank"><?php esc_html_e("Upfront Teil 3: Layout Deiner Webseite mit Elementen", Upfront::TextDomain) ?></a></li>
-									<li><a href='https://psource.eimen.net/wiki/upfront-dokumentation/upfront-teil-4-elemente-mit-individuellem-code-anpassen/' target="_blank"><?php esc_html_e("Upfront Teil 4: Elemente mit individuellem Code anpassen", Upfront::TextDomain) ?></a></li>
-									<li><a href='https://psource.eimen.net/wiki/upfront-dokumentation/upfront-teil-5-plugins-hinzufuegen-und-powerform-formulare-stylen/' target="_blank"><?php esc_html_e("Upfront Teil 5: Plugins hinzufügen und Powerform Formulare stylen", Upfront::TextDomain) ?></a></li>
-									<li><a href='https://psource.eimen.net/wiki/upfront-dokumentation/upfront-teil-6-erstellung-von-responsiven-webseiten/' target="_blank"><?php esc_html_e("Upfront Teil 6: Erstellung von responsiven Webseiten", Upfront::TextDomain) ?></a></li>
-									<li><a href='https://psource.eimen.net/wiki/upfront-dokumentation/upfront-teil-7-arbeiten-mit-seiten-und-beitraegen/' target="_blank"><?php esc_html_e("Upfront Teil 7: Arbeiten mit Seiten und Beiträgen", Upfront::TextDomain) ?></a></li>
+									<li><a href='https://psource.eimen.net/wiki/upfront-dokumentation/' target="_blank"><?php esc_html_e("Upfront 1.0", 'upfront') ?></a></li>
+									<li><a href='https://psource.eimen.net/wiki/upfront-dokumentation/upfront-part-1-die-basics-themefarben-und-schriftarten/' target="_blank"><?php esc_html_e("Upfront Part 1: Die Basics, Themefarben und Schriftarten", 'upfront') ?></a></li>
+									<li><a href='https://psource.eimen.net/wiki/upfront-dokumentation/upfront-teil-2-strukturierung-deiner-webseite-mit-bereichen/' target="_blank"><?php esc_html_e("Upfront Teil 2: Strukturierung Deiner Webseite mit Bereichen", 'upfront') ?></a></li>
+									<li><a href='https://psource.eimen.net/wiki/upfront-dokumentation/upfront-teil-3-layout-deiner-webseite-mit-elementen/' target="_blank"><?php esc_html_e("Upfront Teil 3: Layout Deiner Webseite mit Elementen", 'upfront') ?></a></li>
+									<li><a href='https://psource.eimen.net/wiki/upfront-dokumentation/upfront-teil-4-elemente-mit-individuellem-code-anpassen/' target="_blank"><?php esc_html_e("Upfront Teil 4: Elemente mit individuellem Code anpassen", 'upfront') ?></a></li>
+									<li><a href='https://psource.eimen.net/wiki/upfront-dokumentation/upfront-teil-5-plugins-hinzufuegen-und-powerform-formulare-stylen/' target="_blank"><?php esc_html_e("Upfront Teil 5: Plugins hinzufügen und Powerform Formulare stylen", 'upfront') ?></a></li>
+									<li><a href='https://psource.eimen.net/wiki/upfront-dokumentation/upfront-teil-6-erstellung-von-responsiven-webseiten/' target="_blank"><?php esc_html_e("Upfront Teil 6: Erstellung von responsiven Webseiten", 'upfront') ?></a></li>
+									<li><a href='https://psource.eimen.net/wiki/upfront-dokumentation/upfront-teil-7-arbeiten-mit-seiten-und-beitraegen/' target="_blank"><?php esc_html_e("Upfront Teil 7: Arbeiten mit Seiten und Beiträgen", 'upfront') ?></a></li>
 								</ul>
 							</div>
 							<div class="upfront-debug-block">
-								<h4><?php _e("PSOURCE Hilfe", Upfront::TextDomain) ?></h4>
-								<a class="upfront_button visit-forum" href="https://psource.eimen.net/" target="_blank"><?php esc_html_e("Besuche unsere Webseite", Upfront::TextDomain) ?></a> <a class="upfront_button" href="https://github.com/Power-Source/upfront" target="_blank"><?php esc_html_e("Hilf auf GitHub mit", Upfront::TextDomain) ?></a> <a class="upfront_button find-themes" href="https://psource.eimen.net/ps-upfront-theme-framework/ps-upfront-themes/" target="_blank"><?php esc_html_e("FINDE UPFRONT THEMES", Upfront::TextDomain) ?></a>
+								<h4><?php _e("PSOURCE Hilfe", 'upfront') ?></h4>
+								<a class="upfront_button visit-forum" href="https://psource.eimen.net/" target="_blank"><?php esc_html_e("Besuche unsere Webseite", 'upfront') ?></a> <a class="upfront_button" href="https://github.com/Power-Source/upfront" target="_blank"><?php esc_html_e("Hilf auf GitHub mit", 'upfront') ?></a> <a class="upfront_button find-themes" href="https://psource.eimen.net/ps-upfront-theme-framework/ps-upfront-themes/" target="_blank"><?php esc_html_e("FINDE UPFRONT THEMES", 'upfront') ?></a>
 							</div>
 							<div class="upfront-debug-block">
-								<h4><?php esc_html_e('Theme-Werkzeuge', Upfront::TextDomain); ?></h4>
-								<a class="upfront_button" href="<?php echo esc_url(admin_url('admin.php?page=' . Upfront_Admin::$menu_slugs['codepen'])); ?>"><?php esc_html_e('CodePen-Styleguide erstellen', Upfront::TextDomain); ?></a>
+								<h4><?php esc_html_e('Theme-Werkzeuge', 'upfront'); ?></h4>
+								<a class="upfront_button" href="<?php echo esc_url(admin_url('admin.php?page=' . Upfront_Admin::$menu_slugs['codepen'])); ?>"><?php esc_html_e('CodePen-Styleguide erstellen', 'upfront'); ?></a>
 							</div>
 						</div>
 					</div>
@@ -99,7 +99,7 @@ class Upfront_Admin_General extends Upfront_Admin_Page {
 		?>
 <div class="postbox-container api_keys">
 	<div class='postbox'>
-		<h2 class="title"><?php esc_html_e("API Schlüssel", Upfront::TextDomain) ?></h2>
+		<h2 class="title"><?php esc_html_e("API Schlüssel", 'upfront') ?></h2>
 		<div class="inside api_keys">
 			<form method="POST">
 				<?php
@@ -132,7 +132,7 @@ class Upfront_Admin_General extends Upfront_Admin_Page {
 		?>
 <div class="postbox-container response_caching">
 	<div class='postbox'>
-		<h2 class="title"><?php esc_html_e("Anforderungswarteschlange und Caching-Strategie", Upfront::TextDomain) ?></h2>
+		<h2 class="title"><?php esc_html_e("Anforderungswarteschlange und Caching-Strategie", 'upfront') ?></h2>
 		<div class="inside api_keys">
 			<form method="POST">
 				<?php
@@ -161,17 +161,17 @@ class Upfront_Admin_General extends Upfront_Admin_Page {
 		?>
 		<div class="postbox-container debug-options">
 			<div class='postbox'>
-				<h2 class="title"><?php esc_html_e("Debug-Optionen", Upfront::TextDomain) ?></h2>
+				<h2 class="title"><?php esc_html_e("Debug-Optionen", 'upfront') ?></h2>
 				<div class="inside debug-options">
 					<div class="upfront-debug-block lightgrey">
-						<p><?php printf( __('Hier findest Du verschiedene Debug-Hilfen, die Du ausprobieren kannst, wenn etwas schief geht. Bevor Du die untenstehenden Optionen ausprobierst, stelle bitte sicher, dass Du einen <a target="_blank" href="%s"><strong>Leeren Cache &amp; Hard Reload</strong></a> durchgeführt hast, das löst normalerweise die meisten Probleme.', Upfront::TextDomain ), "http://refreshyourcache.com/en/home/"); ?> </p>
+						<p><?php printf( __('Hier findest Du verschiedene Debug-Hilfen, die Du ausprobieren kannst, wenn etwas schief geht. Bevor Du die untenstehenden Optionen ausprobierst, stelle bitte sicher, dass Du einen <a target="_blank" href="%s"><strong>Leeren Cache &amp; Hard Reload</strong></a> durchgeführt hast, das löst normalerweise die meisten Probleme.', 'upfront' ), "http://refreshyourcache.com/en/home/"); ?> </p>
 					</div>
 					<div class="upfront-debug-block">
-						<p class="left"><?php esc_html_e("Kann nach Core-Upgrades hilfreich sein.", Upfront::TextDomain) ?></p>
-						<button id="upfront_reset_cache"><?php esc_html_e("Upfront Cache leeren", Upfront::TextDomain) ?></button>
+						<p class="left"><?php esc_html_e("Kann nach Core-Upgrades hilfreich sein.", 'upfront') ?></p>
+						<button id="upfront_reset_cache"><?php esc_html_e("Upfront Cache leeren", 'upfront') ?></button>
 					</div>
 					<div class="upfront-debug-block exclude-google-maps-api">
-						<p class="left"><?php esc_html_e( 'Google Maps API ausschließen', Upfront::TextDomain ) ?></p>
+						<p class="left"><?php esc_html_e( 'Google Maps API ausschließen', 'upfront' ) ?></p>
 						<div class="upfront_toggle right">
 							<input value="1" type="checkbox" name="upfront_exclude_google_maps_api" class="upfront_toggle_checkbox" id="upfront_exclude_google_maps_api" <?php checked( true, $exclude_google_maps_api ); ?> data-current="<?php echo $exclude_google_maps_api;?>">
 							<label class="upfront_toggle_label" for="upfront_exclude_google_maps_api">
@@ -181,7 +181,7 @@ class Upfront_Admin_General extends Upfront_Admin_Page {
 						</div>
 					</div>
 					<div class="upfront-debug-block external-avatars">
-						<p class="left"><?php esc_html_e( 'Externe Avatare laden', Upfront::TextDomain ) ?></p>
+						<p class="left"><?php esc_html_e( 'Externe Avatare laden', 'upfront' ) ?></p>
 						<div class="upfront_toggle right">
 							<input value="1" type="checkbox" name="upfront_external_avatars_enabled" class="upfront_toggle_checkbox" id="upfront_external_avatars_enabled" <?php checked( true, $external_avatars_enabled ); ?> data-current="<?php echo $external_avatars_enabled;?>">
 							<label class="upfront_toggle_label" for="upfront_external_avatars_enabled">
@@ -189,18 +189,18 @@ class Upfront_Admin_General extends Upfront_Admin_Page {
 								<span class="upfront_toggle_switch"></span>
 							</label>
 						</div>
-						<p class="left"><small><?php esc_html_e( 'Aus: nur lokale Platzhalterbilder. An: Gravatar/andere externe Avatar-Dienste laden.', Upfront::TextDomain ) ?></small></p>
+						<p class="left"><small><?php esc_html_e( 'Aus: nur lokale Platzhalterbilder. An: Gravatar/andere externe Avatar-Dienste laden.', 'upfront' ) ?></small></p>
 					</div>
 					<div class="upfront-debug-block lightgrey">
 						<p class="left">
-							<small><?php esc_html_e("Setzt das Layout auf das Standard-Erscheinungsbild zurück – Vorsicht!", Upfront::TextDomain) ?></small>
+							<small><?php esc_html_e("Setzt das Layout auf das Standard-Erscheinungsbild zurück – Vorsicht!", 'upfront') ?></small>
 						</p>
 						<div class="upfront-layout-reset">
 							<?php
 							$db_layouts = Upfront_Server_PageLayout::get_instance()->parse_theme_layouts(Upfront_Debug::get_debugger()->is_dev());
 							if( $db_layouts ): ?>
 								<select class="upfront-layouts-list">
-									<option value="0"><?php esc_html_e("Bitte wähle ein Layout zum Zurücksetzen", Upfront::TextDomain); ?></option>
+									<option value="0"><?php esc_html_e("Bitte wähle ein Layout zum Zurücksetzen", 'upfront'); ?></option>
 									<?php ; foreach( $db_layouts as $key => $item ): ?>
 										<option value="<?php echo (is_array($item)) ? esc_attr($item['name']) : esc_attr($item); ?>"><?php echo esc_html(Upfront_Server_PageLayout::get_instance()->db_layout_to_name($item)); ?></option>
 									<?php endforeach; ?>
@@ -213,18 +213,18 @@ class Upfront_Admin_General extends Upfront_Admin_Page {
 											<span class="upfront_toggle_switch"></span>
 										</label>
 									</div>
-									<small><?php esc_html_e("Globale Bereiche einbeziehen", Upfront::TextDomain); ?></small>
+									<small><?php esc_html_e("Globale Bereiche einbeziehen", 'upfront'); ?></small>
 								</div>
 							<?php else: ?>
-								<h4><?php esc_html_e("Du hast kein gespeichertes Layout zum Zurücksetzen", Upfront::TextDomain); ?></h4>
+								<h4><?php esc_html_e("Du hast kein gespeichertes Layout zum Zurücksetzen", 'upfront'); ?></h4>
 							<?php endif; ?>
 						</div>
-						<button id="upfront_reset_layout" disabled="disabled" data-dev="<?php echo (int)Upfront_Debug::get_debugger()->is_dev();?>"><?php esc_html_e("Layout zurücksetzen", Upfront::TextDomain) ?></button>
+						<button id="upfront_reset_layout" disabled="disabled" data-dev="<?php echo (int)Upfront_Debug::get_debugger()->is_dev();?>"><?php esc_html_e("Layout zurücksetzen", 'upfront') ?></button>
 					</div>
 					<div class="upfront-debug-block">
-						<p class="left"><?php esc_html_e("Theme auf Standardzustand zurücksetzen", Upfront::TextDomain) ?></p>
-						<p class="left"><?php _e('<small><strong class="warning-text">ACHTUNG:</strong> Dies setzt Dein aktives Theme auf den Zustand zurück, in dem es sich bei der ersten Installation befand. Dies kann nicht rückgängig gemacht werden, also bitte vorher sichern.</small>', Upfront::TextDomain); ?></p>
-						<button class="warning" id="upfront_reset_theme"><?php esc_html_e("Theme zurücksetzen", Upfront::TextDomain) ?></button>
+						<p class="left"><?php esc_html_e("Theme auf Standardzustand zurücksetzen", 'upfront') ?></p>
+						<p class="left"><?php _e('<small><strong class="warning-text">ACHTUNG:</strong> Dies setzt Dein aktives Theme auf den Zustand zurück, in dem es sich bei der ersten Installation befand. Dies kann nicht rückgängig gemacht werden, also bitte vorher sichern.</small>', 'upfront'); ?></p>
+						<button class="warning" id="upfront_reset_theme"><?php esc_html_e("Theme zurücksetzen", 'upfront') ?></button>
 					</div>
 				</div>
 			</div>
@@ -247,9 +247,9 @@ class Upfront_Admin_General extends Upfront_Admin_Page {
 		?>
 		<div class="postbox-container under-construction">
 			<div class='postbox'>
-				<h2 class="title"><?php esc_html_e("Website-Wartung", Upfront::TextDomain) ?></h2>
+				<h2 class="title"><?php esc_html_e("Website-Wartung", 'upfront') ?></h2>
 				<div class="inside">
-					<p class="label"><?php esc_html_e("Wartungsmodus der Website aktivieren", Upfront::TextDomain) ?></p>
+					<p class="label"><?php esc_html_e("Wartungsmodus der Website aktivieren", 'upfront') ?></p>
 					<div class="upfront_toggle">
 						<input value="1" type="checkbox" name="upfront_under_construction" class="upfront_toggle_checkbox" id="upfront_under_construction" <?php checked(true, $enable_maintenance_mode ); ?> data-current="<?php echo $enable_maintenance_mode;?>" >
 						<label class="upfront_toggle_label" for="upfront_under_construction">
@@ -265,7 +265,7 @@ class Upfront_Admin_General extends Upfront_Admin_Page {
 						) . '</span>';
 					}
 					?>
-					<p><button id="upfront_save_under_construction" disabled="disabled"><?php esc_html_e("Speichern", Upfront::TextDomain) ?></button></p>
+					<p><button id="upfront_save_under_construction" disabled="disabled"><?php esc_html_e("Speichern", 'upfront') ?></button></p>
 				</div>
 			</div>
 		</div>
@@ -281,7 +281,7 @@ class Upfront_Admin_General extends Upfront_Admin_Page {
 		?>
 		<div class="postbox-container changelog">
 			<div class='postbox'>
-				<h2 class="title"><?php esc_html_e("Changelog", Upfront::TextDomain) ?></h2>
+				<h2 class="title"><?php esc_html_e("Changelog", 'upfront') ?></h2>
 				<div class="inside changelog">
 				<?php
 					reset($changelog);

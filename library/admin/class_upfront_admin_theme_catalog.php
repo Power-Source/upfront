@@ -35,16 +35,16 @@ class Upfront_Admin_Theme_Catalog {
 		?>
 		<div class="postbox-container upfront-theme-catalog">
 			<div class="postbox">
-				<h2 class="title"><?php esc_html_e('Upfront Theme-Katalog', Upfront::TextDomain); ?></h2>
+				<h2 class="title"><?php esc_html_e('Upfront Theme-Katalog', 'upfront'); ?></h2>
 				<div class="inside">
 					<?php if ($notice) { ?>
 						<div class="notice notice-<?php echo esc_attr($notice['type']); ?> inline"><p><?php echo esc_html($notice['message']); ?></p></div>
 					<?php } ?>
-					<p class="description"><?php esc_html_e('Entdecke freigegebene Upfront-Child-Themes von PSOURCE und installiere sie direkt.', Upfront::TextDomain); ?></p>
+					<p class="description"><?php esc_html_e('Entdecke freigegebene Upfront-Child-Themes von PSOURCE und installiere sie direkt.', 'upfront'); ?></p>
 					<?php if (is_wp_error($catalog)) { ?>
 						<div class="notice notice-error inline"><p><?php echo esc_html($catalog->get_error_message()); ?></p></div>
 					<?php } elseif (empty($catalog)) { ?>
-						<p><?php esc_html_e('Aktuell sind keine installierbaren Upfront-Themes verfügbar.', Upfront::TextDomain); ?></p>
+						<p><?php esc_html_e('Aktuell sind keine installierbaren Upfront-Themes verfügbar.', 'upfront'); ?></p>
 					<?php } else { ?>
 						<div class="upfront-theme-catalog-grid">
 							<?php foreach ($catalog as $theme) $this->_render_theme($theme); ?>
@@ -69,22 +69,22 @@ class Upfront_Admin_Theme_Catalog {
 			</div>
 			<div class="upfront-theme-catalog-content">
 				<h3><?php echo esc_html($theme['name']); ?></h3>
-				<p class="upfront-theme-catalog-meta"><?php echo esc_html(sprintf(__('Version %1$s von %2$s', Upfront::TextDomain), $theme['version'], $theme['author'])); ?></p>
+				<p class="upfront-theme-catalog-meta"><?php echo esc_html(sprintf(__('Version %1$s von %2$s', 'upfront'), $theme['version'], $theme['author'])); ?></p>
 				<p><?php echo esc_html($theme['description']); ?></p>
 				<div class="upfront-theme-catalog-actions">
 					<?php if ($installed) { ?>
-						<span class="upfront-theme-installed"><span class="dashicons dashicons-yes-alt" aria-hidden="true"></span><?php esc_html_e('Installiert', Upfront::TextDomain); ?></span>
+						<span class="upfront-theme-installed"><span class="dashicons dashicons-yes-alt" aria-hidden="true"></span><?php esc_html_e('Installiert', 'upfront'); ?></span>
 					<?php } elseif (current_user_can('install_themes')) { ?>
 						<form action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
 							<input type="hidden" name="action" value="upfront_install_catalog_theme">
 							<input type="hidden" name="theme" value="<?php echo esc_attr($theme['slug']); ?>">
 							<input type="hidden" name="commit" value="<?php echo esc_attr($theme['commit']); ?>">
 							<?php wp_nonce_field('upfront_install_catalog_theme_' . $theme['slug']); ?>
-							<button type="submit" class="button button-primary"><?php esc_html_e('Installieren', Upfront::TextDomain); ?></button>
+							<button type="submit" class="button button-primary"><?php esc_html_e('Installieren', 'upfront'); ?></button>
 						</form>
 					<?php } ?>
 					<?php if ($theme['theme_uri']) { ?>
-						<a class="button" href="<?php echo esc_url($theme['theme_uri']); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Details', Upfront::TextDomain); ?></a>
+						<a class="button" href="<?php echo esc_url($theme['theme_uri']); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Details', 'upfront'); ?></a>
 					<?php } ?>
 				</div>
 			</div>
@@ -121,7 +121,7 @@ class Upfront_Admin_Theme_Catalog {
 				'commit' => $commit,
 				'name' => $headers['Name'],
 				'description' => $headers['Description'],
-				'version' => $headers['Version'] ?: __('Unbekannt', Upfront::TextDomain),
+				'version' => $headers['Version'] ?: __('Unbekannt', 'upfront'),
 				'author' => $headers['Author'] ?: self::ORGANIZATION,
 				'theme_uri' => esc_url_raw($headers['ThemeURI'] ?: $repository['html_url']),
 				'screenshot' => $this->_cache_screenshot($slug, $commit),
@@ -146,12 +146,12 @@ class Upfront_Admin_Theme_Catalog {
 		if (is_wp_error($response)) return $response;
 
 		$data = json_decode(wp_remote_retrieve_body($response), true);
-		if (!is_array($data)) return new WP_Error('upfront_catalog_invalid_json', __('Der Theme-Katalog hat ungültige Daten geliefert.', Upfront::TextDomain));
+		if (!is_array($data)) return new WP_Error('upfront_catalog_invalid_json', __('Der Theme-Katalog hat ungültige Daten geliefert.', 'upfront'));
 		return $data;
 	}
 
 	private function _get_remote_headers($slug, $commit) {
-		if (!$this->_is_slug($slug) || !$this->_is_commit($commit)) return new WP_Error('upfront_catalog_invalid_theme', __('Ungültiges Theme.', Upfront::TextDomain));
+		if (!$this->_is_slug($slug) || !$this->_is_commit($commit)) return new WP_Error('upfront_catalog_invalid_theme', __('Ungültiges Theme.', 'upfront'));
 
 		$url = sprintf('https://raw.githubusercontent.com/%s/%s/%s/style.css', self::ORGANIZATION, $slug, $commit);
 		$response = $this->_request($url, 16384, 0);
@@ -193,7 +193,7 @@ class Upfront_Admin_Theme_Catalog {
 			),
 		));
 		if (is_wp_error($response)) return $response;
-		if (200 !== wp_remote_retrieve_response_code($response)) return new WP_Error('upfront_catalog_http_error', __('Der Theme-Katalog ist derzeit nicht erreichbar.', Upfront::TextDomain));
+		if (200 !== wp_remote_retrieve_response_code($response)) return new WP_Error('upfront_catalog_http_error', __('Der Theme-Katalog ist derzeit nicht erreichbar.', 'upfront'));
 		return $response;
 	}
 
@@ -228,8 +228,8 @@ class Upfront_Admin_Theme_Catalog {
 
 	public function install_theme() {
 		if (!current_user_can('install_themes')) wp_die(
-			esc_html__('Du darfst keine Themes installieren.', Upfront::TextDomain),
-			esc_html__('Zugriff verweigert', Upfront::TextDomain),
+			esc_html__('Du darfst keine Themes installieren.', 'upfront'),
+			esc_html__('Zugriff verweigert', 'upfront'),
 			array('response' => 403)
 		);
 
@@ -237,13 +237,13 @@ class Upfront_Admin_Theme_Catalog {
 		$commit = isset($_POST['commit']) ? sanitize_text_field(wp_unslash($_POST['commit'])) : '';
 		check_admin_referer('upfront_install_catalog_theme_' . $slug);
 
-		if (!$this->_is_slug($slug) || !$this->_is_commit($commit)) $this->_redirect('error', __('Ungültige Installationsanfrage.', Upfront::TextDomain));
+		if (!$this->_is_slug($slug) || !$this->_is_commit($commit)) $this->_redirect('error', __('Ungültige Installationsanfrage.', 'upfront'));
 		$theme = $this->_find_catalog_theme($slug, $commit);
-		if (!$theme) $this->_redirect('error', __('Dieses Theme ist nicht im freigegebenen Katalog enthalten.', Upfront::TextDomain));
-		if (wp_get_theme($slug)->exists()) $this->_redirect('warning', __('Dieses Theme ist bereits installiert.', Upfront::TextDomain));
+		if (!$theme) $this->_redirect('error', __('Dieses Theme ist nicht im freigegebenen Katalog enthalten.', 'upfront'));
+		if (wp_get_theme($slug)->exists()) $this->_redirect('warning', __('Dieses Theme ist bereits installiert.', 'upfront'));
 
 		$headers = $this->_get_remote_headers($slug, $commit);
-		if (is_wp_error($headers) || !$this->_is_upfront_theme($headers)) $this->_redirect('error', __('Das Paket ist kein gültiges Upfront-Child-Theme.', Upfront::TextDomain));
+		if (is_wp_error($headers) || !$this->_is_upfront_theme($headers)) $this->_redirect('error', __('Das Paket ist kein gültiges Upfront-Child-Theme.', 'upfront'));
 
 		require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 		$this->_installing_slug = $slug;
@@ -254,8 +254,8 @@ class Upfront_Admin_Theme_Catalog {
 		$this->_installing_slug = '';
 
 		if (is_wp_error($result)) $this->_redirect('error', $result->get_error_message());
-		if (!$result || !wp_get_theme($slug)->exists()) $this->_redirect('error', __('Das Theme konnte nicht installiert werden.', Upfront::TextDomain));
-		$this->_redirect('success', sprintf(__('%s wurde erfolgreich installiert.', Upfront::TextDomain), $theme['name']));
+		if (!$result || !wp_get_theme($slug)->exists()) $this->_redirect('error', __('Das Theme konnte nicht installiert werden.', 'upfront'));
+		$this->_redirect('success', sprintf(__('%s wurde erfolgreich installiert.', 'upfront'), $theme['name']));
 	}
 
 	private function _find_catalog_theme($slug, $commit) {
@@ -271,17 +271,17 @@ class Upfront_Admin_Theme_Catalog {
 		if (!$this->_installing_slug) return $source;
 
 		global $wp_filesystem;
-		if (!$wp_filesystem || !$wp_filesystem->is_dir($source)) return new WP_Error('upfront_catalog_invalid_source', __('Das Theme-Paket konnte nicht geprüft werden.', Upfront::TextDomain));
+		if (!$wp_filesystem || !$wp_filesystem->is_dir($source)) return new WP_Error('upfront_catalog_invalid_source', __('Das Theme-Paket konnte nicht geprüft werden.', 'upfront'));
 		$stylesheet = trailingslashit($source) . 'style.css';
-		if (!$wp_filesystem->is_file($stylesheet) || !$wp_filesystem->is_readable($stylesheet)) return new WP_Error('upfront_catalog_missing_stylesheet', __('Das Paket enthält keine style.css im Theme-Stammverzeichnis.', Upfront::TextDomain));
+		if (!$wp_filesystem->is_file($stylesheet) || !$wp_filesystem->is_readable($stylesheet)) return new WP_Error('upfront_catalog_missing_stylesheet', __('Das Paket enthält keine style.css im Theme-Stammverzeichnis.', 'upfront'));
 		$contents = $wp_filesystem->get_contents($stylesheet);
-		if (false === $contents) return new WP_Error('upfront_catalog_unreadable_stylesheet', __('Die style.css des Themes konnte nicht gelesen werden.', Upfront::TextDomain));
+		if (false === $contents) return new WP_Error('upfront_catalog_unreadable_stylesheet', __('Die style.css des Themes konnte nicht gelesen werden.', 'upfront'));
 		$headers = $this->_parse_headers($contents);
-		if (!$this->_is_upfront_theme($headers)) return new WP_Error('upfront_catalog_invalid_parent', __('Das Paket ist kein gültiges Upfront-Child-Theme.', Upfront::TextDomain));
+		if (!$this->_is_upfront_theme($headers)) return new WP_Error('upfront_catalog_invalid_parent', __('Das Paket ist kein gültiges Upfront-Child-Theme.', 'upfront'));
 
 		$destination = trailingslashit($remote_source) . $this->_installing_slug;
-		if ($wp_filesystem->exists($destination)) return new WP_Error('upfront_catalog_destination_exists', __('Das Theme-Verzeichnis existiert bereits.', Upfront::TextDomain));
-		if (!$wp_filesystem->move($source, $destination, true)) return new WP_Error('upfront_catalog_move_failed', __('Das Theme-Paket konnte nicht vorbereitet werden.', Upfront::TextDomain));
+		if ($wp_filesystem->exists($destination)) return new WP_Error('upfront_catalog_destination_exists', __('Das Theme-Verzeichnis existiert bereits.', 'upfront'));
+		if (!$wp_filesystem->move($source, $destination, true)) return new WP_Error('upfront_catalog_move_failed', __('Das Theme-Paket konnte nicht vorbereitet werden.', 'upfront'));
 		return trailingslashit($destination);
 	}
 
