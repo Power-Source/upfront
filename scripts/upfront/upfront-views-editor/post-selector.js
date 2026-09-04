@@ -159,7 +159,7 @@
                     this.fetch({search: s, flush: true});
                 }
                 else
-                    this.$('.search_container input').focus();
+                    this.$('.search_container input').trigger('focus');
             },
             inputSearch: function(e){
                 if(e.which == 13)

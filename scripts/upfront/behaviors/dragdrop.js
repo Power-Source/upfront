@@ -233,7 +233,7 @@ DragDrop.prototype = {
 
 	update_vars: function () {
 		var regions = this.app.layout.get("regions");
-		this.$helper = $('.ui-draggable-dragging');
+		this.$helper = this.ui && this.ui.helper ? this.ui.helper : this.$me;
 		this.$wrap = this.$me.closest('.upfront-wrapper');
 		this.$region = this.$me.closest('.upfront-region');
 		this.me = this.ed.get_el(this.$me);

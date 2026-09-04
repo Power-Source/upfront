@@ -3,6 +3,16 @@ var assert = require('assert'),
 	path = require('path');
 
 describe('Redactor links', function () {
+	it('uses pointer events instead of the jQuery UI draggable adapter for modals', function () {
+		var source = fs.readFileSync(path.join(__dirname, '../../scripts/redactor/redactor.js'), 'utf8'),
+			setDraggableStart = source.indexOf('setDraggable: function()'),
+			setDraggableEnd = source.indexOf('setEnter: function(e)', setDraggableStart),
+			setDraggableSource = source.slice(setDraggableStart, setDraggableEnd);
+
+		assert.notEqual(setDraggableSource.indexOf("header.addEventListener('pointerdown', pointerDown)"), -1);
+		assert.equal(setDraggableSource.indexOf('.draggable('), -1);
+	});
+
 	it('saves the text selection before the link button can take focus', function () {
 		var source = fs.readFileSync(path.join(__dirname, '../../scripts/redactor/plugins.js'), 'utf8'),
 			buttonCreation = source.indexOf('var btn = self.button[addMethod](id, b.title)'),

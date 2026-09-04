@@ -190,8 +190,8 @@ define(['interact'], function (interact) {
 		if (!this.drag) return;
 
 		ui = this.getUi();
-		if (typeof this.options.stop === 'function') this.options.stop.call(this.element, event, ui);
 		this.triggerDragEvent('dragstop', event, ui);
+		if (typeof this.options.stop === 'function') this.options.stop.call(this.element, event, ui);
 		this.drag.$helper.removeClass('ui-draggable-dragging');
 
 		if (!this.drag.isOriginal) {

@@ -457,8 +457,9 @@ var LayoutEditor = {
 			});
 			var breakpoint = Upfront.Views.breakpoints_storage.get_breakpoints().get_active().toJSON(),
 				grid_ed = Upfront.Behaviors.GridEditor,
+				$grid_layout = $selected.first().closest('.upfront-grid-layout'),
 				first_module_view = false,
-				max_col = Math.round((wrap_right-wrap_left)/grid_ed.grid.column_width),
+				max_col = Math.round((wrap_right-wrap_left)/grid_ed.get_column_size($grid_layout)),
 				lines = grid_ed.parse_modules_to_lines(region_modules, region_wrappers, breakpoint.id, breakpoint.columns),
 				group_lines = [],
 				prev_group_lines = [],

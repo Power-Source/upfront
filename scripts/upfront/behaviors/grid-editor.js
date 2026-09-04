@@ -824,6 +824,14 @@ var GridEditor = {
 		});
 	},
 
+	get_column_size: function($layout){
+		var ed = Upfront.Behaviors.GridEditor;
+		if ($layout.hasClass('upfront-grid-layout-fullwidth') && $layout.innerWidth()) {
+			return $layout.innerWidth() / ed.grid.size;
+		}
+		return ed.grid.column_width;
+	},
+
 	/**
 	 * Start editor, to set all required variables
 	 *
@@ -835,6 +843,7 @@ var GridEditor = {
 			ed = Upfront.Behaviors.GridEditor,
 			main_pos = ed.main.$el.offset(),
 			$layout = ed.main.$el.find('.upfront-layout'),
+			$grid_layout = view.$el.closest('.upfront-grid-layout'),
 			layout_pos = $layout.offset(),
 			$el = view.$el.find(".upfront-editable_entity").eq(0),
 			is_object = ( $el.is(".upfront-object") || $el.is(".upfront-object-group") ),
@@ -842,14 +851,17 @@ var GridEditor = {
 			containment_pos = $containment.offset()
 		;
 		// Set variables
-		ed.col_size = ed.grid.column_width;
+		if (!$grid_layout.length) $grid_layout = $layout;
+		ed.col_size = ed.get_column_size($grid_layout);
 		ed.el_selector = is_object ? ed.object_selector : ed.module_selector;
 		ed.el_selector_direct = is_object ? ed.object_selector_direct : ed.module_selector_direct;
 		ed.main.top = main_pos.top;
 		ed.main.bottom = main_pos.top + ed.main.$el.outerHeight();
 		ed.main.left = main_pos.left;
 		ed.main.right = main_pos.left + ed.main.$el.outerWidth();
-		var grid_layout_left = layout_pos.left + ($layout.outerWidth() - (ed.grid.size*ed.col_size))/2;
+		var grid_layout_left = $grid_layout.hasClass('upfront-grid-layout-fullwidth')
+			? $grid_layout.offset().left
+			: layout_pos.left + ($layout.outerWidth() - (ed.grid.size*ed.col_size))/2;
 		ed.grid_layout = {
 			top: layout_pos.top,
 			bottom: layout_pos.top + $layout.outerHeight(),

@@ -755,7 +755,7 @@
             },
 
             is_hex : function(color_code){
-                return color_code.indexOf( "#" ) === -1 ? false : true;
+                return typeof color_code === "string" && color_code.indexOf( "#" ) !== -1;
             },
             get_field_html: function () {
                 var attr = {
@@ -816,6 +816,7 @@
                 });
             },
 			update_color_picker_preview: function(color) {
+                color = typeof color === "string" ? color : "";
 				// If hex convert to rgb string
             	if(this.is_hex(color)) {
 					var color_object = tinycolor(color);

@@ -93,7 +93,7 @@ class Upfront_JavascriptMain extends Upfront_Server {
 			"ueditor" => 'scripts/redactor/ueditor',
 			"chosen" => "scripts/chosen/chosen.jquery.min",
 			"findandreplace" => "scripts/findandreplace/findAndReplaceDOMText",
-			"pako" => "scripts/pako/pako",
+			"pako" => "scripts/pako/pako.min",
 			"fileupload" => "scripts/file_upload/jquery.fileupload"
 		);
 		$paths = apply_filters('upfront-settings-requirement_paths', $paths + $registered);

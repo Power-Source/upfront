@@ -6007,10 +6007,58 @@
                 },
                 setDraggable: function()
                 {
-                    if (typeof $.fn.draggable === 'undefined') return;
+                    var modal = this.$modal[0];
+                    var header = this.$modalHeader[0];
+                    var drag = null;
 
-                    this.$modal.draggable({ handle: this.$modalHeader });
+                    this.modal.disableDragging = function()
+                    {
+                        header.removeEventListener('pointerdown', pointerDown);
+                        document.removeEventListener('pointermove', pointerMove);
+                        document.removeEventListener('pointerup', pointerUp);
+                        document.removeEventListener('pointercancel', pointerUp);
+                        drag = null;
+                    };
+
+                    function pointerDown(e)
+                    {
+                        if (e.button !== 0) return;
+
+                        drag = {
+                            pointerId: e.pointerId,
+                            startX: e.clientX,
+                            startY: e.clientY,
+                            left: parseFloat(window.getComputedStyle(modal).left) || 0,
+                            top: parseFloat(window.getComputedStyle(modal).top) || 0
+                        };
+                        header.setPointerCapture(e.pointerId);
+                        document.addEventListener('pointermove', pointerMove, { passive: false });
+                        document.addEventListener('pointerup', pointerUp);
+                        document.addEventListener('pointercancel', pointerUp);
+                        e.preventDefault();
+                    }
+
+                    function pointerMove(e)
+                    {
+                        if (!drag || e.pointerId !== drag.pointerId) return;
+                        modal.style.left = drag.left + e.clientX - drag.startX + 'px';
+                        modal.style.top = drag.top + e.clientY - drag.startY + 'px';
+                        e.preventDefault();
+                    }
+
+                    function pointerUp(e)
+                    {
+                        if (!drag || e.pointerId !== drag.pointerId) return;
+                        if (header.hasPointerCapture(e.pointerId)) header.releasePointerCapture(e.pointerId);
+                        document.removeEventListener('pointermove', pointerMove);
+                        document.removeEventListener('pointerup', pointerUp);
+                        document.removeEventListener('pointercancel', pointerUp);
+                        drag = null;
+                    }
+
+                    header.addEventListener('pointerdown', pointerDown);
                     this.$modalHeader.css('cursor', 'move');
+                    this.$modalHeader.css('touch-action', 'none');
                 },
                 setEnter: function(e)
                 {
@@ -6081,6 +6129,7 @@
                 },
                 disableEvents: function()
                 {
+                    if (this.modal.disableDragging) this.modal.disableDragging();
                     this.$modalClose.off('click.redactor-modal');
                     $(document).off('keyup.redactor-modal');
                     this.$editor.off('keyup.redactor-modal');

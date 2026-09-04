@@ -2,7 +2,9 @@ define(['interact'], function (interact) {
 	'use strict';
 
 	var $ = jQuery,
-		DATA_KEY = 'upfront-resizable';
+		DATA_KEY = 'upfront-resizable',
+		HANDLE_ATTRIBUTE = 'data-upfront-resize-handle',
+		handleId = 0;
 
 	function Resizable(element, options) {
 		this.element = element;
@@ -14,6 +16,7 @@ define(['interact'], function (interact) {
 			minHeight: 10
 		}, options);
 		this.generatedHandles = [];
+		this.taggedHandles = [];
 		this.axis = null;
 		this.originalPosition = null;
 		this.originalSize = null;
@@ -26,8 +29,21 @@ define(['interact'], function (interact) {
 	}
 
 	Resizable.prototype.getHandleSelector = function (direction) {
-		var handles = this.options.handles;
-		if (typeof handles === 'object' && handles[direction]) return handles[direction];
+		var handles = this.options.handles,
+			handle = typeof handles === 'object' && handles[direction],
+			element = handle && (handle.nodeType === 1 ? handle : handle[0]),
+			id;
+
+		if (element && element.nodeType === 1) {
+			id = element.getAttribute(HANDLE_ATTRIBUTE);
+			if (!id) {
+				id = 'upfront-' + (++handleId);
+				element.setAttribute(HANDLE_ATTRIBUTE, id);
+				this.taggedHandles.push(element);
+			}
+			return '[' + HANDLE_ATTRIBUTE + '="' + id + '"]';
+		}
+		if (handle) return handle;
 		return '.ui-resizable-' + direction;
 	};
 
@@ -192,6 +208,7 @@ define(['interact'], function (interact) {
 	Resizable.prototype.destroy = function () {
 		this.interactable.resizable(false);
 		$(this.generatedHandles).remove();
+		$(this.taggedHandles).removeAttr(HANDLE_ATTRIBUTE);
 		this.$element.removeClass('ui-resizable ui-resizable-disabled ui-resizable-resizing');
 		this.$element.removeData(DATA_KEY).removeData('ui-resizable');
 	};
