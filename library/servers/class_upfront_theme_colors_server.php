@@ -32,7 +32,7 @@ class Upfront_Server_ThemeColorsServer extends Upfront_Server {
 
 		do_action('upfront_save_theme_colors', $data);
 
-		if (!has_action('upfront_update_theme_colors')) {
+		if (!has_action('upfront_save_theme_colors')) {
 			Upfront_Cache_Utils::update_option('upfront_' . get_stylesheet() . '_theme_colors', json_encode($data));
 		}
 

@@ -1,6 +1,17 @@
 Change Log
 ============
 
+1.2.8 - 2026-09-04
+-------------------------------------------------------------------------------
+- Neu: CodePen-Styles werden wieder allein über ihre öffentliche Pen-URL erkannt; ein browserseitiger Result-Transport umgeht blockierte Direktabrufe und die validierte Vorschau wird ohne fremde Warnbanner lokal dargestellt
+- Fix: CodePen-Importe schreiben Farben, Schriften und Typografie in die settings.php des aktiven Child-Themes und synchronisieren nur bereits vorhandene Datenbank-Overrides
+- Fix: Die Theme-Palette bleibt indexstabil auf genau zehn Slots ufc0 bis ufc9 begrenzt, bewahrt doppelte Farbwerte und zeigt keine zusätzlichen zuletzt verwendeten Farben mehr an
+- Fix: Der Redactor-Linkdialog sichert markierten Text vor dem Fokuswechsel, erzeugt den Anchor direkt und bewahrt dessen href beim Schließen sowie beim Ausblenden temporärer Besuchs-Icons
+- Fix: Der Textfarbwähler formatiert eine Auswahl nur einmal und reagiert dadurch im Textbearbeitungsmodus wieder zuverlässig
+- Fix: Die Dashboard-Werkzeuge zum Leeren des Upfront-Caches und Zurücksetzen auf Theme-Defaults verwenden wieder die konsistente Administratorberechtigung
+- Fix: Pako registriert sich als benanntes AMD-Modul und verursacht bei parallelem RequireJS-Laden keinen Mismatched-anonymous-define-Fehler mehr
+- Tests: CodePen-Import, Child-Theme-Persistenz, zehn Themefarbslots, Pako-AMD und Redactor-Links sind durch fokussierte Regressionstests abgedeckt
+
 1.2.7 - 2026-09-04
 -------------------------------------------------------------------------------
 - Sicherheit: HTTPS- und Same-Origin-URLs werden robust normalisiert; lokale Font-Caches ersetzen auch veraltete absolute HTTP-Upload-URLs zuverlässig

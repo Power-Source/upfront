@@ -18,6 +18,7 @@ require_once(dirname(__FILE__) . '/library/class_upfront_behavior.php');
 require_once(dirname(__FILE__) . '/library/class_upfront_http_response.php');
 require_once(dirname(__FILE__) . '/library/class_upfront_server.php');
 require_once(dirname(__FILE__) . '/library/class_upfront_model.php');
+require_once(dirname(__FILE__) . '/library/class_upfront_theme_style.php');
 require_once(dirname(__FILE__) . '/library/class_upfront_module_loader.php');
 require_once(dirname(__FILE__) . '/library/class_upfront_theme.php');
 require_once(dirname(__FILE__) . '/library/class_upfront_grid.php');

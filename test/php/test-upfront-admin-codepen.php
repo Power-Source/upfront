@@ -54,4 +54,50 @@ class Upfront_Admin_CodePen_Test extends WP_UnitTestCase {
 		$payload = Upfront_Admin_CodePen::validate_payload(array('schema' => 'other', 'version' => 1));
 		$this->assertWPError($payload);
 	}
+
+	public function test_limits_colors_and_builds_their_runtime_styles () {
+		$colors = array();
+		for ($index = 0; $index < 12; $index++) {
+			$colors[] = array('color' => sprintf('#%06d', $index));
+		}
+		$payload = Upfront_Admin_CodePen::validate_payload(array(
+			'schema' => 'upfront-theme-style',
+			'version' => 1,
+			'colors' => array('colors' => $colors),
+		));
+
+		$this->assertCount(10, $payload['colors']['colors']);
+		$styles = Upfront_Theme_Style::build_color_styles($payload['colors']['colors']);
+		$this->assertContains('.upfront_theme_color_9', $styles);
+		$this->assertNotContains('.upfront_theme_color_10', $styles);
+		$this->assertContains('background-color: #000009', $styles);
+	}
+
+	public function test_theme_settings_are_written_to_child_file () {
+		$file = tempnam(sys_get_temp_dir(), 'upfront-settings-');
+		$settings = new Upfront_Theme_Settings($file);
+		$colors = wp_json_encode(array('colors' => array(array('color' => '#123456'))));
+
+		$this->assertTrue($settings->set('theme_colors', $colors));
+		$reloaded = new Upfront_Theme_Settings($file);
+		$this->assertSame($colors, $reloaded->get('theme_colors'));
+
+		unlink($file);
+	}
+
+	public function test_only_existing_database_overrides_are_synchronized () {
+		$method = new ReflectionMethod('Upfront_Theme_Style', 'persist_override');
+		$method->setAccessible(true);
+		$key = 'upfront_test_theme_style_override';
+		delete_option($key);
+
+		$this->assertTrue($method->invoke(null, $key, 'child-value'));
+		$this->assertFalse(get_option($key, false));
+
+		update_option($key, 'old-value');
+		$this->assertTrue($method->invoke(null, $key, 'child-value'));
+		$this->assertSame('child-value', get_option($key));
+
+		delete_option($key);
+	}
 }

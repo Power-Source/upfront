@@ -109,7 +109,13 @@ class Upfront_Admin_CodePen extends Upfront_Admin_Page {
 			'.upfront-codepen-swatch code{overflow:hidden;text-overflow:ellipsis}' .
 			'.upfront-codepen-values{width:100%;border-collapse:collapse}' .
 			'.upfront-codepen-values th,.upfront-codepen-values td{padding:6px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}' .
-			'#upfront-codepen-render iframe{display:block;width:100%;height:430px;border:1px solid #ddd;margin-top:8px}' .
+			'.upfront-codepen-style-preview{padding:20px;border:1px solid #ddd;background:#fff}' .
+			'.upfront-codepen-preview-colors{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px;margin:0 0 24px;padding:0;list-style:none}' .
+			'.upfront-codepen-preview-colors li{min-width:0;border:1px solid #ddd;text-align:center}' .
+			'.upfront-codepen-preview-colors span{display:block;height:60px}' .
+			'.upfront-codepen-preview-colors code{display:block;overflow:hidden;padding:7px;text-overflow:ellipsis;white-space:nowrap}' .
+			'.upfront-codepen-preview-typography{max-width:760px}' .
+			'.upfront-codepen-preview-typography>*{margin-top:0}' .
 			'.upfront-codepen-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}' .
 			'.upfront-codepen-gallery-item{min-width:0}' .
 			'.upfront-codepen-gallery-item h3{margin:0 0 8px}' .
@@ -260,21 +266,10 @@ class Upfront_Admin_CodePen extends Upfront_Admin_Page {
 		$parts = array_intersect($parts, array('colors', 'fonts', 'typography'));
 		if (empty($parts)) self::send_error(new WP_Error('upfront_codepen_no_parts', __('Wähle mindestens einen Bereich für den Import aus.', 'upfront')));
 
-		$stylesheet = get_stylesheet();
-		if (in_array('colors', $parts, true)) {
-			Upfront_Cache_Utils::update_option('upfront_' . $stylesheet . '_theme_colors', wp_json_encode($payload['colors']));
-		}
-		if (in_array('fonts', $parts, true)) {
-			Upfront_Cache_Utils::update_option('upfront_' . $stylesheet . '_theme_fonts', wp_json_encode($payload['fonts']));
-		}
-		if (in_array('typography', $parts, true)) {
-			$layout_data = array('properties' => Upfront_Layout::get_layout_properties());
-			upfront_set_property_value('typography', $payload['typography'], $layout_data);
-			$option = Upfront_Layout::get_storage_key() . '-' . $stylesheet . '-layout-properties';
-			Upfront_Cache_Utils::update_option($option, wp_json_encode($layout_data['properties']));
-		}
+		$style = Upfront_Theme_Style::apply($payload, $parts);
+		if (is_wp_error($style)) self::send_error($style);
 
-		wp_send_json_success(array('parts' => array_values($parts)));
+		wp_send_json_success(array('parts' => array_values($parts), 'applied' => $style));
 	}
 
 	private static function verify_ajax_request () {
@@ -311,7 +306,7 @@ class Upfront_Admin_CodePen extends Upfront_Admin_Page {
 			if (is_wp_error($response)) return new WP_Error('upfront_codepen_request_failed', __('Der Pen ist nicht erreichbar oder nicht öffentlich.', 'upfront'));
 			$status = wp_remote_retrieve_response_code($response);
 			if (403 === $status && 'codepen.io' === wp_parse_url($source_url, PHP_URL_HOST)) {
-				return new WP_Error('upfront_codepen_blocked', __('CodePen blockiert den direkten Abruf. Kopiere stattdessen den vollständigen Inhalt des JavaScript-Panels und füge ihn hier ein.', 'upfront'));
+				return new WP_Error('upfront_codepen_blocked', __('CodePen konnte die Importdaten nicht automatisch bereitstellen.', 'upfront'));
 			}
 			if (200 !== $status) return new WP_Error('upfront_codepen_http_error', __('Der Pen ist nicht erreichbar oder nicht öffentlich.', 'upfront'));
 
@@ -357,7 +352,7 @@ class Upfront_Admin_CodePen extends Upfront_Admin_Page {
 		}
 
 		$name = isset($payload['name']) ? sanitize_text_field($payload['name']) : __('Upfront Theme Style', 'upfront');
-		$colors = isset($payload['colors']['colors']) && is_array($payload['colors']['colors']) ? array_slice($payload['colors']['colors'], 0, 64) : array();
+		$colors = isset($payload['colors']['colors']) && is_array($payload['colors']['colors']) ? array_slice($payload['colors']['colors'], 0, 10) : array();
 		$clean_colors = array();
 		foreach ($colors as $color) {
 			if (!is_array($color) || empty($color['color'])) continue;

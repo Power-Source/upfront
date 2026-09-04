@@ -147,7 +147,7 @@
 
 	function embedUrl(url) {
 		var match = String(url).match(/^https:\/\/codepen\.io\/(?:editor\/)?([A-Za-z0-9_-]+)\/(?:pen|details|full)\/([A-Za-z0-9-]+)/i);
-		return match ? 'https://codepen.io/' + encodeURIComponent(match[1]) + '/embed/' + encodeURIComponent(match[2]) + '?default-tab=result' : '';
+		return match ? 'https://codepen.io/' + encodeURIComponent(match[1]) + '/fullembedgrid/' + encodeURIComponent(match[2]) + '?animations=run&type=embed' : '';
 	}
 
 	function renderStyleValues(selector, payload) {
@@ -188,18 +188,63 @@
 		if (!body.children().length) $('<tr><td colspan="4"></td></tr>').find('td').text(data.messages.noTypography).end().appendTo(body);
 	}
 
+	function renderStylePreview(payload) {
+		var palette = payload.colors && Array.isArray(payload.colors.colors) ? payload.colors.colors : [];
+		var preview = $('<div class="upfront-codepen-style-preview"></div>');
+		var colorList = $('<ul class="upfront-codepen-preview-colors"></ul>').appendTo(preview);
+		palette.forEach(function(item, index) {
+			if (!item || !item.color) return;
+			var color = cssValue(item.color);
+			var entry = $('<li></li>').appendTo(colorList);
+			$('<span></span>').css('background-color', color).appendTo(entry);
+			$('<code></code>').text('#ufc' + index + ' ' + color).appendTo(entry);
+		});
+
+		var typographyPreview = $('<div class="upfront-codepen-preview-typography"></div>').appendTo(preview);
+		function addSample(tag, selector, text) {
+			var rule = payload.typography && payload.typography[selector] ? payload.typography[selector] : {};
+			var colorMatch = String(rule.color || '').match(/^#ufc(\d+)$/);
+			var color = colorMatch && palette[colorMatch[1]] ? palette[colorMatch[1]].color : rule.color;
+			var sample = $('<' + tag + '></' + tag + '>').text(text).appendTo(typographyPreview);
+			if (color) sample.css('color', cssValue(color));
+			if (rule.font_face) sample.css('font-family', cssValue(rule.font_face) + ', ' + cssValue(rule.font_family || 'sans-serif'));
+			if (rule.line_height) sample.css('line-height', cssValue(rule.line_height));
+			if (rule.size) sample.css('font-size', cssValue(rule.size) + 'px');
+			if (rule.style) sample.css('font-style', cssValue(rule.style));
+			if (rule.weight) sample.css('font-weight', cssValue(rule.weight));
+			return sample;
+		}
+
+		['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].forEach(function(tag, index) {
+			addSample(tag, tag, data.messages.sampleHeading + ' ' + (index + 1));
+		});
+		addSample('a', 'a', data.messages.sampleLink).attr('href', '#');
+		addSample('p', 'p', data.messages.sampleText);
+		addSample('blockquote', 'blockquote', data.messages.quote);
+		addSample('blockquote', 'blockquote.upfront-quote-alternative', data.messages.alternativeQuote).addClass('upfront-quote-alternative');
+		$('#upfront-codepen-render').empty().append(preview);
+	}
+
 	var receivedPayload = null;
 	var pendingPreview = null;
 	renderStyleValues('#upfront-codepen-current-values', buildImportData());
 
-	function requestPreview(params, button) {
+	function requestPreview(params, button, waitForIframe) {
 		params.action = 'upfront_codepen_preview';
 		params.nonce = data.nonce;
-		$.post(data.ajaxUrl, params).done(function(response) {
+		return $.post(data.ajaxUrl, params).done(function(response) {
 			var normalized = responseData(response);
 			if (normalized.error) {
+				if (waitForIframe && pendingPreview) {
+					pendingPreview.error = normalized.error;
+					return;
+				}
 				showStatus(normalized.error, 'error');
 				return;
+			}
+			if (pendingPreview) {
+				window.clearTimeout(pendingPreview.timeout);
+				pendingPreview = null;
 			}
 			var result = normalized.result;
 			receivedPayload = result.payload;
@@ -210,12 +255,18 @@
 				result.summary.typography + ' ' + data.messages.typography
 			);
 			renderStyleValues('#upfront-codepen-import-values', result.payload);
+			renderStylePreview(result.payload);
 			$('#upfront-codepen-preview').prop('hidden', false);
 			$('#upfront-codepen-status').prop('hidden', true);
-		}).fail(function(xhr) {
+		}).fail(function(xhr, status) {
+			if ('abort' === status) return;
+			if (waitForIframe && pendingPreview) {
+				pendingPreview.error = responseMessage(xhr);
+				return;
+			}
 			showStatus(responseMessage(xhr), 'error');
 		}).always(function() {
-			button.prop('disabled', false);
+			if (!pendingPreview) button.prop('disabled', false);
 		});
 	}
 
@@ -223,10 +274,12 @@
 		if (!pendingPreview || !event.data || 'upfront-theme-style' !== event.data.type) return;
 		if (!/^https:\/\/([a-z0-9-]+\.)?(codepen\.io|cdpn\.io|codepenusercontent\.com)$/i.test(event.origin)) return;
 
-		window.clearTimeout(pendingPreview.timeout);
-		receivedPayload = event.data.payload;
-		requestPreview({payload: JSON.stringify(receivedPayload)}, pendingPreview.button);
+		var preview = pendingPreview;
+		window.clearTimeout(preview.timeout);
 		pendingPreview = null;
+		if (preview.request) preview.request.abort();
+		receivedPayload = event.data.payload;
+		requestPreview({payload: JSON.stringify(receivedPayload)}, preview.button);
 	});
 
 	$('#upfront-codepen-form').on('submit', function() {
@@ -263,19 +316,24 @@
 		if (pendingPreview) {
 			window.clearTimeout(pendingPreview.timeout);
 			pendingPreview.iframe.remove();
+			if (pendingPreview.request) pendingPreview.request.abort();
 		}
-		var iframe = $('<iframe></iframe>').attr({src: source, title: data.messages.previewTitle});
-		$('#upfront-codepen-render').empty().append(iframe);
+		var iframe = $('<iframe></iframe>').attr({src: source, title: data.messages.previewTitle, hidden: true});
 		pendingPreview = {
 			button: button,
 			iframe: iframe,
 			timeout: window.setTimeout(function() {
+				var preview = pendingPreview;
+				var error = preview && preview.error;
 				pendingPreview = null;
+				if (preview && preview.request) preview.request.abort();
 				button.prop('disabled', false);
 				$('#upfront-codepen-import-values').empty().append($('<p></p>').text(data.messages.noImportData));
-				showStatus(data.messages.legacyPen, 'error');
+				showStatus(error || data.messages.legacyPen, 'error');
 			}, 15000)
 		};
+		$('#upfront-codepen-render').empty().append($('<p></p>').text(data.messages.checkingShort), iframe);
+		pendingPreview.request = requestPreview({url: url}, button, true);
 	});
 
 	$('#upfront-codepen-import').on('click', function() {
@@ -297,7 +355,23 @@
 				showStatus(response && response.data && response.data.message ? response.data.message : data.messages.requestFailed, 'error');
 				return;
 			}
-			showStatus(data.messages.imported, 'success');
+			var applied = response.data && response.data.applied ? response.data.applied : {};
+			if (applied.colors) {
+				data.themeColors = applied.colors;
+				colors = applied.colors.colors || [];
+			}
+			if (applied.fonts) {
+				data.themeFonts = applied.fonts;
+				fonts = applied.fonts;
+			}
+			if (applied.typography) {
+				data.typography = applied.typography;
+				typography = applied.typography;
+			}
+			renderStyleValues('#upfront-codepen-current-values', buildImportData());
+			$.post(data.ajaxUrl, {action: 'upfront_reset_cache'}).always(function() {
+				showStatus(data.messages.imported, 'success');
+			});
 		}).fail(function(xhr) {
 			showStatus(responseMessage(xhr), 'error');
 		}).always(function() {

@@ -154,7 +154,7 @@ class Upfront_Admin_General extends Upfront_Admin_Page {
 	}
 
 	private function _render_debug_options(){
-		if( !Upfront_Permissions::current( Upfront_Permissions::SEE_USE_DEBUG ) ) return;
+		if( !$this->_can_access( Upfront_Permissions::SEE_USE_DEBUG ) ) return;
 		Upfront_Layout::get_db_layouts();
 		$exclude_google_maps_api = Upfront_Cache_Utils::get_option( 'upfront_exclude_google_maps_api', 0 );
 		$external_avatars_enabled = (int) get_option('upfront_external_avatars_enabled', 0);

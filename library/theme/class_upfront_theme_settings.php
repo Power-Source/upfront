@@ -29,7 +29,7 @@ class Upfront_Theme_Settings
 
 	public function set($name, $value) {
 		$this->settings[$name] = $value;//addslashes($value);
-		$this->save();
+		return $this->save();
 	}
 
 	protected function save() {
@@ -40,7 +40,7 @@ class Upfront_Theme_Settings
 		}
 		$fileContents .= ");";
 
-		file_put_contents($this->filePath, $fileContents);
+		return false !== file_put_contents($this->filePath, $fileContents, LOCK_EX);
 	}
 
 	/**

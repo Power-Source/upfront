@@ -2,7 +2,7 @@
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Upfront 1.2.6\n"
+"Project-Id-Version: Upfront 1.2.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/upfront\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4919,7 +4919,7 @@ msgid "Der Pen ist nicht erreichbar oder nicht öffentlich."
 msgstr ""
 
 #: library/admin/class_upfront_admin_codepen.php:314
-msgid "CodePen blockiert den direkten Abruf. Kopiere stattdessen den vollständigen Inhalt des JavaScript-Panels und füge ihn hier ein."
+msgid "CodePen konnte die Importdaten nicht automatisch bereitstellen."
 msgstr ""
 
 #: library/admin/class_upfront_admin_codepen.php:322

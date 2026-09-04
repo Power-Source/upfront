@@ -627,6 +627,13 @@
 							;
 							if ($.inArray(id, self.opts.airButtons) === -1) return;
 							var btn = self.button[addMethod](id, b.title);
+							b.panel.button = btn;
+							if (id === 'upfrontLink') {
+								btn.on('mousedown', function(e) {
+									e.preventDefault();
+									if (!btn.hasClass('dropact') && !self.$editor.find('span#selection-marker-1').length) self.selection.save();
+								});
+							}
 							self.button.addCallback( btn, function () {
 								var $button = self.button.get(id),
 									left = $button.position().left;
@@ -834,7 +841,7 @@
 
 					open: function (e, redactor) {
 						this.redactor = redactor;
-						redactor.selection.save();
+						if (!redactor.$editor.find('span#selection-marker-1').length) redactor.selection.save();
 
 						var me = this,
 							// Defaults
@@ -913,13 +920,7 @@
 
 						// Close on panel ok
 						this.listenTo(this.linkPanel, 'linkpanel:close', function() {
-							// Didn't find any function to do this, so go raw
-							$('a.re-upfrontLink').click().removeClass('dropact redactor_act');
-							// Preserve caret position, or it will just reset to 0 after selection is removed.
-							var caretOffset = me.redactor.caret.getOffset();
-							me.redactor.selection.remove();
-							me.redactor.caret.setOffset(caretOffset);
-							this.showSiblings();
+							me.closeLinkPanel();
 						});
 
 						this.listenTo(this.linkModel, 'change:type', function() {
@@ -938,15 +939,15 @@
 						var $buttons = this.$el.parent().siblings('li'),
 							totalWidth = 0
 							;
+						this.redactor.selection.restore();
 
 						$buttons.each(function(i, element) {
 							totalWidth += $(element).outerWidth(true) || 0;
 						});
 
 						this.$el.closest('.redactor_air').css('width', totalWidth + 5);
-
-						$('a.re-upfrontLink').click().removeClass('dropact redactor_act');
-
+						this.panel.hide();
+						this.button.removeClass('dropact redactor_act');
 						$buttons.show();
 					},
 
@@ -1005,8 +1006,6 @@
 					},
 
 					link: function (dontflag) {
-						var selectedText;
-
 						if (!this.linkModel.get('url')) {
 							return;
 						}
@@ -1018,56 +1017,11 @@
 								.attr('target', this.linkModel.get('target'));
 						} else {
 							this.redactor.selection.restore();
-// Origin story, Episode #0 - In The Beginning
-// This does not work because redactor will try to destroy HTML tags in link text
-// - see redactor.js:5418 for more info
-							/*
-							 // Create new link
-							 selectedText = this.redactor.selection.getHtml();
-							 */
-
-// Fix approach, Episode #1 - Nuclear Wasteland (drop all HTML)
-							/*
-							 // ^ instead of the HTML approach above, go with getText()
-							 selectedText = this.redactor.selection.getText();
-							 this.redactor.selection.replaceWithHtml(selectedText); // Also reset the selection to the text-only representation
-							 */
-
-// Fix approach, Episode #2 - Lizard Spooks Spock (camouflage the HTML)
-							// Somewhere along the line, the non-printable chars, spaces and stuff get all normalized,
-							// hence the printable default/fallback string
-							// Downside: if something goes wrong, it won't be a pretty sight at all :/
-							var rx_special = /[-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, // This will be used to encode regex special chars
-								rx_replacement = '\\$&', // Second part of regex special chars encoding (result)
-								otm = ((Upfront.Settings || {}).Editor || {}).OPEN_TAG_RPL_MARK || '{{UPFRONT_OPEN_TAG_MARK}}', // Open Tag Mark - either from settings or fallback
-								ctm = ((Upfront.Settings || {}).Editor || {}).CLOSE_TAG_RPL_MARK || '{{UPFRONT_CLOSE_TAG_MARK}}', // Close Tag Mark - either from settings or fallback
-								rx_otm = new RegExp(otm.replace(rx_special, rx_replacement), 'g'), // OTM regex representation - note the "g" parameter
-								rx_ctm = new RegExp(ctm.replace(rx_special, rx_replacement), 'g') // CTM regex representation - note the "g" parameter
-								;
-							selectedText = this.redactor.selection.getHtml(); // Get HTML, yeah
-							// Now, let's nerf the HTML stuff
-							selectedText = selectedText
-							// Clever, ain't it?
-								.replace(/</g, otm)
-								.replace(/>/g, ctm)
-							;
-							this.redactor.selection.replaceWithHtml(selectedText);
-
-							this.redactor.link.set(selectedText, this.linkModel.get('url'), this.linkModel.get('target'));
-							// Now select created link
-							this.selectedLink = this.redactor.utils.isCurrentOrParent('A');
-
-// Episode #2a, The Sad Saga of Spock's Debilitating Phobia Continues (de-camo the HTML)
-							selectedText = this.redactor.selection.getHtml(); // Get the HTML once more, it's now fake HTML
-							// Now, let's de-camouflage it
-							selectedText = selectedText
-								.replace(rx_otm, '<')
-								.replace(rx_ctm, '>')
-							;
-							this.redactor.selection.replaceWithHtml(selectedText);
-// Episode #2 concludes, Spock dies in the end :(
-
-							// Update selection, new link is created it messes up selection
+							this.selectedLink = this.redactor.selection.wrap('a');
+							if (!this.selectedLink) return;
+							$(this.selectedLink).attr('href', this.linkModel.get('url'))
+								.attr('target', this.linkModel.get('target'));
+							this.redactor.selection.selectElement(this.selectedLink);
 							this.redactor.selection.save();
 						}
 
@@ -1192,7 +1146,6 @@
 									},
 									move: function (color) {
 										self.current_color = color;
-										self.updateColors('foreground');
 									}
 								},
 								autoHide: true
@@ -1217,7 +1170,6 @@
 									},
 									move: function (color) {
 										self.current_bg = color;
-										self.updateColors('background');
 									}
 								},
 								autoHide: true
@@ -1285,7 +1237,6 @@
 
 						this.$(".sp-choose").on("click", function ( e ) {
 							e.preventDefault();
-							self.updateColors(self.getActiveColorTarget());
 							self.closePanel();
 							self.closeToolbar();
 							self.redactor.dropdown.hideAll();

@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Upfront 1.2.6\n"
+"Project-Id-Version: Upfront 1.2.8\n"
 "Report-Msgid-Bugs-To: https://github.com/Power-Source/upfront/issues\n"
 "Last-Translator: PSOURCE\n"
 "Language-Team: English (United States)\n"
@@ -8291,8 +8291,8 @@ msgid "Der Pen ist nicht erreichbar oder nicht öffentlich."
 msgstr "The Pen is unavailable or not public."
 
 #: library/admin/class_upfront_admin_codepen.php:314
-msgid "CodePen blockiert den direkten Abruf. Kopiere stattdessen den vollständigen Inhalt des JavaScript-Panels und füge ihn hier ein."
-msgstr "CodePen is blocking direct access. Copy the entire contents of the JavaScript panel and paste it here instead."
+msgid "CodePen konnte die Importdaten nicht automatisch bereitstellen."
+msgstr "CodePen could not provide the import data automatically."
 
 #: library/admin/class_upfront_admin_codepen.php:322
 msgid "Dieser Pen enthält keinen importierbaren Upfront-Style."

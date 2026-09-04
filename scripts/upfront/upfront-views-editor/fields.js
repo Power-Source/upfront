@@ -499,7 +499,7 @@
 			},
 			spectrumDefaults: {
 				clickoutFiresChange: true,
-				showSelectionPalette: true,
+                showSelectionPalette: false,
 				showAlpha: true,
 				showPalette: true,
 				localStorageKey: "spectrum.recent_colors",
