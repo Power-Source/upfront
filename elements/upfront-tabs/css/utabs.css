@@ -1,4 +1,13 @@
 /* Tabs */
+.tabs-menu-wrapper {
+	display: flex;
+	align-items: flex-start;
+}
+
+.tabs-menu {
+	min-width: 0;
+}
+
 .tabs-tab {
 	float: left;
 	cursor: pointer;
@@ -21,6 +30,28 @@
 .tabs-tab .inner-box {
 	padding: 0 15px;
 	line-height: 30px;
+}
+
+.upfront-tabs-add-item {
+	flex: 0 0 26px;
+	width: 26px;
+	height: 26px;
+	margin: 4px 0 0 6px;
+	padding: 0;
+	border: 1px solid #3c3c3c;
+	border-radius: 50%;
+	background: #212121;
+	color: #fff;
+	font: 700 18px/24px sans-serif;
+	text-align: center;
+	cursor: pointer;
+}
+
+.upfront-tabs-add-item:hover,
+.upfront-tabs-add-item:focus {
+	background: #2ea3f2;
+	border-color: #2388cc;
+	outline: none;
 }
 
 /* Reset theme typography values for P too */

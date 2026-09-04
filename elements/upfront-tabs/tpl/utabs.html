@@ -13,6 +13,9 @@
         </div>
         <?php } ?>
       </div>
+      <?php if (!empty($show_add)) { ?>
+      <button type="button" class="upfront-tabs-add-item" title="<?php echo $add_label ?>" aria-label="<?php echo $add_label ?>">+</button>
+      <?php } ?>
     </div>
     <div class="utabs-content">
       <?php for ($i = 0; $i < $tabs_count; $i++) { ?>

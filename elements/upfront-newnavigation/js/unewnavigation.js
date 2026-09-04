@@ -305,7 +305,7 @@
 
 				if(this.$el.find('li.edit_mode').data('backboneview'))
 					this.$el.find('li.edit_mode').data('backboneview').model['being-edited']= false;
-				this.$el.find('li.edit_mode a.menu_item .menu_item-ueditor').blur();
+				this.$el.find('li.edit_mode a.menu_item .menu_item-ueditor').trigger('blur');
 				this.editModeOff();
 				if(!$('#upfront-popup').hasClass('upfront-postselector-popup') || $('#upfront-popup').css('display') !== 'block')
 					this.$el.find('.time_being_display').removeClass('time_being_display');

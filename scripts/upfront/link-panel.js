@@ -435,12 +435,12 @@ define([
 			this.$el.children().each(function(i, element) {
 				var elementWidth = 0;
 				if($(element).hasClass('upfront-field-post-pages')) {
-					elementWidth = parseInt($(element).find('.js-ulinkpanel-input-entry').outerWidth(), 10);
+					elementWidth = $(element).find('.js-ulinkpanel-input-entry').outerWidth(true) || 0;
 				} else {
-					elementWidth = parseInt($(element).width(), 10);
+					elementWidth = $(element).outerWidth(true) || 0;
 				}
 
-				totalWidth = totalWidth + elementWidth;
+				totalWidth += elementWidth;
 			});
 
 			this.$el.css('width', totalWidth + 10);

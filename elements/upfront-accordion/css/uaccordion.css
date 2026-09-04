@@ -60,6 +60,28 @@
 	padding: 7px 15px;
 }
 
+#page .upfront-accordion-container .upfront-accordion-add-item {
+	display: block;
+	width: 26px;
+	height: 26px;
+	margin: 8px 0 0;
+	padding: 0;
+	border: 1px solid #3c3c3c;
+	border-radius: 50%;
+	background: #212121;
+	color: #fff;
+	font: 700 18px/24px sans-serif;
+	text-align: center;
+	cursor: pointer;
+}
+
+#page .upfront-accordion-container .upfront-accordion-add-item:hover,
+#page .upfront-accordion-container .upfront-accordion-add-item:focus {
+	background: #2ea3f2;
+	border-color: #2388cc;
+	outline: none;
+}
+
 .accordion-panel-title:focus {
 	outline: #2ea3f2 auto 5px;
 }

@@ -1128,7 +1128,7 @@ define([
 			},
 			show_bottom_padding_hint: function (value, $el) {
 				var me                  = this,
-					$el = _.isUndefined($el) || false === $el ? this.$el.parents('.upfront-module') : $el,
+					$el = ( _.isUndefined($el) || false === $el || !($el instanceof jQuery) ) ? this.$el.parents('.upfront-module') : $el,
 					bottom_padding_hint = $el.find('.upfront-entity-bottom-padding-hint')
 				;
 				if(!this.bottom_padding_hint_flag) {

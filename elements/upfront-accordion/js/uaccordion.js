@@ -22,6 +22,7 @@ define([
 				this.model = new UaccordionModel({properties: this.model.get('properties')});
 			}
 			this.events = _.extend({}, this.events, {
+				'click .upfront-accordion-add-item': 'addPanel',
 				'click .accordion-panel-title': 'onPanelTitleClick',
 				'dblclick .accordion-panel-title': 'onPanelTitleDblClick',
 				'click i': 'deletePanel'
@@ -73,7 +74,7 @@ define([
 			event.preventDefault();
 			this.property('accordion').push({
 				title: l10n.panel_label + ' ' + (1 + this.property('accordion_count')),
-				content: $.trim(  l10n.content_label.replace("</p>",   ' ' + (1 + this.property('accordion_count') + "</p>" ) ) ) // inject the number into p tag
+				content: l10n.content_label.replace("</p>", ' ' + (1 + this.property('accordion_count') + "</p>" )).trim() // inject the number into p tag
 			});
 			this.property('accordion_count', this.property('accordion').length, false);
 		},
@@ -186,6 +187,7 @@ define([
 
 			props.preset = props.preset || 'default';
 			props.show_add = true;
+			props.add_label = l10n.add_panel;
 			props.show_remove = this.property('accordion_count') > 1 ? true : false;
 
 			return this.accordionTpl(props);

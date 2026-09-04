@@ -2165,7 +2165,10 @@
 
 				return 	show_tooltip
 					&& 	$block.closest(".ueditor-insert").length === 0
-					&&  ( block_html.match(/<br>/g) || ( indexPosition < 1 && prevblock_html.match(/<br>/g) ) || ( typeof $block.closest("p.nosortable").html() !== "undefined" &&  $.trim( $block.closest("p.nosortable").html() ) === "" ) ) ;
+					&& ( block_html.match(/<br>/g) ||
+				( indexPosition < 1 && prevblock_html.match(/<br>/g) ) ||
+				( typeof $block.closest("p.nosortable").html() !== "undefined" &&
+				( $block.closest("p.nosortable").html() || "" ).trim() === "" ) );
 			}
 		});
 

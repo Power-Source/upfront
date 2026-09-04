@@ -33,7 +33,7 @@ define([
 			this.property('tabs', tabs);
 
 			this.events = _.extend({}, this.events, {
-				// 'click .add-item': 'addTab',
+				'click .upfront-tabs-add-item': 'addTab',
 				'click .tabs-tab': 'onTabClick',
 				'keydown .tabs-tab[contenteditable=true]': 'onTabKeydown',
 				'click .utab-content-active': 'onContentClick',
@@ -173,6 +173,7 @@ define([
 			var props = this.extract_properties();
 
 			props.show_add = true;
+			props.add_label = l10n.add_tab;
 			props.show_remove = this.property('tabs_count') > 1 ? true : false;
 			props.preset = props.preset || 'default';
 

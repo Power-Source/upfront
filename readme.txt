@@ -2,10 +2,11 @@
 Contributors: PSOURCE
 Theme URI: https://github.com/Power-Source/upfront
 Tags: classicpress-theme, classicpress, theme, framework, awesome
-Requires at least: 4.9
+Requires at least: 5.0
+Requires CP: 1.4
 Tested up to: 7.1
 ClassicPress: 2.7.2
-Stable tag: 1.2.6
+Stable tag: 1.2.7
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -38,11 +39,19 @@ Füge Designfarben hinzu, pass Typografie an und bearbeite globale Einstellungen
 
 == ChangeLog ==
 
+= 1.2.7 =
+* Sicherheit: HTTPS- und Same-Origin-URLs werden robust normalisiert; lokale Font-Caches ersetzen auch veraltete absolute HTTP-Upload-URLs zuverlässig
+* Datenschutz: Das YouTube-Element validiert freizugebende Embed- und Vorschaubild-URLs strikt und lädt ausschließlich erlaubte HTTPS-Ressourcen von YouTube No-Cookie
+* Tests: URL-Härtung und verzögertes Laden des YouTube-Elements sind durch PHP- und JavaScript-Tests abgedeckt
+* Modernisierung: Die modernen Drag-, Resize-, Sortier-, Slider- und Datepicker-Adapter verwenden aktuelle jQuery-APIs und stellen Drag-Vorschau sowie Zielumriss zuverlässig dar
+* Fix: Hilfe & Support bleibt direkt im Editormenü verfügbar; ältere Upfront-Builder-Versionen können das weiterhin erwartete command-help-Modul wieder laden
+* Fix: Navigations- und Redactor-Editoren lösen Blur-Ereignisse jQuery-3-kompatibel aus und verarbeiten leere Editorinhalte ohne Typfehler; die Linkbox bewahrt markierten Text, zeigt keine undefined-URL mehr und berechnet ihre Breite vollständig
+* Fix: Visuelle Hinweise für den unteren Elementabstand akzeptieren Backbone-Eventoptionen, ohne den Upfront-Editor mit "$el.find is not a function" abzubrechen
+* Verbesserung: Tabs und Accordion-Panels besitzen wieder direkt erreichbare Plus-Schaltflächen; die Tab-Schaltfläche liegt ARIA-konform außerhalb der Tablist
+
 = 1.2.6 =
 * Modernisierung: Die verbliebenen jQuery-UI-Skripte wurden aus dem Editor-Boot entfernt und durch explizit geladene moderne Adapter ersetzt
 * Fix: Datepicker-, Drag-, Sortier- und Größenänderungsfunktionen stehen durch direkte RequireJS-Abhängigkeiten zuverlässig vor ihrer ersten Verwendung bereit
-* Fix: Beim Ziehen aus der Element-Sidebar folgt wieder das Elementicon der Maus, während der Zielumriss im Layout erscheint; die modernen UI-Adapter verwenden keine veraltete jQuery.isFunction-API mehr
-* Fix: Hilfe & Support im Editormenü verlinkt direkt auf die Upfront-Dokumentation von PSOURCE statt auf die nicht mehr verfügbare WPMUDEV-Dokumentation
 * Fix: Die jeweils letzte Region erhält an ihrer Oberkante einen erreichbaren Griff zur vertikalen Größenänderung; der Griff folgt automatisch neu hinzugefügten oder entfernten Regionen
 * Neu: Das YouTube-Element bietet optional eine eigene Zwei-Klick-Freigabe und ordnet sich vorrangigen YouTube-Entscheidungen von PS-DSGVO unter
 * Datenschutz: YouTube-Player verwenden den No-Cookie-Endpunkt; bei aktiver Sperre werden auch Vorschaubilder erst nach Zustimmung geladen und ein Noscript-Link angeboten

@@ -848,8 +848,8 @@
 
 						if (this.selectedLink) {
 							// Get values from existing link
-							href = $(this.selectedLink).attr('href');
-							target = $(this.selectedLink).attr('target');
+							href = $(this.selectedLink).attr('href') || '';
+							target = $(this.selectedLink).attr('target') || '_self';
 
 							if (!_.isUndefined($(this.selectedLink).attr('data-upfront-link-type'))) {
 								// New linking is used, there is exact value
@@ -875,7 +875,6 @@
 
 						this.listenTo(this.linkModel, 'change', function (dontflag) {
 							me.redactor.buffer.set();
-							me.redactor.selection.save();
 							if (me.linkModel.get('type') === 'unlink') {
 								me.unlink();
 							} else {
@@ -941,7 +940,7 @@
 							;
 
 						$buttons.each(function(i, element) {
-							totalWidth = totalWidth + parseInt($(element).width());
+							totalWidth += $(element).outerWidth(true) || 0;
 						});
 
 						this.$el.closest('.redactor_air').css('width', totalWidth + 5);
@@ -961,21 +960,21 @@
 						this.$el.parent().siblings('li').show();
 
 						this.$el.parent().siblings('li').each(function(i, element) {
-							totalWidth = totalWidth + parseInt($(element).width());
+							totalWidth += $(element).outerWidth(true) || 0;
 						});
 
 						this.$el.closest('.redactor_air').css('width', totalWidth + 5);
 					},
 
 					updateWrapperSize: function() {
-						var totalWidth = 0;
+						var totalWidth = 0,
+							$panel = this.$el.find('.ulinkpanel-dark');
 
-						this.$el.find('.ulinkpanel-dark').children().each(function(i, element) {
-							var elementWidth = $(element).hasClass('upfront-settings-link-target') ? 0 : parseInt($(element).width());
-							totalWidth = totalWidth + elementWidth;
+						$panel.children().each(function(i, element) {
+							totalWidth += $(element).outerWidth(true) || 0;
 						});
 
-						this.$el.find('.ulinkpanel-dark').css('width', totalWidth + 10);
+						$panel.css('width', totalWidth + 10);
 						this.$el.closest('.redactor_air').css('width', totalWidth + 10);
 					},
 
@@ -984,6 +983,7 @@
 					},
 
 					normalizeUrlEncoding: function (url) {
+						if (!_.isString(url) || !url) return '';
 						try {
 							return encodeURI(decodeURI(url));
 						} catch (error) {
@@ -1007,7 +1007,7 @@
 					link: function (dontflag) {
 						var selectedText;
 
-						if (typeof this.linkModel.get('url') === 'undefined') {
+						if (!this.linkModel.get('url')) {
 							return;
 						}
 
@@ -1017,6 +1017,7 @@
 							$(this.selectedLink).attr('href', this.linkModel.get('url'))
 								.attr('target', this.linkModel.get('target'));
 						} else {
+							this.redactor.selection.restore();
 // Origin story, Episode #0 - In The Beginning
 // This does not work because redactor will try to destroy HTML tags in link text
 // - see redactor.js:5418 for more info
