@@ -627,6 +627,13 @@
 							;
 							if ($.inArray(id, self.opts.airButtons) === -1) return;
 							var btn = self.button[addMethod](id, b.title);
+							b.panel.button = btn;
+							if (id === 'upfrontLink') {
+								btn.on('mousedown', function(e) {
+									e.preventDefault();
+									if (!btn.hasClass('dropact') && !self.$editor.find('span#selection-marker-1').length) self.selection.save();
+								});
+							}
 							self.button.addCallback( btn, function () {
 								var $button = self.button.get(id),
 									left = $button.position().left;
@@ -834,7 +841,7 @@
 
 					open: function (e, redactor) {
 						this.redactor = redactor;
-						redactor.selection.save();
+						if (!redactor.$editor.find('span#selection-marker-1').length) redactor.selection.save();
 
 						var me = this,
 							// Defaults
@@ -914,13 +921,7 @@
 
 						// Close on panel ok
 						this.listenTo(this.linkPanel, 'linkpanel:close', function() {
-							// Didn't find any function to do this, so go raw
-							$('a.re-upfrontLink').click().removeClass('dropact redactor_act');
-							// Preserve caret position, or it will just reset to 0 after selection is removed.
-							var caretOffset = me.redactor.caret.getOffset();
-							me.redactor.selection.remove();
-							me.redactor.caret.setOffset(caretOffset);
-							this.showSiblings();
+							me.closeLinkPanel();
 						});
 
 						this.listenTo(this.linkModel, 'change:type', function() {
@@ -939,6 +940,7 @@
 						var $buttons = this.$el.parent().siblings('li'),
 							totalWidth = 0
 							;
+						this.redactor.selection.restore();
 
 						$buttons.each(function(i, element) {
 							totalWidth = totalWidth + parseInt($(element).width());
@@ -946,8 +948,8 @@
 
 						this.$el.closest('.redactor_air').css('width', totalWidth + 5);
 
-						$('a.re-upfrontLink').click().removeClass('dropact redactor_act');
-
+						this.panel.hide();
+						this.button.removeClass('dropact redactor_act');
 						$buttons.show();
 					},
 
@@ -1009,6 +1011,7 @@
 							$(this.selectedLink).attr('href', this.linkModel.get('url'))
 								.attr('target', this.linkModel.get('target'));
 						} else {
+							this.redactor.selection.restore();
 // Origin story, Episode #0 - In The Beginning
 // This does not work because redactor will try to destroy HTML tags in link text
 // - see redactor.js:5418 for more info
@@ -1175,11 +1178,11 @@
 									maxSelectionSize: 10,
 									preferredFormat: "hex",
 									chooseText: Upfront.Settings.l10n.global.content.ok,
+									showButtons: true,
 									showInput: true,
 									allowEmpty: true,
 									change: function (color) {
 										self.current_color = color;
-										self.updateColors('foreground');
 									},
 									move: function (color) {
 										self.current_color = color;
@@ -1200,11 +1203,11 @@
 									maxSelectionSize: 10,
 									preferredFormat: "hex",
 									chooseText: Upfront.Settings.l10n.global.content.ok,
+									showButtons: true,
 									showInput: true,
 									allowEmpty: true,
 									change: function (color) {
 										self.current_bg = color;
-										self.updateColors('background');
 									},
 									move: function (color) {
 										self.current_bg = color;
@@ -1276,7 +1279,6 @@
 
 						this.$(".sp-choose").on("click", function ( e ) {
 							e.preventDefault();
-							self.updateColors(self.getActiveColorTarget());
 							self.closePanel();
 							self.closeToolbar();
 							self.redactor.dropdown.hideAll();
@@ -1461,18 +1463,20 @@
 						}
 						var theme_color_index = Upfront.Views.Theme_Colors.colors.is_theme_color(this.current_color);
 						if( theme_color_index !== false ){
+							theme_color_index -= 1;
 							this.current_color.is_theme_color = true;
 							this.current_color.theme_color = "#ufc" + theme_color_index;
-							this.current_color.theme_color_code = Upfront.Util.colors.convert_string_ufc_to_color( this.current_color.theme_color);
+							this.current_color.theme_color_code = Upfront.Util.colors.convert_string_ufc_to_color(this.current_color.theme_color, false);
 						}else{
 							this.current_color.is_theme_color = false;
 						}
 
 						theme_color_index = Upfront.Views.Theme_Colors.colors.is_theme_color(this.current_bg);
 						if( theme_color_index !== false ){
+							theme_color_index -= 1;
 							this.current_bg.is_theme_color = true;
 							this.current_bg.theme_color = "#ufc" + theme_color_index;
-							this.current_bg.theme_color_code = Upfront.Util.colors.convert_string_ufc_to_color(this.current_bg.theme_color);
+							this.current_bg.theme_color_code = Upfront.Util.colors.convert_string_ufc_to_color(this.current_bg.theme_color, false);
 						}else{
 							this.current_bg.is_theme_color = false;
 						}
@@ -1507,7 +1511,7 @@
 
 								if (raw_value.is_theme_color) {
 									cls = Upfront.Views.Theme_Colors.colors.get_css_class(raw_value, is_bg);
-									if (!cls) theme_color = raw_value.theme_color;
+									theme_color = raw_value.theme_color_code || raw_value.theme_color;
 								} else {
 									theme_color = raw_value.toRgbString();
 								}
@@ -1523,7 +1527,8 @@
 											$wrapper
 												.addClass(cls)
 											;
-										} else if (!!theme_color) {
+										}
+										if (!!theme_color) {
 											$wrapper
 												.attr("style", rule + ':' + theme_color) // use color otherwise
 											;
@@ -1542,8 +1547,6 @@
 									return false;
 								}
 
-								// For partial inline selections, prefer Redactor's native formatter.
-								// The custom extract/insert path is what tends to treat the whole text block as affected.
 								if (!range.collapsed) {
 									var selection_blocks = self.redactor.selection.getBlocks() || [],
 										is_single_block = selection_blocks.length <= 1,
@@ -1553,14 +1556,12 @@
 									;
 
 									if (is_inline_selection) {
-										self.redactor.selection.restore();
-										if (cls) {
-											self.redactor.inline.format('span', 'class', cls);
-										}
-										else if (theme_color) {
-											self.redactor.inline.format('span', 'style', rule + ':' + theme_color);
-										}
-										return 'native-inline';
+										contents = range.extractContents();
+										wrapper.appendChild(contents);
+										range.insertNode(wrapper);
+										apply_to_wrapper($(wrapper));
+										self.redactor.code.sync();
+										return 'inline';
 									}
 								}
 
@@ -1660,9 +1661,9 @@
 							if(self.current_bg.reset === true){
 								self.reset_bg_color();
 							}else{
-								if (color_set('background-color', self.current_bg) === 'native-inline') {
+								if (color_set('background-color', self.current_bg) === 'inline') {
 									self.updateIcon();
-									return;
+									return true;
 								}
 							}
 						}
@@ -1682,9 +1683,9 @@
 							if( self.current_color.reset === true ){
 								this.reset_color();
 							}else{
-								if (color_set('color', self.current_color) === 'native-inline') {
+								if (color_set('color', self.current_color) === 'inline') {
 									self.updateIcon();
-									return;
+									return true;
 								}
 							}
 						}

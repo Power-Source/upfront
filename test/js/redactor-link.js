@@ -25,17 +25,18 @@ describe('Redactor links', function () {
 		assert.notEqual(source.indexOf('b.panel.button = btn', buttonCreation), -1);
 	});
 
-	it('wraps the restored text selection in an anchor', function () {
+	it('uses the 1.2.5 link formatter on the restored text selection', function () {
 		var source = fs.readFileSync(path.join(__dirname, '../../scripts/redactor/plugins.js'), 'utf8'),
 			linkStart = source.indexOf('link: function (dontflag)'),
 			linkEnd = source.indexOf('bindEvents: function', linkStart),
 			linkSource = source.slice(linkStart, linkEnd),
 			restore = linkSource.indexOf('this.redactor.selection.restore()'),
-			wrap = linkSource.indexOf("this.redactor.selection.wrap('a')");
+			setLink = linkSource.indexOf('this.redactor.link.set(');
 
-		assert.ok(restore !== -1 && restore < wrap);
-		assert.notEqual(linkSource.indexOf(".attr('href', this.linkModel.get('url'))"), -1);
-		assert.equal(linkSource.indexOf('this.redactor.link.set('), -1);
+		assert.ok(restore !== -1 && restore < setLink);
+		assert.notEqual(linkSource.indexOf('OPEN_TAG_RPL_MARK'), -1);
+		assert.notEqual(linkSource.indexOf('CLOSE_TAG_RPL_MARK'), -1);
+		assert.notEqual(setLink, -1);
 	});
 
 	it('closes the link panel without clicking the link button again', function () {

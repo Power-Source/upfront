@@ -1102,7 +1102,8 @@
 					current_bg: false,
 					suspend_color_updates: false,
 					events: {
-						'open': 'open'
+						'open': 'open',
+						'click .sp-palette-row-0 .sp-thumb-el': 'applyThemeColor'
 					},
 					init: function(){
 						this.listenTo( UeditorEvents, "ueditor:air:show", this.on_air_show );
@@ -1112,7 +1113,6 @@
 						});
 					},
 					on_air_show: function(e){
-						this.redactor.selection.save();
 						this.updateIcon();
 					},
 					close: function (e, redactor) {
@@ -1134,7 +1134,7 @@
 					},
 					open: function (e, redactor) {
 						this.updateIcon();
-						this.redactor.selection.save();
+						if (!this.redactor.$editor.find('span#selection-marker-1').length) this.redactor.selection.save();
 
 						var self = this,
 							theme_colors = Upfront.Views.Theme_Colors.colors.pluck("color").length ? Upfront.Views.Theme_Colors.colors.pluck("color") : [],
@@ -1144,7 +1144,6 @@
 									showAlpha: true,
 									appendTo: "parent",
 									showPalette: true,
-									hideAfterPaletteSelect: true,
 									localStorageKey: "spectrum.recent_colors",
 									palette: theme_colors,
 									maxSelectionSize: 10,
@@ -1169,7 +1168,6 @@
 									showAlpha: true,
 									appendTo: "parent",
 									showPalette: true,
-									hideAfterPaletteSelect: true,
 									palette: theme_colors,
 									localStorageKey: "spectrum.recent_bgs",
 									maxSelectionSize: 10,
@@ -1258,6 +1256,23 @@
 
 						this.positionColorPicker();
 						this.fadeInToolbar();
+					},
+					applyThemeColor: function (e) {
+						e.preventDefault();
+						e.stopPropagation();
+
+						var color = tinycolor($(e.currentTarget).data('color')),
+							target = $(e.currentTarget).closest('#tabbackground-content').length ? 'background' : 'foreground';
+
+						if (!color.isValid()) return;
+
+						if (target === 'background') {
+							this.current_bg = color;
+						} else {
+							this.current_color = color;
+						}
+
+						this.updateColors(target);
 					},
 					getActiveColorTarget: function () {
 						return this.$('.tablist li.active').attr('id') === 'tabbackground' ? 'background' : 'foreground';
@@ -1526,7 +1541,6 @@
 									;
 
 									if (is_inline_selection) {
-										self.redactor.selection.restore();
 										if (cls) {
 											self.redactor.inline.format('span', 'class', cls);
 										}

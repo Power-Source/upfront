@@ -498,7 +498,7 @@
                         updateOriginalInput(true);
                         hide();
                     } else {
-                        updateOriginalInput(true);
+                        updateOriginalInput();
                     }
                 }
 
