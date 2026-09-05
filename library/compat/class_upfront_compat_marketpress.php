@@ -258,8 +258,9 @@ class Upfront_Compat_MarketPress {
 
 	public function builder_available_layouts($layouts) {
 		$keys = array_keys($layouts);
-		if (in_array('single-product', $keys)) {
-			$layouts['single-product']['layout']['item'] = 'single-mpproduct';
+		$product_layout = 'single-' . self::get_product_post_type();
+		if (in_array($product_layout, $keys)) {
+			$layouts[$product_layout]['layout']['item'] = 'single-mpproduct';
 		}
 		if (in_array('archive-product_tag', $keys)) {
 			$layouts['archive-product_tag']['layout']['item'] = 'archive-mpproduct_tag';

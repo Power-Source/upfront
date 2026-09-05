@@ -5,6 +5,7 @@ require_once('compat/class_upfront_compat_parser.php');
 require_once('compat/class_upfront_compat_woocommerce.php');
 require_once('compat/class_upfront_compat_marketpress.php');
 require_once('compat/class_upfront_compat_coursepress.php');
+require_once('compat/class_upfront_compat_wiki.php');
 
 class Upfront_Compat implements IUpfront_Server {
 	private $_v1_script_added = false;
@@ -96,6 +97,7 @@ class Upfront_Compat implements IUpfront_Server {
 		$this->enable_wc_compat();
 		$this->enable_mp_compat();
 		$this->enable_cp_compat();
+		$this->enable_wiki_compat();
 	}
 
 	/**
@@ -347,6 +349,12 @@ class Upfront_Compat implements IUpfront_Server {
 	private function enable_cp_compat() {
 		if (class_exists('Upfront_Compat_CoursePress')) {
 			new Upfront_Compat_CoursePress();
+		}
+	}
+
+	private function enable_wiki_compat() {
+		if (class_exists('Upfront_Compat_Wiki')) {
+			new Upfront_Compat_Wiki();
 		}
 	}
 }
