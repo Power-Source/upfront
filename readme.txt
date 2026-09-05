@@ -6,7 +6,7 @@ Requires at least: 5.0
 Requires CP: 1.4
 Tested up to: 7.1
 ClassicPress: 2.7.2
-Stable tag: 1.2.8
+Stable tag: 1.2.9
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -38,6 +38,19 @@ Füge Designfarben hinzu, pass Typografie an und bearbeite globale Einstellungen
 
 
 == ChangeLog ==
+
+= 1.2.9 =
+* Neu: Regionen und ihre Grid-Inhalte starten standardmäßig mit 100 Prozent Breite; jede Region kann Regionstyp und Grid-Breite weiterhin unabhängig überschreiben
+* Fix: Fullwidth-Grids berechnen ihre Spalten aus der tatsächlich gerenderten Breite und werden nicht mehr durch feste Spalten- oder Maximalbreiten aus den Theme-Einstellungen begrenzt
+* Fix: Auto-Snap, responsive Wrapper und Spacer verwenden im Fullwidth-Modus dieselbe dynamische Spaltenbreite
+* Verbesserung: In den Element-Einstellungen bleibt immer nur ein Akkordeon-Panel geöffnet; ungespeicherte Feldwerte bleiben beim Panelwechsel erhalten
+* Fix: Die Ausrichtung Links, Mitte oder Rechts positioniert den Burger-Button korrekt und wird nicht mehr durch den Editor-Hover überschrieben
+* Verbesserung: Navigationstext verwendet standardmäßig ein gut lesbares Dunkelgrau; das Burger-Menü erhält dazu einen hellen Standardhintergrund
+* Fix: Button-Hover-Animationen verwenden im Editor und im ausgelieferten Theme konsistente Standardwerte; ältere Easing-Werte und Dezimalkommas werden kompatibel normalisiert
+* Fix: Link-, Farb-, Icon- und Format-Panels bewahren vollständige Textmarkierungen; bestätigte Aktionen werden auf den gesamten ausgewählten Bereich angewendet
+* Fix: Fehlerhaftes älteres Text-HTML wird ohne DOMDocument-Warnungen tolerant verarbeitet
+* Fix: Bildabmessungen mit nichtnumerischen Werten wie auto verursachen unter PHP 8 keinen TypeError mehr
+* Tests: Die dynamische Fullwidth-Spaltenberechnung und ihre Verwendung im Grid-Editor sind durch einen fokussierten Regressionstest abgedeckt
 
 = 1.2.8 =
 * Neu: CodePen-Styles werden wieder allein über ihre öffentliche Pen-URL erkannt; ein browserseitiger Result-Transport umgeht blockierte Direktabrufe und die validierte Vorschau wird ohne fremde Warnbanner lokal dargestellt

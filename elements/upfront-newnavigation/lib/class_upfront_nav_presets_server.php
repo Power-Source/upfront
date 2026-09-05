@@ -44,7 +44,7 @@ class Upfront_Nav_Presets_Server extends Upfront_Presets_Server {
 			'burger_alignment' => 'left',
 			'static-font-size' => 16,
 			'static-font-family' => 'Arial',
-			'static-font-color' => 'rgba(255, 255, 255, 1)',
+			'static-font-color' => 'rgba(51, 51, 51, 1)',
 			'static-font-style' => '400 normal',
 			'static-weight' => 400,
 			'static-style' => 'normal',

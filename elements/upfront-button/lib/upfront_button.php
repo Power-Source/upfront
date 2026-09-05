@@ -27,7 +27,7 @@ class Upfront_ButtonView extends Upfront_Object {
 		if(is_array($presets)) {
 			foreach($presets as $item) {
 				if($item['id'] == $this->_get_property('currentpreset')) {
-					$preset = $item;
+					$preset = Upfront_Button_Presets_Server::normalize_animation($item);
 					break;
 				}
 			}
@@ -45,7 +45,10 @@ class Upfront_ButtonView extends Upfront_Object {
 
 		$data['href'] = $link['url'];
 		$data['align'] = $this->_get_property('align');
-		$data['style_static'] = "border: ".$preset['borderwidth']."px ".$preset['bordertype']." ".$ufc->process_colors($preset['bordercolor'])."; "."border-radius: ".$preset['borderradius1']."px ".$preset['borderradius2']."px ".$preset['borderradius4']."px ".$preset['borderradius3']."px; "."background-color: ".$ufc->process_colors($preset['bgcolor'])."; "."font-size: ".$preset['fontsize']."px; "."font-family: ".$preset['fontface']."; "."color: ".$ufc->process_colors($preset['color'])."; "."transition: all ".$preset['hov_duration']."s ".$preset['hov_transition']."; ";
+		$data['style_static'] = "border: ".$preset['borderwidth']."px ".$preset['bordertype']." ".$ufc->process_colors($preset['bordercolor'])."; "."border-radius: ".$preset['borderradius1']."px ".$preset['borderradius2']."px ".$preset['borderradius4']."px ".$preset['borderradius3']."px; "."background-color: ".$ufc->process_colors($preset['bgcolor'])."; "."font-size: ".$preset['fontsize']."px; "."font-family: ".$preset['fontface']."; "."color: ".$ufc->process_colors($preset['color'])."; ";
+		if (!empty($preset['hov_use_animation']) && $preset['hov_use_animation'] === 'yes') {
+			$data['style_static'] .= "transition: all ".$preset['hov_duration']."s ".$preset['hov_transition']."; ";
+		}
 
 
 		$data['style_hover']  =  '';

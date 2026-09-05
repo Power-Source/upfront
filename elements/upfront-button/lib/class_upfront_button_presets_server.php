@@ -63,7 +63,41 @@ class Upfront_Button_Presets_Server extends Upfront_Presets_Server {
 			$presets = array();
 		}
 
+		$presets = $this->migrate_presets($presets);
+
 		return $presets;
+	}
+
+	protected function migrate_presets($presets) {
+		if (!is_array($presets)) {
+			return array();
+		}
+
+		return array_map(array(__CLASS__, 'normalize_animation'), $presets);
+	}
+
+	public static function normalize_animation($preset) {
+		if (!is_array($preset)) {
+			return $preset;
+		}
+
+		$defaults = self::get_preset_defaults();
+		$duration = isset($preset['hov_duration'])
+			? str_replace(',', '.', trim((string) $preset['hov_duration']))
+			: $defaults['hov_duration'];
+		$preset['hov_duration'] = is_numeric($duration) && (float) $duration >= 0
+			? (float) $duration
+			: $defaults['hov_duration'];
+
+		$transition = isset($preset['hov_transition'])
+			? $preset['hov_transition']
+			: (isset($preset['hov_easing']) ? $preset['hov_easing'] : $defaults['hov_transition']);
+		$allowed_transitions = array('ease', 'linear', 'ease-in', 'ease-out', 'ease-in-out');
+		$preset['hov_transition'] = in_array($transition, $allowed_transitions, true)
+			? $transition
+			: $defaults['hov_transition'];
+
+		return $preset;
 	}
 
 	public function clearPreset($preset) {
@@ -158,10 +192,9 @@ class Upfront_Button_Presets_Server extends Upfront_Presets_Server {
 			'hov_fontstyle_style' => 'normal',
 			'hov_lineheight' => 1,
 			'hov_color' => 'rgb(255, 255, 255)',
-			'hov_duration' => 0.25,
-			'hov_transition' => 'linear',
+			'hov_use_animation' => 'yes',
 			'hov_duration' => 0.3,
-			'hov_easing' => 'ease-in-out',
+			'hov_transition' => 'ease-in-out',
 			'focus_bordertype' => 'solid',
 			'focus_borderwidth' => 1,
 			'focus_bordercolor' => 'rgb(66, 127, 237)',

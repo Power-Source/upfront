@@ -28,15 +28,23 @@ define([
 		},
 
 		toggleBody: function () {
-			this.$el.find('.uf-settings-panel__body').toggle();
-			this.$el.toggleClass('uf-settings-panel--expanded');
+			if ( this.$el.hasClass('uf-settings-panel--expanded') ) {
+				this.hideBody();
+				return;
+			}
+
+			this.$el
+				.siblings('.uf-settings-panel--expanded')
+				.removeClass('uf-settings-panel--expanded')
+				.children('.uf-settings-panel__body').hide();
+			this.showBody();
 		},
 
 		/**
 		 * Hides panel body
 		 */
 		hideBody: function () {
-			this.$el.find('.uf-settings-panel__body').hide();
+			this.$el.children('.uf-settings-panel__body').hide();
 			this.$el.removeClass('uf-settings-panel--expanded');
 		},
 
@@ -44,7 +52,7 @@ define([
 		 * Shows panel body
 		 */
 		showBody: function () {
-			this.$el.find('.uf-settings-panel__body').show();
+			this.$el.children('.uf-settings-panel__body').show();
 			this.$el.addClass('uf-settings-panel--expanded');
 		},
 

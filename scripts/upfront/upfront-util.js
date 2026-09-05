@@ -321,11 +321,19 @@ define([
 				;
                 return parseInt(col_cls.replace(col_class, ""), 10) * column_width;
             },
-            width_to_col: function (width, ceil) {
+			get_column_width: function ($layout) {
+				var grid = Upfront.Settings.LayoutEditor.Grid;
+				$layout = $layout ? $($layout).first() : $();
+				if ($layout.hasClass('upfront-grid-layout-fullwidth') && $layout.innerWidth()) {
+					return $layout.innerWidth() / grid.size;
+				}
+				return grid.column_width;
+			},
+			width_to_col: function (width, ceil, $layout) {
                 ceil = typeof  ceil === "undefined" ? false : ceil;
 				width = parseInt( width, 10 );
 				if( width < 0 ) return 0;
-                var column_width = Upfront.Settings.LayoutEditor.Grid.column_width;
+				var column_width = this.get_column_width($layout);
                 return Math[ ceil ? "ceil" : "floor" ](width/column_width);
             },
             height_to_row: function (height) {
@@ -354,8 +362,8 @@ define([
 				return this.derive_from_classes( classes, "ml" );
 			}
         },
-		width_to_col: function (width) {
-			return this.grid.width_to_col(width);
+		width_to_col: function (width, ceil, $layout) {
+			return this.grid.width_to_col(width, ceil, $layout);
 		},
 
 		height_to_row: function (height) {

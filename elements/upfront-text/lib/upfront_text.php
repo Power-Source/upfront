@@ -23,7 +23,10 @@ class Upfront_PlainTxtView extends Upfront_Object {
 			$doc = new DOMDocument();
 			$clean_doc = new DOMDocument();
 			$content = "<head><meta http-equiv='Content-type' content='text/html; charset=UTF-8' /></head><body>{$content}</body>";
+			$previous_libxml_error_setting = libxml_use_internal_errors(true);
 			$doc->loadHTML($content);
+			libxml_clear_errors();
+			libxml_use_internal_errors($previous_libxml_error_setting);
 			$divs = $doc->getElementsByTagName('div');
 			$plaintxt_wrap = false;
 			foreach ( $divs as $div ){

@@ -627,6 +627,13 @@
 							;
 							if ($.inArray(id, self.opts.airButtons) === -1) return;
 							var btn = self.button[addMethod](id, b.title);
+							b.panel.button = btn;
+							if (id === 'upfrontLink') {
+								btn.on('mousedown', function(e) {
+									e.preventDefault();
+									if (!btn.hasClass('dropact') && !self.$editor.find('span#selection-marker-1').length) self.selection.save();
+								});
+							}
 							self.button.addCallback( btn, function () {
 								var $button = self.button.get(id),
 									left = $button.position().left;
@@ -834,7 +841,7 @@
 
 					open: function (e, redactor) {
 						this.redactor = redactor;
-						redactor.selection.save();
+						if (!redactor.$editor.find('span#selection-marker-1').length) redactor.selection.save();
 
 						var me = this,
 							// Defaults
@@ -848,8 +855,8 @@
 
 						if (this.selectedLink) {
 							// Get values from existing link
-							href = $(this.selectedLink).attr('href');
-							target = $(this.selectedLink).attr('target');
+							href = $(this.selectedLink).attr('href') || '';
+							target = $(this.selectedLink).attr('target') || '_self';
 
 							if (!_.isUndefined($(this.selectedLink).attr('data-upfront-link-type'))) {
 								// New linking is used, there is exact value
@@ -864,7 +871,7 @@
 						}
 
 						// And now, we escape the URL before anything else
-						href = encodeURI(decodeURI(href));
+						href = this.normalizeUrlEncoding(href);
 
 						this.linkModel = new LinkModel({
 							type: type,
@@ -875,7 +882,6 @@
 
 						this.listenTo(this.linkModel, 'change', function (dontflag) {
 							me.redactor.buffer.set();
-							me.redactor.selection.save();
 							if (me.linkModel.get('type') === 'unlink') {
 								me.unlink();
 							} else {
@@ -914,13 +920,7 @@
 
 						// Close on panel ok
 						this.listenTo(this.linkPanel, 'linkpanel:close', function() {
-							// Didn't find any function to do this, so go raw
-							$('a.re-upfrontLink').click().removeClass('dropact redactor_act');
-							// Preserve caret position, or it will just reset to 0 after selection is removed.
-							var caretOffset = me.redactor.caret.getOffset();
-							me.redactor.selection.remove();
-							me.redactor.caret.setOffset(caretOffset);
-							this.showSiblings();
+							me.closeLinkPanel();
 						});
 
 						this.listenTo(this.linkModel, 'change:type', function() {
@@ -939,15 +939,15 @@
 						var $buttons = this.$el.parent().siblings('li'),
 							totalWidth = 0
 							;
+						this.redactor.selection.restore();
 
 						$buttons.each(function(i, element) {
-							totalWidth = totalWidth + parseInt($(element).width());
+							totalWidth += $(element).outerWidth(true) || 0;
 						});
 
 						this.$el.closest('.redactor_air').css('width', totalWidth + 5);
-
-						$('a.re-upfrontLink').click().removeClass('dropact redactor_act');
-
+						this.panel.hide();
+						this.button.removeClass('dropact redactor_act');
 						$buttons.show();
 					},
 
@@ -961,26 +961,46 @@
 						this.$el.parent().siblings('li').show();
 
 						this.$el.parent().siblings('li').each(function(i, element) {
-							totalWidth = totalWidth + parseInt($(element).width());
+							totalWidth += $(element).outerWidth(true) || 0;
 						});
 
 						this.$el.closest('.redactor_air').css('width', totalWidth + 5);
 					},
 
 					updateWrapperSize: function() {
-						var totalWidth = 0;
+						var totalWidth = 0,
+							$panel = this.$el.find('.ulinkpanel-dark'),
+							$wrapper = this.$el.closest('.redactor_air'),
+							$editor = this.redactor.$editor,
+							editorOffset = $editor.offset(),
+							editorWidth = $editor.outerWidth();
 
-						this.$el.find('.ulinkpanel-dark').children().each(function(i, element) {
-							var elementWidth = $(element).hasClass('upfront-settings-link-target') ? 0 : parseInt($(element).width());
-							totalWidth = totalWidth + elementWidth;
+						$panel.children().each(function(i, element) {
+							totalWidth += $(element).outerWidth(true) || 0;
 						});
 
-						this.$el.find('.ulinkpanel-dark').css('width', totalWidth + 10);
-						this.$el.closest('.redactor_air').css('width', totalWidth + 10);
+						$panel.css('width', totalWidth + 10);
+						$wrapper.css('width', totalWidth + 10);
+
+						if (editorOffset && editorWidth) {
+							var wrapperLeft = parseFloat($wrapper.css('left')) || editorOffset.left,
+							maxLeft = Math.max(editorOffset.left, editorOffset.left + editorWidth - $wrapper.outerWidth());
+
+							$wrapper.css('left', Math.max(editorOffset.left, Math.min(wrapperLeft, maxLeft)));
+						}
 					},
 
 					close: function (e, redactor) {
 						redactor.selection.restore();
+					},
+
+					normalizeUrlEncoding: function (url) {
+						if (!_.isString(url) || !url) return '';
+						try {
+							return encodeURI(decodeURI(url));
+						} catch (error) {
+							return url;
+						}
 					},
 
 					unlink: function (e) {
@@ -997,9 +1017,7 @@
 					},
 
 					link: function (dontflag) {
-						var selectedText;
-
-						if (typeof this.linkModel.get('url') === 'undefined') {
+						if (!this.linkModel.get('url')) {
 							return;
 						}
 
@@ -1009,56 +1027,12 @@
 							$(this.selectedLink).attr('href', this.linkModel.get('url'))
 								.attr('target', this.linkModel.get('target'));
 						} else {
-// Origin story, Episode #0 - In The Beginning
-// This does not work because redactor will try to destroy HTML tags in link text
-// - see redactor.js:5418 for more info
-							/*
-							 // Create new link
-							 selectedText = this.redactor.selection.getHtml();
-							 */
-
-// Fix approach, Episode #1 - Nuclear Wasteland (drop all HTML)
-							/*
-							 // ^ instead of the HTML approach above, go with getText()
-							 selectedText = this.redactor.selection.getText();
-							 this.redactor.selection.replaceWithHtml(selectedText); // Also reset the selection to the text-only representation
-							 */
-
-// Fix approach, Episode #2 - Lizard Spooks Spock (camouflage the HTML)
-							// Somewhere along the line, the non-printable chars, spaces and stuff get all normalized,
-							// hence the printable default/fallback string
-							// Downside: if something goes wrong, it won't be a pretty sight at all :/
-							var rx_special = /[-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, // This will be used to encode regex special chars
-								rx_replacement = '\\$&', // Second part of regex special chars encoding (result)
-								otm = ((Upfront.Settings || {}).Editor || {}).OPEN_TAG_RPL_MARK || '{{UPFRONT_OPEN_TAG_MARK}}', // Open Tag Mark - either from settings or fallback
-								ctm = ((Upfront.Settings || {}).Editor || {}).CLOSE_TAG_RPL_MARK || '{{UPFRONT_CLOSE_TAG_MARK}}', // Close Tag Mark - either from settings or fallback
-								rx_otm = new RegExp(otm.replace(rx_special, rx_replacement), 'g'), // OTM regex representation - note the "g" parameter
-								rx_ctm = new RegExp(ctm.replace(rx_special, rx_replacement), 'g') // CTM regex representation - note the "g" parameter
-								;
-							selectedText = this.redactor.selection.getHtml(); // Get HTML, yeah
-							// Now, let's nerf the HTML stuff
-							selectedText = selectedText
-							// Clever, ain't it?
-								.replace(/</g, otm)
-								.replace(/>/g, ctm)
-							;
-							this.redactor.selection.replaceWithHtml(selectedText);
-
-							this.redactor.link.set(selectedText, this.linkModel.get('url'), this.linkModel.get('target'));
-							// Now select created link
-							this.selectedLink = this.redactor.utils.isCurrentOrParent('A');
-
-// Episode #2a, The Sad Saga of Spock's Debilitating Phobia Continues (de-camo the HTML)
-							selectedText = this.redactor.selection.getHtml(); // Get the HTML once more, it's now fake HTML
-							// Now, let's de-camouflage it
-							selectedText = selectedText
-								.replace(rx_otm, '<')
-								.replace(rx_ctm, '>')
-							;
-							this.redactor.selection.replaceWithHtml(selectedText);
-// Episode #2 concludes, Spock dies in the end :(
-
-							// Update selection, new link is created it messes up selection
+							this.redactor.selection.restore();
+							this.selectedLink = this.redactor.selection.wrap('a');
+							if (!this.selectedLink) return;
+							$(this.selectedLink).attr('href', this.linkModel.get('url'))
+								.attr('target', this.linkModel.get('target'));
+							this.redactor.selection.selectElement(this.selectedLink);
 							this.redactor.selection.save();
 						}
 
@@ -1170,6 +1144,7 @@
 									showAlpha: true,
 									appendTo: "parent",
 									showPalette: true,
+									hideAfterPaletteSelect: true,
 									localStorageKey: "spectrum.recent_colors",
 									palette: theme_colors,
 									maxSelectionSize: 10,
@@ -1183,7 +1158,6 @@
 									},
 									move: function (color) {
 										self.current_color = color;
-										self.updateColors('foreground');
 									}
 								},
 								autoHide: true
@@ -1195,6 +1169,7 @@
 									showAlpha: true,
 									appendTo: "parent",
 									showPalette: true,
+									hideAfterPaletteSelect: true,
 									palette: theme_colors,
 									localStorageKey: "spectrum.recent_bgs",
 									maxSelectionSize: 10,
@@ -1208,7 +1183,6 @@
 									},
 									move: function (color) {
 										self.current_bg = color;
-										self.updateColors('background');
 									}
 								},
 								autoHide: true
@@ -1276,7 +1250,6 @@
 
 						this.$(".sp-choose").on("click", function ( e ) {
 							e.preventDefault();
-							self.updateColors(self.getActiveColorTarget());
 							self.closePanel();
 							self.closeToolbar();
 							self.redactor.dropdown.hideAll();

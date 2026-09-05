@@ -825,11 +825,7 @@ var GridEditor = {
 	},
 
 	get_column_size: function($layout){
-		var ed = Upfront.Behaviors.GridEditor;
-		if ($layout.hasClass('upfront-grid-layout-fullwidth') && $layout.innerWidth()) {
-			return $layout.innerWidth() / ed.grid.size;
-		}
-		return ed.grid.column_width;
+		return Upfront.Util.grid.get_column_width($layout);
 	},
 
 	/**

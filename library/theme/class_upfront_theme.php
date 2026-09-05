@@ -19,6 +19,7 @@ class Upfront_Theme {
 		'position' => 10,
 		'allow_sidebar' => true, // allow sidebar region? accept true or false
 		'type' => 'wide', // type of region, accept full|wide|clip (either full screen | 100% wide | clipped)
+		'fullwidth_content' => '1',
 	);
 
 	public static function get_instance () {

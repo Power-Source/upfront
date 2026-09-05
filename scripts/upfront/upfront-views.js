@@ -997,7 +997,7 @@ define([
 					width_col = breakpoint_data ? breakpoint_data.left+breakpoint_data.col : 0
 				;
 				if ( has_sibling ) {
-					width_col = Upfront.Util.width_to_col($wrapper.width());
+					width_col = Upfront.Util.width_to_col($wrapper.width(), false, $wrapper.closest('.upfront-grid-layout'));
 				}
 				if ( !_.contains(exceptions, 'hide') ) {
 					if ( breakpoint_data && "hide" in breakpoint_data ) {
@@ -1027,7 +1027,7 @@ define([
 						}
 						else {
 							// No breakpoint data set and on responsive, let's set to 100%
-							width_col = Upfront.Util.width_to_col($wrapper.width());
+							width_col = Upfront.Util.width_to_col($wrapper.width(), false, $wrapper.closest('.upfront-grid-layout'));
 							$el.css('width', '100%');
 							$el.data('breakpoint_col', width_col);
 							$el.data('current_col', width_col);
@@ -5112,9 +5112,11 @@ define([
 
 
 				var grid = Upfront.Settings.LayoutEditor.Grid,
-					width = this.model.get_property_value_by_name('width');
+					width = this.model.get_property_value_by_name('width'),
+					fullwidth_content = this.model.get('fullwidth_content'),
+					is_fullwidth_content = fullwidth_content === true || fullwidth_content === 1 || fullwidth_content === '1';
 				this.sub_model = [];
-				this.max_col = width ? Upfront.Util.width_to_col(width) : grid.size;
+				this.max_col = is_fullwidth_content ? grid.size : ( width ? Upfront.Util.width_to_col(width) : grid.size );
 				this.available_col = this.max_col;
 
 				// this.model.get("properties").bind("change", this.update, this);
@@ -5195,6 +5197,9 @@ define([
 					type = this._get_region_type(),
 					previous_type = this._get_previous_region_type(),
 					fullwidth_content = this.model.get('fullwidth_content'),
+					is_fullwidth_content = fullwidth_content === true || fullwidth_content === 1 || fullwidth_content === '1',
+					width = this.model.get_property_value_by_name('width'),
+					max_col = is_fullwidth_content ? grid.size : ( width ? Upfront.Util.width_to_col(width) : grid.size ),
 					default_breakpoint = Upfront.Views.breakpoints_storage.get_breakpoints().get_default().toJSON(),
 					default_width = (default_breakpoint.columns * grid.column_width),
 					contained_width = Upfront.Application.layout.get_property_value_by_name('contained_region_width') || default_width
@@ -5205,7 +5210,13 @@ define([
 				else {
 					this.$bg.css('max-width', '');
 				}
-				this.$layout.toggleClass('upfront-grid-layout-fullwidth', fullwidth_content === true || fullwidth_content === 1 || fullwidth_content === '1');
+				if ( this.max_col != max_col ) {
+					this.$layout.removeClass(grid['class'] + this.max_col);
+					this.max_col = max_col;
+					this.available_col = max_col;
+					this.$layout.addClass(grid['class'] + this.max_col);
+				}
+				this.$layout.toggleClass('upfront-grid-layout-fullwidth', is_fullwidth_content);
 				this.update_background();
 				if ( previous_type != type ){
 					this.$el.removeClass('upfront-region-container-' + previous_type);
@@ -7422,7 +7433,7 @@ define([
 				spacer_col = spacer_col > 0 ? spacer_col : 1;
 				current_col = _.isNumber(current_col) && current_col > spacer_col
 					? current_col
-					: Upfront.Util.width_to_col(this.$el.width())
+					: Upfront.Util.width_to_col(this.$el.width(), false, this.$el.closest('.upfront-grid-layout'))
 				;
 				var breakpoint = Upfront.Views.breakpoints_storage.get_breakpoints().get_active().toJSON(),
 					ed = Upfront.Behaviors.GridEditor,
@@ -7433,7 +7444,7 @@ define([
 				;
 				if ( !$rsz_wrapper.length ) return;
 				if ( new_col < min_col ) {
-					current_col = Upfront.Util.width_to_col($rsz_wrapper.width());
+					current_col = Upfront.Util.width_to_col($rsz_wrapper.width(), false, $rsz_wrapper.closest('.upfront-grid-layout'));
 					new_col = current_col-spacer_col;
 				}
 				var rsz_model = this.model.collection.get_by_wrapper_id($rsz_wrapper.attr('id')),
@@ -7549,7 +7560,7 @@ define([
 						return ( !breakpoint || breakpoint['default'] ? $each.hasClass('clr') : $each.data('breakpoint_clear') );
 					},
 					find_cb = function ($each) {
-						return ( Upfront.Util.width_to_col($each.width()) > min_col );
+						return ( Upfront.Util.width_to_col($each.width(), false, $each.closest('.upfront-grid-layout')) > min_col );
 					},
 					$start = is_clr(this.$el) ? this.$el : Upfront.Util.find_from_elements($wrappers, this.$el, is_clr, true),
 					$nexts = Upfront.Util.find_from_elements($wrappers, $start, '.upfront-wrapper', false, is_clr),

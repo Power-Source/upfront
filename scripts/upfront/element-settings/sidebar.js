@@ -64,7 +64,9 @@ define([], function () {
 		$('#element-settings-sidebar').html(the_settings_view.el);
 		$('#element-settings-sidebar').append('<div id="preventElementsUsageOverlay"><span></span></div>');
 		$('#element-settings-sidebar').width(260).css('opacity', '');
-		$('.uf-settings-panel--expanded:not(:first)').toggleClass('uf-settings-panel--expanded').find('.uf-settings-panel__body').toggle();
+		$('#element-settings-sidebar #sidebar-scroll-wrapper > .uf-settings-panel--expanded:not(:first)')
+			.removeClass('uf-settings-panel--expanded')
+			.children('.uf-settings-panel__body').hide();
 
 		Upfront.Events.on('element:settings:saved', destroySettings);
 

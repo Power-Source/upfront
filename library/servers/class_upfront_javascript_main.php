@@ -148,7 +148,7 @@ class Upfront_JavascriptMain extends Upfront_Server {
 
 
 		$layout_editor_requirements = array(
-			"core" => array('modern-ui-draggable', 'modern-ui-resizable', 'modern-ui-sortable', 'modern-ui-slider', 'modern-ui-datepicker', 'models', 'views', 'editor_views', 'behaviors', $upfront_data_url, 'media', 'content', 'spectrum', 'responsive', 'redactor', 'ueditor' ),
+			"core" => array('modern-ui-draggable', 'modern-ui-resizable', 'modern-ui-sortable', 'modern-ui-slider', 'modern-ui-datepicker', 'models', 'views', 'editor_views', 'behaviors', 'upfront-data', 'media', 'content', 'spectrum', 'responsive', 'redactor', 'ueditor' ),
 			"entities" => array_merge(array('objects'), array_keys($registered)),
 		);
 		$layout_editor_requirements = json_encode(

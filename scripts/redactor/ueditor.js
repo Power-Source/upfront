@@ -1389,14 +1389,11 @@
 			hideLinkFlags: function(area)  {
 				this.$el.find('a').each(function() {
 					var $link = $(this),
-						$flag = $link.children('i.visit_link'),
-						href;
-					if (!$flag.length) return;
-					href = sanitizeLinkUrl($flag.attr('data-href'));
+						href = sanitizeLinkUrl($link.children('i.visit_link').attr('data-href'));
 					$link.css('position', '');
 					if (href) this.href = href;
 					else this.removeAttribute('href');
-					$flag.remove();
+					$link.children('i.visit_link').remove();
 					//$(this).attr('onclick', '');
 				});
 			},
@@ -2168,10 +2165,7 @@
 
 				return 	show_tooltip
 					&& 	$block.closest(".ueditor-insert").length === 0
-					&& ( block_html.match(/<br>/g) ||
-				( indexPosition < 1 && prevblock_html.match(/<br>/g) ) ||
-				( typeof $block.closest("p.nosortable").html() !== "undefined" &&
-				( $block.closest("p.nosortable").html() || "" ).trim() === "" ) );
+					&&  ( block_html.match(/<br>/g) || ( indexPosition < 1 && prevblock_html.match(/<br>/g) ) || ( typeof $block.closest("p.nosortable").html() !== "undefined" &&  $.trim( $block.closest("p.nosortable").html() ) === "" ) ) ;
 			}
 		});
 
