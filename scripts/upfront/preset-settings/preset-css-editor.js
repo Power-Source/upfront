@@ -512,7 +512,7 @@ define([
 		save: function(event) {
 			if (event) event.preventDefault();
 			var me = this,
-				styles = $.trim(this.editor.getValue()),
+				styles = String(this.editor.getValue()).trim(),
 				data;
 
 			if (this.is_global_stylesheet === false && this.stylename === this.get_temp_stylename())

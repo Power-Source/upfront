@@ -35,11 +35,13 @@ describe('Sidebar element drag', function () {
 		assert.equal(selectorSource.indexOf('return handles[direction]'), -1);
 	});
 
-	it('derives fullwidth grid columns from the rendered inner grid width', function () {
+	it('keeps fullwidth grid content disabled while retaining guarded grid sizing', function () {
 		var gridSource = fs.readFileSync(path.join(__dirname, '../../scripts/upfront/behaviors/grid-editor.js'), 'utf8'),
 			utilSource = fs.readFileSync(path.join(__dirname, '../../scripts/upfront/upfront-util.js'), 'utf8'),
 			layoutSource = fs.readFileSync(path.join(__dirname, '../../scripts/upfront/behaviors/layout-editor.js'), 'utf8'),
 			viewsSource = fs.readFileSync(path.join(__dirname, '../../scripts/upfront/upfront-views.js'), 'utf8'),
+			outputSource = fs.readFileSync(path.join(__dirname, '../../library/output/class_upfront_region_container.php'), 'utf8'),
+			settingsSource = fs.readFileSync(path.join(__dirname, '../../scripts/upfront/upfront-views-editor/region/region-bg-setting.js'), 'utf8'),
 			columnSizeStart = gridSource.indexOf('get_column_size: function'),
 			columnSizeEnd = gridSource.indexOf('/**', columnSizeStart),
 			columnSizeSource = gridSource.slice(columnSizeStart, columnSizeEnd);
@@ -50,7 +52,8 @@ describe('Sidebar element drag', function () {
 		assert.notEqual(gridSource.indexOf('ed.col_size = ed.get_column_size($grid_layout)'), -1);
 		assert.notEqual(layoutSource.indexOf('grid_ed.get_column_size($grid_layout)'), -1);
 		assert.notEqual(viewsSource.indexOf("width_to_col(this.$el.width(), false, this.$el.closest('.upfront-grid-layout'))"), -1);
-		assert.notEqual(viewsSource.indexOf('this.max_col = is_fullwidth_content ? grid.size'), -1);
-		assert.notEqual(viewsSource.indexOf('max_col = is_fullwidth_content ? grid.size'), -1);
+		assert.equal(outputSource.indexOf("$layout_classes[] = 'upfront-grid-layout-fullwidth'"), -1);
+		assert.equal(settingsSource.indexOf("name: 'fullwidth_content'"), -1);
+		assert.notEqual(viewsSource.indexOf("this.$layout.removeClass('upfront-grid-layout-fullwidth')"), -1);
 	});
 });

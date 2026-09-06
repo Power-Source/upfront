@@ -1,6 +1,12 @@
 Change Log
 ============
 
+1.3.0 - 2026-09-06
+-------------------------------------------------------------------------------
+- Fix: Regionen akzeptieren wieder CSS Regeln
+- Full Width Grid wegen Problemen vorerst deaktivert, benötigt doch mehr Integrationsarbeit
+
+
 1.2.9 - 2026-09-05
 -------------------------------------------------------------------------------
 - Neu: Regionen und ihre Grid-Inhalte starten standardmäßig mit 100 Prozent Breite; jede Region kann Regionstyp und Grid-Breite weiterhin unabhängig überschreiben

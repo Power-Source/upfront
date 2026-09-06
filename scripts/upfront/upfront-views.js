@@ -5112,11 +5112,9 @@ define([
 
 
 				var grid = Upfront.Settings.LayoutEditor.Grid,
-					width = this.model.get_property_value_by_name('width'),
-					fullwidth_content = this.model.get('fullwidth_content'),
-					is_fullwidth_content = fullwidth_content === true || fullwidth_content === 1 || fullwidth_content === '1';
+					width = this.model.get_property_value_by_name('width');
 				this.sub_model = [];
-				this.max_col = is_fullwidth_content ? grid.size : ( width ? Upfront.Util.width_to_col(width) : grid.size );
+				this.max_col = width ? Upfront.Util.width_to_col(width) : grid.size;
 				this.available_col = this.max_col;
 
 				// this.model.get("properties").bind("change", this.update, this);
@@ -5196,10 +5194,8 @@ define([
 					expand_lock = this.model.get_property_value_by_name('expand_lock'),
 					type = this._get_region_type(),
 					previous_type = this._get_previous_region_type(),
-					fullwidth_content = this.model.get('fullwidth_content'),
-					is_fullwidth_content = fullwidth_content === true || fullwidth_content === 1 || fullwidth_content === '1',
 					width = this.model.get_property_value_by_name('width'),
-					max_col = is_fullwidth_content ? grid.size : ( width ? Upfront.Util.width_to_col(width) : grid.size ),
+					max_col = width ? Upfront.Util.width_to_col(width) : grid.size,
 					default_breakpoint = Upfront.Views.breakpoints_storage.get_breakpoints().get_default().toJSON(),
 					default_width = (default_breakpoint.columns * grid.column_width),
 					contained_width = Upfront.Application.layout.get_property_value_by_name('contained_region_width') || default_width
@@ -5216,7 +5212,7 @@ define([
 					this.available_col = max_col;
 					this.$layout.addClass(grid['class'] + this.max_col);
 				}
-				this.$layout.toggleClass('upfront-grid-layout-fullwidth', is_fullwidth_content);
+				this.$layout.removeClass('upfront-grid-layout-fullwidth');
 				this.update_background();
 				if ( previous_type != type ){
 					this.$el.removeClass('upfront-region-container-' + previous_type);

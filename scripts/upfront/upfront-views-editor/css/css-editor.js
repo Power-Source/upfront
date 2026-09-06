@@ -25,8 +25,8 @@
 		var tokenize = function(css) {
 			var brokenByStart = String(css || '').split('/*');
 			var sortedByStart = [];
-			brokenByStart.forEach(function(arg) {
-				if (arg.trim() === '') {
+			brokenByStart.forEach(function(arg, index) {
+				if (index === 0 || arg.trim() === '') {
 					sortedByStart.push(arg);
 					return;
 				}
@@ -599,11 +599,12 @@
 			updateStyles: function(contents){
 				var $el = this.get_style_element();
 				Upfront.Util.Transient.push('css-' + this.element_id, $el.html());
-				contents = Upfront.Util.colors.convert_string_ufc_to_color( contents);
+				contents = this.stylesAddSelector(
+					contents, (this.is_default_style ? '' : this.get_css_selector())
+				);
+				contents = Upfront.Util.colors.convert_string_ufc_to_color(contents);
 				$el.html(
-					this.stylesAddSelector(
-						contents, (this.is_default_style ? '' : this.get_css_selector())
-					).replace(/#page/g, 'div#page.upfront-layout-view .upfront-editable_entity.upfront-module')
+					contents.replace(/#page/g, 'div#page.upfront-layout-view .upfront-editable_entity.upfront-module')
 				);
 				this.trigger('updateStyles', this.element_id);
 			},
@@ -612,7 +613,7 @@
 				if (this.is_global_stylesheet && empty(selector)) return contents;
 
 				var me = this,
-					tokens = tokenize(contents);
+					tokens = tokenize(contents),
 					processed = ''
 				;
 
@@ -631,7 +632,7 @@
 						var openingWS = '';
 						var endingWS = '';
 						while (s.charAt(0).trim() === '') {
-							openingWs += s.charAt(0);
+							openingWS += s.charAt(0);
 							s = s.substring(1);
 						}
 						while (s.charAt(s.length - 1).trim() === '') {
@@ -717,7 +718,7 @@
 			save: function(event) {
 				if (event) event.preventDefault();
 				var me = this,
-					styles = $.trim(this.editor.getValue()),
+					styles = String(this.editor.getValue()).trim(),
 					data;
 
 				if (this.is_global_stylesheet === false && this.stylename === this.get_temp_stylename())

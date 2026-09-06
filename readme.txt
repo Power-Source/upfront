@@ -6,7 +6,7 @@ Requires at least: 5.0
 Requires CP: 1.4
 Tested up to: 7.1
 ClassicPress: 2.7.2
-Stable tag: 1.2.9
+Stable tag: 1.3.0
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -33,11 +33,11 @@ Es ist anders als jedes ClassicPress-Theme, das Du jemals verwendet hast. Jedes 
 Steuere einzelne Elemente UND verwalte den Stil global auf Deiner gesamten Webseite. 
 Füge Designfarben hinzu, pass Typografie an und bearbeite globale Einstellungen ohne eine einzige Codezeile.
 
-== POWERMODUS: UpFront Builder ==
-
-
-
 == ChangeLog ==
+
+= 1.3.0 =
+*Fix: Regionen akzeptieren wieder CSS Regeln
+*Full Width Grid wegen Problemen vorerst deaktivert, benötigt doch mehr Integrationsarbeit
 
 = 1.2.9 =
 * Neu: Regionen und ihre Grid-Inhalte starten standardmäßig mit 100 Prozent Breite; jede Region kann Regionstyp und Grid-Breite weiterhin unabhängig überschreiben
