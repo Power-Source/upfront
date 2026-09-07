@@ -200,7 +200,7 @@ jQuery(document).ready(function($) {
 			*/
 
 
-			if($(this).parent().attr('data-burger_over') == 'pushes' && $(this).parent().attr('data-burger_alignment') == 'top') {
+			if($(this).parent().attr('data-burger_over') == 'pushes' && $(this).parent().attr('data-burger_alignment') == 'top' && !($('div#sidebar-ui').length > 0 && $('div#sidebar-ui').css('display') == 'block')) {
 
 				$('div#page').css('margin-top', $(this).parent().find('ul.menu').outerHeight());
 
