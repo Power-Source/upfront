@@ -30,9 +30,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 function ufcode_initialize () {
 	// Include the backend support stuff
 	require_once (dirname(__FILE__) . '/lib/upfront_code.php');
+	require_once (dirname(__FILE__) . '/lib/class_upfront_code_presets_server.php');
 
 	add_filter('upfront_l10n', array('Upfront_CodeView', 'add_l10n_strings'));
 	add_filter('upfront_data', array('Upfront_CodeView', 'add_js_defaults'));
+	upfront_add_ajax('upfront_codepen_import_element', array('Upfront_CodeView', 'ajax_import_codepen'));
 
 	// Expose our JavaScript definitions to the Upfront API
 	upfront_add_layout_editor_entity('upfront_code', upfront_relative_element_url('js/upfront_code', __FILE__));

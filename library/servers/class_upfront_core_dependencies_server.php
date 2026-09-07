@@ -35,15 +35,13 @@ class Upfront_CoreDependencies_Server extends Upfront_Server {
 	}
 
 	/**
-	 * Drops default jquery. Happens only in hardcode mode.
-	 * It will be re-added later on, in Upfront_CoreDependencies_Server::_output_experimental()
-	 * Although this does *not* replace stock WP jQuery, it is sure to break some plugins!
+	 * Keeps jQuery in the WordPress queue for plugins that print dependencies
+	 * before Upfront injects its experimental dependency bundle.
 	 */
 	public function setup_hard_experiments () {
 		$comp = Upfront_Behavior::compression();
 		if (!$comp->has_experiments_level($comp->constant('HARDCORE'))) return false;
 		if (!empty($_GET['editmode'])) return false; // Absolutely don't do this if we're to auto-boot
-		wp_deregister_script('jquery'); // Oooooh yeah we went there!
 	}
 
 	/**
@@ -73,7 +71,7 @@ class Upfront_CoreDependencies_Server extends Upfront_Server {
 		do_action('upfront-core-wp_dependencies');
 
 		$deps = Upfront_CoreDependencies_Registry::get_instance();
-		$wps = new WP_Scripts();
+		$wps = wp_scripts();
 		$scripts = $deps->get_wp_scripts();
 
 		$srcs = array();
@@ -86,10 +84,7 @@ class Upfront_CoreDependencies_Server extends Upfront_Server {
 			if (file_exists($src)) $out .= file_get_contents($src);
 		}
 
-		$response = empty($out)
-			? new Upfront_JavascriptResponse_Error("Dependencies not found")
-			: new Upfront_JavascriptResponse_Success($out)
-		;
+		$response = new Upfront_JavascriptResponse_Success($out);
 		$this->_out($response);
 	}
 

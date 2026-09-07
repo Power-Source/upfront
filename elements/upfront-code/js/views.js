@@ -304,13 +304,16 @@ define([
 					editor.on('change', function(){
 						if (me.timers[syntax]) clearTimeout(me.timers[syntax]);
 						me.timers[syntax] = setTimeout(function(){
-							var value = editor.getValue();
+							var value = editor.getValue(),
+								annotations = check.get_annotations(value);
 							check.set(value)
 								.done(function () {
+									editor.getSession().clearAnnotations();
 									$editor.find('.upfront_code-jsalert').hide();
 									me.property(syntax, value, false); // Only update the property if this is actually decent
 								})
 								.fail(function (error) {
+									editor.getSession().setAnnotations(annotations);
 									$editor.find('.upfront_code-jsalert').show().find('i').attr('title', l10n.errors[syntax] + ' ' + error);
 								})
 							;
@@ -373,16 +376,46 @@ define([
 
 				//save edition
 				$editor.find('button').on('click', function(e){
+					var has_errors = false;
 					_.each(me.editors, function(editor, type){
-						var value = editor.getValue();
-						if (Syntax.checker(type).check(value)) me.property(type, value);
-						else me.property(type, me.fallback(type));
+						var value = editor.getValue(),
+							check = Syntax.checker(type),
+							annotations = check.get_annotations(value);
+						if (check.check(value)) {
+							me.property(type, value);
+							return;
+						}
+						has_errors = true;
+						editor.getSession().setAnnotations(annotations);
+						$editor.find('.upfront_code-switch[data-for="' + type + '"]').trigger('click');
 					});
+					if (has_errors) return false;
 
 					me.$("section.upfront_code-element").replaceWith(me.get_content_markup()).end();
 					me.is_editing = false;
 					me.destroyEditor();
 				});
+
+				$editor.find('.upfront_code-codepen-export').on('click', function (e) {
+					e.preventDefault();
+					me.exportToCodepen();
+				});
+
+				$editor.find('.upfront_code-codepen-import').on('click', function (e) {
+					e.preventDefault();
+					me.importFromCodepen();
+				});
+
+				$editor.find('.upfront_code-codepen-save').on('click', function (e) {
+					e.preventDefault();
+					me.saveCodepenLink();
+				});
+
+				$editor.find('.upfront_code-codepen-templates').on('change', function () {
+					var template = $(this).val();
+					if (template) me.applyCodepenTemplate(JSON.parse(template));
+				});
+				this.loadCodepenTemplates($editor);
 
 				//Highlight element
 				$editor
@@ -403,6 +436,183 @@ define([
 					.on('click', '.upfront-css-theme_image', _.bind(this.open_theme_image_picker, this))
 					.on('click', '.upfront-css-media_image', _.bind(this.open_media_image_picker, this))
 				;
+			},
+
+			exportToCodepen: function () {
+				var name = window.prompt(l10n.template.codepen_export_prompt, this.property('codepen_name') || 'Upfront Code Element'),
+					payload,
+					importSource,
+					form;
+				if (!name) return;
+				this.property('codepen_name', name, false);
+				payload = {
+						schema: 'upfront-code-element',
+						version: 1,
+						markup: this.editors.markup.getValue(),
+						style: this.editors.style.getValue(),
+						script: this.editors.script.getValue()
+					},
+					importSource = '/* UPFRONT_CODE_ELEMENT\n' + JSON.stringify(payload) + '\nEND_UPFRONT_CODE_ELEMENT */\n' +
+						'window.top.postMessage({type:"upfront-code-element",payload:' + JSON.stringify(payload) + '}, "*");',
+					form = $('<form>', {
+					action: 'https://codepen.io/pen/define',
+					method: 'post',
+					target: '_blank'
+				}),
+					data = {
+						title: name,
+						html: payload.markup,
+						css: payload.style,
+						js: importSource,
+						editors: '111'
+					}
+				;
+				form.append($('<input>', {type: 'hidden', name: 'data', value: JSON.stringify(data)}));
+				$('body').append(form);
+				form.submit().remove();
+			},
+
+			saveCodepenLink: function () {
+				var name = window.prompt(l10n.template.codepen_save_name_prompt, this.property('codepen_name') || 'Upfront Code Element'),
+					templateId = this.property('codepen_template_id') || ('upfront-code-' + Date.now()),
+					me = this;
+				if (!name) return;
+				Upfront.Util.post({
+					action: 'upfront_save_code_preset',
+					data: {
+						id: templateId,
+						name: name,
+						markup: this.editors.markup.getValue(),
+						style: this.editors.style.getValue(),
+						script: this.editors.script.getValue()
+					}
+				}).done(function (response) {
+					if (!response || !response.data) {
+						me.showCodepenStatus(l10n.template.codepen_request_failed, true);
+						return;
+					}
+					me.property('codepen_template_id', templateId, false);
+					me.property('codepen_name', name, false);
+					me.showCodepenStatus(l10n.template.codepen_template_saved);
+					me.addCodepenTemplate($('#upfront_code-editor'), {
+						id: templateId,
+						name: name,
+						markup: me.editors.markup.getValue(),
+						style: me.editors.style.getValue(),
+						script: me.editors.script.getValue()
+					});
+				}).fail(function (request) {
+					var response = request.responseJSON;
+					me.showCodepenStatus(response && response.data && response.data.message ? response.data.message : l10n.template.codepen_request_failed, true);
+				});
+			},
+
+			showCodepenStatus: function (message, isError) {
+				var $status = $('#upfront_code-editor .upfront_code-codepen-status');
+				$status
+					.text(message || '')
+					.toggleClass('error', !!isError);
+				window.clearTimeout(this.codepenStatusTimer);
+				if (message) {
+					this.codepenStatusTimer = window.setTimeout(function () {
+						$status.text('').removeClass('error');
+					}, 5000);
+				}
+			},
+
+			getCodepenPayload: function () {
+				return {
+					schema: 'upfront-code-element',
+					version: 1,
+					markup: this.editors.markup.getValue(),
+					style: this.editors.style.getValue(),
+					script: this.editors.script.getValue()
+				};
+			},
+
+			loadCodepenTemplates: function ($editor) {
+				var me = this,
+					$templates = $editor.find('.upfront_code-codepen-templates');
+				Upfront.Util.post({
+					action: 'upfront_get_code_presets'
+				}).done(function (response) {
+					if (!response || !response.data) {
+						me.showCodepenStatus(l10n.template.codepen_request_failed, true);
+						return;
+					}
+					$templates.find('option:not(:first)').remove();
+					_.each(response.data, function (template) {
+						me.addCodepenTemplate($editor, template);
+					});
+				}).fail(function (request) {
+					me.showCodepenStatus(l10n.template.codepen_request_failed, true);
+				});
+			},
+
+			addCodepenTemplate: function ($editor, template) {
+				var $templates = $editor.find('.upfront_code-codepen-templates');
+				$templates.find('option').filter(function () {
+					var current = $(this).val();
+					return current && JSON.parse(current).id === template.id;
+				}).remove();
+				$('<option></option>').val(JSON.stringify(template)).text(template.name).appendTo($templates).prop('selected', true);
+			},
+
+			applyCodepenTemplate: function (template) {
+				var me = this;
+				_.each(['markup', 'style', 'script'], function (syntax) {
+					me.editors[syntax].setValue(template[syntax] || '', -1);
+					me.property(syntax, template[syntax] || '', false);
+				});
+				this.property('codepen_template_id', template.id, false);
+				this.property('codepen_name', template.name, false);
+			},
+
+			importFromCodepen: function (url) {
+				var me = this,
+					match,
+					iframe,
+					timeout
+				;
+				url = url || window.prompt(l10n.template.codepen_import_prompt, '');
+				if (!url) return;
+				match = String(url).match(/^https:\/\/codepen\.io\/(?:editor\/)?([A-Za-z0-9_-]+)\/(?:pen|details|full)\/([A-Za-z0-9-]+)/i);
+				if (!match) {
+					window.alert(l10n.template.codepen_invalid_url);
+					return;
+				}
+
+				iframe = $('<iframe>', {hidden: true}).attr('src', 'https://codepen.io/' + encodeURIComponent(match[1]) + '/fullembedgrid/' + encodeURIComponent(match[2]) + '?animations=run&type=embed');
+				$('body').append(iframe);
+				$(window).off('message.upfrontCodepenImport').on('message.upfrontCodepenImport', function (event) {
+					var original = event.originalEvent;
+					if (!original.data || 'upfront-code-element' !== original.data.type || !/^https:\/\/([a-z0-9-]+\.)?(codepen\.io|cdpn\.io|codepenusercontent\.com)$/i.test(original.origin)) return;
+					window.clearTimeout(timeout);
+					iframe.remove();
+					$(window).off('message.upfrontCodepenImport');
+					$.post(Upfront.Settings.ajax_url, {
+						action: 'upfront_codepen_import_element',
+						nonce: Upfront.data.upfront_code.codepen_nonce,
+						payload: JSON.stringify(original.data.payload)
+					}).done(function (response) {
+					if (!response || !response.success || !response.data) {
+						window.alert(response && response.data && response.data.message ? response.data.message : l10n.errors.markup);
+						return;
+					}
+					_.each(response.data, function (value, syntax) {
+						me.editors[syntax].setValue(value, -1);
+						me.property(syntax, value, false);
+					});
+				}).fail(function (request) {
+					var response = request.responseJSON;
+					window.alert(response && response.data && response.data.message ? response.data.message : l10n.errors.markup);
+				});
+				});
+				timeout = window.setTimeout(function () {
+					iframe.remove();
+					$(window).off('message.upfrontCodepenImport');
+					window.alert(l10n.template.codepen_timeout);
+				}, 15000);
 			},
 
 			prepareSpectrum: function ($editor) {

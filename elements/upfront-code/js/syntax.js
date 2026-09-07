@@ -76,6 +76,10 @@ var Checker = {
 	 */
 	wrap: function (what) {
 		return what;
+	},
+
+	get_annotations: function () {
+		return [];
 	}
 };
 
@@ -99,23 +103,50 @@ var Checker_Js = _.extend({}, Checker, {
 
 var Checker_Html = _.extend({}, Checker, {
 	validate: function () {
-		var ret = true,
-			test = this._value.replace(/\r|\n/g, "\n"), // Normalize newlines
-			$div = $("<div />")
-		;
+		var annotations = this.get_annotations(this._value);
+		if (annotations.length) {
+			this._message = annotations[0].text;
+			return false;
+		}
+		return true;
+	},
+	get_annotations: function (value) {
+		var source = String(value || ''),
+			matcher = /<!--[\s\S]*?-->|<![^>]*>|<\/?([a-z][\w:.-]*)(?:\s+(?:"[^"]*"|'[^']*'|[^'">])*)?\s*\/?>/gi,
+			void_tags = {
+				area: true, base: true, br: true, col: true, embed: true, hr: true,
+				img: true, input: true, link: true, meta: true, param: true, source: true,
+				track: true, wbr: true
+			},
+			stack = [],
+			annotations = [],
+			match;
 
-		// Normalize HTML entities before validating HTML
-		// Fixes: https://www.meistertask.com/app/task/8UUuqpmu/
-		test = test.replace(/&[^; ]+?;/g, 'HTMLENTITY');
+		while ((match = matcher.exec(source))) {
+			var tag = match[1].toLowerCase(),
+				line = source.slice(0, match.index).split('\n').length - 1,
+				is_closing = /^<\//.test(match[0]),
+				is_self_closing = /\/\s*>$/.test(match[0]) || void_tags[tag],
+				open;
 
-		$div.html(test);
+			if (is_self_closing) continue;
+			if (!is_closing) {
+				stack.push({tag: tag, line: line});
+				continue;
+			}
 
-		if ($div.html().length != test.length) {
-			this._message = l10n.errors.error_markup;
-			ret = false;
+			open = stack.pop();
+			if (!open || open.tag !== tag) {
+				annotations.push({row: line, column: 0, text: 'Unerwarteter schließender Tag </' + tag + '>', type: 'error'});
+				if (open) stack.push(open);
+			}
 		}
 
-		return ret;
+		_.each(stack, function (open) {
+			annotations.push({row: open.line, column: 0, text: 'Nicht geschlossener Tag <' + open.tag + '>', type: 'error'});
+		});
+
+		return annotations;
 	}
 });
 

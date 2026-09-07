@@ -96,8 +96,32 @@ class Upfront_CodeView extends Upfront_Object {
 	public static function add_js_defaults ($data) {
 		$data['upfront_code'] = array(
 			'defaults' => self::default_properties(),
+			'codepen_nonce' => wp_create_nonce('upfront_codepen_element_import'),
 		 );
 		return $data;
+	}
+
+	public static function ajax_import_codepen () {
+		if (!Upfront_Permissions::current(Upfront_Permissions::EDIT)) {
+			wp_send_json_error(array('message' => __('Du hast keine Berechtigung für diesen Import.', 'upfront')), 403);
+		}
+		check_ajax_referer('upfront_codepen_element_import', 'nonce');
+
+		$payload = json_decode(wp_unslash(isset($_POST['payload']) ? $_POST['payload'] : ''), true);
+		if (!is_array($payload) || 'upfront-code-element' !== (isset($payload['schema']) ? $payload['schema'] : '') || 1 !== (int) (isset($payload['version']) ? $payload['version'] : 0)) {
+			wp_send_json_error(array('message' => __('Dieser Pen enthält keinen importierbaren Upfront-Code.', 'upfront')), 422);
+		}
+
+		$code = array();
+		foreach (array('markup', 'style', 'script') as $key) {
+			$value = isset($payload[$key]) ? $payload[$key] : '';
+			if (!is_string($value) || strlen($value) > 262144) {
+				wp_send_json_error(array('message' => __('Der CodePen enthält ungültige oder zu große Codedaten.', 'upfront')), 422);
+			}
+			$code[$key] = $value;
+		}
+
+		wp_send_json_success($code);
 	}
 
 	public static function add_l10n_strings ($strings) {
@@ -137,6 +161,20 @@ class Upfront_CodeView extends Upfront_Object {
 				'close' => __('Schließen', 'upfront'),
 				'save' => __('Speichern', 'upfront'),
 				'paste_your_code' => __('Füge deinen Einbettungscode unten ein', 'upfront'),
+				'codepen_export' => __('CodePen exportieren', 'upfront'),
+				'codepen_import' => __('CodePen importieren', 'upfront'),
+				'codepen_save' => __('Vorlage speichern', 'upfront'),
+				'codepen_load' => __('Vorlage laden', 'upfront'),
+				'codepen_name' => __('Name für den CodePen', 'upfront'),
+				'codepen_export_prompt' => __('Name für den neuen CodePen eingeben:', 'upfront'),
+				'codepen_import_prompt' => __('Öffentliche URL des zuvor aus Upfront exportierten CodePens einfügen:', 'upfront'),
+				'codepen_save_name_prompt' => __('Name für die lokale Theme-Vorlage eingeben:', 'upfront'),
+				'codepen_load_prompt' => __('Nummer der gespeicherten Theme-Vorlage eingeben:', 'upfront'),
+				'codepen_template_saved' => __('Vorlage im Theme gespeichert.', 'upfront'),
+				'codepen_no_templates' => __('Noch keine Theme-Vorlagen gespeichert.', 'upfront'),
+				'codepen_request_failed' => __('Die Theme-Vorlagen konnten nicht geladen werden.', 'upfront'),
+				'codepen_invalid_url' => __('Bitte gib eine öffentliche CodePen-URL ein.', 'upfront'),
+				'codepen_timeout' => __('Der Pen enthält keinen importierbaren Upfront-Code oder ist nicht erreichbar.', 'upfront'),
 			),
 		);
 		return !empty($key)

@@ -41,11 +41,18 @@ class Upfront_Admin_CodePen extends Upfront_Admin_Page {
 		$theme_colors = apply_filters('upfront_get_theme_colors', $theme_colors, array('json' => true));
 		$theme_fonts = Upfront_Cache_Utils::get_option('upfront_' . get_stylesheet() . '_theme_fonts');
 		$theme_fonts = apply_filters('upfront_get_theme_fonts', $theme_fonts, array('json' => true));
+		$code_element_templates = $this->get_code_element_templates();
+		$ace_root = Upfront::get_root_url() . '/scripts/vendor/ace/1.1.01/';
 
+		wp_enqueue_script('upfront-admin-codepen-ace', $ace_root . 'ace.js', array(), '1.1.01', true);
+		wp_enqueue_script('upfront-admin-codepen-ace-html', $ace_root . 'mode-html.js', array('upfront-admin-codepen-ace'), '1.1.01', true);
+		wp_enqueue_script('upfront-admin-codepen-ace-css', $ace_root . 'mode-css.js', array('upfront-admin-codepen-ace'), '1.1.01', true);
+		wp_enqueue_script('upfront-admin-codepen-ace-js', $ace_root . 'mode-javascript.js', array('upfront-admin-codepen-ace'), '1.1.01', true);
+		wp_enqueue_script('upfront-admin-codepen-ace-theme', $ace_root . 'theme-monokai.js', array('upfront-admin-codepen-ace'), '1.1.01', true);
 		wp_enqueue_script(
 			'upfront-admin-codepen',
 			Upfront::get_root_url() . '/scripts/admin-codepen.js',
-			array('jquery'),
+			array('jquery', 'upfront-admin-codepen-ace-html', 'upfront-admin-codepen-ace-css', 'upfront-admin-codepen-ace-js', 'upfront-admin-codepen-ace-theme'),
 			filemtime(Upfront::get_root_dir() . '/scripts/admin-codepen.js'),
 			true
 		);
@@ -56,6 +63,7 @@ class Upfront_Admin_CodePen extends Upfront_Admin_Page {
 			'themeFonts' => $this->decode_setting($theme_fonts),
 			'googleFontsStylesheetUrl' => Upfront_Local_Fonts_Server::get_endpoint_url(),
 			'typography' => $this->decode_setting($typography),
+			'codeTemplates' => array_values($code_element_templates),
 			'ajaxUrl' => admin_url('admin-ajax.php'),
 			'nonce' => wp_create_nonce('upfront_codepen_import'),
 			'schema' => self::SCHEMA,
@@ -80,6 +88,9 @@ class Upfront_Admin_CodePen extends Upfront_Admin_Page {
 				'checkingShort' => __('Style wird geprüft ...', 'upfront'),
 				'previewTitle' => __('CodePen-Style-Vorschau', 'upfront'),
 				'noImportData' => __('Keine Importdaten verfügbar.', 'upfront'),
+				'codeTemplateEmpty' => __('Vorlage auswählen, um die Vorschau zu sehen.', 'upfront'),
+				'codeTemplateSaved' => __('Die Vorlage wurde im Child-Theme gespeichert.', 'upfront'),
+				'codeTemplateDeleted' => __('Die Vorlage wurde aus dem Theme gelöscht.', 'upfront'),
 				'sampleHeading' => __('Überschrift', 'upfront'),
 				'sampleLink' => __('Beispiel-Link', 'upfront'),
 				'sampleText' => __('Beispieltext für die Typografie des aktiven Themes.', 'upfront'),
@@ -121,6 +132,18 @@ class Upfront_Admin_CodePen extends Upfront_Admin_Page {
 			'.upfront-codepen-gallery-item h3{margin:0 0 8px}' .
 			'.upfront-codepen-gallery-item iframe{display:block;width:100%;height:360px;border:1px solid #ddd;background:#fff}' .
 			'.upfront-codepen-gallery-empty{padding:24px;border:1px solid #ddd;background:#fff}' .
+			'.upfront-code-template-manager{margin:24px 0;padding:16px;border:1px solid #ddd;background:#fff}' .
+			'.upfront-code-template-manager h3{margin-top:0}' .
+			'#upfront-code-template-preview{margin-top:14px;padding:0;min-height:150px}' .
+			'#upfront-code-template-preview iframe{display:block;width:100%;height:360px;border:0;background:#fff}' .
+			'.upfront-code-template-tabs{display:flex;gap:1px;margin-top:14px;background:#26333f}' .
+			'.upfront-code-template-tabs button{margin:0;border:0;border-radius:0;background:#394f63;color:#dce9f2;font-weight:600}' .
+			'.upfront-code-template-tabs button.active{background:#1abc9c;color:#fff}' .
+			'.upfront-code-template-editor{margin-top:0;border:1px solid #26333f}' .
+			'.upfront-code-template-editor-panel{display:none}' .
+			'.upfront-code-template-editor-panel.active{display:block}' .
+			'.upfront-code-template-editor textarea{display:none}' .
+			'.upfront-code-template-ace{height:320px;font:13px/1.45 monospace}' .
 			'@media(max-width:900px){.upfront-codepen-header{flex-direction:column;gap:20px;padding:20px}.upfront-codepen-header-actions{width:100%;min-width:0}.upfront-codepen-comparison{grid-template-columns:1fr}}' .
 			'@media(max-width:520px){.upfront-codepen-header-actions{grid-template-columns:1fr}.upfront-codepen-header-actions .button:last-child{grid-column:auto}}'
 		);
@@ -128,6 +151,7 @@ class Upfront_Admin_CodePen extends Upfront_Admin_Page {
 
 	public function render_page () {
 		$theme = wp_get_theme();
+		$code_element_templates = $this->get_code_element_templates();
 		?>
 		<div class="wrap upfront_admin upfront-codepen">
 			<header class="upfront-codepen-header">
@@ -210,6 +234,40 @@ class Upfront_Admin_CodePen extends Upfront_Admin_Page {
 							</fieldset>
 							<p class="submit"><button type="button" id="upfront-codepen-import" class="button button-primary"><?php esc_html_e('Ausgewählte Werte übernehmen', 'upfront'); ?></button></p>
 						</div>
+					</div>
+				</div>
+				<div class="postbox" id="upfront-code-template-section">
+					<h2 class="title"><?php esc_html_e('Code-Element-Vorlagen', 'upfront'); ?></h2>
+					<div class="inside">
+						<section class="upfront-code-template-manager">
+							<?php if (!empty($code_element_templates)) { ?>
+								<label for="upfront-code-template-select"><?php esc_html_e('Gespeicherte Vorlage', 'upfront'); ?></label>
+								<select id="upfront-code-template-select">
+									<option value=""><?php esc_html_e('Vorlage auswählen', 'upfront'); ?></option>
+									<?php foreach ($code_element_templates as $template) { ?>
+										<option value="<?php echo esc_attr($template['id']); ?>"><?php echo esc_html($template['name']); ?></option>
+									<?php } ?>
+								</select>
+								<button type="button" id="upfront-code-template-delete" class="button" disabled><?php esc_html_e('Vorlage löschen', 'upfront'); ?></button>
+								<div id="upfront-code-template-preview" class="upfront-codepen-gallery-empty"><p><?php esc_html_e('Vorlage auswählen, um die Vorschau zu sehen.', 'upfront'); ?></p></div>
+								<form id="upfront-code-template-editor" hidden>
+									<p><label for="upfront-code-template-name"><?php esc_html_e('Name', 'upfront'); ?></label><br><input type="text" id="upfront-code-template-name" class="regular-text" required></p>
+									<div class="upfront-code-template-tabs" role="tablist">
+										<button type="button" class="active" data-editor="markup" role="tab">HTML</button>
+										<button type="button" data-editor="style" role="tab">CSS</button>
+										<button type="button" data-editor="script" role="tab">JavaScript</button>
+									</div>
+									<div class="upfront-code-template-editor">
+										<div class="upfront-code-template-editor-panel active" data-editor="markup"><textarea id="upfront-code-template-markup" spellcheck="false"></textarea><div class="upfront-code-template-ace" id="upfront-code-template-ace-markup"></div></div>
+										<div class="upfront-code-template-editor-panel" data-editor="style"><textarea id="upfront-code-template-style" spellcheck="false"></textarea><div class="upfront-code-template-ace" id="upfront-code-template-ace-style"></div></div>
+										<div class="upfront-code-template-editor-panel" data-editor="script"><textarea id="upfront-code-template-script" spellcheck="false"></textarea><div class="upfront-code-template-ace" id="upfront-code-template-ace-script"></div></div>
+									</div>
+									<p><button type="submit" class="button button-primary"><?php esc_html_e('Vorlage speichern', 'upfront'); ?></button></p>
+								</form>
+							<?php } else { ?>
+								<div class="upfront-codepen-gallery-empty"><p><?php esc_html_e('Noch keine lokalen Code-Vorlagen gespeichert.', 'upfront'); ?></p></div>
+							<?php } ?>
+						</section>
 					</div>
 				</div>
 				<div class="postbox upfront-codepen-inspiration">
@@ -410,6 +468,19 @@ class Upfront_Admin_CodePen extends Upfront_Admin_Page {
 
 	private static function send_error ($error) {
 		wp_send_json_error(array('message' => $error->get_error_message()));
+	}
+
+	private function get_code_element_templates () {
+		global $wpdb;
+		$stylesheet = sanitize_key((string) $wpdb->get_var("SELECT option_value FROM {$wpdb->options} WHERE option_name = 'stylesheet'"));
+		if (empty($stylesheet) || 'upfront' === $stylesheet) return array();
+		$key = 'upfront_' . $stylesheet . '_code_presets';
+		$value = $wpdb->get_var($wpdb->prepare(
+			"SELECT option_value FROM {$wpdb->options} WHERE option_name = %s",
+			$key
+		));
+		$templates = json_decode((string) $value, true);
+		return is_array($templates) ? $templates : array();
 	}
 
 	private function get_inspiration_pens () {

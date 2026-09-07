@@ -105,6 +105,7 @@ class Upfront {
 			Upfront_DependencyCache_Server::serve();
 		}
 
+		add_action('wp_enqueue_scripts', array($this, 'enqueue_jquery'), 0);
 		add_filter('body_class', array($this, 'inject_grid_scope_class'));
 		add_action('wp_head', array($this, "inject_global_dependencies"), 0);
 		add_action('wp_footer', array($this, "inject_upfront_dependencies"), 99);
@@ -122,6 +123,14 @@ class Upfront {
 			add_action('wp_head', array($this, "inject_rtl_dependencies"), 99);
 		}
 
+	}
+
+	/**
+	 * Ensure direct head scripts from Upfront and ClassicPress can use jQuery.
+	 */
+	public function enqueue_jquery () {
+		wp_enqueue_script('jquery');
+		wp_scripts()->add_data('jquery', 'group', 0);
 	}
 
 	/**

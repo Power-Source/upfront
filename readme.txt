@@ -6,7 +6,7 @@ Requires at least: 5.0
 Requires CP: 1.4
 Tested up to: 7.1
 ClassicPress: 2.7.2
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -34,6 +34,17 @@ Steuere einzelne Elemente UND verwalte den Stil global auf Deiner gesamten Webse
 Füge Designfarben hinzu, pass Typografie an und bearbeite globale Einstellungen ohne eine einzige Codezeile.
 
 == ChangeLog ==
+
+= 1.3.1 =
+* Fix: Beitragsbilder fallen bei veralteten Bildmetadaten auf das aktuell gesetzte WordPress-Beitragsbild zurück
+* Fix: Die Aktionen Beenden und Dashboard im Builder-Menü navigieren wieder zuverlässig
+* Fix: Das Search-Element registriert sein Frontend-CSS rechtzeitig und zeigt die Suchleiste wieder an
+* Fix: Videos aus der Mediengalerie passen sich auf mobilen Ansichten an die verfügbare Breite an
+* Fix: Die Upfront-Abhängigkeitsausgabe deregistriert jQuery nicht mehr; Wiki- und ClassicPress-Editor-Skripte erhalten jQuery vor ihrer Ausführung
+* Fix: Der dynamische Abruf von ClassicPress-Kernskripten verwendet die globale Script-Registry und erzeugt bei leeren optionalen Abhängigkeiten keinen Serverfehler
+* Verbesserung: Der Code-Element-Editor markiert nicht geschlossene und falsch verschachtelte HTML-Tags direkt in Ace und verhindert das Speichern ungültigen Markups
+* Neu: Das Code-Element kann HTML, CSS und JavaScript als neuen CodePen exportieren und zuvor exportierte öffentliche Pens wieder in die drei Editor-Tabs importieren
+* Neu: Code-Elemente lassen sich als benannte Vorlagen im aktiven Theme speichern, im CodePen-Styleguide verwalten und bei Bedarf bewusst als neuer eigener CodePen exportieren
 
 = 1.3.0 =
 *Fix Bug in the Caching Loop - THANKS Guido07111975!

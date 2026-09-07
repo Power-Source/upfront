@@ -145,6 +145,38 @@
 		return {result: result};
 	}
 
+	function getCodeTemplate(id) {
+		return (data.codeTemplates || []).filter(function(template) {
+			return template.id === id;
+		})[0];
+	}
+
+	function renderCodeTemplatePreview(template) {
+		var preview = $('#upfront-code-template-preview').empty();
+		$('<iframe sandbox="allow-scripts" loading="lazy"></iframe>')
+			.attr('title', template.name)
+			.attr('srcdoc', '<!doctype html><html><head><meta charset="utf-8"><style>' + (template.style || '') + '</style></head><body>' + (template.markup || '') + '<script>' + (template.script || '') + '</script></body></html>')
+			.appendTo(preview);
+	}
+
+	function renderCodeTemplate(template) {
+		if (!template) {
+			var preview = $('#upfront-code-template-preview').empty();
+			$('<p></p>').text(data.messages.codeTemplateEmpty).appendTo(preview);
+			$('#upfront-code-template-editor').prop('hidden', true);
+			return;
+		}
+		isLoadingCodeTemplate = true;
+		$('#upfront-code-template-name').val(template.name || '');
+		setCodeTemplateField('markup', template.markup || '');
+		setCodeTemplateField('style', template.style || '');
+		setCodeTemplateField('script', template.script || '');
+		isLoadingCodeTemplate = false;
+		renderCodeTemplatePreview(template);
+		$('#upfront-code-template-editor').prop('hidden', false);
+		Object.keys(codeEditors).forEach(function(type) { codeEditors[type].resize(); });
+	}
+
 	function embedUrl(url) {
 		var match = String(url).match(/^https:\/\/codepen\.io\/(?:editor\/)?([A-Za-z0-9_-]+)\/(?:pen|details|full)\/([A-Za-z0-9-]+)/i);
 		return match ? 'https://codepen.io/' + encodeURIComponent(match[1]) + '/fullembedgrid/' + encodeURIComponent(match[2]) + '?animations=run&type=embed' : '';
@@ -227,7 +259,86 @@
 
 	var receivedPayload = null;
 	var pendingPreview = null;
+	var codeEditors = {};
+	var isLoadingCodeTemplate = false;
+
+	function setCodeTemplateField(type, value) {
+		var field = $('#upfront-code-template-' + type), content = value || '';
+		field.val(content);
+		if (codeEditors[type] && codeEditors[type].getValue() !== content) {
+			codeEditors[type].setValue(content, -1);
+		}
+	}
+
+	function initializeCodeEditors() {
+		if (typeof ace === 'undefined' || !$('#upfront-code-template-editor').length) return;
+		$.each({markup: 'html', style: 'css', script: 'javascript'}, function(type, mode) {
+			var editor = ace.edit('upfront-code-template-ace-' + type);
+			editor.getSession().setUseWorker(false);
+			editor.setTheme('ace/theme/monokai');
+			editor.getSession().setMode('ace/mode/' + mode);
+			editor.setShowPrintMargin(false);
+			editor.renderer.scrollBar.width = 5;
+			editor.renderer.scroller.style.right = '5px';
+			editor.on('change', function() {
+				$('#upfront-code-template-' + type).val(editor.getValue()).trigger('input');
+			});
+			codeEditors[type] = editor;
+		});
+	}
+
+	initializeCodeEditors();
 	renderStyleValues('#upfront-codepen-current-values', buildImportData());
+
+	$('#upfront-code-template-select').on('change', function() {
+		var template = getCodeTemplate($(this).val());
+		renderCodeTemplate(template);
+		$('#upfront-code-template-delete').prop('disabled', !template);
+	});
+
+	$('.upfront-code-template-tabs').on('click', 'button', function() {
+		var type = $(this).data('editor');
+		$(this).addClass('active').siblings().removeClass('active');
+		$('.upfront-code-template-editor-panel[data-editor="' + type + '"]').addClass('active').siblings().removeClass('active');
+		if (codeEditors[type]) codeEditors[type].resize();
+	});
+
+	$('#upfront-code-template-delete').on('click', function() {
+		var select = $('#upfront-code-template-select'), id = select.val();
+		if (!id) return;
+		$.post(data.ajaxUrl, {action: 'upfront_delete_code_preset', data: {id: id}}).done(function() {
+			data.codeTemplates = (data.codeTemplates || []).filter(function(template) { return template.id !== id; });
+			select.find('option[value="' + id + '"]').remove();
+			select.val('').trigger('change');
+			showStatus(data.messages.codeTemplateDeleted, 'success');
+		}).fail(function(xhr) {
+			showStatus(responseMessage(xhr), 'error');
+		});
+	});
+
+	$('#upfront-code-template-editor').on('input', 'input, textarea', function() {
+		var id = $('#upfront-code-template-select').val(), template = getCodeTemplate(id);
+		if (!template || isLoadingCodeTemplate) return;
+		template.name = $('#upfront-code-template-name').val();
+		template.markup = $('#upfront-code-template-markup').val();
+		template.style = $('#upfront-code-template-style').val();
+		template.script = $('#upfront-code-template-script').val();
+		renderCodeTemplatePreview(template);
+	}).on('submit', function(event) {
+		event.preventDefault();
+		var id = $('#upfront-code-template-select').val(), template = getCodeTemplate(id);
+		if (!template) return;
+		$.post(data.ajaxUrl, {action: 'upfront_save_code_preset', data: template}).done(function(response) {
+			if (!response || !response.data) {
+				showStatus(data.messages.requestFailed, 'error');
+				return;
+			}
+			$('#upfront-code-template-select option[value="' + id + '"]').text(template.name);
+			showStatus(data.messages.codeTemplateSaved, 'success');
+		}).fail(function(xhr) {
+			showStatus(responseMessage(xhr), 'error');
+		});
+	});
 
 	function requestPreview(params, button, waitForIframe) {
 		params.action = 'upfront_codepen_preview';

@@ -290,6 +290,7 @@ var EmbedManager = Backbone.View.extend({
 	},
 	done: function () {
 		if (!(this._main && this._main.get_value)) return false;
+		if (!this._main.validate_html()) return false;
 		var value = this._main.get_value();
 		this.trigger("done", value);
 	}
@@ -403,6 +404,9 @@ var EmbedViews = {
 
 			$editor.height($editor_outer.height());
 			editor.resize();
+			editor.getSession().on('change', function () {
+				editor.getSession().clearAnnotations();
+			});
 
 			editor.focus();
 
@@ -413,6 +417,49 @@ var EmbedViews = {
 		},
 		get_value: function () {
 			return this.editor.getValue();
+		},
+		validate_html: function () {
+			var source = this.get_value(),
+				matcher = /<!--[\s\S]*?-->|<\/?([a-z][\w:-]*)(?:\s[^<>]*?)?\/?\s*>/gi,
+				void_tags = {
+					area: true, base: true, br: true, col: true, embed: true, hr: true,
+					img: true, input: true, link: true, meta: true, param: true, source: true,
+					track: true, wbr: true
+				},
+				stack = [],
+				annotations = [],
+				match;
+
+			while ((match = matcher.exec(source))) {
+				var tag = match[1].toLowerCase(),
+					line = source.slice(0, match.index).split('\n').length - 1,
+					is_closing = /^<\//.test(match[0]),
+					is_self_closing = /\/\s*>$/.test(match[0]) || void_tags[tag],
+					open;
+
+				if (is_self_closing) continue;
+				if (!is_closing) {
+					stack.push({tag: tag, line: line});
+					continue;
+				}
+
+				open = stack.pop();
+				if (!open || open.tag !== tag) {
+					annotations.push({row: line, column: 0, text: 'Unerwarteter schließender Tag </' + tag + '>', type: 'error'});
+					if (open) stack.push(open);
+				}
+			}
+
+			_.each(stack, function (open) {
+				annotations.push({row: open.line, column: 0, text: 'Nicht geschlossener Tag <' + open.tag + '>', type: 'error'});
+			});
+
+			this.editor.getSession().setAnnotations(annotations);
+			if (annotations.length) {
+				Upfront.Views.Editor.notify('HTML enthält nicht geschlossene oder falsch verschachtelte Tags.', 'error');
+				return false;
+			}
+			return true;
 		}
 	}),
 
