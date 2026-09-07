@@ -19,6 +19,7 @@ define([], function () {
 	};
 
 	Upfront.Events.on('region:settings:activate', showSettings);
+	Upfront.Events.on('region:settings:deactivate', destroySettings);
 
 	//Destroy settings when element is removed
 	Upfront.Events.on("entity:removed:after", destroySettings);

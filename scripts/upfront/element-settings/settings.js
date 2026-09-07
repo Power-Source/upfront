@@ -30,13 +30,13 @@ define([
 			// Setup model so that it uses breakpoint values
 			if (this.hasBreakpointSettings === true) {
 				currentBreakpoint = Upfront.Views.breakpoints_storage.get_breakpoints().get_active();
-				breakpointsData = this.model.get_property_value_by_name('breakpoint') || {};
-				breakpointData = breakpointsData[currentBreakpoint.id] || {};
 				// Breakpoint specific settings
 				_.each(this.breakpointSpecificSettings, function(settingOptions) {
-					if (!_.isUndefined(breakpointData[settingOptions.name])) {
-						this.model.set_property(settingOptions.name, breakpointData[settingOptions.name], true);
-					}
+					this.model.set_property(
+						settingOptions.name,
+						this.model.get_breakpoint_property_value(settingOptions.name, true, undefined, currentBreakpoint.toJSON()),
+						true
+					);
 				}, this);
 			}
 

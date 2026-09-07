@@ -623,7 +623,25 @@
 						return;
 					}
 
-					var rule = t.split('{');
+					var openingBrace = t.indexOf('{');
+					if (openingBrace === -1) {
+						processed += t;
+						return;
+					}
+
+					var rule = [t.substring(0, openingBrace), t.substring(openingBrace + 1)],
+						atRule = $.trim(rule[0]).toLowerCase()
+					;
+
+					if (atRule.indexOf('@media') === 0 || atRule.indexOf('@supports') === 0 || atRule.indexOf('@container') === 0 || atRule.indexOf('@document') === 0 || atRule.indexOf('@layer') === 0) {
+						processed += rule[0] + '{' + me.stylesAddSelector(rule[1].substring(0, rule[1].length - 1), selector) + '}';
+						return;
+					}
+
+					if (atRule.charAt(0) === '@') {
+						processed += t;
+						return;
+					}
 
 					var selectors = rule[0].split(','),
 						processed_selectors = []

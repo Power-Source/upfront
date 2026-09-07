@@ -153,7 +153,7 @@ div.upfront-navigation div[data-style="burger"] ul.menu {
 	top:0;
 	z-index:2020;
 	max-height: 100%;
-	overflow-y: auto !important;
+	overflow-y: visible !important;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;

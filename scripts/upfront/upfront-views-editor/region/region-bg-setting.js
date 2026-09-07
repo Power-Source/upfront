@@ -520,15 +520,15 @@
 					sub = this.model.is_main() ? false : this.model.get('sub'),
 					$region_sticky = $region_footer.find('.upfront-region-bg-setting-sticky')
 				;
+				$region_footer.find('.upfront-region-bg-setting-edit-css').on('click', function(e){
+					e.preventDefault();
+					e.stopPropagation();
+					me.trigger_edit_css();
+				});
 
 				if ( !is_responsive ) {
 					this.render_sticky_settings($region_sticky);
 
-					$region_footer.find('.upfront-region-bg-setting-edit-css').on('click', function(e){
-						e.preventDefault();
-						e.stopPropagation();
-						me.trigger_edit_css();
-					});
 					$region_footer.find('.upfront-region-bg-setting-trash').on('click', function(e){
 						e.preventDefault();
 						e.stopPropagation();
@@ -822,6 +822,7 @@
 
 			// Edit CSS trigger
 			trigger_edit_css: function () {
+				Upfront.Events.trigger('region:settings:deactivate');
 				Upfront.Application.cssEditor.init({
 					model: this.model,
 					type: this.model.is_main() ? "RegionContainer" : (this.model.get('type') == 'lightbox')?"RegionLightbox":"Region",
