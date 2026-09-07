@@ -48,6 +48,7 @@ define([
 							abccolors: [
 								{
 									name: 'static-nav-bg',
+										default_value: 'rgba(51, 51, 51, 0)',
 									label: l10n.panel.item_background_label
 								}
 							]
@@ -90,6 +91,7 @@ define([
 							abccolors: [
 								{
 									name: 'hover-nav-bg',
+									default_value: 'rgba(255, 255, 255, 0)',
 									label: l10n.panel.item_background_label
 								}
 							]
@@ -132,6 +134,7 @@ define([
 							abccolors: [
 								{
 									name: 'focus-nav-bg',
+									default_value: 'rgba(255, 255, 255, 0)',
 									label: l10n.panel.item_background_label
 								}
 							]

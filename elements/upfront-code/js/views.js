@@ -631,8 +631,9 @@ define([
 						allowEmpty: true,
 						spectrum: {
 							choose: function(color) {
-								var colorString = color.get_is_theme_color() !== false
-									? color.theme_color
+									    var is_theme_color = _.isFunction(color.get_is_theme_color) && color.get_is_theme_color() !== false,
+										    colorString = is_theme_color
+										    ? (color.theme_color_code || color.theme_color)
 									: (color.alpha < 1 ? color.toRgbString() : color.toHexString())
 								;
 								me.currentEditor.insert(colorString);

@@ -16,6 +16,15 @@ describe('Color field', function () {
 		assert.notEqual(previewSource.indexOf('typeof color === "string" ? color : ""'), -1);
 	});
 
+	it('resolves a theme preset before rendering a model-bound color field', function () {
+		var source = fs.readFileSync(path.join(__dirname, '../../scripts/upfront/upfront-views-editor/fields.js'), 'utf8'),
+			getSavedValueStart = source.indexOf('get_saved_value: function ()', source.indexOf('var Field_Color')),
+			getSavedValueEnd = source.indexOf('update_input_border_color', getSavedValueStart),
+			getSavedValueSource = source.slice(getSavedValueStart, getSavedValueEnd);
+
+		assert.notEqual(getSavedValueSource.indexOf('Upfront.Util.colors.to_color_value(value ? value : this.default_value)'), -1);
+	});
+
 	it('does not fire a second change after moving to a palette color', function () {
 		var source = fs.readFileSync(path.join(__dirname, '../../scripts/spectrum/spectrum.js'), 'utf8'),
 			clickStart = source.indexOf('function paletteElementClick'),
@@ -68,6 +77,21 @@ describe('Color field', function () {
 
 		assert.notEqual(colorSetSource.indexOf('theme_color = raw_value.theme_color_code || raw_value.theme_color'), -1);
 		assert.ok(/if \(cls\)[\s\S]*?\.addClass\(cls\)[\s\S]*?if \(!!theme_color\)[\s\S]*?\.attr\("style", rule \+ ':' \+ theme_color\)/.test(colorSetSource));
+	});
+
+	it('keeps RGBA values when a settings color is not a theme preset', function () {
+		var source = fs.readFileSync(path.join(__dirname, '../../scripts/upfront/settings/modules/colors.js'), 'utf8');
+
+		assert.equal((source.match(/_.isFunction\(value\.get_is_theme_color\)/g) || []).length, 2);
+		assert.equal((source.match(/value\.theme_color_code \|\| value\.theme_color/g) || []).length, 2);
+		assert.equal((source.match(/: value\.toRgbString\(\)/g) || []).length, 2);
+	});
+
+	it('uses a configured color default when a legacy preset omits that value', function () {
+		var source = fs.readFileSync(path.join(__dirname, '../../scripts/upfront/settings/modules/colors.js'), 'utf8');
+
+		assert.notEqual(source.indexOf('default_value: me.model.get(color.name) || color.default_value'), -1);
+		assert.notEqual(source.indexOf('var color = me.model.get(field.name) || field.default_value'), -1);
 	});
 
 	it('converts the truthy theme color position back to a zero-based UFC index', function () {

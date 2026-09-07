@@ -185,12 +185,14 @@ define([
 						preferredFormat: 'rgb',
 						change: function(value) {
 							if (!value) return false;
-							var c = value.get_is_theme_color() !== false ? value.theme_color : value.toRgbString();
+							    var is_theme_color = _.isFunction(value.get_is_theme_color) && value.get_is_theme_color() !== false,
+								c = is_theme_color ? (value.theme_color_code || value.theme_color) : value.toRgbString();
 							me.model.set(me.currentElement + me.options.fields.color, c);
 						},
 						move: function(value) {
 							if (!value) return false;
-							var c = value.get_is_theme_color() !== false ? value.theme_color : value.toRgbString();
+							    var is_theme_color = _.isFunction(value.get_is_theme_color) && value.get_is_theme_color() !== false,
+								c = is_theme_color ? (value.theme_color_code || value.theme_color) : value.toRgbString();
 							me.model.set(me.currentElement + me.options.fields.color, c);
 						}
 					}

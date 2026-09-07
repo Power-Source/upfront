@@ -777,7 +777,7 @@
                 }
                 else if ( this.model ){
                     var value = this.model.get(this.name);
-                    return value ? value : this.default_value;
+                    return Upfront.Util.colors.to_color_value(value ? value : this.default_value);
                 }
                 return this.default_value;
             },

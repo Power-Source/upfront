@@ -698,7 +698,7 @@ define([
                 var theme_colors = Upfront.Views.Theme_Colors.colors.pluck("color"),
                     theme_alphas = Upfront.Views.Theme_Colors.colors.pluck("alpha"),
                     color_index = parseInt(ufc.replace("ufc", "").replace("#", ""), 10),
-                    theme_color = theme_colors[color_index] === '#000000' && theme_alphas[color_index] === 0 ? 'inherit' : theme_colors[color_index];
+					theme_color = theme_colors[color_index] === '#000000' && theme_alphas[color_index] === 0 ? 'transparent' : theme_colors[color_index];
 
                 return theme_color;
 			},
@@ -719,7 +719,7 @@ define([
 
 				for(var _i in theme_colors){
 
-					var theme_color = theme_colors[_i] === '#000000' && theme_alphas[_i] === 0 ? 'inherit' : theme_colors[_i];
+					var theme_color = theme_colors[_i] === '#000000' && theme_alphas[_i] === 0 ? 'transparent' : theme_colors[_i];
 
 					var pattern = new RegExp("#ufc" + _i,"g");
 

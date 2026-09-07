@@ -1,6 +1,15 @@
 var assert = require('assert');
+var fs = require('fs'),
+	path = require('path');
 
 describe('Theme colors', function () {
+	it('resolves a transparent theme color as transparent rather than inherited text color', function () {
+		var source = fs.readFileSync(path.join(__dirname, '../../scripts/upfront/upfront-util.js'), 'utf8'),
+			transparentMatches = source.match(/theme_colors\[[^\]]+\] === '#000000' && theme_alphas\[[^\]]+\] === 0 \? 'transparent' : theme_colors\[[^\]]+\]/g) || [];
+
+		assert.equal(transparentMatches.length, 2);
+	});
+
 	it('limits the editor palette to ten slots without removing duplicate values', function () {
 		var sourceColors = [],
 			collectionColors;

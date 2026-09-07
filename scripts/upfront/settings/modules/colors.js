@@ -35,7 +35,7 @@ define([
 					blank_alpha : 0,
 					model: me.model,
 					name: color.name,
-					default_value: me.model.get(color.name),
+					default_value: me.model.get(color.name) || color.default_value,
 					label_style: 'inline',
 					label_position: me.options.label_position || 'right',
 					label: color.label,
@@ -43,12 +43,14 @@ define([
 						preferredFormat: 'hex',
 						change: function(value) {
 							if (!value) return false;
-							var c = value.get_is_theme_color() !== false ? value.theme_color : value.toRgbString();
+								var is_theme_color = _.isFunction(value.get_is_theme_color) && value.get_is_theme_color() !== false,
+									c = is_theme_color ? (value.theme_color_code || value.theme_color) : value.toRgbString();
 							me.model.set(color.name, c);
 						},
 						move: function(value) {
 							if (!value) return false;
-							var c = value.get_is_theme_color() !== false ? value.theme_color : value.toRgbString();
+								var is_theme_color = _.isFunction(value.get_is_theme_color) && value.get_is_theme_color() !== false,
+									c = is_theme_color ? (value.theme_color_code || value.theme_color) : value.toRgbString();
 							me.model.set(color.name, c);
 						}
 					}
@@ -140,7 +142,7 @@ define([
 			this.constructor.__super__.render.call(this);
 			this.fields.each( function (field) {
 				if(typeof field.spectrumOptions !== "undefined") {
-					var color = me.model.get(field.name);
+					var color = me.model.get(field.name) || field.default_value;
 					field.set_value(color);
 					field.update_input_border_color(Upfront.Util.colors.to_color_value(color));
 				}
