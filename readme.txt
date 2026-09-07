@@ -36,6 +36,7 @@ Füge Designfarben hinzu, pass Typografie an und bearbeite globale Einstellungen
 == ChangeLog ==
 
 = 1.3.0 =
+*Fix Bug in the Caching Loop - THANKS Guido07111975!
 *Fix: Regionen akzeptieren wieder CSS Regeln
 *Full Width Grid wegen Problemen vorerst deaktivert, benötigt doch mehr Integrationsarbeit
 

@@ -224,7 +224,7 @@ class JShrink_Minifier
                             // check for some regex that breaks stuff
                             if ($this->a == '/' && ($this->b == '\'' || $this->b == '"')) {
                                 $this->saveRegex();
-                                continue;
+                                continue 3;
                             }
 
                             echo $this->a;
@@ -272,7 +272,7 @@ class JShrink_Minifier
             $char = substr($this->input, $this->index, 1);
 
             // If the next character doesn't exist return false.
-            if (isset($char) && $char === false) {
+            if ($char === '') {
                 return false;
             }
 
