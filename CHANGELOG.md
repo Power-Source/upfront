@@ -1,6 +1,15 @@
 Change Log
 ============
 
+1.3.1 - 2026-09-07
+-------------------------------------------------------------------------------
+- Neu: Code-Elemente lassen sich als benannte Vorlagen im aktiven Child-Theme speichern, im CodePen-Styleguide verwalten und dort mit einer lokalen Live-Vorschau bearbeiten
+- Verbesserung: Der Vorlageneditor verwendet die bereits im Theme vorhandenen Ace-Dateien mit HTML-, CSS- und JavaScript-Tabs; es werden keine CDN-Ressourcen geladen
+- Fix: Beim Wechsel einer lokalen Vorlage werden HTML, CSS und JavaScript vollständig in die jeweiligen Editor-Tabs geladen und Änderungen aktualisieren die Vorschau ohne Inhalte zu überschreiben
+- Neu: Code-Elemente können HTML, CSS und JavaScript gezielt als neuen CodePen exportieren und öffentliche Pens wieder in die drei Editor-Tabs importieren
+- Verbesserung: Der Code-Element-Editor markiert nicht geschlossene und falsch verschachtelte HTML-Tags direkt in Ace und verhindert das Speichern ungültigen Markups
+
+
 1.3.0 - 2026-09-06
 -------------------------------------------------------------------------------
 - Fix: Regionen akzeptieren wieder CSS Regeln
