@@ -3,6 +3,7 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 body{margin:0}
 article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
 audio,canvas,progress,video{display:inline-block;vertical-align:baseline}
+.uinsert-video-insert video{display:block;max-width:100%;height:auto}
 audio:not([controls]){display:none;height:0}[hidden],template{display:none}
 a{background:0 0}
 a:active,a:hover{outline:0}

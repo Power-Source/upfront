@@ -279,7 +279,6 @@ class Upfront_ElementStyles extends Upfront_Server {
 			);
 		}
 
-		$js_return .= "jQuery(function($){\n";
 		$js_return .= "window.get_breakpoint_ie8 = function(width) {\n";
 		foreach($breakpoints_array as $id => $breakpoint) {
 			if($breakpoint['max_width'] > 0) {
@@ -290,8 +289,7 @@ class Upfront_ElementStyles extends Upfront_Server {
 			$js_return .= "return '".$id."';\n";
 			$js_return .= "}\n";
 		}
-		$js_return .= "}\n";
-		$js_return .= "});\n";
+		$js_return .= "};\n";
 
 		return $js_return;
 	}
