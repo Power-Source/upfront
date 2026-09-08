@@ -6,7 +6,7 @@ Requires at least: 5.0
 Requires CP: 1.4
 Tested up to: 7.1
 ClassicPress: 2.7.2
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -34,6 +34,13 @@ Steuere einzelne Elemente UND verwalte den Stil global auf Deiner gesamten Webse
 Füge Designfarben hinzu, pass Typografie an und bearbeite globale Einstellungen ohne eine einzige Codezeile.
 
 == ChangeLog ==
+
+= 1.3.2 =
+* Fix: Virtuelle Builder-Seiten können den allgemeinen Upfront-Autostart abschalten, sodass Page Editor und Theme Builder nicht mehr gleichzeitig initialisiert werden
+* Fix: Close Upfront und WP Admin erhalten beim Öffnen des Menüs zuverlässig ihre Klick-Handler, navigieren wieder eigenständig und behalten das einheitliche Menüstyling
+* Fix: Hilfe & Support verwendet im Upfront-Editor die Upfront-Dokumentation und stellt dem Builder genau einen überschreibbaren, kontextabhängigen Hilfelink bereit
+* Fix: Größenänderungen von Slider-Bildern übermitteln Layout- und Storage-Kontext vollständig und werden im richtigen Builder-Layout gespeichert
+* Tests: Editor-Menüaktionen, Eventdelegierung und kontextabhängige Hilfe sind durch fokussierte Regressionstests abgedeckt
 
 = 1.3.1 =
 * Fix: Beitragsbilder fallen bei veralteten Bildmetadaten auf das aktuell gesetzte WordPress-Beitragsbild zurück

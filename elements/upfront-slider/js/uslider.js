@@ -1297,7 +1297,9 @@ var USliderView = Upfront.Views.ObjectView.extend({
 				var saveData = {
 					element: JSON.stringify(Upfront.Util.model_to_json(me.model)),
 					post_id: post_id,
+					layout: layout_ids,
 					layout_ids: layout_ids,
+					storage_key: _upfront_save_storage_key,
 					load_dev: load_dev,
 					action: 'upfront_update_layout_element'
 				};

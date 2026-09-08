@@ -369,7 +369,9 @@ class Upfront {
 		$url = self::get_root_url();
 
 		// Boot Edit Mode if requested by querystring or a virtual editor page.
-		echo upfront_boot_editor_trigger(apply_filters('upfront-editor-boot-mode', ''));
+		if (apply_filters('upfront-auto-boot-editor', true)) {
+			echo upfront_boot_editor_trigger(apply_filters('upfront-editor-boot-mode', ''));
+		}
 
 		$storage_key = apply_filters('upfront-data-storage-key', Upfront_Layout::STORAGE_KEY);
 		$save_storage_key = $storage_key;

@@ -9,10 +9,14 @@
 
 		return Command.extend({
 			render: function () {
-				this.$el.html('<a href="' + Upfront.Settings.admin_url + '">' + l10n.wp_admin + '</a>');
+				this.$el.html(l10n.wp_admin);
 			},
-			on_click: function () {
-				window.location.assign(Upfront.Settings.admin_url);
+			on_click: function (event) {
+				if (event) {
+					event.preventDefault();
+					event.stopPropagation();
+				}
+				window.location.href = Upfront.Settings.admin_url;
 			}
 		});
 

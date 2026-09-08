@@ -13,7 +13,11 @@
 				this.listenTo(Upfront.Events, 'stay:upfront:editor', this.stayed);
 				this.$el.html(l10n.close_upfront);
 			},
-			on_click: function () {
+			on_click: function (event) {
+				if (event) {
+					event.preventDefault();
+					event.stopPropagation();
+				}
 				// Upfront.Events.trigger("command:exit");
 				var url = window.location.pathname,
 					loading = new Upfront.Views.Editor.Loading({

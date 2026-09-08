@@ -9,11 +9,10 @@
 		'scripts/upfront/upfront-views-editor/commands/menu/command-close',
 		'scripts/upfront/upfront-views-editor/commands/menu/command-wpadmin'
 	], function ( Command, Commands, Command_Close, Command_WPAdmin ) {
-		var supportUrl = 'https://psource.eimen.net/wiki/upfront-dokumentation/';
-
 		var Menu = Commands.extend({
 			className: "command-more-menu-list",
-			initialize: function () {
+			initialize: function (options) {
+				this.helpUrl = options.helpUrl;
 				this.commands = _([
 					new Command_Close({"model": this.model}),
 					new Command_WPAdmin({"model": this.model})
@@ -25,8 +24,8 @@
 				help.innerHTML = l10n.help_and_support;
 				help.addEventListener('click', function (event) {
 					event.stopPropagation();
-					window.open(supportUrl, '_blank', 'noopener,noreferrer');
-				});
+					window.open(this.helpUrl, '_blank', 'noopener,noreferrer');
+				}.bind(this));
 				this.el.appendChild(help);
 			}
 		});
@@ -34,8 +33,14 @@
 		return Command.extend({
 			className: "command-more-menu",
 			initialize: function () {
-				this.menu = new Menu({"model": this.model});
+				this.menu = new Menu({
+					"model": this.model,
+					"helpUrl": this.get_help_url()
+				});
 				this.opened = false;
+			},
+			get_help_url: function () {
+				return 'https://psource.eimen.net/wiki/upfront-dokumentation/';
 			},
 			render: function () {
 				this.menu.render();
@@ -46,6 +51,9 @@
 			},
 			on_click: function () {
 				this.toggle_menu();
+				this.menu.commands.each(function (command) {
+					command.delegateEvents();
+				});
 			},
 			on_document_click: function (e) {
 				var $target = $(e.target),

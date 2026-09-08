@@ -1,6 +1,15 @@
 Change Log
 ============
 
+1.3.2 - 2026-09-08
+-------------------------------------------------------------------------------
+- Fix: Virtuelle Builder-Seiten können den allgemeinen Upfront-Autostart abschalten, sodass Page Editor und Theme Builder nicht mehr gleichzeitig initialisiert werden
+- Fix: Close Upfront und WP Admin erhalten beim Öffnen des Menüs zuverlässig ihre Klick-Handler, navigieren wieder eigenständig und behalten das einheitliche Menüstyling
+- Fix: Hilfe & Support verwendet im Upfront-Editor die Upfront-Dokumentation und stellt dem Builder genau einen überschreibbaren, kontextabhängigen Hilfelink bereit
+- Fix: Größenänderungen von Slider-Bildern übermitteln Layout- und Storage-Kontext vollständig und werden im richtigen Builder-Layout gespeichert
+- Tests: Editor-Menüaktionen, Eventdelegierung und kontextabhängige Hilfe sind durch fokussierte Regressionstests abgedeckt
+
+
 1.3.1 - 2026-09-07
 -------------------------------------------------------------------------------
 - Neu: Code-Elemente lassen sich als benannte Vorlagen im aktiven Child-Theme speichern, im CodePen-Styleguide verwalten und dort mit einer lokalen Live-Vorschau bearbeiten
