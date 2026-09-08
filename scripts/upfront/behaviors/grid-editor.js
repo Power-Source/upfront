@@ -2075,6 +2075,7 @@ var GridEditor = {
 	},
 
 	get_container_col: function (view, breakpoint) {
+		if ( !view ) return breakpoint.columns;
 		var ed = Upfront.Behaviors.GridEditor,
 			is_group = !_.isUndefined(view.group_view),
 			is_object = !_.isUndefined(view.object_group_view),

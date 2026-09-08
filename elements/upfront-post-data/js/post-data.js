@@ -302,18 +302,19 @@ var PostDataPartView = Upfront.Views.ObjectView.extend({
 		var me = this,
 			$me = this.$el.find('> .upfront-editable_entity'),
 			type = this.model.get_property_value_by_name('part_type'),
+			post_editor = Upfront.Views.PostDataEditor,
 			baseline = Upfront.Settings.LayoutEditor.Grid.baseline,
 			row = this.model.get_breakpoint_property_value('row', true),
 			height = row * baseline,
 			padding_top = parseInt($me.css('padding-top'), 10),
 			padding_bottom = parseInt($me.css('padding-bottom'), 10)
 		;
-		if ( type != 'featured_image' || this.object_group_view.mobileMode ) return;
+		if ( type != 'featured_image' || !this.object_group_view || this.object_group_view.mobileMode || !post_editor || !post_editor.post ) return;
 		if ( this._editor_prepared && this.editor_view ) {
 			this.editor_view.updateImageSize();
 		}
 
-		var imageData = Upfront.Views.PostDataEditor.post.meta.getValue('_thumbnail_data');
+		var imageData = post_editor.post.meta.getValue('_thumbnail_data');
 
 		height -= padding_top + padding_bottom;
 		this.$el.find('.thumbnail').each(function(){
@@ -323,7 +324,15 @@ var PostDataPartView = Upfront.Views.ObjectView.extend({
 				img = new Image(),
 				img_h, img_w
 			;
-			$(this).css('height', height);
+			if ( _.isObject(imageData) && imageData.maskSize ) {
+				$(this).css({
+					width: imageData.maskSize.width,
+					height: imageData.maskSize.height
+				});
+			}
+			else {
+				$(this).css('height', height);
+			}
 			// Make sure image is loaded first
 			$('<img>').attr('src', $img.attr('src')).on('load', function(){
 				if(_.isObject(imageData) && imageData.imageSize) {
