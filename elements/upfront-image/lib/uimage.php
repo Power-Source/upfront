@@ -6,6 +6,11 @@ class Upfront_UimageView extends Upfront_Object {
 
 	public function get_markup () {
 		$data = $this->properties_to_array();
+		foreach (array('link', 'size', 'element_size', 'position') as $property) {
+			if (isset($data[$property]) && is_object($data[$property])) {
+				$data[$property] = (array) $data[$property];
+			}
+		}
 
 		if (isset($data['usingNewAppearance']) === false) {
 			$data['usingNewAppearance'] = false;
