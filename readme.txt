@@ -6,7 +6,7 @@ Requires at least: 5.0
 Requires CP: 1.4
 Tested up to: 7.1
 ClassicPress: 2.7.2
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -34,6 +34,12 @@ Steuere einzelne Elemente UND verwalte den Stil global auf Deiner gesamten Webse
 Füge Designfarben hinzu, pass Typografie an und bearbeite globale Einstellungen ohne eine einzige Codezeile.
 
 == ChangeLog ==
+
+= 1.3.3 =
+* Fix: Der Redactor-Linkdialog bewahrt erzeugte href-Attribute und entmaskiert Link-Markup nach dem Speichern wieder als echten Anchor
+* Fix: Text-Presets schreiben Absatz-Typografie nicht mehr direkt auf Links; globale Link- und Hover-Presets bestimmen wieder Farbe und Schrift
+* Fix: Das Text-Element normalisiert ungültige Überschriften, die ausschließlich Absatzinhalt umschließen, vor der Frontend-Ausgabe
+* Verbesserung: Die Link-Werkzeugleiste berechnet ihre Breite einschließlich Außenabständen vollständig
 
 = 1.3.2 =
 * Fix: Virtuelle Builder-Seiten können den allgemeinen Upfront-Autostart abschalten, sodass Page Editor und Theme Builder nicht mehr gleichzeitig initialisiert werden

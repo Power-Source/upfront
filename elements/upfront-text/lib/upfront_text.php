@@ -8,6 +8,11 @@ class Upfront_PlainTxtView extends Upfront_Object {
 		$element_id = $element_id ? "id='{$element_id}'" : '';
 
 		$content = $this->_get_property('content');
+		$content = preg_replace(
+			'/<h([1-6])\b[^>]*>\s*((?:<p\b[^>]*>.*?<\/p>\s*)+)<\/h\1>/is',
+			'$2',
+			$content
+		);
 
 		$preset = $this->_get_property('preset');
 

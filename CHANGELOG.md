@@ -1,6 +1,13 @@
 Change Log
 ============
 
+1.3.3 - 2026-09-10
+-------------------------------------------------------------------------------
+- Fix: Der Redactor-Linkdialog bewahrt erzeugte href-Attribute und entmaskiert Link-Markup nach dem Speichern wieder als echten Anchor
+- Fix: Text-Presets schreiben Absatz-Typografie nicht mehr direkt auf Links; globale Link- und Hover-Presets bestimmen wieder Farbe und Schrift
+- Fix: Das Text-Element normalisiert ungültige Überschriften, die ausschließlich Absatzinhalt umschließen, vor der Frontend-Ausgabe
+- Verbesserung: Die Link-Werkzeugleiste berechnet ihre Breite einschließlich Außenabständen vollständig
+
 1.3.2 - 2026-09-08
 -------------------------------------------------------------------------------
 - Fix: Virtuelle Builder-Seiten können den allgemeinen Upfront-Autostart abschalten, sodass Page Editor und Theme Builder nicht mehr gleichzeitig initialisiert werden
