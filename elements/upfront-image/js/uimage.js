@@ -1451,8 +1451,8 @@ define([
 					this.model.set_breakpoint_property('element_size', elementSize);
 				}
 				this.$el.find('.uimage-resize-hint').html(this.sizehintTpl({
-						width: elementSize.width,
-						height: elementSize.height,
+						width: Math.round(elementSize.width),
+						height: Math.round(elementSize.height),
 						l10n: l10n.template
 					})
 				);
