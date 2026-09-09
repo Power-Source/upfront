@@ -80,8 +80,7 @@
 }
 
 #page .upfront-object.<?php echo $properties['id'] ?> p, #page .upfront-output-object.<?php echo $properties['id'] ?> p,
-#page .upfront-object.<?php echo $properties['id'] ?> p *[class^="upfront_theme_color_"], #page .upfront-output-object.<?php echo $properties['id'] ?> p *[class^="upfront_theme_color_"],
-#page .upfront-object.<?php echo $properties['id'] ?> p a, #page .upfront-output-object.<?php echo $properties['id'] ?> p a {
+#page .upfront-object.<?php echo $properties['id'] ?> p *[class^="upfront_theme_color_"], #page .upfront-output-object.<?php echo $properties['id'] ?> p *[class^="upfront_theme_color_"] {
 	<?php if(!empty($properties['p-color'])) { ?>color: <?php echo $properties['p-color']  ?>; <?php } ?>
 	<?php if(!empty($properties['p-fontface'])) { ?>font-family: <?php echo $properties['p-fontface']  ?>; <?php } ?>
 	<?php if(!empty($properties['p-fontsize'])) { ?>font-size: <?php echo $properties['p-fontsize']  ?><?php if(!empty($properties['p-fontsize-unit'])) { ?><?php echo $properties['p-fontsize-unit'] ?><?php } else { ?>px<?php } ?>; <?php } ?>

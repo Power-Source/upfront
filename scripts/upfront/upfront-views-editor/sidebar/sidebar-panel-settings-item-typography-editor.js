@@ -366,14 +366,14 @@
 										ggfonts
                 ;
 
-								// Google fonts load asynchronously, let them load first
-								var gfonts = Fonts.Google.get_fonts();
-								if (!gfonts || !gfonts.length) {
-									setTimeout( function() {
-										me.update_typography(color, updateSilently);
-									}, 100);
-									return;
-								}
+                                                        // Google fonts load asynchronously, let them load first
+                                                        var gfonts = Fonts.Google.get_fonts();
+                                                        if (!gfonts || !gfonts.length) {
+                                                            setTimeout( function() {
+                                                                me.update_typography(color, updateSilently);
+                                                            }, 100);
+                                                            return;
+                                                        }
 
                 _.each(this.elements, function(element) {
                     var rules = [],
