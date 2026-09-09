@@ -332,6 +332,9 @@ define([
 		/* Handle manually entered urls: external and email */
 		onUrlInputBlur: function(event) {
 			var userInput = $(event.currentTarget).val().trim();
+			if (!this.model.get('type') || this.model.get('type') === 'unlink') {
+				this.model.set({'type': 'external'}, {silent: true});
+			}
 			if ((!this.model.get('type') || this.model.get('type') === 'external' || this.model.get('type') === 'unlink') && !userInput.match(/https?:\/\//) && !_.isEmpty( userInput ) && !userInput.startsWith('#') ) {
 				userInput = 'https://' + userInput;
 			}
@@ -413,7 +416,12 @@ define([
 		},
 
 		saveControls: function (e) {
-			var type = this.model.get('type');
+			var type = this.model.get('type'),
+				urlInput = this.$('.js-ulinkpanel-input-external');
+
+			if (urlInput.length) {
+				this.onUrlInputBlur({currentTarget: urlInput.get(0)});
+			}
 
 			if(type === 'lightbox' && this.$el.find('.js-ulinkpanel-lightbox-input').val() !== '') {
 				e.preventDefault();

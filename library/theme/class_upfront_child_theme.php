@@ -941,6 +941,15 @@ abstract class Upfront_ChildTheme implements IUpfront_Server {
 
 	public function load_page_regions($data, $ids){
 		$layoutId = $this->_get_page_default_layout($ids);
+		$front_page_id = 'page' === get_option('show_on_front') ? (int) get_option('page_on_front') : 0;
+		$page_id = !empty($ids['specificity'])
+			? (int) preg_replace('/.*-([0-9]+)$/', '$1', $ids['specificity'])
+			: 0
+		;
+
+		if ($front_page_id && $front_page_id === $page_id) {
+			$layoutId = 'archive-home';
+		}
 
 		if (empty($layoutId) && !empty($ids['specificity'])) {
 			$page_id = preg_replace('/.*-([0-9]+)$/', '$1', $ids['specificity']);
