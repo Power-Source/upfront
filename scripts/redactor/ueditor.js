@@ -1389,11 +1389,13 @@
 			hideLinkFlags: function(area)  {
 				this.$el.find('a').each(function() {
 					var $link = $(this),
-						href = sanitizeLinkUrl($link.children('i.visit_link').attr('data-href'));
+						$flag = $link.children('i.visit_link');
+					if (!$flag.length) return;
+					var href = sanitizeLinkUrl($flag.attr('data-href'));
 					$link.css('position', '');
 					if (href) this.href = href;
 					else this.removeAttribute('href');
-					$link.children('i.visit_link').remove();
+					$flag.remove();
 					//$(this).attr('onclick', '');
 				});
 			},

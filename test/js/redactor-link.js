@@ -39,6 +39,19 @@ describe('Redactor links', function () {
 		assert.notEqual(setLink, -1);
 	});
 
+	it('restores masked inline markup inside the newly created text anchor', function () {
+		var source = fs.readFileSync(path.join(__dirname, '../../scripts/redactor/plugins.js'), 'utf8'),
+			linkStart = source.indexOf('link: function (dontflag)'),
+			linkEnd = source.indexOf('bindEvents: function', linkStart),
+			linkSource = source.slice(linkStart, linkEnd),
+			setLink = linkSource.indexOf('this.redactor.link.set('),
+			anchorHtml = linkSource.indexOf('$(this.selectedLink).html(function', setLink),
+			replaceSelection = linkSource.indexOf('this.redactor.selection.replaceWithHtml(selectedText)', setLink);
+
+		assert.ok(setLink !== -1 && setLink < anchorHtml);
+		assert.equal(replaceSelection, -1);
+	});
+
 	it('closes the link panel without clicking the link button again', function () {
 		var source = fs.readFileSync(path.join(__dirname, '../../scripts/redactor/plugins.js'), 'utf8'),
 			panelStart = source.indexOf('RedactorPlugins.upfrontLink'),

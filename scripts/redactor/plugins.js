@@ -970,14 +970,14 @@
 					},
 
 					updateWrapperSize: function() {
-						var totalWidth = 0;
+						var totalWidth = 0,
+							$panel = this.$el.find('.ulinkpanel-dark');
 
-						this.$el.find('.ulinkpanel-dark').children().each(function(i, element) {
-							var elementWidth = $(element).hasClass('upfront-settings-link-target') ? 0 : parseInt($(element).width());
-							totalWidth = totalWidth + elementWidth;
+						$panel.children().each(function(i, element) {
+							totalWidth += $(element).outerWidth(true) || 0;
 						});
 
-						this.$el.find('.ulinkpanel-dark').css('width', totalWidth + 10);
+						$panel.css('width', totalWidth + 10);
 						this.$el.closest('.redactor_air').css('width', totalWidth + 10);
 					},
 
@@ -1052,13 +1052,9 @@
 							this.selectedLink = this.redactor.utils.isCurrentOrParent('A');
 
 // Episode #2a, The Sad Saga of Spock's Debilitating Phobia Continues (de-camo the HTML)
-							selectedText = this.redactor.selection.getHtml(); // Get the HTML once more, it's now fake HTML
-							// Now, let's de-camouflage it
-							selectedText = selectedText
-								.replace(rx_otm, '<')
-								.replace(rx_ctm, '>')
-							;
-							this.redactor.selection.replaceWithHtml(selectedText);
+							$(this.selectedLink).html(function (index, html) {
+								return html.replace(rx_otm, '<').replace(rx_ctm, '>');
+							});
 // Episode #2 concludes, Spock dies in the end :(
 
 							// Update selection, new link is created it messes up selection
