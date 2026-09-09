@@ -23,8 +23,9 @@ describe('Models', function () {
 			 */
 			var Backbone = {
 				Events: {},
-				Model: function () {
-					this.attributes = {};
+				Model: function (attributes) {
+					this.attributes = attributes || {};
+					if (this.initialize) this.initialize(attributes || {});
 				},
 				Collection: function () {},
 			};
@@ -122,6 +123,13 @@ describe('Models', function () {
 			var post = new Testable.Models.Post();
 			assert.ok(post instanceof Testable.Models.Post);
 			assert.deepEqual(post.modelName, 'post');
+			done();
+		});
+
+		it('should initialize an empty meta collection', function (done) {
+			var post = new Testable.Models.Post();
+			assert.ok(post.meta instanceof Testable.Collections.MetaList);
+			assert.equal(typeof post.meta.save, 'function');
 			done();
 		});
 

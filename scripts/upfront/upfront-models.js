@@ -1298,6 +1298,7 @@ var _alpha = "alpha",
 
 		initialize: function(model, options){
 			var me = this;
+			this.meta = new Upfront.Collections.MetaList([], {objectId: this.id, metaType: 'post'});
 			if(model){
 				if(model['id'])
 					this.set(this.idAttribute, model['id']);
