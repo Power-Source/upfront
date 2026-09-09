@@ -302,19 +302,18 @@ var PostDataPartView = Upfront.Views.ObjectView.extend({
 		var me = this,
 			$me = this.$el.find('> .upfront-editable_entity'),
 			type = this.model.get_property_value_by_name('part_type'),
-			post_editor = Upfront.Views.PostDataEditor,
 			baseline = Upfront.Settings.LayoutEditor.Grid.baseline,
 			row = this.model.get_breakpoint_property_value('row', true),
 			height = row * baseline,
 			padding_top = parseInt($me.css('padding-top'), 10),
 			padding_bottom = parseInt($me.css('padding-bottom'), 10)
 		;
-		if ( type != 'featured_image' || !this.object_group_view || this.object_group_view.mobileMode || !post_editor || !post_editor.post ) return;
+		if ( type != 'featured_image' || !this.object_group_view || this.object_group_view.mobileMode || !this.post || !this.post.meta ) return;
 		if ( this._editor_prepared && this.editor_view ) {
 			this.editor_view.updateImageSize();
 		}
 
-		var imageData = post_editor.post.meta.getValue('_thumbnail_data');
+		var imageData = this.post.meta.getValue('_thumbnail_data');
 
 		height -= padding_top + padding_bottom;
 		this.$el.find('.thumbnail').each(function(){

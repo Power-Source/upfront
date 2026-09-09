@@ -970,8 +970,8 @@ define([
 					hPadding = parseInt( (this.model.get_breakpoint_property_value('left_padding_num') || column_padding), 10 ) + parseInt( (this.model.get_breakpoint_property_value('right_padding_num') || column_padding), 10 ),
 					vPadding = parseInt( (this.model.get_breakpoint_property_value('top_padding_num') || column_padding), 10 ) + parseInt( (this.model.get_breakpoint_property_value('bottom_padding_num') || column_padding), 10 ),
 					//width = width ? width - hPadding : this.$el.width() - hPadding,
-					width = width ? width : this.$el.width(),
-					height = height ? height : this.$el.outerHeight(),
+					width = Math.round(width ? width : this.$el.width()),
+					height = Math.round(height ? height : this.$el.outerHeight()),
 					type = this.get_selection_type(this.$el),
 					hint = '<div class="upfront-entity-size-hint-color"></div><span class="upfront-entity-type">' + type + ',</span>'
 						+ width + ' &#215; ' + height
