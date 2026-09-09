@@ -97,6 +97,8 @@ class Upfront_Layout extends Upfront_JsonModel {
 		// Make sure we replace properties with global ones
 		$data["properties"] = self::get_layout_properties();
 		$data['regions'] = $regions;
+		$codec = new Upfront_MacroCodec_LayoutData();
+		$data = $codec->expand_all($data);
 
 		return self::from_php($data, $storage_key);
 	}
@@ -161,6 +163,8 @@ class Upfront_Layout extends Upfront_JsonModel {
 			$data['regions'] = $regions;
 			$data['properties'] = self::get_layout_properties($data);
 			$data['layout'] = self::$cascade;
+			$codec = new Upfront_MacroCodec_LayoutData();
+			$data = $codec->expand_all($data);
 		}
 		return self::from_php($data, $storage_key);
 	}
