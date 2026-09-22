@@ -6,7 +6,7 @@ Requires at least: 5.0
 Requires CP: 1.4
 Tested up to: 7.1
 ClassicPress: 2.7.2
-Stable tag: 1.3.3
+Stable tag: 1.3.4
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -34,6 +34,12 @@ Steuere einzelne Elemente UND verwalte den Stil global auf Deiner gesamten Webse
 Füge Designfarben hinzu, pass Typografie an und bearbeite globale Einstellungen ohne eine einzige Codezeile.
 
 == ChangeLog ==
+
+= 1.3.4 =
+* Fix: Leere oder fehlerhafte responsive Preset-Einträge verursachen beim Öffnen von Post-Data-Elementen, einschließlich Beitragsbildern, keinen JavaScript-Abbruch mehr
+* Fix: Beitragsbilder im Editor verwenden beim Größenändern die Höhe ihres Bild-Parts statt der übergeordneten Post-Data-Gruppe; Zuschnitt und Maske bleiben dadurch an der gewählten Containergröße
+* Fix: Ein Breakpoint-Wechsel im Editor schließt geöffnete Burger-Menüs vollständig und entfernt Overlay, Positionierung sowie offene Navigationszustände
+* Fix: Das visuelle Editor-Grid wird über dem Layout dargestellt und blockiert keine Bearbeitungsinteraktionen mehr
 
 = 1.3.3 =
 * Fix: Der Redactor-Linkdialog bewahrt erzeugte href-Attribute und entmaskiert Link-Markup nach dem Speichern wieder als echten Anchor

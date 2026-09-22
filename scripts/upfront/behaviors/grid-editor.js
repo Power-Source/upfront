@@ -1214,6 +1214,11 @@ var GridEditor = {
 				view.trigger('entity:resizing', {row: rsz_row, col: rsz_col, height: rsz_row*ed.baseline, width: rsz_col*ed.col_size, axis: axis}, view, view.model);
 			},
 			stop: function(e, ui){
+				// Remove the resize overlay before event listeners can interrupt the legacy stop callback.
+				ed.resizing = false;
+				if ( $resize_placeholder ) $resize_placeholder.remove();
+				if ( $resize ) $resize.remove();
+
 				Upfront.Events.trigger("entity:pre_resize_stop", view, view.model, ui);
 				var breakpoint = Upfront.Settings.LayoutEditor.CurrentBreakpoint,
 					$wrap = $me.closest('.upfront-wrapper'),
@@ -1236,12 +1241,6 @@ var GridEditor = {
 					module_selector = is_object ? ".upfront-wrapper > .upfront-object-view > .upfront-object" : ".upfront-wrapper > .upfront-module-view > .upfront-module, .upfront-wrapper > .upfront-module-group",
 					model_breakpoint, breakpoint_data, padding_top_row, padding_bottom_row
 				;
-
-				// Prevents quick scroll when resizing
-				ed.resizing = false;
-
-				$resize_placeholder.remove();
-				$resize.remove();
 
 				// Make sure CSS is reset, to fix bug when it keeps all resize CSS for some reason
 				$me.css({

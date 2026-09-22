@@ -54,6 +54,7 @@
 
 				this.on('deactivated', this.onDeactivate, this);
 				this.listenTo(Upfront.Events, "upfront:layout_size:change_breakpoint", function(current, previous) {
+					me.resetResponsiveNavigation();
 					me.render();
 
 					setTimeout( function() {
@@ -985,6 +986,25 @@
 				if($nav.attr('data-burger_alignment') === 'top' || $nav.attr('data-burger_alignment') === 'whole') {
 					$('section.upfront-layout').css('margin-top', 0);
 				}
+			},
+
+			resetResponsiveNavigation: function() {
+				var region_container = this.$el.closest('.upfront-region-container'),
+					group = this.$el.closest('.upfront-module-group'),
+					module = this.$el.closest('.upfront-module'),
+					$menu = this.$el.find('ul.menu'),
+					$nav = this.$el.find('.upfront-output-unewnavigation')
+				;
+
+				$menu.hide().css({top: '', left: '', width: ''});
+				$menu.siblings('.burger_overlay').remove();
+				$menu.find('.burger_nav_close').parent('li.wrap_burger_nav_close').remove();
+				$nav.removeAttr('data-burger_open');
+				this.$el.find('ul.sub-menu').css('display', '');
+				region_container.removeClass('upfront-region-container-nav-open');
+				group.removeClass('upfront-module-group-nav-open');
+				module.removeClass('upfront-module-nav-open');
+				$('section.upfront-layout').css('margin-top', '');
 			},
 
 			showMenu: function(menu) {

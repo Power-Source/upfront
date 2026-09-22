@@ -205,9 +205,9 @@ define([
 			if (false === (typeof p === 'undefined' || typeof p.get !== 'function' || typeof p.set !== 'function')) {
 				p =  p.get('value');
 				var n = {
-					desktop: p.desktop || '',
-					mobile: p.mobile || '',
-					tablet: p.tablet || ''
+					desktop: p.desktop || {},
+					mobile: p.mobile || {},
+					tablet: p.tablet || {}
 				};
 				this.model.get_property_by_name('breakpoint_presets').set('value', n);
 			}

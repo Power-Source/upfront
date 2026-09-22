@@ -183,14 +183,18 @@ define(['interact'], function (interact) {
 	Resizable.prototype.stop = function (event) {
 		if (!this.originalSize) return;
 		var ui = this.getUi();
-		if (this.$helper) {
-			this.$element.css({width: this.$helper.width(), height: this.$helper.height()});
+		try {
+			if (this.$helper) {
+				this.$element.css({width: this.$helper.width(), height: this.$helper.height()});
+			}
+			if (typeof this.options.stop === 'function') this.options.stop.call(this.element, event, ui);
+			this.$element.triggerHandler('resizestop', [ui]);
 		}
-		if (typeof this.options.stop === 'function') this.options.stop.call(this.element, event, ui);
-		this.$element.triggerHandler('resizestop', [ui]);
-		if (this.$helper) this.$helper.remove();
-		this.$helper = null;
-		this.$element.removeClass('ui-resizable-resizing');
+		finally {
+			if (this.$helper) this.$helper.remove();
+			this.$helper = null;
+			this.$element.removeClass('ui-resizable-resizing');
+		}
 	};
 
 	Resizable.prototype._updateCache = function (values) {

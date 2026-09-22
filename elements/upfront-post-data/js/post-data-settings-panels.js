@@ -153,11 +153,14 @@ define([
 				// Also update the responsive part
 				_.each(breakpoints, function (breakpoint) {
 					breakpoint = breakpoint.toJSON();
-					var breakpoint_presets = me.property("breakpoint_presets");
+					var breakpoint_presets = me.property("breakpoint_presets"),
+						breakpoint_preset;
 					if ( breakpoint['default'] ) return;
-					if ( !breakpoint_presets ) return;
-					if ( !(breakpoint.id in breakpoint_presets) || !('preset' in breakpoint_presets[breakpoint.id]) ) return;
-					var preset = breakpoint_presets[breakpoint.id].preset,
+					if ( !breakpoint_presets || typeof breakpoint_presets !== 'object' ) return;
+					if ( !(breakpoint.id in breakpoint_presets) ) return;
+					breakpoint_preset = breakpoint_presets[breakpoint.id];
+					if ( !breakpoint_preset || typeof breakpoint_preset !== 'object' || !('preset' in breakpoint_preset) ) return;
+					var preset = breakpoint_preset.preset,
 						preset_model = me.presets.findWhere({id: preset}),
 						hidden_parts = preset_model.get("hidden_parts") || []
 					;
