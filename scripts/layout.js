@@ -673,8 +673,8 @@ jQuery(document).ready(function($){
 				imgHeight = $img.height(),
 				imgWidth = $img.width(),
 				breakpoint = get_breakpoint(),
-				img = new Image,
-				img_h, img_w
+				img_h, img_w,
+				apply_fit
 			;
 			if ( is_upostdata ) {
 				if(breakpoint === "tablet" || breakpoint === "mobile") {
@@ -702,14 +702,24 @@ jQuery(document).ready(function($){
 				$(this).css('height', height);
 			}
 			if ( $(this).attr('data-resize') == "1" ) {
-				img.src = $img.attr('src');
-				img_h = img.height;
-				img_w = img.width;
-				if ( height/width > img_h/img_w ) {
-					$img.css({ height: '100%', width: 'auto', marginLeft: (width-Math.round(height/img_h*img_w))/2, marginTop: "" });
+				apply_fit = function (imageHeight, imageWidth) {
+					if ( !imageHeight || !imageWidth ) return;
+					$img.css({
+						height: 'auto',
+						width: '100%',
+						marginLeft: '',
+						marginTop: (height-Math.round(width/imageWidth*imageHeight))/2
+					});
+				};
+				img_h = $img.prop('naturalHeight');
+				img_w = $img.prop('naturalWidth');
+				if ( img_h && img_w ) {
+					apply_fit(img_h, img_w);
 				}
 				else {
-					$img.css({ height: 'auto', width: '100%', marginLeft: "", marginTop: (height-Math.round(width/img_w*img_h))/2 });
+					$('<img>').one('load', function () {
+						apply_fit(this.naturalHeight || this.height, this.naturalWidth || this.width);
+					}).attr('src', $img.attr('src'));
 				}
 			}
 			else {
