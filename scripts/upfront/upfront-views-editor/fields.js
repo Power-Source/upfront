@@ -499,10 +499,10 @@
 			},
 			spectrumDefaults: {
 				clickoutFiresChange: true,
-                showSelectionPalette: false,
+                showSelectionPalette: true,
 				showAlpha: true,
 				showPalette: true,
-				localStorageKey: "spectrum.recent_colors",
+				localStorageKey: "spectrum.recent_colors." + Upfront.mainData.currentThemePath,
 				palette: Theme_Colors.colors.pluck("color").length ? Theme_Colors.colors.pluck("color") : [],
 				maxSelectionSize: 10,
 				preferredFormat: "hex",

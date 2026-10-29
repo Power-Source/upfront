@@ -261,10 +261,15 @@
                 paletteArray = Array.isArray(palette[0]) ? palette : [palette];
                 paletteLookup = {};
                 for (var i = 0; i < paletteArray.length; i++) {
+                    var uniquePalette = [];
                     for (var j = 0; j < paletteArray[i].length; j++) {
                         var rgb = tinycolor(paletteArray[i][j]).toRgbString();
-                        paletteLookup[rgb] = true;
+                        if (!paletteLookup[rgb]) {
+                            paletteLookup[rgb] = true;
+                            uniquePalette.push(paletteArray[i][j]);
+                        }
                     }
+                    paletteArray[i] = uniquePalette;
                 }
             }
 
@@ -900,6 +905,9 @@
                 displayColor = color.toString(currentPreferredFormat);
                 // Update the selection palette with the current color
                 addColorToSelectionPalette(color);
+                if (opts.showPalette) {
+                    drawPalette();
+                }
             }
 
             if (isInput) {

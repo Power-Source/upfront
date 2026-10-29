@@ -34,6 +34,23 @@ describe('Color field', function () {
 		assert.ok(/}\s*else\s*{\s*updateOriginalInput\(\);/.test(clickSource));
 	});
 
+	it('keeps recent colors per theme and removes duplicate palette swatches', function () {
+		var fieldsSource = fs.readFileSync(path.join(__dirname, '../../scripts/upfront/upfront-views-editor/fields.js'), 'utf8'),
+			spectrumSource = fs.readFileSync(path.join(__dirname, '../../scripts/spectrum/spectrum.js'), 'utf8'),
+			applyOptionsStart = spectrumSource.indexOf('function applyOptions()'),
+			applyOptionsEnd = spectrumSource.indexOf('container.toggleClass', applyOptionsStart),
+			applyOptionsSource = spectrumSource.slice(applyOptionsStart, applyOptionsEnd),
+			updateInputStart = spectrumSource.indexOf('function updateOriginalInput'),
+			updateInputEnd = spectrumSource.indexOf('if (isInput)', updateInputStart),
+			updateInputSource = spectrumSource.slice(updateInputStart, updateInputEnd);
+
+		assert.notEqual(fieldsSource.indexOf('showSelectionPalette: true'), -1);
+		assert.notEqual(fieldsSource.indexOf('localStorageKey: "spectrum.recent_colors." + Upfront.mainData.currentThemePath'), -1);
+		assert.notEqual(applyOptionsSource.indexOf('var uniquePalette = [];'), -1);
+		assert.notEqual(applyOptionsSource.indexOf('if (!paletteLookup[rgb])'), -1);
+		assert.ok(/addColorToSelectionPalette\(color\);[\s\S]*?if \(opts\.showPalette\) \{[\s\S]*?drawPalette\(\);/.test(updateInputSource));
+	});
+
 	it('shows an OK button while applying Redactor palette clicks immediately', function () {
 		var source = fs.readFileSync(path.join(__dirname, '../../scripts/redactor/plugins.js'), 'utf8'),
 			openStart = source.indexOf('open: function (e, redactor)'),

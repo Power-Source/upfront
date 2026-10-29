@@ -35,9 +35,15 @@ Füge Designfarben hinzu, pass Typografie an und bearbeite globale Einstellungen
 
 == ChangeLog ==
 
+= 1.3.5 =
+* Fix: Der Farbpicker speichert zuletzt verwendete Farben wieder dauerhaft und getrennt je aktivem Theme; neue Farben erscheinen unmittelbar in der Auswahl
+* Fix: Doppelte Theme-Farbwerte werden im Farbpicker nur noch als eine Farbkachel dargestellt
+* Fix: Der Erklärungsassistent des Upfront Builders zeigt seinen Footer wieder über die volle Breite mit dem vorgesehenen hellblauen Hintergrund
+
 = 1.3.4 =
 * Fix: Leere oder fehlerhafte responsive Preset-Einträge verursachen beim Öffnen von Post-Data-Elementen, einschließlich Beitragsbildern, keinen JavaScript-Abbruch mehr
 * Fix: Beitragsbilder im Editor verwenden beim Größenändern die Höhe ihres Bild-Parts statt der übergeordneten Post-Data-Gruppe; Zuschnitt und Maske bleiben dadurch an der gewählten Containergröße
+* Fix: Beitragsbilder im Frontend richten Fit jetzt immer an der Containerbreite aus und verwenden keine gespeicherte Maskenhöhe mehr für die Bildgröße
 * Fix: Ein Breakpoint-Wechsel im Editor schließt geöffnete Burger-Menüs vollständig und entfernt Overlay, Positionierung sowie offene Navigationszustände
 * Fix: Das visuelle Editor-Grid wird über dem Layout dargestellt und blockiert keine Bearbeitungsinteraktionen mehr
 
