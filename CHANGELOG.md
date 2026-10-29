@@ -9,6 +9,7 @@ Change Log
 - Verbesserung: Der statische Schriftkatalog enthält alle 1.775 lokal auf dem PSOURCE-Font-Server verfügbaren Familien und wird bewusst nur per Release-Befehl aktualisiert.
 - Verbesserung: Der Schriftkatalog zeigt lesbare Familiennamen, Kategorien und verfügbare Gewichte/Kursivschnitte, während die technische Font-Auslieferung weiterhin die lokalen Server-IDs verwendet.
 - Verbesserung: Verwendete Theme-Schriften werden samt CSS im jeweiligen Child-Theme unter `fonts/upfront-google-fonts` abgelegt und direkt daraus ausgeliefert.
+- Verbesserung: Der Theme-Katalog wird als statischer, versionierter Katalog mit lokalen Vorschaubildern und deutschen sowie englischen Beschreibungen ausgeliefert; das Dashboard fragt GitHub nicht mehr bei jedem Aufruf ab.
 
 1.3.3 - 2026-09-10
 -------------------------------------------------------------------------------

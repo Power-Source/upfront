@@ -12,6 +12,8 @@
 
 Upfront provides the technical foundation on which Upfront themes run: layout resolution, responsive grids, regions, global design values, reusable elements, and interfaces for Child Themes and plugins.
 
+The [developer guide](DEVELOPER.md) documents release and catalog maintenance.
+
 The **Upfront Builder is a separate plugin**. It is used to create and edit themes visually and export them as Child Themes. This repository contains the framework that subsequently loads and renders those themes.
 
 ## New in 1.3.5
@@ -20,6 +22,8 @@ The **Upfront Builder is a separate plugin**. It is used to create and edit them
 - The static font catalog includes 1,775 locally available families with readable names, categories, weights, and italic variants.
 - Used fonts, including their CSS, are imported into the active Child Theme and served from there.
 - The font catalog is refreshed only explicitly before a release with `npm run update-font-catalog`; neither the editor nor the frontend requests the catalog at runtime.
+- The theme catalog is shipped statically with the framework; preview images and German/English descriptions are local, so the dashboard does not query GitHub for catalog data.
+- The dashboard displays the changelog in the current user profile language; new changelog entries must therefore be maintained in both `CHANGELOG.md` and `CHANGELOG.en.md`.
 
 > **Project page, documentation, and showcase for Upfront themes:**
 >

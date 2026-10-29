@@ -2,9 +2,6 @@
 
 class Upfront_Admin_Theme_Catalog {
 	const ORGANIZATION = 'Power-Source';
-	const CACHE_KEY = 'upfront_theme_catalog_v1';
-	const CACHE_TTL = 43200;
-
 	private static $_instance;
 	private $_installing_slug = '';
 
@@ -93,45 +90,23 @@ class Upfront_Admin_Theme_Catalog {
 	}
 
 	private function _get_catalog() {
-		$cached = get_transient(self::CACHE_KEY);
-		if (is_array($cached)) return $cached;
+		$path = trailingslashit(Upfront::get_root_dir()) . 'library/data/upfront-theme-catalog.php';
+		$catalog = is_readable($path) ? include $path : array();
+		if (!is_array($catalog)) return array();
 
-		$repositories = $this->_get_json('https://api.github.com/orgs/' . self::ORGANIZATION . '/repos?type=public&per_page=100&sort=updated');
-		if (is_wp_error($repositories)) return $repositories;
-
-		$catalog = array();
-		foreach ($repositories as $repository) {
-			if (!$this->_is_catalog_repository($repository)) continue;
-
-			$slug = $repository['name'];
-			$commit_data = $this->_get_json(sprintf(
-				'https://api.github.com/repos/%s/%s/commits/%s',
-				rawurlencode(self::ORGANIZATION),
-				rawurlencode($slug),
-				rawurlencode($repository['default_branch'])
-			));
-			if (is_wp_error($commit_data) || empty($commit_data['sha']) || !$this->_is_commit($commit_data['sha'])) continue;
-
-			$commit = $commit_data['sha'];
-			$headers = $this->_get_remote_headers($slug, $commit);
-			if (is_wp_error($headers) || !$this->_is_upfront_theme($headers)) continue;
-
-			$catalog[] = array(
-				'slug' => $slug,
-				'commit' => $commit,
-				'name' => $headers['Name'],
-				'description' => $headers['Description'],
-				'version' => $headers['Version'] ?: __('Unbekannt', 'upfront'),
-				'author' => $headers['Author'] ?: self::ORGANIZATION,
-				'theme_uri' => esc_url_raw($headers['ThemeURI'] ?: $repository['html_url']),
-				'screenshot' => $this->_cache_screenshot($slug, $commit),
-			);
+		$locale = function_exists('get_user_locale') ? get_user_locale() : get_locale();
+		$language = strtolower(substr((string) $locale, 0, 2));
+		foreach ($catalog as &$theme) {
+			$descriptions = isset($theme['descriptions']) && is_array($theme['descriptions']) ? $theme['descriptions'] : array();
+			$theme['description'] = !empty($descriptions[$language])
+				? $descriptions[$language]
+				: (isset($descriptions['de']) ? $descriptions['de'] : '');
+			$theme['screenshot'] = !empty($theme['screenshot'])
+				? trailingslashit(Upfront::get_root_url()) . ltrim($theme['screenshot'], '/')
+				: '';
 		}
+		unset($theme);
 
-		usort($catalog, function($first, $second) {
-			return strcasecmp($first['name'], $second['name']);
-		});
-		set_transient(self::CACHE_KEY, $catalog, self::CACHE_TTL);
 		return $catalog;
 	}
 
@@ -241,9 +216,6 @@ class Upfront_Admin_Theme_Catalog {
 		$theme = $this->_find_catalog_theme($slug, $commit);
 		if (!$theme) $this->_redirect('error', __('Dieses Theme ist nicht im freigegebenen Katalog enthalten.', 'upfront'));
 		if (wp_get_theme($slug)->exists()) $this->_redirect('warning', __('Dieses Theme ist bereits installiert.', 'upfront'));
-
-		$headers = $this->_get_remote_headers($slug, $commit);
-		if (is_wp_error($headers) || !$this->_is_upfront_theme($headers)) $this->_redirect('error', __('Das Paket ist kein gültiges Upfront-Child-Theme.', 'upfront'));
 
 		require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 		$this->_installing_slug = $slug;

@@ -321,7 +321,13 @@ class Upfront_Admin_General extends Upfront_Admin_Page {
 	 */
 	private function _get_raw_changelog_entries () {
 
-		$path = trailingslashit(wp_normalize_path(Upfront::get_root_dir())) . 'CHANGELOG.md';
+		$root_dir = trailingslashit(wp_normalize_path(Upfront::get_root_dir()));
+		$locale = function_exists('get_user_locale') ? get_user_locale() : get_locale();
+		$language = strtolower(substr((string) $locale, 0, 2));
+		$localized_path = $root_dir . 'CHANGELOG.' . $language . '.md';
+		$path = file_exists($localized_path) && is_readable($localized_path)
+			? $localized_path
+			: $root_dir . 'CHANGELOG.md';
 		$entries = array();
 		if (!file_exists($path) || !is_readable($path)) return $entries;
 
