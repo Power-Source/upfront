@@ -1,6 +1,15 @@
 Change Log
 ============
 
+1.3.5 - 2026-10-29
+-------------------------------------------------------------------------------
+- Fix: Der Farbpicker speichert zuletzt verwendete Farben wieder dauerhaft und getrennt je aktivem Theme; neue Farben erscheinen unmittelbar in der Auswahl.
+- Fix: Doppelte Theme-Farbwerte werden im Farbpicker nur noch als eine Farbkachel dargestellt.
+- Fix: Der Erklärungsassistent des Upfront Builders ordnet Bestätigungsbutton und „nicht mehr anzeigen“-Checkbox nebeneinander innerhalb des Footers an.
+- Verbesserung: Der statische Schriftkatalog enthält alle 1.775 lokal auf dem PSOURCE-Font-Server verfügbaren Familien und wird bewusst nur per Release-Befehl aktualisiert.
+- Verbesserung: Der Schriftkatalog zeigt lesbare Familiennamen, Kategorien und verfügbare Gewichte/Kursivschnitte, während die technische Font-Auslieferung weiterhin die lokalen Server-IDs verwendet.
+- Verbesserung: Verwendete Theme-Schriften werden samt CSS im jeweiligen Child-Theme unter `fonts/upfront-google-fonts` abgelegt und direkt daraus ausgeliefert.
+
 1.3.3 - 2026-09-10
 -------------------------------------------------------------------------------
 - Fix: Der Redactor-Linkdialog bewahrt erzeugte href-Attribute und entmaskiert Link-Markup nach dem Speichern wieder als echten Anchor

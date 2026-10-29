@@ -2,7 +2,7 @@
 
 **Deutsch** | [English](README.en.md)
 
-[![Version](https://img.shields.io/badge/Version-1.3.4-2271b1?style=flat-square)](readme.txt)
+[![Version](https://img.shields.io/badge/Version-1.3.5-2271b1?style=flat-square)](readme.txt)
 ![PHP](https://img.shields.io/badge/PHP-8.0%2B-777bb4?style=flat-square&logo=php&logoColor=white)
 ![WordPress](https://img.shields.io/badge/WordPress-bis%207.1.0-21759b?style=flat-square&logo=wordpress&logoColor=white)
 ![ClassicPress](https://img.shields.io/badge/ClassicPress-2.7.2-03768e?style=flat-square)
@@ -13,6 +13,13 @@
 Upfront stellt die technische Grundlage bereit, auf der Upfront-Themes laufen: Layoutauflösung, responsive Raster, Regionen, globale Designwerte, wiederverwendbare Elemente und die Schnittstellen für Child-Themes und Plugins.
 
 Der **Upfront Builder ist ein separates Plugin**. Mit ihm werden Themes visuell erstellt, bearbeitet und als Child-Themes exportiert. Dieses Repository enthält das Framework, das diese Themes anschließend lädt und rendert.
+
+## Neu in 1.3.5
+
+- Der Farbpicker bewahrt zuletzt verwendete Farben jetzt pro aktivem Theme und zeigt keine doppelten Theme-Farbkacheln mehr an.
+- Der statische Schriftkatalog umfasst 1.775 lokal verfügbare Familien mit lesbaren Namen, Kategorien sowie Gewichten und Kursivschnitten.
+- Verwendete Schriften werden einschließlich CSS in das aktive Child-Theme importiert und von dort ausgeliefert.
+- Der Font-Katalog wird ausschließlich bewusst vor einem Release mit `npm run update-font-catalog` aktualisiert; im Editor und Frontend findet keine Katalogabfrage statt.
 
 > **Projektseite, Dokumentation und Showcase für Upfront-Themes:**
 >

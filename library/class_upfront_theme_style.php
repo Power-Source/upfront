@@ -22,11 +22,13 @@ class Upfront_Theme_Style {
 
 		if (in_array('fonts', $parts, true)) {
 			$fonts = wp_json_encode($style['fonts']);
+			if (!Upfront_Local_Fonts_Server::sync_theme_fonts($style['fonts'])) {
+				return new WP_Error('upfront_theme_style_fonts', __('Die Schriftdateien konnten nicht im Child-Theme gespeichert werden.', 'upfront'));
+			}
 			if (!$settings->set('theme_fonts', $fonts)
 				|| !self::persist_override('upfront_' . $stylesheet . '_theme_fonts', $fonts)) {
 				return new WP_Error('upfront_theme_style_fonts', __('Die Theme-Schriften konnten nicht gespeichert werden.', 'upfront'));
 			}
-			Upfront_Local_Fonts_Server::sync_theme_fonts($style['fonts']);
 		}
 
 		if (in_array('typography', $parts, true)) {

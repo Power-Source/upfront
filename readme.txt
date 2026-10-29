@@ -6,7 +6,7 @@ Requires at least: 5.0
 Requires CP: 1.4
 Tested up to: 7.1
 ClassicPress: 2.7.2
-Stable tag: 1.3.4
+Stable tag: 1.3.5
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -33,12 +33,19 @@ Es ist anders als jedes ClassicPress-Theme, das Du jemals verwendet hast. Jedes 
 Steuere einzelne Elemente UND verwalte den Stil global auf Deiner gesamten Webseite. 
 Füge Designfarben hinzu, pass Typografie an und bearbeite globale Einstellungen ohne eine einzige Codezeile.
 
+= Schriftkatalog aktualisieren =
+
+Der Editor verwendet eine statische Liste der auf dem PSOURCE-Font-Server verfügbaren Schriftfamilien und fragt den Font-Server im normalen Betrieb nicht nach dem Katalog. Vor einem Release aktualisierst Du die Liste bewusst mit `npm run update-font-catalog`. Der Befehl nutzt zusätzlich nur beim manuellen Release Google-Fonts-Metadaten für lesbare Familiennamen und Kategorien.
+
 == ChangeLog ==
 
 = 1.3.5 =
 * Fix: Der Farbpicker speichert zuletzt verwendete Farben wieder dauerhaft und getrennt je aktivem Theme; neue Farben erscheinen unmittelbar in der Auswahl
 * Fix: Doppelte Theme-Farbwerte werden im Farbpicker nur noch als eine Farbkachel dargestellt
-* Fix: Der Erklärungsassistent des Upfront Builders zeigt seinen Footer wieder über die volle Breite mit dem vorgesehenen hellblauen Hintergrund
+* Fix: Der Erklärungsassistent des Upfront Builders ordnet Bestätigungsbutton und „nicht mehr anzeigen“-Checkbox nebeneinander innerhalb des hellblauen Footers an
+* Verbesserung: Der statische Schriftkatalog enthält alle 1.775 lokal auf dem PSOURCE-Font-Server verfügbaren Familien und wird bewusst nur per Release-Befehl aktualisiert
+* Verbesserung: Der Schriftkatalog zeigt lesbare Familiennamen, Kategorien und verfügbare Gewichte/Kursivschnitte, während die technische Font-Auslieferung weiterhin die lokalen Server-IDs verwendet
+* Verbesserung: Verwendete Theme-Schriften werden samt CSS im jeweiligen Child-Theme unter `fonts/upfront-google-fonts` abgelegt und direkt daraus ausgeliefert
 
 = 1.3.4 =
 * Fix: Leere oder fehlerhafte responsive Preset-Einträge verursachen beim Öffnen von Post-Data-Elementen, einschließlich Beitragsbildern, keinen JavaScript-Abbruch mehr

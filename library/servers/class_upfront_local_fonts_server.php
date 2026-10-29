@@ -3,9 +3,8 @@
 class Upfront_Local_Fonts_Server extends Upfront_Server {
 
 	const ACTION = 'upfront_local_fonts_css';
-	const CACHE_DIRECTORY = 'upfront-fonts';
-	const CACHE_VERSION = '2';
-	const UNUSED_CACHE_LIFETIME = 2592000;
+	const CACHE_DIRECTORY = 'fonts/upfront-google-fonts';
+	const CACHE_VERSION = '3';
 
 	public static function serve () {
 		$me = new self;
@@ -36,9 +35,9 @@ class Upfront_Local_Fonts_Server extends Upfront_Server {
 		}
 
 		foreach ($families as $family => $variants) {
-			self::cache_family($family, $variants);
+			if (!self::cache_family($family, $variants)) return false;
 		}
-		self::prune();
+		return true;
 	}
 
 	public function output_css () {
@@ -77,6 +76,7 @@ class Upfront_Local_Fonts_Server extends Upfront_Server {
 		if (!$slug) return false;
 		$directory = trailingslashit($locations['directory']) . $slug;
 		$css_path = trailingslashit($directory) . 'font.css';
+		if (!is_readable($css_path)) self::migrate_legacy_family($slug, $locations);
 		if (is_readable($css_path)) {
 			touch($css_path);
 			return self::normalize_cached_urls(file_get_contents($css_path), $locations);
@@ -178,32 +178,38 @@ class Upfront_Local_Fonts_Server extends Upfront_Server {
 		), $locations['url'], $css);
 	}
 
-	private static function get_cache_locations () {
+	private static function migrate_legacy_family ($slug, $locations) {
 		$uploads = wp_upload_dir();
 		if (!empty($uploads['error'])) return false;
-		$absolute_url = trailingslashit($uploads['baseurl']) . self::CACHE_DIRECTORY;
+
+		$legacy_directory = trailingslashit($uploads['basedir']) . 'upfront-fonts/' . $slug;
+		$legacy_css_path = trailingslashit($legacy_directory) . 'font.css';
+		if (!is_readable($legacy_css_path)) return false;
+
+		$directory = trailingslashit($locations['directory']) . $slug;
+		if (!wp_mkdir_p($directory)) return false;
+
+		foreach (glob(trailingslashit($legacy_directory) . '*') as $file) {
+			if (!is_file($file) || !copy($file, trailingslashit($directory) . basename($file))) return false;
+		}
+
+		$legacy_url = trailingslashit($uploads['baseurl']) . 'upfront-fonts';
+		$css = str_replace(array(
+			set_url_scheme($legacy_url, 'http'),
+			set_url_scheme($legacy_url, 'https')
+		), $locations['url'], file_get_contents($legacy_css_path));
+
+		return self::write_file(trailingslashit($directory) . 'font.css', $css);
+	}
+
+	private static function get_cache_locations () {
+		$directory = trailingslashit(get_stylesheet_directory()) . self::CACHE_DIRECTORY;
+		$absolute_url = trailingslashit(get_stylesheet_directory_uri()) . self::CACHE_DIRECTORY;
 		return array(
-			'directory' => trailingslashit($uploads['basedir']) . self::CACHE_DIRECTORY,
+			'directory' => $directory,
 			'url' => set_url_scheme($absolute_url, 'relative'),
 			'absolute_url' => $absolute_url
 		);
-	}
-
-	private static function prune () {
-		$locations = self::get_cache_locations();
-		if (!$locations || !is_dir($locations['directory'])) return;
-		foreach (glob(trailingslashit($locations['directory']) . '*', GLOB_ONLYDIR) as $directory) {
-			$css_path = trailingslashit($directory) . 'font.css';
-			$last_used = is_file($css_path) ? filemtime($css_path) : filemtime($directory);
-			if ($last_used > time() - self::UNUSED_CACHE_LIFETIME) continue;
-			$lock = fopen(trailingslashit($directory) . '.cache.lock', 'c');
-			if (!$lock || !flock($lock, LOCK_EX | LOCK_NB)) continue;
-			foreach (glob(trailingslashit($directory) . '*') as $file) {
-				if (is_file($file)) @unlink($file);
-			}
-			flock($lock, LOCK_UN);
-			fclose($lock);
-		}
 	}
 }
 

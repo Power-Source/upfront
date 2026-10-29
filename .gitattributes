@@ -1,0 +1,7 @@
+test export-ignore
+tools export-ignore
+scripts/test export-ignore
+scripts/build-i18n.sh export-ignore
+package.json export-ignore
+package-lock.json export-ignore
+node_modules export-ignore

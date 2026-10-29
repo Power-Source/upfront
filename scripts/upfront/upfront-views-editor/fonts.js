@@ -82,6 +82,14 @@
 										};
 								}
 
+								if ( !_.isUndefined( variant ) && variant.match(/^(\d+)italic$/)) {
+										parsed_variant = variant.match(/^(\d+)italic$/);
+										return {
+												weight: parsed_variant[1],
+												style: 'italic'
+										};
+								}
+
 								// Cover 100, 200, 500 etc styles
 								if ( !_.isUndefined( variant ) && variant.match(/^\d+$/)) {
 										return {
@@ -227,14 +235,15 @@
 						model: ThemeFontModel,
 						get_fonts_for_select: function() {
 								var typefaces_list = [{ label: l10n.choose_font, value:'' }],
-										google_fonts = [];
+										google_fonts = {};
 
 
 								_.each(theme_fonts_collection.models, function(theme_font) {
-										google_fonts.push(theme_font.get('font').family);
+										var font = theme_font.get('font');
+										google_fonts[font.family] = font.label || font.family;
 								});
-								_.each(_.uniq(google_fonts), function(google_font) {
-										typefaces_list.push({label: google_font, value: google_font});
+								_.each(google_fonts, function(label, family) {
+										typefaces_list.push({label: label, value: family});
 								});
 								_.each(Upfront.mainData.additionalFonts, function(font) {
 										typefaces_list.push({label: font.family, value: font.family});
@@ -809,8 +818,11 @@
 						load_google_fonts: function(fonts_collection) {
 								var add_font_panel = this.$el.find('.add-font-panel');
 								var typefaces_list = [{ label: l10n.click_to_pick_google_font, value: ''}];
-								_.each(fonts_collection.pluck('family'), function(family) {
-										typefaces_list.push({ label: family, value: family });
+								_.each(fonts_collection.models, function(font) {
+										typefaces_list.push({
+												label: font.get('label') || font.get('family'),
+												value: font.get('family')
+										});
 								});
 								add_font_panel.find('.loading-fonts').remove();
 								// Select font

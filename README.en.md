@@ -2,7 +2,7 @@
 
 [Deutsch](README.md) | **English**
 
-[![Version](https://img.shields.io/badge/Version-1.3.4-2271b1?style=flat-square)](readme.txt)
+[![Version](https://img.shields.io/badge/Version-1.3.5-2271b1?style=flat-square)](readme.txt)
 ![PHP](https://img.shields.io/badge/PHP-8.0%2B-777bb4?style=flat-square&logo=php&logoColor=white)
 ![WordPress](https://img.shields.io/badge/WordPress-up%20to%207.1.0-21759b?style=flat-square&logo=wordpress&logoColor=white)
 ![ClassicPress](https://img.shields.io/badge/ClassicPress-2.7.2-03768e?style=flat-square)
@@ -13,6 +13,13 @@
 Upfront provides the technical foundation on which Upfront themes run: layout resolution, responsive grids, regions, global design values, reusable elements, and interfaces for Child Themes and plugins.
 
 The **Upfront Builder is a separate plugin**. It is used to create and edit themes visually and export them as Child Themes. This repository contains the framework that subsequently loads and renders those themes.
+
+## New in 1.3.5
+
+- The color picker now retains recently used colors per active theme and no longer renders duplicate theme-color swatches.
+- The static font catalog includes 1,775 locally available families with readable names, categories, weights, and italic variants.
+- Used fonts, including their CSS, are imported into the active Child Theme and served from there.
+- The font catalog is refreshed only explicitly before a release with `npm run update-font-catalog`; neither the editor nor the frontend requests the catalog at runtime.
 
 > **Project page, documentation, and showcase for Upfront themes:**
 >
