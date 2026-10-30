@@ -48,7 +48,8 @@ define([
 			ThisPostModel: {label: l10n.post, id: 'this_post'},
 			UwidgetModel: {label: l10n.widget, id: 'widget'},
 			UyoutubeModel: {label: l10n.youtube, id: 'youtube'},
-			PlainTxtModel: {label: l10n.text, id:'text', preset_container: 'inline'}
+			PlainTxtModel: {label: l10n.text, id:'text', preset_container: 'inline'},
+			ModuleGroup: {label: l10n.group, id: 'module_group', preset_container: 'inline'}
 		},
 		postElementTypes: {
 			post_data: {label: l10n.post_data, id: 'post_data'},
@@ -109,6 +110,9 @@ define([
 			this.createSelectors(Upfront.Application.LayoutEditor.Objects);
 
 			this.selectors = this.elementSelectors[this.modelType] || {};
+			if (this.modelType === 'ModuleGroup') {
+				this.selectors = Upfront.Application.cssEditor.elementSelectors.ModuleGroup || {};
+			}
 
 			if(this.modelType === "PostDataModel") {
 				this.elementType = this.postElementTypes[this.dataPartType] || {label: l10n.post_data, id: 'post_data'};
@@ -128,6 +132,7 @@ define([
 			if(event)
 				event.preventDefault();
 
+			this.unhiliteElement();
 			$(window).off('resize', this.resizeHandler);
 
 			if(this.editor)
@@ -179,8 +184,9 @@ define([
 		cleanUpStyles: function(styles) {
 			if(!this.get_css_selector()) return '';
 
-			var scope = new RegExp(Upfront.Util.preg_quote(this.get_css_selector()) + '\\s*', 'g');
-			styles = styles.replace(new RegExp('#page ' + Upfront.Util.preg_quote(this.get_css_selector()) + '\\s*', 'g'), '');
+			var selector = $.trim(this.get_css_selector()),
+				scope = new RegExp(Upfront.Util.preg_quote(selector) + '\\s*', 'g');
+			styles = styles.replace(new RegExp('#page ' + Upfront.Util.preg_quote(selector) + '\\s*', 'g'), '');
 			styles = styles.replace(scope, '');
 
 			// Unescape quotes a few times
@@ -389,36 +395,24 @@ define([
 			this.blink($element, 4);
 		},
 		hiliteElement: function(e){
-			var preset_selector = this.get_css_selector();
+			var selector = $(e.currentTarget).data('selector'),
+				root = $('#' + this.element_id),
+				preset_selector = $.trim(this.get_css_selector()),
+				containers = preset_selector ? root.filter(preset_selector).add(root.find(preset_selector)) : root;
 
-			//Do not add empty space for posts element
-			if(this.elementType.id !== "posts") {
-				preset_selector = preset_selector + ' ';
+			this.unhiliteElement();
+			if (typeof selector !== 'string' || !selector.length) return;
+
+			this.$highlighted = containers.find(selector);
+			if (!this.dataPartType || selector === '.upost-data-object-' + this.dataPartType) {
+				this.$highlighted = this.$highlighted.add(containers.filter(selector));
 			}
-
-			var selector = preset_selector + $(e.target).data('selector');
-
-			if(!selector.length)
-				return;
-			var element = $('#' + this.element_id + selector);
-
-			element.addClass('upfront-css-hilite');
+			this.$highlighted.addClass('upfront-css-hilite');
 		},
 
-		unhiliteElement: function(e){
-			var preset_selector = this.get_css_selector();
-
-			//Do not add empty space for posts element
-			if(this.elementType.id !== "posts") {
-				preset_selector = preset_selector + ' ';
-			}
-
-			var selector = preset_selector + $(e.target).data('selector');
-
-			if(!selector.length)
-				return;
-			var element = $('#' + this.element_id + selector);
-			element.removeClass('upfront-css-hilite');
+		unhiliteElement: function(){
+			if (this.$highlighted) this.$highlighted.removeClass('upfront-css-hilite');
+			this.$highlighted = null;
 		},
 		addSelector: function(e) {
 			var selector = $(e.target).data('selector');
@@ -432,6 +426,9 @@ define([
 			if (typeof this.options.preset.get('id') === "undefined" || !this.options.preset.get('id')) return '';
 
 			var preset_class = '.' + this.options.preset.get('id');
+			if (this.modelType === 'ModuleGroup') {
+				preset_class = '.module_group-preset-' + this.options.preset.get('id') + '.upfront-module-group';
+			}
 
 			if (this.dataPartType) {
 				preset_class = preset_class + '.upost-data-object-' + this.dataPartType;
@@ -470,14 +467,16 @@ define([
 				_.each(individual_selectors, function (sel) {
 					sel = $.trim(sel);
 					var clean_selector = sel.replace(/:[^\s]+/, ''); // Clean up states states such as :hover, so as to not mess up the matching
-					var	is_container = clean_selector[0] === '@' || me.recursiveExistence(selector, clean_selector),
+					var scoped_selector = me.dataPartType && clean_selector.indexOf('.upost-data-object-' + me.dataPartType) === 0
+							? $.trim(selector) : selector,
+						is_container = clean_selector[0] === '@' || me.recursiveExistence(scoped_selector, clean_selector),
 						spacer = is_container
 							? '' // This is not a descentent selector - used for containers
 							: ' ' // This is a descentent selector
 					;
 
 					processed_selectors.push('' +
-						selector + spacer + sel +
+						scoped_selector + spacer + sel +
 					'');
 				});
 				processed += processed_selectors.join(', ') + ' {' +

@@ -31,6 +31,8 @@ class Upfront_Module_Group extends Upfront_Container {
 	public function get_css_class () {
 		$classes = parent::get_css_class();
 		$classes .= ' upfront-module-group';
+		$preset_map = $this->_get_preset_map($this->_data);
+		$classes .= ' module_group-preset-' . $this->_get_preset($this->_data, $preset_map);
 		$theme_style = $this->_get_property('theme_style');
 		if ($theme_style) {
 			$classes .= ' ' . strtolower($theme_style);
@@ -60,7 +62,15 @@ class Upfront_Module_Group extends Upfront_Container {
 			}
 		}
 
-		return " data-theme-styles='" . json_encode($theme_styles) . "' ".$link_attributes;
+		$preset_map = $this->_get_preset_map($this->_data);
+		if (empty($preset_map['desktop'])) {
+			$preset_map['desktop'] = $this->_get_preset($this->_data, $preset_map);
+		}
+		foreach ($preset_map as $breakpoint => $preset) {
+			$preset_map[$breakpoint] = 'module_group-preset-' . $preset;
+		}
+
+		return " data-theme-styles='" . json_encode($theme_styles) . "' data-preset_map='" . esc_attr(wp_json_encode($preset_map)) . "' ".$link_attributes;
 	}
 
 	public function get_style_for ($point, $scope) {

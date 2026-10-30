@@ -1,6 +1,16 @@
 Change Log
 ==========
 
+1.3.6 - 2026-10-30
+-------------------------------------------------------------------------------
+- Fix: Images and captions in post content stay within the content width on mobile and scale proportionally; external image inserts are no longer clipped by their desktop crop containers.
+- Fix: The comment textarea and other input fields stay within the form width on mobile; the textarea column count no longer causes page overflow and empty space on the right.
+- Fix: The CSS selector list provides a post wrapper and distinguishes the single title wrapper from the H1 title heading; the inspector also highlights the wrapper itself and custom CSS correctly targets it.
+- Fix: Slider images are no longer stretched to a minimum of 100 percent width and height; horizontal crop offsets are preserved after editing an image.
+- Improvement: Groups use the original preset manager, including the default-preset notice, preset selection, creation, editing, deletion, reset and custom CSS, with existing preset storage and breakpoint-specific selection.
+- Fix: Opening a region's CSS editor keeps its settings menu available and allows region editing to finish normally.
+- Fix: Post elements no longer display the obsolete Upfront 1.0 preset migration notice, without resetting selected presets or custom CSS.
+
 1.3.5 - 2026-10-29
 -------------------------------------------------------------------------------
 - Fix: The color picker again saves recently used colors permanently and separately for each active theme; new colors appear immediately in the selection.

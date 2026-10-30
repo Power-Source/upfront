@@ -21,4 +21,18 @@ describe('Font catalog', function () {
 
 		assert.notEqual(parseSource.indexOf("variant.match(/^(\\d+)italic$/)"), -1);
 	});
+
+	it('loads and renders each saved theme font in its own style', function () {
+		var source = fs.readFileSync(path.join(__dirname, '../../scripts/upfront/upfront-views-editor/fonts.js'), 'utf8'),
+			itemStart = source.indexOf('var ThemeFontListItem'),
+			itemEnd = source.indexOf('var ThemeFontsPanel', itemStart),
+			itemSource = source.slice(itemStart, itemEnd),
+			template = fs.readFileSync(path.join(__dirname, '../../scripts/upfront/templates/popup.html'), 'utf8');
+
+		assert.notEqual(itemSource.indexOf("family=' + encodeURIComponent(family + ':' + variant)"), -1);
+		assert.notEqual(itemSource.indexOf("'font-family': family"), -1);
+		assert.notEqual(itemSource.indexOf("'font-weight': weight_style.weight"), -1);
+		assert.notEqual(itemSource.indexOf("'font-style': weight_style.style"), -1);
+		assert.notEqual(template.indexOf('theme-font-list-item-preview'), -1);
+	});
 });

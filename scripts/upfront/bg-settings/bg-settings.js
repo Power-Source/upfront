@@ -14,8 +14,11 @@ define([
 	'scripts/upfront/element-settings/settings',
 	'scripts/upfront/element-settings/root-settings-panel',
 	'scripts/upfront/element-settings/advanced-settings',
+	'scripts/upfront/preset-settings/preset-manager',
+	'scripts/upfront/preset-settings/util',
+	'text!upfront/templates/module-group-preset-style.html',
 	'scripts/perfect-scrollbar/perfect-scrollbar'
-], function(ColorItem, ImageItem, MapItem, SliderItem, VideoItem, ElementSettings, RootSettingsPanel, AdvancedSettings, perfectScrollbar) {
+], function(ColorItem, ImageItem, MapItem, SliderItem, VideoItem, ElementSettings, RootSettingsPanel, AdvancedSettings, PresetManager, PresetUtil, groupStyleTpl, perfectScrollbar) {
 	
 	var BgItem = Upfront.Views.Editor.Settings.Item.extend({
 		initialize: function (options) {
@@ -230,15 +233,32 @@ define([
 		}
 	});
 	
+	var GroupAppearance = PresetManager.extend({
+		mainDataCollection: 'module_groupPresets',
+		styleElementPrefix: 'module_group-preset',
+		ajaxActionSlug: 'module_group',
+		presetDefaults: Upfront.mainData.presetDefaults.module_group,
+		styleTpl: groupStyleTpl,
+		stateModules: {},
+		migrateToDefault: function () {
+			this.property('usingNewAppearance', true);
+		}
+	});
+
+	PresetUtil.generatePresetsToPage('module_group', groupStyleTpl);
+
 	var GroupSettings = ElementSettings.extend({
 		initialize: function (opts) {
 			this.has_tabs = false;
 			this.options = opts;
 			var panel = new GroupLayout(opts);
 			this.panels = [
-				panel,
-				new AdvancedSettings({model: this.model})
+				panel
 			];
+			if (Upfront.Application.user_can("SWITCH_PRESET") || Upfront.Application.user_can("MODIFY_PRESET")) {
+				this.panels.push(new GroupAppearance({model: this.model}));
+			}
+			this.panels.push(new AdvancedSettings({model: this.model}));
 		},
 		title: l10n.group_settings
 	});

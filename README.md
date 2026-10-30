@@ -2,7 +2,7 @@
 
 **Deutsch** | [English](README.en.md)
 
-[![Version](https://img.shields.io/badge/Version-1.3.5-2271b1?style=flat-square)](readme.txt)
+[![Version](https://img.shields.io/badge/Version-1.3.6-2271b1?style=flat-square)](readme.txt)
 ![PHP](https://img.shields.io/badge/PHP-8.0%2B-777bb4?style=flat-square&logo=php&logoColor=white)
 ![WordPress](https://img.shields.io/badge/WordPress-bis%207.1.4-21759b?style=flat-square&logo=wordpress&logoColor=white)
 ![ClassicPress](https://img.shields.io/badge/ClassicPress-2.7.4-03768e?style=flat-square)
@@ -15,6 +15,16 @@ Upfront stellt die technische Grundlage bereit, auf der Upfront-Themes laufen: L
 Release- und Katalogpflege ist in der [Entwickleranleitung](DEVELOPER.md) dokumentiert.
 
 Der **Upfront Builder ist ein separates Plugin**. Mit ihm werden Themes visuell erstellt, bearbeitet und als Child-Themes exportiert. Dieses Repository enthält das Framework, das diese Themes anschließend lädt und rendert.
+
+## Neu in 1.3.6
+
+- Beitragsbilder und Bildunterschriften bleiben mobil innerhalb der Inhaltsbreite und skalieren proportional.
+- Das Kommentarfeld und weitere Eingaben verursachen mobil keine Seitenüberbreite und keinen rechten Leerraum mehr.
+- Die CSS-Selektorauswahl unterscheidet Beitrags-Wrapper, Titel-Wrapper und H1-Titelüberschrift; der Inspektor markiert auch den Wrapper selbst.
+- Slider-Bilder werden nicht mehr zwangsweise gestreckt; horizontale Zuschnitte bleiben im Editor erhalten.
+- Gruppen nutzen das originale Preset-System mit Standard-Preset-Hinweis, Presetauswahl, Erstellen, Bearbeiten, Löschen, Zurücksetzen und Custom CSS.
+- Regionen behalten beim Öffnen des CSS-Editors ihr Einstellungsmenü und lassen sich regulär verlassen.
+- Der veraltete Upfront-1.0-Presethinweis entfällt bei Post-Elementen.
 
 ## Neu in 1.3.5
 

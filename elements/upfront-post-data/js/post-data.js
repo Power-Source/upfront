@@ -1637,6 +1637,7 @@ function add_elements () {
 			"DataElement": PostDataElement_PostData,
 			"Settings": PostDataSettings,
 			cssSelectors: {
+				'.upost-data-object-post_data': {label: l10n.css.post_data_wrapper_label, info: l10n.css.post_data_wrapper_info},
 				'.date_posted': {label: l10n.css.post_data_date_label, info: l10n.css.post_data_date_info},
 				'.title': {label: l10n.css.post_data_title_label, info: l10n.css.post_data_title_info},
 				'.title h1': {label: l10n.css.post_data_title_h1_label, info: l10n.css.post_data_title_h1_info},

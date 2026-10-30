@@ -133,6 +133,10 @@ define([
 			}, this);
 		},
 		
+		migrateToDefault: function () {
+			this.property('usingNewAppearance', true);
+		},
+
 		getTitle: function() {
 			return 'Voreinstellungen';
 		},

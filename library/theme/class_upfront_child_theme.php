@@ -72,6 +72,7 @@ abstract class Upfront_ChildTheme implements IUpfront_Server {
 		add_filter('upfront_get_image_presets', array($this, 'getImagePresets'), 10, 2);
 		add_filter('upfront_get_nav_presets', array($this, 'getNavPresets'), 10, 2);
 		add_filter('upfront_get_slider_presets', array($this, 'getSliderPresets'), 10, 2);
+		add_filter('upfront_get_module_group_presets', array($this, 'get_module_group_presets'), 10, 2);
 		add_filter('upfront_get_text_presets', array($this, 'getTextPresets'), 10, 2);
 		add_filter('upfront_get_widget_presets', array($this, 'getWidgetPresets'), 10, 2);
 		add_filter('upfront_get_posts_presets', array($this, 'getPostsPresets'), 10, 2);
@@ -730,6 +731,11 @@ abstract class Upfront_ChildTheme implements IUpfront_Server {
 	public function get_post_data_presets ($presets, $args) {
 		if (empty($presets) === false) return $presets;
 		return $this->_get_prepared_presets('post_data_element_presets', $args);
+	}
+
+	public function get_module_group_presets ($presets, $args) {
+		if (empty($presets) === false) return $presets;
+		return $this->_get_prepared_presets('module_group_presets', $args);
 	}
 
 	public function get_author_presets ($presets, $args) {

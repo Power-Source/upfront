@@ -1,6 +1,16 @@
 Change Log
 ============
 
+1.3.6 - 2026-10-30
+-------------------------------------------------------------------------------
+- Fix: Bilder und Bildunterschriften in Beitragsinhalten bleiben mobil innerhalb der Inhaltsbreite und skalieren proportional; externe Bildinserts werden nicht mehr durch ihre Desktop-Zuschnittsfläche abgeschnitten.
+- Fix: Kommentarfeld und weitere Eingabefelder bleiben mobil innerhalb der Formularbreite; die Spaltenvorgabe des Textfelds verursacht keine Seitenüberbreite und keinen rechten Leerraum mehr.
+- Fix: Die CSS-Selektorauswahl bietet einen Beitrags-Wrapper und unterscheidet den einmaligen Titel-Wrapper von der H1-Titelüberschrift; der Inspektor markiert auch den Wrapper selbst und benutzerdefiniertes CSS wird korrekt darauf angewendet.
+- Fix: Slider-Bilder werden nicht mehr auf mindestens 100 Prozent Breite und Höhe gestreckt; der horizontale Zuschnitt bleibt auch nach einer Bildbearbeitung im Editor erhalten.
+- Verbesserung: Gruppen sind an den originalen Preset-Manager angebunden: mit Standard-Preset-Hinweis, Presetauswahl, Erstellen, Bearbeiten, Löschen, Zurücksetzen und Custom CSS sowie der bestehenden Preset-Speicherung und breakpointabhängigen Auswahl.
+- Fix: Beim Öffnen des CSS-Editors für Regionen bleiben das zugehörige Einstellungsmenü und der reguläre Abschluss des Bearbeitungsmodus nutzbar.
+- Fix: Der veraltete Upfront-1.0-Presethinweis entfällt bei Post-Elementen, ohne ausgewählte Presets oder eigenes CSS zurückzusetzen.
+
 1.3.5 - 2026-10-29
 -------------------------------------------------------------------------------
 - Fix: Der Farbpicker speichert zuletzt verwendete Farben wieder dauerhaft und getrennt je aktivem Theme; neue Farben erscheinen unmittelbar in der Auswahl.

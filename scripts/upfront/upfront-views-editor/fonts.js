@@ -401,7 +401,7 @@
 
 								Upfront.Util.post(postData)
 										.fail(function(){
-												return notifier.addMessage(l10n.theme_fonts_save_fail);
+												return Upfront.Views.Editor.notify(l10n.theme_fonts_save_fail, "error");
 										});
 						};
 
@@ -418,10 +418,28 @@
 						},
 						template: $(popup_tpl).find('#theme-font-list-item').html(),
 						render: function() {
+								var font = this.model.get('font'),
+										family = font.family,
+										variant = this.model.get('variant'),
+										weight_style = Font_Model.parse_variant(variant),
+										stylesheet_id = 'upfront-theme-font-' + family.toLowerCase().replace(/[^a-z0-9_-]/g, '-') + '-' + variant.toLowerCase().replace(/[^a-z0-9_-]/g, '-') + '-css',
+										stylesheet_url = Upfront.mainData.googleFontsStylesheetUrl +
+												(Upfront.mainData.googleFontsStylesheetUrl.indexOf('?') === -1 ? '?' : '&') +
+												'family=' + encodeURIComponent(family + ':' + variant);
+
+								if ($('#' + stylesheet_id).length === 0) {
+										$('head').append('<link rel="stylesheet" id="' + stylesheet_id + '" href="' + stylesheet_url + '" type="text/css" media="all">');
+								}
+
 								this.$el.html(_.template(this.template, {
-										family: this.model.get('font').family,
+										family: family,
 										variant: this.model.get('displayVariant')
 								}));
+								this.$el.find('.theme-font-list-item-preview').css({
+										'font-family': family,
+										'font-weight': weight_style.weight,
+										'font-style': weight_style.style
+								});
 
 								return this;
 						},
@@ -691,7 +709,7 @@
 
 								Upfront.Util.post(postData)
 										.fail(function(){
-												return notifier.addMessage('Could not update active icon font');
+												return Upfront.Views.Editor.notify('Could not update active icon font', "error");
 										});
 
 								$('#active-icon-font').remove();

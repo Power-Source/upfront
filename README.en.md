@@ -2,7 +2,7 @@
 
 [Deutsch](README.md) | **English**
 
-[![Version](https://img.shields.io/badge/Version-1.3.5-2271b1?style=flat-square)](readme.txt)
+[![Version](https://img.shields.io/badge/Version-1.3.6-2271b1?style=flat-square)](readme.txt)
 ![PHP](https://img.shields.io/badge/PHP-8.0%2B-777bb4?style=flat-square&logo=php&logoColor=white)
 ![WordPress](https://img.shields.io/badge/WordPress-bis%207.1.4-21759b?style=flat-square&logo=wordpress&logoColor=white)
 ![ClassicPress](https://img.shields.io/badge/ClassicPress-2.7.4-03768e?style=flat-square)
@@ -15,6 +15,16 @@ Upfront provides the technical foundation on which Upfront themes run: layout re
 The [developer guide](DEVELOPER.md) documents release and catalog maintenance.
 
 The **Upfront Builder is a separate plugin**. It is used to create and edit themes visually and export them as Child Themes. This repository contains the framework that subsequently loads and renders those themes.
+
+## New in 1.3.6
+
+- Post images and captions stay within the content width on mobile and scale proportionally.
+- The comment textarea and other inputs no longer cause page overflow and empty space on the right on mobile.
+- The CSS selector list distinguishes the post wrapper, title wrapper, and H1 title heading; the inspector also highlights the wrapper itself.
+- Slider images are no longer forcibly stretched, and horizontal crop offsets are preserved in the editor.
+- Groups use the original preset system with the default-preset notice, selection, creation, editing, deletion, reset and custom CSS.
+- Regions retain their settings menu when opening the CSS editor and can exit editing normally.
+- Post elements no longer display the obsolete Upfront 1.0 preset migration notice.
 
 ## New in 1.3.5
 

@@ -822,7 +822,6 @@
 
 			// Edit CSS trigger
 			trigger_edit_css: function () {
-				Upfront.Events.trigger('region:settings:deactivate');
 				Upfront.Application.cssEditor.init({
 					model: this.model,
 					type: this.model.is_main() ? "RegionContainer" : (this.model.get('type') == 'lightbox')?"RegionLightbox":"Region",

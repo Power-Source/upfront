@@ -28,7 +28,7 @@ function() {
 		//Increase preset_style css specificity
 		if(typeof properties.preset_style !== "undefined") {
 			properties.preset_style = properties.preset_style
-			.replace(/#page/g, '#page.upfront-layout-view .upfront-editable_entity.upfront-module');
+			.replace(/#page/g, elementType === 'module_group' ? '#page.upfront-layout-view' : '#page.upfront-layout-view .upfront-editable_entity.upfront-module');
 			
 			if(elementType === "thispost") {
 				properties.preset_style = properties.preset_style.replace(/.default/g, '.default.upfront-this_post');

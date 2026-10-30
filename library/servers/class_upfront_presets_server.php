@@ -3,6 +3,7 @@
 abstract class Upfront_Presets_Server extends Upfront_Server {
 
 	protected $isPostPartServer = false;
+	protected $isModuleGroupServer = false;
 	protected $isThisPostServer = false;
 	protected $isCommentServer = false;
 	protected $isNavigationServer = false;
@@ -323,7 +324,7 @@ abstract class Upfront_Presets_Server extends Upfront_Server {
 				$preset['preset_style'] = str_replace("\'", "'", $preset['preset_style']);
 				$preset['preset_style'] = str_replace("\'", "'", $preset['preset_style']);
 
-				if ($this->isPostPartServer) {
+				if ($this->isPostPartServer || $this->isModuleGroupServer) {
 					$preset['preset_style'] = str_replace('#page', 'div#page .upfront-output-region-container', $preset['preset_style']);
 				} else {
 					$preset['preset_style'] = str_replace('#page', 'div#page .upfront-output-region-container .upfront-output-module', $preset['preset_style']);

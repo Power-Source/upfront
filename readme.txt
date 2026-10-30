@@ -3,10 +3,10 @@ Contributors: PSOURCE
 Theme URI: https://github.com/Power-Source/upfront
 Tags: classicpress-theme, classicpress, theme, framework, awesome
 Requires at least: 5.0
-Requires CP: 1.4
-Tested up to: 7.1
+Requires CP: 2.7
+Tested up to: 7.1.4
 ClassicPress: 2.7.2
-Stable tag: 1.3.5
+Stable tag: 1.3.6
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -38,6 +38,15 @@ Füge Designfarben hinzu, pass Typografie an und bearbeite globale Einstellungen
 Der Editor verwendet eine statische Liste der auf dem PSOURCE-Font-Server verfügbaren Schriftfamilien und fragt den Font-Server im normalen Betrieb nicht nach dem Katalog. Vor einem Release aktualisierst Du die Liste bewusst mit `npm run update-font-catalog`. Der Befehl nutzt zusätzlich nur beim manuellen Release Google-Fonts-Metadaten für lesbare Familiennamen und Kategorien.
 
 == ChangeLog ==
+
+= 1.3.6 =
+* Fix: Das Kommentarfeld und die Eingabefelder bleiben mobil innerhalb der Formularbreite; die Spaltenvorgabe des Textfelds zieht die Seite nicht mehr über den Viewport hinaus und erzeugt keinen rechten Leerraum
+* Fix: Bilder und Bildunterschriften in Beitragsinhalten bleiben in mobilen Ansichten innerhalb der Inhaltsbreite; eingefügte Bilder skalieren proportional und externe Bilder erzeugen keine abgeschnittenen Bildflächen mehr
+* Fix: Die CSS-Selektorauswahl bietet einen Beitrags-Wrapper und unterscheidet den einmaligen Titel-Wrapper von der H1-Titelüberschrift; der Inspektor markiert auch den Wrapper selbst und eigenes CSS wird korrekt darauf angewendet
+* Fix: Slider-Bilder werden nicht mehr auf mindestens 100 Prozent Breite und Höhe gestreckt; gespeicherte Bildgrößen und Zuschnitte bleiben erhalten, einschließlich des horizontalen Zuschnitts im Editor
+* Verbesserung: Gruppen nutzen den originalen Preset-Manager mit Standard-Preset-Hinweis, Presetauswahl, Erstellen, Bearbeiten, Löschen, Zurücksetzen und Custom CSS sowie der bestehenden Preset-Speicherung und breakpointabhängigen Auswahl
+* Fix: Regionen behalten beim Öffnen des CSS-Editors ihr Einstellungsmenü und lassen sich regulär verlassen
+* Fix: Der veraltete Upfront-1.0-Presethinweis entfällt bei Post-Elementen, ohne ausgewählte Presets oder eigenes CSS zurückzusetzen
 
 = 1.3.5 =
 * Fix: Der Farbpicker speichert zuletzt verwendete Farben wieder dauerhaft und getrennt je aktivem Theme; neue Farben erscheinen unmittelbar in der Auswahl

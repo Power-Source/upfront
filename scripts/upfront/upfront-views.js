@@ -3736,6 +3736,7 @@ define([
 				this.listenTo(Upfront.Events, "upfront:grid:updated", this.on_grid_update);
 				this.listenTo(Upfront.Events, "command:module_group:finish_edit", this.on_finish);
 				this.listenTo(Upfront.Events, "command:module_group:close_panel", this.closeControlPanel);
+				this.listenTo(Upfront.Events, 'element:preset:deleted', this.on_group_preset_deleted);
 
 				this.listenTo(Upfront.Events, 'upfront:element:edit:start', this.on_element_edit_start);
 				this.listenTo(Upfront.Events, 'upfront:element:edit:stop', this.on_element_edit_stop);
@@ -4040,6 +4041,10 @@ define([
 					this.$el.addClass(theme_style.toLowerCase());
 					this._theme_style = theme_style;
 				}
+				var preset = this.model.decode_preset(breakpoint.id, true);
+				if (this._preset) this.$el.removeClass(this._preset);
+				this._preset = 'module_group-preset-' + preset;
+				this.$el.addClass(this._preset);
 				this.update_size_hint();
 				this.update_background();
 				this.trigger('update_position', this, this.model);
@@ -4455,6 +4460,21 @@ define([
 				if ( this.wrapper_view && wrapper != this.wrapper_view ) return;
 				this.update_position();
 			},
+			on_group_preset_deleted: function (element, preset) {
+				if (element !== 'module_group') return;
+				var id = preset.get('id'),
+					map = Upfront.Util.clone(this.model.get_property_value_by_name('breakpoint_presets') || {});
+				_.each(map, function (value) {
+					if (value.preset === id) value.preset = 'default';
+				});
+				this.model.set_property('breakpoint_presets', map, true);
+				_.each(['preset', 'current_preset'], function (property) {
+					if (this.model.get_property_value_by_name(property) === id) {
+						this.model.set_property(property, 'default', true);
+					}
+				}, this);
+				this.update_position();
+			},
 			on_change_breakpoint: function (breakpoint) {
 				var $hide = this.$el.find('> .upfront-entity_meta > a.upfront-entity-hide_trigger'),
 					$delete = this.$el.find('> .upfront-entity_meta > a.upfront-entity-delete_trigger')
@@ -4470,6 +4490,7 @@ define([
 					$delete.show();
 				}
 				this.on_finish(); // make sure to close editing
+				this.update_position();
 				//this.update_position();
 				//this.update_background();
 			},
@@ -7697,6 +7718,7 @@ define([
 			},
 			on_click: function (e) {
 				var lay_ed = Upfront.Behaviors.LayoutEditor;
+				if ($(e.target).closest('#upfront-csseditor').length) return;
 				var selection = window.getSelection ? window.getSelection() : null;
 				var is_editable_target = $(e.target).closest('.upfront-object-content, .upfront-plain_txt, .upfront-text, .redactor-box, .redactor-editor, .ueditable, .ueditable-inactive, [contenteditable]').length > 0;
 				if (lay_ed && lay_ed._suppress_next_layout_click_clear) {
@@ -7726,7 +7748,9 @@ define([
 				}
 
 				// Close region editing on click anywhere out the region
-				if ( $(e.target).hasClass('upfront-region-editing-overlay') && !$('.upfront-region-bg-setting-open').length ){
+				var css_editor = Upfront.Application.cssEditor,
+					editing_region_css = css_editor && css_editor.elementType && css_editor.$el.is(':visible') && css_editor.is_region_style();
+				if ( $(e.target).hasClass('upfront-region-editing-overlay') && (!$('.upfront-region-bg-setting-open').length || editing_region_css) ){
 					Upfront.Events.trigger("entity:region:deactivated");
 				}
 				this.remove_selections();

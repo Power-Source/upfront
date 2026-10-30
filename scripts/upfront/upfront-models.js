@@ -89,9 +89,10 @@ var _alpha = "alpha",
 		 * @param {String} breakpoint_id Breakpoint ID used to resolve the preset from storage
 		 * *                               - will default to current one
 		 *
+		 * @param {Boolean} silent Suppress property change events when called during a view update.
 		 * @return {String} Decoded preset ID
 		 */
-		decode_preset: function (breakpoint_id) {
+		decode_preset: function (breakpoint_id, silent) {
 			breakpoint_id = breakpoint_id || (Upfront.Views.breakpoints_storage.get_breakpoints().get_active() || {}).id;
 			var current = this.get_property_value_by_name('current_preset') || this.get_property_value_by_name('preset') || 'default',
 				model = this.get_property_value_by_name("breakpoint_presets") || {},
@@ -115,7 +116,7 @@ var _alpha = "alpha",
 			this.set_property('current_preset', current, true);
 
 			// this will repaint the element but will also lose our current preset
-			this.set_property('preset', actual, false); // Do *not* be silent here, we do want repaint
+			this.set_property('preset', actual, silent === true);
 
 			return actual;
 		},
@@ -404,6 +405,8 @@ var _alpha = "alpha",
 
 			this.init_property('has_settings', 1);
 			this.init_property('type', 'ModuleGroup');
+			this.init_property('preset', 'default');
+			this.init_property('usingNewAppearance', true);
 			if (this.init) this.init();
 		}
 	}),

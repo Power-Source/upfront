@@ -171,6 +171,7 @@ abstract class Upfront_Container extends Upfront_Entity {
 				'ThisPostModel' => Upfront_Post_Presets_Server::get_instance()->get_presets_ids(),
 				'UwidgetModel' => Upfront_Widget_Presets_Server::get_instance()->get_presets_ids(),
 				'LoginModel' => Upfront_Login_Presets_Server::get_instance()->get_presets_ids(),
+				'ModuleGroup' => Upfront_Module_Group_Presets_Server::get_instance()->get_presets_ids(),
 			);
 		}
 

@@ -355,6 +355,7 @@
 			close: function(e){
 				if(e && _.isFunction(e.preventDefault)) e.preventDefault();
 
+				this.unhiliteElement();
 				$(window).off('resize', this.resizeHandler);
 				this.off('change');
 
@@ -574,21 +575,18 @@
 			},
 
 			hiliteElement: function(e){
-				var selector = $(e.target).data('selector');
+				var selector = $(e.currentTarget).data('selector'),
+					element = $('#' + this.element_id);
 
-				if (!selector.length) return;
-
-				var element = this.is_region_style() === false ? $('#' + this.element_id).parent() : $('#' + this.element_id);
-				element.find(selector).addClass('upfront-css-hilite');
+				this.unhiliteElement();
+				if (typeof selector !== 'string' || !selector.length) return;
+				this.$highlighted = element.filter(selector).add(element.find(selector));
+				this.$highlighted.addClass('upfront-css-hilite');
 			},
 
-			unhiliteElement: function(e){
-				var selector = $(e.target).data('selector');
-
-				if(!selector.length) return;
-
-				var element = this.is_region_style() === false ? $('#' + this.element_id).parent() : $('#' + this.element_id);
-				element.find(selector).removeClass('upfront-css-hilite');
+			unhiliteElement: function(){
+				if (this.$highlighted) this.$highlighted.removeClass('upfront-css-hilite');
+				this.$highlighted = null;
 			},
 
 			remove: function(){

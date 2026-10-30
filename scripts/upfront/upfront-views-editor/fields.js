@@ -781,6 +781,26 @@
                 }
                 return this.default_value;
             },
+            set_value: function (value) {
+                var picker_value = Upfront.Util.colors.to_color_value(value),
+                    color;
+
+                if (!picker_value) picker_value = 'rgba(0, 0, 0, 0)';
+                this.get_field().val(picker_value);
+                if (!this.$spectrum) return;
+
+                this.$spectrum.spectrum('set', picker_value);
+                color = this.$spectrum.spectrum('get');
+                if (!color) return;
+
+                this.color = color;
+                this.rgba = _.extend({}, color.toRgb());
+                this.update_input_border_color(color.toRgbString());
+                this.update_color_picker_preview(color.toRgbString());
+                this.update_input_val(color.toRgbString());
+                this.render_sidebar_rgba(this.rgba);
+                this.toggle_alpha_selector(color);
+            },
             update_input_border_color : function(rgb){
                 var spPreview = this.$el.find(".sp-preview"),
 					me = this;

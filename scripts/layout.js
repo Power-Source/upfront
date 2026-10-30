@@ -1473,10 +1473,12 @@ jQuery(document).ready(function($){
 			if (final_preset_class) {
 				$me.addClass(final_preset_class);
 				// find all children with such preset class, some elements do have this
-				$me.find('.' + current_preset_class).each(function(){
-					$(this).removeClass(current_preset_class);
-					$(this).addClass(final_preset_class);
-				});
+				if (!$me.hasClass('upfront-module-group')) {
+					$me.find('.' + current_preset_class).each(function(){
+						$(this).removeClass(current_preset_class);
+						$(this).addClass(final_preset_class);
+					});
+				}
 			}
 
 		});

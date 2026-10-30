@@ -406,9 +406,34 @@ del {
 	max-width: 100%;
 }
 
+.uf-responsive .comment-form textarea {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 100%;
+	min-width: 0;
+	resize: vertical;
+}
+.uf-responsive .comment-form input {
+	box-sizing: border-box;
+	max-width: 100%;
+	min-width: 0;
+}
+
 .uf-responsive #page .post_content > * {
 	padding-left: 0;
 	padding-right: 0;
+}
+.uf-responsive .upostdata-part.content img,
+.uf-responsive .uposts-part.content img,
+.uf-responsive .post_content img {
+	max-width: 100% !important;
+	height: auto !important;
+}
+.uf-responsive .upostdata-part.content .wp-caption,
+.uf-responsive .uposts-part.content .wp-caption,
+.uf-responsive .post_content .wp-caption,
+.uf-responsive .upfront-inserted_image-wrapper {
+	max-width: 100%;
 }
 .uf-responsive .upfront-inserted_image-wrapper {
 	text-align: center;
@@ -420,6 +445,7 @@ del {
 	float: none !important;
 	display: inline-block;
 	width: auto;
+	max-width: 100%;
 	text-align: center;
 }
 .uf-responsive .ueditor-insert-variant-group.ueditor-image-style-center {
@@ -432,6 +458,12 @@ del {
 	margin-top: 0;
 	width: auto;
 	float: none;
+}
+.uf-responsive .upfront-inserted_image-wrapper .uinsert-image-external img {
+	position: static;
+	max-width: 100% !important;
+	height: auto !important;
+	margin: 0;
 }
 .uf-responsive .uimage-stretch .upfront-image-caption-container {
 	width: 100%;

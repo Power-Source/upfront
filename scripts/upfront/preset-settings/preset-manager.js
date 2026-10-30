@@ -633,6 +633,10 @@ define([
 					$selector.addClass(elementType + '-preset-' + this.model.get_property_value_by_name('preset'));
         }
 
+			} else if(elementType === "module_group") {
+				$selector = $('#' + element_id);
+				$selector.removeClass(this.getPresetClasses(elementType));
+				$selector.addClass(elementType + '-preset-' + (preset || this.model.decode_preset()));
 			} else if(elementType === "button") {
 				$selector = $('#' + element_id).find(".upfront_cta");
 

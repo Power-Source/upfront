@@ -362,18 +362,8 @@
                 var me = this,
                     css = [],
                     breakpointCss = [],
-                    options = {},
-										ggfonts
+                    options = {}
                 ;
-
-                                                        // Google fonts load asynchronously, let them load first
-                                                        var gfonts = Fonts.Google.get_fonts();
-                                                        if (!gfonts || !gfonts.length) {
-                                                            setTimeout( function() {
-                                                                me.update_typography(color, updateSilently);
-                                                            }, 100);
-                                                            return;
-                                                        }
 
                 _.each(this.elements, function(element) {
                     var rules = [],
@@ -387,14 +377,17 @@
                         $this_el = $('.upfront-object-content ' + element ),
                         font_family,
                         style_base,
-                        theme_color_class
+                        theme_color_class,
+                        theme_font,
+                        google_variant,
+                        stylesheet_id
                     ;
 
                     style_base = Fonts.Model.parse_variant(me.styles[element] || 'regular');
                     weight = style_base.weight;
                     style = style_base.style;
 
-                    if (typeface === '') {
+                    if (!typeface) {
                         font_family = Fonts.System.get_fonts().models[0];// default to first system font
                     }
                     // Try to get font family from system fonts.
@@ -406,18 +399,40 @@
                         font_family = Fonts.theme_fonts_collection.get_additional_font(typeface);
                     }
                     if (_.isUndefined(font_family)) {
-                        // This is a Google font
-                        ggfonts = Fonts.Google.get_fonts();
-                        if (ggfonts && ggfonts.findWhere) {
-                            font_family = ggfonts.findWhere({family: typeface});
+                        theme_font = _.find(Fonts.theme_fonts_collection.models, function(model) {
+                            var font = model.get('font');
+                            return font && font.family === typeface;
+                        });
+                        if (theme_font) {
+                            font_family = new Backbone.Model(theme_font.get('font'));
+                        } else if (typeface) {
+                            font_family = new Backbone.Model({family: typeface, category: 'sans-serif'});
                         }
-                        if (!font_family) return true; // Missing typeface family, pretend we're normal
-                        // If so, let's do this - load up the font
-                        url = Upfront.mainData.googleFontsStylesheetUrl + (Upfront.mainData.googleFontsStylesheetUrl.indexOf('?') === -1 ? '?' : '&') + 'family=' + encodeURIComponent(font_family.get('family') + (400 !== parseInt("" + weight, 10) && 'inherit' !== weight ? ':' + weight : ''));
-                        $("head").append('<link href="' + url + '" rel="stylesheet" type="text/css" />');
+
+                        if (font_family && typeface && Upfront.mainData.googleFontsStylesheetUrl) {
+                            google_variant = 'inherit' === weight || 'inherit' === style
+                                ? 'regular'
+                                : (400 === parseInt("" + weight, 10) && 'italic' === style
+                                    ? 'italic'
+                                    : (400 === parseInt("" + weight, 10) && 'normal' === style
+                                        ? 'regular'
+                                        : weight + ('italic' === style ? 'italic' : '')
+                                    )
+                                );
+                            stylesheet_id = 'upfront-typography-font-' +
+                                font_family.get('family').toLowerCase().replace(/[^a-z0-9_-]/g, '-') + '-' +
+                                google_variant.toLowerCase().replace(/[^a-z0-9_-]/g, '-');
+                            if (!document.getElementById(stylesheet_id)) {
+                                url = Upfront.mainData.googleFontsStylesheetUrl +
+                                    (Upfront.mainData.googleFontsStylesheetUrl.indexOf('?') === -1 ? '?' : '&') +
+                                    'family=' + encodeURIComponent(font_family.get('family') + ':' + google_variant);
+                                $('head').append('<link id="' + stylesheet_id + '" href="' + url + '" rel="stylesheet" type="text/css" />');
+                            }
+                        }
                     }
 
-                    font_rule_value = '"' + font_family.get('family') + '",' + font_family.get('category');
+                    if (!font_family) font_family = Fonts.System.get_fonts().models[0];
+                    font_rule_value = '"' + font_family.get('family') + '",' + (font_family.get('category') || 'sans-serif');
 
                     // Don't include "inherit", as that's the default
                     if ('inherit' !== font_rule_value) {
@@ -468,7 +483,7 @@
                         size: !is_inline ? me.sizes[element] : false,
                         line_height: !is_inline ? (me.line_heights[element] || '1.1') : false,
                         font_face: font_family.get('family'),
-                        font_family: font_family.get('category'), //todo this font_family is inconsistent. It should be called font_category
+                        font_family: font_family.get('category') || 'sans-serif', //todo this font_family is inconsistent. It should be called font_category
                         color: me.colors[element],
                         theme_color_class : theme_color_class
                     };

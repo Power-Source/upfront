@@ -171,6 +171,11 @@ div.uslide-text-current {
 
 div.uslide-image img {
 	margin: 0;
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	min-width: 0;
+	min-height: 0;
 }
 
 .uslider .ui-resizable-handle {
