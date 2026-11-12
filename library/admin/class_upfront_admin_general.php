@@ -54,7 +54,7 @@ class Upfront_Admin_General extends Upfront_Admin_Page {
 						<h2 class="title"><?php esc_html_e("Hilfreiche Resourcen", 'upfront') ?></h2>
 						<div class="inside">
 							<div class="upfront-debug-block">
-								<a target="_blank" href="https://psource.eimen.net/wiki/upfront-dokumentation/" class="documentation">Upfront Dokumentation</a> <a target="_blank" href="https://psource.eimen.net/wiki/upfront-dokumentation/upfront-builder-dokumentation/" class="documentation">Erstelle Upfront Themes</a> <a target="_blank" href="https://psource.eimen.net/wiki/psource-manager-dokumentation/" class="documentation">PSOURCE MANAGER</a>
+								<a target="_blank" href="https://psource.eimen.net/wiki/upfront-dokumentation/" class="documentation">Upfront Dokumentation</a> <a target="_blank" href="https://psource.eimen.net/wiki/upfront-dokumentation/upfront-builder-dokumentation/" class="documentation">Erstelle Upfront Themes</a> <a target="_blank" href="https://psource.eimen.net/psource/psource-manager/" class="documentation">PSOURCE MANAGER</a>
 							</div>
 							<div class="upfront-debug-block">
 								<h4><?php esc_html_e("UpFront Wiki", 'upfront') ?></h4>
@@ -77,6 +77,24 @@ class Upfront_Admin_General extends Upfront_Admin_Page {
 							<div class="upfront-debug-block">
 								<h4><?php esc_html_e('Theme-Werkzeuge', 'upfront'); ?></h4>
 								<a class="upfront_button" href="<?php echo esc_url(admin_url('admin.php?page=' . Upfront_Admin::$menu_slugs['codepen'])); ?>"><?php esc_html_e('CodePen-Styleguide erstellen', 'upfront'); ?></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="postbox-container psource-manager">
+					<div class="postbox">
+						<h2 class="title"><?php esc_html_e('PSOURCE Manager & Open Source', 'upfront'); ?></h2>
+						<div class="inside">
+							<div class="upfront-debug-block">
+								<h4><?php esc_html_e('PSOURCE Manager', 'upfront'); ?></h4>
+								<p><?php esc_html_e('Entdecke, installiere und aktualisiere PSOURCE Plugins und Themes zentral über ein Dashboard – für einzelne ClassicPress-Websites und Multisite-Netzwerke.', 'upfront'); ?></p>
+								<p><?php esc_html_e('Der PSOURCE Manager bietet außerdem einen Produktkatalog, automatische Update-Prüfungen, Netzwerk-Tools und eine Verwaltung der Berechtigungen.', 'upfront'); ?></p>
+								<p><a class="upfront_button" href="https://psource.eimen.net/psource-manager/" target="_blank" rel="noopener noreferrer"><?php esc_html_e('PSOURCE Manager entdecken', 'upfront'); ?></a></p>
+							</div>
+							<div class="upfront-debug-block">
+								<h4><?php esc_html_e('PSOURCE unterstützen', 'upfront'); ?></h4>
+								<p><?php esc_html_e('Hilf uns, unsere Open-Source-Projekte für ClassicPress weiterzuentwickeln.', 'upfront'); ?></p>
+								<p><a class="upfront_button" href="https://psource.eimen.net/spendenaktionen/psource-unterstuetzen/" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Open Source unterstützen', 'upfront'); ?></a></p>
 							</div>
 						</div>
 					</div>

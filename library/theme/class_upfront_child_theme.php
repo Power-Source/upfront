@@ -1158,7 +1158,8 @@ abstract class Upfront_ChildTheme implements IUpfront_Server {
 	 * @param $filepath
 	 */
 	protected function _import_slider_image ($filepath) {
-		return Upfront_ImageServer::get_instance()->maybe_import_image($filepath);
+		// Generated themes call this on load; retain their image path without importing it.
+		return $filepath;
 	}
 
 
@@ -1466,7 +1467,7 @@ VRT;
 	 */
 	public static function import_slider_image ($filepath) {
 		return !empty(self::$instance)
-			? self::$instance->_import_slider_image($filepath)
+			? Upfront_ImageServer::get_instance()->maybe_import_image($filepath)
 			: 0
 		;
 	}

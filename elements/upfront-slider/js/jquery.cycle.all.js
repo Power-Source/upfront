@@ -20,7 +20,7 @@ function log() {
 	if (window.console && console.log)
 		console.log('[cycle] ' + Array.prototype.join.call(arguments,' '));
 }
-$.expr[':'].paused = function(el) {
+($.expr.pseudos || $.expr[':']).paused = function(el) {
 	return el.cyclePause;
 };
 

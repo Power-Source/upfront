@@ -1,6 +1,12 @@
 Change Log
 ============
 
+1.3.7 - 2026-11-12
+-------------------------------------------------------------------------------
+- Verbesserung: Die allgemeinen Einstellungen informieren über den PSOURCE Manager und Möglichkeiten, PSOURCE Open Source zu unterstützen.
+- Fix: Manuell geänderte Schriftfarben werden korrekt gespeichert und nach dem Neuladen im Frontend übernommen.
+- Fix: Theme-Bilder in Hintergrundslidern bleiben ohne automatischen Mediathek-Import im Frontend und im Builder verfügbar.
+
 1.3.6 - 2026-10-30
 -------------------------------------------------------------------------------
 - Fix: Bilder und Bildunterschriften in Beitragsinhalten bleiben mobil innerhalb der Inhaltsbreite und skalieren proportional; externe Bildinserts werden nicht mehr durch ihre Desktop-Zuschnittsfläche abgeschnitten.

@@ -25,6 +25,39 @@ describe('Color field', function () {
 		assert.notEqual(getSavedValueSource.indexOf('Upfront.Util.colors.to_color_value(value ? value : this.default_value)'), -1);
 	});
 
+	it('resolves a theme preset before rendering a default-only color field', function () {
+		var source = fs.readFileSync(path.join(__dirname, '../../scripts/upfront/upfront-views-editor/fields.js'), 'utf8'),
+			getSavedValueStart = source.indexOf('get_saved_value: function ()', source.indexOf('var Field_Color')),
+			getSavedValueEnd = source.indexOf('update_input_border_color', getSavedValueStart),
+			getSavedValueSource = source.slice(getSavedValueStart, getSavedValueEnd);
+
+		assert.notEqual(getSavedValueSource.indexOf('return Upfront.Util.colors.to_color_value(this.default_value)'), -1);
+	});
+
+	it('uses manually entered colors when the picker is confirmed', function () {
+		var source = fs.readFileSync(path.join(__dirname, '../../scripts/upfront/upfront-views-editor/fields.js'), 'utf8'),
+			rgbaStart = source.indexOf('rgba_sidebar_changed : function'),
+			rgbaEnd = source.indexOf('sp_input_changed : function', rgbaStart),
+			inputEnd = source.indexOf('set_to_blank : function', rgbaEnd),
+			rgbaSource = source.slice(rgbaStart, rgbaEnd),
+			inputSource = source.slice(rgbaEnd, inputEnd);
+
+		assert.ok(/color = tinycolor\([\s\S]*?this\.color = color;[\s\S]*?this\.options\.spectrum\.change\(color\)/.test(rgbaSource));
+		assert.ok(/var color = tinycolor[\s\S]*?this\.color = color;[\s\S]*?this\.options\.spectrum\.change\(color\)/.test(inputSource));
+		assert.notEqual(inputSource.indexOf('this.update_input_border_color(color.toRgbString());'), -1);
+	});
+
+	it('updates global typography when a color is moved in the picker', function () {
+		var source = fs.readFileSync(path.join(__dirname, '../../scripts/upfront/upfront-views-editor/sidebar/sidebar-panel-settings-item-typography-editor.js'), 'utf8'),
+			colorStart = source.indexOf('color: new Upfront.Views.Editor.Field.Color'),
+			sizeStart = source.indexOf('size: new Fields.Number', colorStart),
+			colorSource = source.slice(colorStart, sizeStart);
+
+		assert.notEqual(colorSource.indexOf('move: set_typography_color'), -1);
+		assert.notEqual(colorSource.indexOf('choose: set_typography_color'), -1);
+		assert.notEqual(source.indexOf('me.update_typography(color);'), -1);
+	});
+
 	it('does not fire a second change after moving to a palette color', function () {
 		var source = fs.readFileSync(path.join(__dirname, '../../scripts/spectrum/spectrum.js'), 'utf8'),
 			clickStart = source.indexOf('function paletteElementClick'),

@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+1.3.7 - 2026-11-12
+-------------------------------------------------------------------------------
+- Improvement: The general settings provide information about the PSOURCE Manager and ways to support PSOURCE open source.
+- Fix: Manually changed font colors are saved correctly and retained on the frontend after reloading.
+- Fix: Theme images in background sliders remain available on the frontend and in the Builder without automatic import into the media library.
+
 1.3.6 - 2026-10-30
 -------------------------------------------------------------------------------
 - Fix: Images and captions in post content stay within the content width on mobile and scale proportionally; external image inserts are no longer clipped by their desktop crop containers.

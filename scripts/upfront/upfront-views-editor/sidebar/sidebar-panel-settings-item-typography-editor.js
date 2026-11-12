@@ -46,6 +46,19 @@
                     default_typography = {},
                     update_silently = true
                 ;
+                var set_typography_color = function(color) {
+                    if (!color || !_.isFunction(color.toRgb)) return;
+                    var rgb = color.toRgb(),
+                        rgba_string = 'rgba('+rgb.r+','+rgb.g+','+rgb.b+','+color.alpha+')',
+                        element = me.current_element;
+                    rgba_string = _.isFunction(color.get_is_theme_color) && color.get_is_theme_color() !== false
+                        ? (color.theme_color_code || color.theme_color)
+                        : rgba_string;
+                    if (me.colors[element] != rgba_string) {
+                        me.colors[element] = rgba_string;
+                        me.update_typography(color);
+                    }
+                };
 
                 var pluginsCallResult = Upfront.plugins.call('get-default-typography', {default_typography: default_typography});
                 if (pluginsCallResult.status && pluginsCallResult.status === 'called' && pluginsCallResult.result) {
@@ -218,16 +231,8 @@
                             default_value: me.colors['h1'],
                             autoHide: false,
                             spectrum: {
-                                choose: function (color) {
-                                    var rgb = color.toRgb(),
-                                        rgba_string = 'rgba('+rgb.r+','+rgb.g+','+rgb.b+','+color.alpha+')',
-                                        element = me.current_element;
-                                    rgba_string = _.isFunction(color.get_is_theme_color) && color.get_is_theme_color() !== false ? (color.theme_color_code || color.theme_color) : rgba_string;
-                                    if ( me.colors[element] != rgba_string ){
-                                        me.colors[element] = rgba_string;
-                                        me.update_typography(color);
-                                    }
-                                }
+                                move: set_typography_color,
+                                choose: set_typography_color
                             }
                         }),
                         size: new Fields.Number({

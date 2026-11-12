@@ -407,45 +407,21 @@ class Upfront_Uimage_Server extends Upfront_Server {
 
 		$custom_size = isset($data['customSize']) && is_array($data['customSize']);
 
-		// Try to find images from slider in database.
-		if (function_exists('upfront_exporter_is_running') && upfront_exporter_is_running()) {
-			// Convert image theme paths to image ids
-			$image_ids = array();
-			foreach ($ids as $id) {
-				// Leave integers alone!
-				if (is_numeric($id)) {
-					$image_ids[] = $id;
-					continue;
-				}
-				// Check if it really is image path
-				if (!is_string($id) || strpos($id, 'images/') === false) {
-					continue;
-				}
-
-				$slash = preg_quote('/', '/');
-				$image_filename = preg_replace("/{$slash}?images{$slash}/", '', $id);
-				$image_id = $this->get_image_id_by_filename($image_filename);
-				if (!is_null($image_id)) {
-					$image_ids[] = $image_id;
-				}
-				else {
-					$full_img_path = get_stylesheet_directory() . DIRECTORY_SEPARATOR . ltrim($id, '/');
-					if (file_exists($full_img_path)) {
-						$image_ids[] = Upfront_ChildTheme::import_slider_image($id);
-					}
-				}
-			}
-			$ids = $image_ids;
-			if (empty($ids)) {
-				$this->_out(new Upfront_JsonResponse_Error(Upfront_UimageView::_get_l10n('Images have not been found in local WordPress.')));
-			}
-		}
-
-
 		$images = array();
 		$intermediate_sizes = get_intermediate_image_sizes();
 		$intermediate_sizes[] = 'full';
 		foreach ($ids as $id) {
+			if (is_string($id) && !is_numeric($id) && 0 === strpos(ltrim($id, '/'), 'images/')) {
+				$theme_root = realpath(get_stylesheet_directory());
+				$path = $theme_root ? realpath($theme_root . DIRECTORY_SEPARATOR . ltrim($id, '/')) : false;
+				if (!$path || 0 !== strpos(wp_normalize_path($path), trailingslashit(wp_normalize_path($theme_root)))) continue;
+				$dimensions = getimagesize($path);
+				if (!$dimensions) continue;
+				$url = trailingslashit(get_stylesheet_directory_uri()) . ltrim($id, '/');
+				$image = array($url, $dimensions[0], $dimensions[1], false);
+				$images[$id] = array('full' => $image, 'thumbnail' => $image, 'custom' => array());
+				continue;
+			}
 			$sizes = array();
 			foreach ( $intermediate_sizes as $size ) {
 				$image = wp_get_attachment_image_src( $id, $size);

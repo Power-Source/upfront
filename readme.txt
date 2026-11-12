@@ -5,8 +5,8 @@ Tags: classicpress-theme, classicpress, theme, framework, awesome
 Requires at least: 5.0
 Requires CP: 2.7
 Tested up to: 7.1.4
-ClassicPress: 2.7.2
-Stable tag: 1.3.6
+ClassicPress: 2.7.4
+Stable tag: 1.3.7
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -38,6 +38,11 @@ Füge Designfarben hinzu, pass Typografie an und bearbeite globale Einstellungen
 Der Editor verwendet eine statische Liste der auf dem PSOURCE-Font-Server verfügbaren Schriftfamilien und fragt den Font-Server im normalen Betrieb nicht nach dem Katalog. Vor einem Release aktualisierst Du die Liste bewusst mit `npm run update-font-catalog`. Der Befehl nutzt zusätzlich nur beim manuellen Release Google-Fonts-Metadaten für lesbare Familiennamen und Kategorien.
 
 == ChangeLog ==
+
+= 1.3.7 =
+* Verbesserung: Die allgemeinen Einstellungen informieren über den PSOURCE Manager und Möglichkeiten, PSOURCE Open Source zu unterstützen.
+* Fix: Manuell geänderte Schriftfarben werden korrekt gespeichert und nach dem Neuladen im Frontend übernommen.
+* Fix: Theme-Bilder in Hintergrundslidern bleiben ohne automatischen Mediathek-Import im Frontend und im Builder verfügbar.
 
 = 1.3.6 =
 * Fix: Das Kommentarfeld und die Eingabefelder bleiben mobil innerhalb der Formularbreite; die Spaltenvorgabe des Textfelds zieht die Seite nicht mehr über den Viewport hinaus und erzeugt keinen rechten Leerraum
@@ -234,3 +239,7 @@ Der Editor verwendet eine statische Liste der auf dem PSOURCE-Font-Server verfü
 = 1.1.0 =
 
 * Veröffentlicht unter PSOURCE
+
+== Unterstützen ==
+
+Unterstütze PSOURCE: https://psource.eimen.net/spendenaktionen/psource-unterstuetzen/

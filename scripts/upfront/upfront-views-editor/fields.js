@@ -779,7 +779,7 @@
                     var value = this.model.get(this.name);
                     return Upfront.Util.colors.to_color_value(value ? value : this.default_value);
                 }
-                return this.default_value;
+                return Upfront.Util.colors.to_color_value(this.default_value);
             },
             set_value: function (value) {
                 var picker_value = Upfront.Util.colors.to_color_value(value),
@@ -859,6 +859,7 @@
 					selection = {};
 				selection[type] = val;
 				color = tinycolor(_.extend(color.toRgb(), selection));
+				this.color = color;
 				// Set the new color
 				this.$spectrum.spectrum("set", color.toRgbString());
 				this.update_input_border_color( color.toRgbString() );
@@ -879,6 +880,7 @@
 			},
 			sp_input_changed : function(e){
 				var color = tinycolor($(e.target).val());
+				this.color = color;
 				// Trigger move event
 				if(this.options.spectrum && typeof this.options.spectrum.move === "function"){
 					this.options.spectrum.move(color);
@@ -888,7 +890,7 @@
 					this.options.spectrum.change(color);
 				}
 				//Update preview color
-				this.update_input_border_color(color.toRgbString);
+				this.update_input_border_color(color.toRgbString());
 				this.update_color_picker_preview(color.toRgbString());
 			},
 			set_to_blank : function(){
