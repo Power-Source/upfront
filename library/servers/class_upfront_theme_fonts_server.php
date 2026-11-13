@@ -18,12 +18,12 @@ class Upfront_Server_ThemeFontsServer extends Upfront_Server {
 		if (!Upfront_Permissions::current(Upfront_Permissions::SAVE)) $this->_reject();
 
 		$theme_fonts = isset($_POST['theme_fonts']) ? $_POST['theme_fonts'] : array();
-		if (!Upfront_Local_Fonts_Server::sync_theme_fonts($theme_fonts)) {
-			return $this->_out(new Upfront_JsonResponse_Error(__('Die Schriftdateien konnten nicht im aktiven Theme gespeichert werden.', 'upfront')));
-		}
 		do_action('upfront_update_theme_fonts', $theme_fonts);
 		if (!has_action('upfront_update_theme_fonts')) {
 			update_option('upfront_' . get_stylesheet() . '_theme_fonts', json_encode($theme_fonts));
+		}
+		if (!Upfront_Local_Fonts_Server::sync_theme_fonts($theme_fonts)) {
+			error_log('Upfront: Theme fonts were saved, but their local cache could not be synchronized.');
 		}
 
 		$this->_out(new Upfront_JsonResponse_Success(get_stylesheet() . ' theme fonts updated'));

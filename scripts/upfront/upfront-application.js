@@ -106,6 +106,8 @@ var LayoutEditorSubapplication = Subapplication.extend({
 	},
 
 	_save_layout: function (preferred_layout, publish) {
+		Upfront.Events.trigger("layout:before_save");
+
 		var data = Upfront.Util.model_to_json(this.layout),
 			storage_key = publish === true ? _upfront_storage_key : _upfront_save_storage_key,
 			post_id = ( typeof _upfront_post_data.post_id !== 'undefined' ) ? _upfront_post_data.post_id : '',

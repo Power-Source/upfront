@@ -32,6 +32,11 @@
                 this.listenTo(Upfront.Events, 'upfront:render_typography_sidebar', this.render);
                 this.listenTo(Upfront.Events, 'entity:object:after_render', this.update_typography_elements);
                 this.listenTo(Upfront.Events, "theme_colors:update", this.update_typography_elements, this);
+                this.listenTo(Upfront.Events, "layout:before_save", this.save_typography);
+            },
+            save_typography: function () {
+                if (!this.typography || this.model.get('default') === false) return;
+                this.update_typography();
             },
             on_render: function () {
                 var me = this,
