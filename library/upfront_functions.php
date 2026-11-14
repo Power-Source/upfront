@@ -452,6 +452,14 @@ foreach (array('admin_url', 'content_url', 'home_url', 'includes_url', 'network_
 add_filter('upload_dir', 'upfront_https_upload_urls', 99);
 add_filter('wp_headers', 'upfront_https_security_headers', 99);
 
+function upfront_mute_autoplay_video_shortcode ($atts) {
+	if (!empty($atts['autoplay']) && wp_validate_boolean($atts['autoplay'])) {
+		$atts['muted'] = true;
+	}
+	return $atts;
+}
+add_filter('shortcode_atts_video', 'upfront_mute_autoplay_video_shortcode');
+
 /**
  * Register scripts
  */

@@ -3,6 +3,9 @@ Change Log
 
 Noch nicht veröffentlicht
 -------------------------------------------------------------------------------
+- Fix: Das Multisite-Menü der Admin-Leiste zieht Seiten auf kleinen Bildschirmen bei langen Website-Namen nicht mehr über die Bildschirmbreite hinaus.
+- Fix: Videos mit aktiviertem Autostart starten stumm, damit Browser die automatische Wiedergabe erlauben; der Ton kann bei Videos mit Steuerung eingeschaltet werden.
+- Fix: Die MediaElement-Videosteuerung erhält unter dem Video eigenen Platz und verdeckt das Bild nicht mehr; im Vollbild bleibt sie innerhalb des Players.
 - Fix: Videos im MediaElement-Vollbild füllen auch mit zusätzlichem Renderer-Container die verfügbare Fläche und werden proportional zentriert statt am oberen Rand angezeigt.
 
 1.3.7 - 2026-11-12

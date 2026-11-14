@@ -40,6 +40,9 @@ Der Editor verwendet eine statische Liste der auf dem PSOURCE-Font-Server verfü
 == ChangeLog ==
 
 = 1.3.8 =
+* Fix: Das Multisite-Menü der Admin-Leiste zieht die Seite bei langen Website-Namen auf kleinen Bildschirmen nicht mehr in die Breite.
+* Fix: Videos mit aktiviertem Autostart starten stumm, damit Browser die automatische Wiedergabe erlauben; der Ton kann über die Videosteuerung eingeschaltet werden.
+* Fix: Die Videosteuerung liegt unter dem Video statt über dem Bild und bleibt im Vollbild innerhalb des Players.
 * Fix: Videos im MediaElement-Vollbild füllen auch mit zusätzlichem Renderer-Container die verfügbare Fläche und werden proportional zentriert statt am oberen Rand angezeigt.
 
 = 1.3.7 =

@@ -7,6 +7,49 @@ var assert = require('assert'),
 describe('Responsive post media', function () {
 	var css = fs.readFileSync(path.join(__dirname, '../../styles/global.css'), 'utf8');
 
+	it('starts autoplay text videos muted without muting ordinary videos', async function () {
+		var dom = new JSDOM('<!doctype html><html><body>' +
+			'<div class="uinsert-video-insert"><video data-autoplay-video="true"></video></div>' +
+			'<div class="uinsert-video-insert"><video></video></div>' +
+			'</body></html>', {runScripts: 'outside-only'}),
+			window = dom.window,
+			videos = window.document.querySelectorAll('video');
+
+		window.eval(fs.readFileSync(require.resolve('jquery'), 'utf8'));
+		window.eval(fs.readFileSync(path.join(__dirname, '../../elements/upfront-text/js/utext-front.js'), 'utf8'));
+		await new Promise(function (resolve) {
+			window.jQuery(resolve);
+		});
+
+		assert.strictEqual(videos[0].muted, true);
+		assert.strictEqual(videos[0].autoplay, true);
+		assert.strictEqual(videos[0].hasAttribute('playsinline'), true);
+		assert.strictEqual(videos[1].muted, false);
+		assert.strictEqual(videos[1].autoplay, false);
+		dom.window.close();
+	});
+
+	it('places video controls below the picture without moving fullscreen or audio controls', function () {
+		var dom = new JSDOM('<!doctype html><html><head><style>' + css +
+			'.mejs-controls { bottom: 0; }</style></head><body>' +
+			'<div class="wp-video"><div class="mejs-container mejs-video">' +
+			'<div class="mejs-controls"></div></div></div>' +
+			'<div class="mejs-container mejs-audio"><div class="mejs-controls"></div></div>' +
+			'</body></html>'),
+			player = dom.window.document.querySelector('.mejs-video'),
+			controls = player.querySelector('.mejs-controls'),
+			audioControls = dom.window.document.querySelector('.mejs-audio .mejs-controls');
+
+		assert.strictEqual(dom.window.getComputedStyle(player).marginBottom, '2.5rem');
+		assert.strictEqual(dom.window.getComputedStyle(controls).bottom, '-2.5rem');
+		assert.strictEqual(dom.window.getComputedStyle(audioControls).bottom, '0px');
+
+		player.classList.add('mejs-container-fullscreen');
+		assert.notStrictEqual(dom.window.getComputedStyle(player).marginBottom, '2.5rem');
+		assert.strictEqual(dom.window.getComputedStyle(controls).bottom, '0px');
+		dom.window.close();
+	});
+
 	it('positions fullscreen video against the media layer rather than its unsized renderer wrapper', function () {
 		var dom = new JSDOM('<!doctype html><html><head><style>' + css +
 			'</style></head><body><div class="mejs-container">' +

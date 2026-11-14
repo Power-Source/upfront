@@ -3,6 +3,9 @@ Change Log
 
 Unreleased
 -------------------------------------------------------------------------------
+- Fix: Long site names in the multisite admin-bar menu no longer make pages overflow on small screens.
+- Fix: Videos with autoplay enabled start muted so browsers can allow automatic playback; audio can be enabled using the video controls.
+- Fix: MediaElement video controls have their own space below the video instead of covering it, while remaining inside the player in fullscreen.
 - Fix: MediaElement fullscreen videos fill the available area even with an additional renderer wrapper and remain proportionally centered instead of appearing at the top.
 
 1.3.7 - 2026-11-12

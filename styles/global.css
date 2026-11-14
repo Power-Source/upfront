@@ -619,6 +619,22 @@ div.upfront-region-lightbox .upfront-icon-popup-close, div.upfront-region-side-l
 	margin: 0;
 	padding: 0;
 }
+.wp-video .mejs-video:not(.mejs-container-fullscreen) {
+	margin-bottom: 2.5rem;
+}
+.wp-video .mejs-video:not(.mejs-container-fullscreen) .mejs-controls {
+	bottom: -2.5rem;
+}
+@media screen and (max-width: 600px) {
+	#wpadminbar #wp-admin-bar-my-sites > .ab-sub-wrapper {
+		min-width: 0;
+		max-width: 100%;
+	}
+	#wpadminbar #wp-admin-bar-my-sites .ab-sub-wrapper .ab-item {
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+}
 .upfront-inserted_image-wrapper{
 	position: relative;
 }
