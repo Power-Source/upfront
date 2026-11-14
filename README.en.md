@@ -8,314 +8,108 @@
 ![ClassicPress](https://img.shields.io/badge/ClassicPress-2.7.4-03768e?style=flat-square)
 [![Lizenz](https://img.shields.io/badge/Lizenz-GPL--2.0--or--later-2ea44f?style=flat-square)](https://www.gnu.org/licenses/gpl-2.0.html)
 
-**The theme framework for custom ClassicPress and WordPress themes.**
+With Upfront, you can design your website directly in your browser: arrange sections, edit text and images, and adapt your layout to different screen sizes.
 
-Upfront provides the technical foundation on which Upfront themes run: layout resolution, responsive grids, regions, global design values, reusable elements, and interfaces for Child Themes and plugins.
+Upfront consists of the **framework** and a compatible **theme** containing your website's design. The visual editor is included in Upfront. The separately available **Upfront Builder** also helps you create and export your own themes; you do not need it to edit an existing Upfront theme.
 
-The [developer guide](DEVELOPER.md) documents release and catalog maintenance.
+## Requirements
 
-The **Upfront Builder is a separate plugin**. It is used to create and edit themes visually and export them as Child Themes. This repository contains the framework that subsequently loads and renders those themes.
+- ClassicPress 2.7 or later, or WordPress 5.0 or later
+- PHP 8.0 or later
+- An Upfront-compatible theme, such as an Upfront starter theme
 
-## New in 1.3.6
+## Installation and getting started
 
-- Post images and captions stay within the content width on mobile and scale proportionally.
-- The comment textarea and other inputs no longer cause page overflow and empty space on the right on mobile.
-- The CSS selector list distinguishes the post wrapper, title wrapper, and H1 title heading; the inspector also highlights the wrapper itself.
-- Slider images are no longer forcibly stretched, and horizontal crop offsets are preserved in the editor.
-- Groups use the original preset system with the default-preset notice, selection, creation, editing, deletion, reset and custom CSS.
-- Regions retain their settings menu when opening the CSS editor and can exit editing normally.
-- Post elements no longer display the obsolete Upfront 1.0 preset migration notice.
+1. Install the Upfront Framework under **Appearance → Themes → Add New**. If you have a ZIP file, select it using **Upload Theme**.
+2. Install a compatible Upfront theme in the same way and **activate that theme**. The framework must remain installed.
+3. Open **Settings → Permalinks** and choose an option other than **Plain**, such as **Post name**. Save your changes.
+4. Visit your website while logged in and click **Upfront** in the top admin bar to open the visual editor.
 
-## New in 1.3.5
+You can also install Upfront and compatible themes through the PSOURCE Manager. Find an overview on the [Upfront project page](https://psource.eimen.net/ps-upfront-theme-framework/).
 
-- The color picker now retains recently used colors per active theme and no longer renders duplicate theme-color swatches.
-- The static font catalog includes 1,775 locally available families with readable names, categories, weights, and italic variants.
-- Used fonts, including their CSS, are imported into the active Child Theme and served from there.
-- The font catalog is refreshed only explicitly before a release with `npm run update-font-catalog`; neither the editor nor the frontend requests the catalog at runtime.
-- The theme catalog is shipped statically with the framework; preview images and German/English descriptions are local, so the dashboard does not query GitHub for catalog data.
-- The dashboard displays the changelog in the current user profile language; new changelog entries must therefore be maintained in both `CHANGELOG.md` and `CHANGELOG.en.md`.
+## Editing your website
 
-> **Project page, documentation, and showcase for Upfront themes:**
->
-> [PS UpFront Theme Framework](https://psource.eimen.net/ps-upfront-theme-framework/)
+The editor shows your website alongside a sidebar. You work directly on the layout and see changes as you make them.
 
-[Source code on GitHub](https://github.com/Power-Source/upfront) · [Upfront documentation](https://psource.eimen.net/wiki/upfront-dokumentation/) · [PSOURCE](https://psource.eimen.net/)
+### Text, images, and other elements
 
-## Upfront Architecture
+1. Drag an element from the sidebar's element list to the desired position on the page.
+2. Double-click a text element to edit it. Select text to format it, for example in bold, or add a link.
+3. For an image element, select an image from the media library or upload a new one. Use the controls on the image to crop it or provide alternative text.
+4. Drag existing elements to another position or resize them using the displayed handle. Open an element's settings with the gear icon.
+5. Remove an element using its red **×**.
 
-```mermaid
-flowchart LR
-    Builder[Upfront Builder Plugin] -->|creates and exports| Child[Upfront Child Theme]
-    Framework[Upfront Theme Framework] -->|loads and renders| Child
-    Extension[Custom Plugin] -->|registers elements| Framework
-    Child --> Site[Website]
-    Framework --> Site
-```
+Available elements include galleries, sliders, menus, buttons, posts, and contact forms as well as text and images. Settings vary by element.
 
-### Upfront Theme Framework
+### Sections and backgrounds
 
-The framework in this repository is both the Parent Theme and runtime. It handles:
+**Sections**, also called **regions**, divide a page into areas such as the header, content, and footer. Elements are placed inside them.
 
-- selecting the appropriate layout for pages, posts, archives, and system views,
-- the responsive grid and breakpoint logic,
-- regions, global regions, modules, and elements,
-- theme colors, typography, presets, and layout properties,
-- serving and managing local element assets,
-- PHP, JavaScript, and AJAX interfaces for extensions,
-- compatibility between Upfront Child Themes and the runtime environment.
+1. Hover over a section in the editor and click the **pencil icon** to edit it.
+2. Use the yellow **+** icons to add another section. The gear icon opens section settings, such as the background color or image.
+3. Use the red **×** to delete a section. This also removes the elements inside it.
+4. Finish editing the section using the button shown.
 
-The framework should not be modified for individual projects. Custom design belongs in a Child Theme, while additional application functionality belongs in plugins.
+Headers and footers can be used as **global sections**. Changes appear in every layout that uses the same global section.
 
-### Upfront Child Themes
+### Colors and fonts
 
-A Child Theme contains the concrete design of a website. This can include layout definitions, settings, theme assets, and custom templates.
+Open the **theme settings** in the sidebar:
 
-```text
-my-upfront-theme/
-├── style.css
-├── functions.php
-├── settings.php
-├── layouts/
-├── styles/
-└── scripts/
-```
+- Under **Colors**, change the theme color palette. Elements using those theme colors inherit the changes.
+- Under **Typography**, set the font, size, and color for headings and text. Use the font manager to select additional fonts.
 
-The framework remains the shared technical foundation. A Child Theme can be developed manually or created and exported with the separate Upfront Builder.
+Individual elements can have their own settings and may therefore differ from the global defaults.
 
-### Upfront Builder Plugin
+### Adapting for phones and tablets
 
-The Builder is the authoring tool for Upfront themes. It adds the visual interface and theme export functionality to the framework.
+1. Open **responsive mode** in the sidebar and enable the views you want to edit.
+2. Select a screen size at the top. Check that text is readable and images, buttons, and menus have enough room.
+3. Adjust the size and arrangement of elements. Use the **eye icon** to hide elements or sections in the selected view and show them again later.
+4. To add or delete an element, return to the normal layout view.
+5. Save your changes and also check the result on an actual phone or tablet.
 
-The Builder can be used to:
+### Saving changes
 
-- visually design layouts and responsive breakpoints,
-- create regions and global regions,
-- place and configure elements,
-- define colors, typography, and presets,
-- prepare layouts for pages, posts, and archives,
-- export completed designs as Upfront Child Themes.
+Save the layout in the editor before leaving it. For some post layouts, Upfront asks whether a change should apply only to the current post or to all posts. Choose the option you intend.
 
-The exported theme subsequently runs on the Upfront Theme Framework. The Builder should therefore not be considered part of the framework itself.
+Pages and posts also have their own publishing options: saving a draft and publishing a post are separate from saving the layout.
 
-More information about how the components work together, available themes, and examples can be found on the [Upfront information page](https://psource.eimen.net/ps-upfront-theme-framework/).
+## Pages and posts
 
-## How the Framework Renders
+Use the editor sidebar to create pages and posts or access existing content. Alternatively, manage them as usual under **Pages** and **Posts** in the dashboard.
 
-1. Upfront determines the content type and appropriate layout specificity from the request.
-2. The framework looks for the layout in the active Child Theme and stored layout data.
-3. The layout is assembled from regions, modules, and elements.
-4. PHP views generate the public markup for the elements.
-5. The framework loads only the styles and scripts registered for the layout.
-6. Theme settings and breakpoint rules are applied to the output.
+A page template determines the page's layout. Before changing an existing template, check which content and layout changes are affected and back up your website. Shared global sections can appear on multiple pages.
 
-This allows multiple Upfront themes to use the same runtime without duplicating framework logic.
+## Frequently asked questions
 
-## Included Elements
+**I cannot see “Upfront” in the admin bar.**
 
-Upfront includes an extensive element library, including:
+Check that a compatible Upfront theme is active, you are logged in, and your account has the necessary editing permissions. Also check under **Settings → Permalinks** that an option other than **Plain** is selected and saved.
 
-- text, image, gallery, slider, and YouTube,
-- navigation, search, tabs, and accordion,
-- buttons, spacers, and custom code,
-- posts, post data, and comments,
-- contact form, login, map, and widgets,
-- social media and additional content components.
+**Why does my change appear on several pages?**
 
-The implementations under [`elements/`](elements/) also serve as references for custom extensions.
+You may have edited a global section or a shared layout. Changes to a global section affect every layout that uses it.
 
-## Integrating Custom Plugin Elements
+**My changes are not visible on the website.**
 
-Plugins can integrate custom elements with the Upfront Framework and, when installed, the Builder plugin. An element usually consists of:
+First check that you saved the layout and, if applicable, published the post or page. Under **Upfront → General**, use the **clear Upfront cache** button. Other caches, such as those from the server, a plugin, or a CDN, are not necessarily cleared by this and may need to be checked separately.
 
-- a loader in the plugin,
-- a PHP view for frontend markup and default values,
-- a JavaScript entity for its model and representation in the Builder,
-- optional local styles, scripts, settings, and AJAX endpoints.
+**A video does not start automatically on a phone.**
 
-One possible plugin structure:
-
-```text
-acme-upfront-note/
-├── acme-upfront-note.php
-├── lib/
-│   └── class-acme-upfront-note-view.php
-└── assets/
-    ├── css/note.css
-    └── js/note.js
-```
-
-### Plugin Loader
-
-The plugin registers itself with the `upfront-core-initialized` framework hook:
-
-```php
-<?php
-/**
- * Plugin Name: ACME Upfront Note
- */
-
-if (!defined('ABSPATH')) exit;
-
-add_action('upfront-core-initialized', 'acme_upfront_note_register');
-
-function acme_upfront_note_register() {
-	if (!function_exists('upfront_add_layout_editor_entity')) return;
-
-	require_once plugin_dir_path(__FILE__) . 'lib/class-acme-upfront-note-view.php';
-
-	upfront_add_layout_editor_entity(
-		'acme-note',
-		plugins_url('assets/js/note', __FILE__)
-	);
-
-	add_action(
-		'wp_enqueue_scripts',
-		array('Acme_Upfront_Note_View', 'add_assets')
-	);
-}
-```
-
-The JavaScript URL is registered without `.js` because RequireJS loads the entity. The slug should be unique across the entire installation.
-
-### PHP View
-
-The PHP view describes the element for the framework runtime:
-
-```php
-<?php
-
-class Acme_Upfront_Note_View extends Upfront_Object {
-
-	public static function default_properties() {
-		return array(
-			'type' => 'AcmeNoteModel',
-			'view_class' => 'Acme_Upfront_Note_View',
-			'class' => 'c24 acme-upfront-note',
-			'has_settings' => 0,
-			'id_slug' => 'acme-note',
-			'content' => __('Note text', 'acme-upfront-note'),
-		);
-	}
-
-	public function get_markup() {
-		$properties = array();
-		foreach ($this->_data['properties'] as $property) {
-			if (!isset($property['name'], $property['value'])) continue;
-			$properties[$property['name']] = $property['value'];
-		}
-
-		$content = isset($properties['content']) ? $properties['content'] : '';
-		return '<aside class="acme-note">' . esc_html($content) . '</aside>';
-	}
-
-	public static function add_assets() {
-		wp_enqueue_style(
-			'acme-upfront-note',
-			plugins_url('../assets/css/note.css', __FILE__),
-			array(),
-			'1.0.0'
-		);
-	}
-}
-```
-
-Element data must be escaped according to its output context. Assets should be stored locally in the plugin; no CDN dependency is required.
-
-### JavaScript Entity for the Builder
-
-The Builder entity uses the Upfront model and registers the same type as the PHP view:
-
-```javascript
-(function($) {
-	define([], function() {
-		var AcmeNoteModel = Upfront.Models.ObjectModel.extend({
-			init: function() {
-				this.init_property('type', 'AcmeNoteModel');
-				this.init_property('view_class', 'Acme_Upfront_Note_View');
-				this.init_property('element_id', Upfront.Util.get_unique_id('acme-note'));
-				this.init_property('class', 'c24 acme-upfront-note');
-				this.init_property('has_settings', 0);
-				this.init_property('id_slug', 'acme-note');
-				this.init_property('content', 'Note text');
-			}
-		});
-
-		var AcmeNoteView = Upfront.Views.ObjectView.extend({
-			model: AcmeNoteModel,
-			get_content_markup: function() {
-				return $('<div>').text(
-					this.model.get_property_value_by_name('content') || ''
-				).prop('outerHTML');
-			}
-		});
-
-		Upfront.Application.LayoutEditor.add_object('AcmeNoteModel', {
-			Model: AcmeNoteModel,
-			View: AcmeNoteView
-		});
-	});
-})(jQuery);
-```
-
-Without the Builder, the PHP view remains responsible for rendering stored or exported layouts. The JavaScript entity is required for visually editing and inserting the element.
-
-More complex plugin elements can also:
-
-- provide localized strings through `upfront_l10n`,
-- register custom settings panels and fields,
-- add AJAX actions with `upfront_add_ajax()`,
-- support presets and responsive properties,
-- subscribe to or trigger events through `Upfront.Events`,
-- load frontend assets only when they are actually used.
-
-Small Core elements such as Spacer and Button are useful references. Gallery, Posts, and Navigation demonstrate more extensive data, settings, and rendering paths.
-
-## Installation and Usage
-
-1. Install the `upfront` directory under `wp-content/themes/`.
-2. Use Upfront as the Parent Theme for a compatible Child Theme.
-3. Activate an existing Upfront theme or use the separate Builder plugin to create and export a custom theme.
-4. Install additional Upfront elements as plugins when required.
-
-Themes and usage examples are linked in the [Upfront showcase](https://psource.eimen.net/ps-upfront-theme-framework/).
-
-## Framework Development
-
-Requirements:
-
-- Node.js 20 or newer
-- npm
-- PHP and a local ClassicPress or WordPress installation
-- WP-CLI with `wp i18n make-pot`
-
-```bash
-npm install
-npm run build-css
-npm run lint
-npm run test-js
-npm run test-php
-./scripts/build-i18n.sh
-```
-
-| Command | Purpose |
-| --- | --- |
-| `npm run build-css` | Compile Sass and minimize CSS artifacts |
-| `npm run lint` | Check JavaScript syntax with ESLint |
-| `npm run test-js` | Run JavaScript tests |
-| `npm run test-php` | Run PHP tests |
-| `./scripts/build-i18n.sh` | Regenerate POT, update PO, and compile MO |
-| `npm test` | Run PHP and JavaScript tests together |
-
-Production framework and element assets are delivered locally. Changes to SCSS sources should be committed together with the generated CSS files.
-
-## Links
-
-- [Framework information page and theme showcase](https://psource.eimen.net/ps-upfront-theme-framework/)
-- [Upfront documentation](https://psource.eimen.net/wiki/upfront-dokumentation/)
-- [Builder plugin documentation](https://psource.eimen.net/wiki/upfront-dokumentation/upfront-builder-dokumentation/)
-- [GitHub repository](https://github.com/Power-Source/upfront)
-- [PSOURCE](https://psource.eimen.net/)
+Browsers can block automatic playback with sound. Test the video on the affected device and check whether it starts using the playback controls. Not every browser supports every video format.
+
+## Detailed guides
+
+The following guides are in German:
+
+- [Basics, colors, and fonts](https://psource.eimen.net/wiki/upfront-dokumentation/upfront-part-1-die-basics-themefarben-und-schriftarten/)
+- [Sections and backgrounds](https://psource.eimen.net/wiki/upfront-dokumentation/upfront-teil-2-strukturierung-deiner-webseite-mit-bereichen/)
+- [Elements and their settings](https://psource.eimen.net/wiki/upfront-dokumentation/upfront-teil-3-layout-deiner-webseite-mit-elementen/)
+- [Responsive design](https://psource.eimen.net/wiki/upfront-dokumentation/upfront-teil-6-erstellung-von-responsiven-webseiten/)
+- [Pages and posts](https://psource.eimen.net/wiki/upfront-dokumentation/upfront-teil-7-arbeiten-mit-seiten-und-beitraegen/)
+- [Creating themes with the Upfront Builder](https://psource.eimen.net/wiki/upfront-dokumentation/upfront-builder-dokumentation/)
 
 ## License
 
-Upfront is released under the [GNU General Public License v2 or later](https://www.gnu.org/licenses/gpl-2.0.html).
+Upfront is licensed under the [GNU General Public License v2 or later](https://www.gnu.org/licenses/gpl-2.0.html).

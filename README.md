@@ -8,317 +8,106 @@
 ![ClassicPress](https://img.shields.io/badge/ClassicPress-2.7.4-03768e?style=flat-square)
 [![Lizenz](https://img.shields.io/badge/Lizenz-GPL--2.0--or--later-2ea44f?style=flat-square)](https://www.gnu.org/licenses/gpl-2.0.html)
 
-**Das Theme-Framework für individuelle ClassicPress- und WordPress-Themes.**
+Mit Upfront gestaltest Du Deine Website direkt im Browser: Du kannst Bereiche anordnen, Texte und Bilder bearbeiten und das Layout für verschiedene Bildschirmgrößen anpassen.
 
-Upfront stellt die technische Grundlage bereit, auf der Upfront-Themes laufen: Layoutauflösung, responsive Raster, Regionen, globale Designwerte, wiederverwendbare Elemente und die Schnittstellen für Child-Themes und Plugins.
+Upfront besteht aus dem **Framework** und einem dazu passenden **Theme**, das das Design Deiner Website enthält. Der visuelle Editor ist in Upfront enthalten. Der separat erhältliche **Upfront Builder** hilft Dir zusätzlich, eigene Themes zu erstellen und zu exportieren; für die Bearbeitung eines vorhandenen Upfront-Themes brauchst Du ihn nicht.
 
-Release- und Katalogpflege ist in der [Entwickleranleitung](DEVELOPER.md) dokumentiert.
+## Voraussetzungen
 
-Der **Upfront Builder ist ein separates Plugin**. Mit ihm werden Themes visuell erstellt, bearbeitet und als Child-Themes exportiert. Dieses Repository enthält das Framework, das diese Themes anschließend lädt und rendert.
+- ClassicPress ab 2.7 oder WordPress ab 5.0
+- PHP ab 8.0
+- Ein mit Upfront kompatibles Theme, beispielsweise ein Upfront-Starter-Theme
 
-## Neu in 1.3.6
+## Installation und erster Start
 
-- Beitragsbilder und Bildunterschriften bleiben mobil innerhalb der Inhaltsbreite und skalieren proportional.
-- Das Kommentarfeld und weitere Eingaben verursachen mobil keine Seitenüberbreite und keinen rechten Leerraum mehr.
-- Die CSS-Selektorauswahl unterscheidet Beitrags-Wrapper, Titel-Wrapper und H1-Titelüberschrift; der Inspektor markiert auch den Wrapper selbst.
-- Slider-Bilder werden nicht mehr zwangsweise gestreckt; horizontale Zuschnitte bleiben im Editor erhalten.
-- Gruppen nutzen das originale Preset-System mit Standard-Preset-Hinweis, Presetauswahl, Erstellen, Bearbeiten, Löschen, Zurücksetzen und Custom CSS.
-- Regionen behalten beim Öffnen des CSS-Editors ihr Einstellungsmenü und lassen sich regulär verlassen.
-- Der veraltete Upfront-1.0-Presethinweis entfällt bei Post-Elementen.
+1. Installiere das Upfront Framework unter **Design → Themes → Installieren**. Wenn Du eine ZIP-Datei hast, kannst Du sie dort über **Theme hochladen** auswählen.
+2. Installiere auf dieselbe Weise ein kompatibles Upfront-Theme und **aktiviere dieses Theme**. Das Framework muss installiert bleiben.
+3. Öffne **Einstellungen → Permalinks** und wähle eine Einstellung außer **Einfach**, zum Beispiel **Beitragsname**. Speichere die Änderungen.
+4. Rufe Deine Website auf, während Du angemeldet bist, und klicke in der oberen Admin-Leiste auf **Upfront**. Der visuelle Editor öffnet sich.
 
-## Neu in 1.3.5
+Upfront und passende Themes kannst Du auch über den PSOURCE Manager installieren. Eine Übersicht findest Du auf der [Upfront-Projektseite](https://psource.eimen.net/ps-upfront-theme-framework/).
 
-- Der Farbpicker bewahrt zuletzt verwendete Farben jetzt pro aktivem Theme und zeigt keine doppelten Theme-Farbkacheln mehr an.
-- Der statische Schriftkatalog umfasst 1.775 lokal verfügbare Familien mit lesbaren Namen, Kategorien sowie Gewichten und Kursivschnitten.
-- Verwendete Schriften werden einschließlich CSS in das aktive Child-Theme importiert und von dort ausgeliefert.
-- Der Font-Katalog wird ausschließlich bewusst vor einem Release mit `npm run update-font-catalog` aktualisiert; im Editor und Frontend findet keine Katalogabfrage statt.
-- Der Theme-Katalog wird statisch mit dem Framework ausgeliefert; Vorschaubilder und deutsch/englische Beschreibungen liegen lokal vor, sodass das Dashboard nicht bei GitHub nach dem Katalog fragt.
-- Das Dashboard zeigt den Changelog in der Sprache des jeweiligen Benutzerprofils an; neue Changelog-Einträge müssen deshalb in `CHANGELOG.md` und `CHANGELOG.en.md` gepflegt werden.
+## Deine Website bearbeiten
 
-> **Projektseite, Dokumentation und Showcase für Upfront-Themes:**
->
-> [PS UpFront Theme Framework](https://psource.eimen.net/ps-upfront-theme-framework/)
+Der Editor zeigt Deine Website zusammen mit einer Seitenleiste. Du arbeitest direkt am Layout und siehst Deine Änderungen während der Bearbeitung.
 
-[Quellcode auf GitHub](https://github.com/Power-Source/upfront) · [Upfront-Dokumentation](https://psource.eimen.net/wiki/upfront-dokumentation/) · [PSOURCE](https://psource.eimen.net/)
+### Texte, Bilder und andere Elemente
 
-## Die Upfront-Architektur
+1. Ziehe ein Element aus der Elementliste in der Seitenleiste an die gewünschte Stelle auf der Seite.
+2. Klicke ein Textelement doppelt an, um den Text zu bearbeiten. Markiere Text, um ihn beispielsweise fett zu formatieren oder zu verlinken.
+3. Wähle bei einem Bildelement ein Bild aus der Mediathek oder lade ein neues hoch. Über die Bedienelemente am Bild kannst Du es unter anderem zuschneiden und einen Alternativtext hinterlegen.
+4. Ziehe vorhandene Elemente an eine andere Position oder ändere ihre Größe mit dem angezeigten Griff. Die Einstellungen eines Elements erreichst Du über das Zahnrad.
+5. Über das rote **×** am Element kannst Du es entfernen.
 
-```
-    Builder[Upfront Builder Plugin] -->|erstellt und exportiert| Child[Upfront Child-Theme]
-    Framework[Upfront Theme Framework] -->|lädt und rendert| Child
-    Extension[Eigenes Plugin] -->|registriert Elemente| Framework
-    Child --> Site[Website]
-    Framework --> Site
-```
+Neben Text und Bildern stehen unter anderem Galerien, Slider, Menüs, Buttons, Beiträge und Kontaktformulare zur Verfügung. Welche Einstellungen Du siehst, hängt vom jeweiligen Element ab.
 
-### Upfront Theme Framework
+### Bereiche und Hintergründe
 
-Das Framework in diesem Repository ist Parent-Theme und Runtime. Es übernimmt:
+**Bereiche** oder **Regionen** gliedern die Seite, beispielsweise in Kopfbereich, Inhalt und Fußbereich. In ihnen liegen die Elemente.
 
-- die Auswahl des passenden Layouts für Seiten, Beiträge, Archive und Systemansichten,
-- das responsive Raster und die Breakpoint-Logik,
-- Regionen, globale Regionen, Module und Elemente,
-- Theme-Farben, Typografie, Presets und Layout-Eigenschaften,
-- die Ausgabe und Verwaltung lokaler Element-Assets,
-- PHP-, JavaScript- und AJAX-Schnittstellen für Erweiterungen,
-- die Kompatibilität zwischen Upfront-Child-Themes und der Laufzeitumgebung.
+1. Fahre im Editor über einen Bereich und klicke auf das **Stiftsymbol**, um ihn zu bearbeiten.
+2. Über die gelben **+**-Symbole kannst Du einen weiteren Bereich einfügen. Das Zahnrad öffnet die Bereichseinstellungen, zum Beispiel für Hintergrundfarbe oder Hintergrundbild.
+3. Über das rote **×** löschst Du einen Bereich. Dabei werden auch die darin enthaltenen Elemente entfernt.
+4. Schließe die Bereichsbearbeitung über die dafür angezeigte Schaltfläche ab.
 
-Das Framework sollte nicht projektspezifisch umgebaut werden. Eigene Gestaltung gehört in ein Child-Theme, zusätzliche Fachfunktionen gehören in Plugins.
+Kopf- und Fußbereiche können als **globale Bereiche** verwendet werden. Änderungen daran erscheinen auf allen Layouts, die denselben globalen Bereich nutzen.
 
-### Upfront Child-Themes
+### Farben und Schriften
 
-Ein Child-Theme enthält das konkrete Design einer Website. Dazu können Layoutdefinitionen, Einstellungen, Theme-Assets und individuelle Templates gehören.
+Öffne in der Seitenleiste die **Designeinstellungen**:
 
-```text
-mein-upfront-theme/
-├── style.css
-├── functions.php
-├── settings.php
-├── layouts/
-├── styles/
-└── scripts/
-```
+- Unter **Farben** kannst Du die Theme-Farbpalette ändern. Elemente, die eine dieser Theme-Farben verwenden, übernehmen die Änderung.
+- Unter **Typografie** legst Du unter anderem Schriftart, Größe und Farbe für Überschriften und Text fest. Über den Schriftarten-Manager kannst Du weitere Schriften auswählen.
 
-Das Framework bleibt dabei die gemeinsame technische Basis. Ein Child-Theme kann von Hand entwickelt oder mit dem separaten Upfront Builder erzeugt und exportiert werden.
+Einzelne Elemente können eigene Einstellungen haben und daher von den globalen Vorgaben abweichen.
 
-### Upfront Builder Plugin
+### Für Handy und Tablet anpassen
 
-Der Builder ist das Autorenwerkzeug für Upfront-Themes. Er ergänzt das Framework um die visuelle Arbeitsoberfläche und den Theme-Export.
+1. Öffne in der Seitenleiste den **Responsive-Modus** und aktiviere die Ansichten, die Du bearbeiten möchtest.
+2. Wähle oben die gewünschte Bildschirmgröße. Prüfe, ob Texte lesbar sind und Bilder, Buttons und Menüs genügend Platz haben.
+3. Passe Größe und Anordnung der Elemente an. Mit dem **Augensymbol** kannst Du Elemente oder Bereiche in der ausgewählten Ansicht ausblenden und später wieder einblenden.
+4. Wenn Du ein neues Element hinzufügen oder eines löschen möchtest, wechsle zurück zur normalen Layoutansicht.
+5. Speichere Deine Änderungen und prüfe das Ergebnis zusätzlich auf einem echten Smartphone oder Tablet.
 
-Mit dem Builder lassen sich unter anderem:
+### Änderungen speichern
 
-- Layouts und responsive Breakpoints visuell gestalten,
-- Regionen und globale Regionen aufbauen,
-- Elemente platzieren und konfigurieren,
-- Farben, Typografie und Presets definieren,
-- Seiten-, Beitrags- und Archivlayouts vorbereiten,
-- fertige Designs als Upfront-Child-Theme exportieren.
+Speichere das Layout im Editor, bevor Du ihn verlässt. Bei manchen Beitragslayouts fragt Upfront, ob eine Änderung nur für den aktuellen Beitrag oder für alle Beiträge gelten soll. Wähle bewusst die gewünschte Möglichkeit.
 
-Das exportierte Theme läuft anschließend auf dem Upfront Theme Framework. Der Builder muss deshalb nicht als Bestandteil des Frameworks verstanden werden.
+Seiten und Beiträge haben zusätzlich eigene Veröffentlichungsoptionen: Einen Entwurf speichern und einen Beitrag veröffentlichen ist nicht dasselbe wie das Layout zu speichern.
 
-Weitere Informationen zum Zusammenspiel, verfügbare Themes und Beispiele befinden sich auf der [Upfront-Infoseite](https://psource.eimen.net/ps-upfront-theme-framework/).
+## Seiten und Beiträge
 
-## Wie das Framework rendert
+Über die Seitenleiste des Editors kannst Du neue Seiten und Beiträge erstellen oder vorhandene Inhalte aufrufen. Alternativ verwaltest Du sie wie gewohnt im Dashboard unter **Seiten** und **Beiträge**.
 
-1. Upfront bestimmt aus dem Request den Inhaltstyp und die passende Layout-Spezifität.
-2. Das Framework sucht das Layout im aktiven Child-Theme und in den gespeicherten Layoutdaten.
-3. Das Layout wird aus Regionen, Modulen und Elementen zusammengesetzt.
-4. PHP-Views erzeugen das öffentliche Markup der Elemente.
-5. Das Framework lädt nur die für das Layout registrierten Styles und Skripte.
-6. Theme-Einstellungen und Breakpoint-Regeln werden in die Ausgabe übernommen.
+Eine Seitenvorlage bestimmt das Layout der Seite. Prüfe vor dem Ändern einer vorhandenen Vorlage, welche Inhalte und Layoutänderungen betroffen sind, und sichere Deine Website vorher. Gemeinsame globale Bereiche können auf mehreren Seiten erscheinen.
 
-Dadurch können verschiedene Upfront-Themes dieselbe Runtime verwenden, ohne die Frameworklogik zu duplizieren.
+## Häufige Fragen
 
-## Mitgelieferte Elemente
+**Ich sehe „Upfront“ nicht in der Admin-Leiste.**
 
-Upfront bringt eine umfangreiche Elementbibliothek mit, darunter:
+Prüfe, ob ein kompatibles Upfront-Theme aktiviert ist, Du angemeldet bist und Dein Konto die nötigen Bearbeitungsrechte hat. Prüfe außerdem unter **Einstellungen → Permalinks**, ob eine andere Einstellung als **Einfach** gewählt und gespeichert wurde.
 
-- Text, Bild, Galerie, Slider und YouTube,
-- Navigation, Suche, Tabs und Accordion,
-- Buttons, Spacer und eigener Code,
-- Beiträge, Beitragsdaten und Kommentare,
-- Kontaktformular, Login, Karte und Widgets,
-- Social-Media- und weitere Inhaltsbausteine.
+**Meine Änderung erscheint auf mehreren Seiten. Warum?**
 
-Die Implementierungen unter [`elements/`](elements/) sind gleichzeitig Referenzen für eigene Erweiterungen.
+Möglicherweise hast Du einen globalen Bereich oder ein gemeinsames Layout bearbeitet. Änderungen an einem globalen Bereich wirken sich auf alle Layouts aus, die ihn verwenden.
 
-## Eigene Elemente aus Plugins anbinden
+**Meine Änderungen sind auf der Website nicht sichtbar.**
 
-Plugins können eigene Elemente an das Upfront Framework und, sofern installiert, an das Builder-Plugin anbinden. Ein Element besteht üblicherweise aus:
+Prüfe zuerst, ob Du das Layout gespeichert und gegebenenfalls den Beitrag oder die Seite veröffentlicht hast. Unter **Upfront → Allgemein** gibt es die Schaltfläche **Upfront Cache leeren**. Andere Caches, etwa vom Server, einem Plugin oder einem CDN, werden dadurch nicht unbedingt geleert und müssen gegebenenfalls separat geprüft werden.
 
-- einem Loader im Plugin,
-- einer PHP-View für Frontend-Markup und Standardwerte,
-- einer JavaScript-Entity für Modell und Darstellung im Builder,
-- optionalen lokalen Styles, Skripten, Einstellungen und AJAX-Endpunkten.
+**Ein Video startet auf dem Handy nicht automatisch.**
 
-Eine mögliche Plugin-Struktur:
+Browser können automatisches Abspielen mit Ton blockieren. Teste das Video auf dem betroffenen Gerät und prüfe, ob es sich über die Wiedergabesteuerung starten lässt. Nicht jeder Browser unterstützt jedes Videoformat.
 
-```text
-acme-upfront-note/
-├── acme-upfront-note.php
-├── lib/
-│   └── class-acme-upfront-note-view.php
-└── assets/
-    ├── css/note.css
-    └── js/note.js
-```
-
-### Plugin-Loader
-
-Das Plugin registriert sich am Framework-Hook `upfront-core-initialized`:
-
-```php
-<?php
-/**
- * Plugin Name: ACME Upfront Note
- */
-
-if (!defined('ABSPATH')) exit;
-
-add_action('upfront-core-initialized', 'acme_upfront_note_register');
-
-function acme_upfront_note_register() {
-	if (!function_exists('upfront_add_layout_editor_entity')) return;
-
-	require_once plugin_dir_path(__FILE__) . 'lib/class-acme-upfront-note-view.php';
-
-	upfront_add_layout_editor_entity(
-		'acme-note',
-		plugins_url('assets/js/note', __FILE__)
-	);
-
-	add_action(
-		'wp_enqueue_scripts',
-		array('Acme_Upfront_Note_View', 'add_assets')
-	);
-}
-```
-
-Die JavaScript-URL wird ohne `.js` registriert, da die Entity über RequireJS geladen wird. Der Slug sollte innerhalb der gesamten Installation eindeutig sein.
-
-### PHP-View
-
-Die PHP-View beschreibt das Element für die Framework-Runtime:
-
-```php
-<?php
-
-class Acme_Upfront_Note_View extends Upfront_Object {
-
-	public static function default_properties() {
-		return array(
-			'type' => 'AcmeNoteModel',
-			'view_class' => 'Acme_Upfront_Note_View',
-			'class' => 'c24 acme-upfront-note',
-			'has_settings' => 0,
-			'id_slug' => 'acme-note',
-			'content' => __('Hinweistext', 'acme-upfront-note'),
-		);
-	}
-
-	public function get_markup() {
-		$properties = array();
-		foreach ($this->_data['properties'] as $property) {
-			if (!isset($property['name'], $property['value'])) continue;
-			$properties[$property['name']] = $property['value'];
-		}
-
-		$content = isset($properties['content']) ? $properties['content'] : '';
-		return '<aside class="acme-note">' . esc_html($content) . '</aside>';
-	}
-
-	public static function add_assets() {
-		wp_enqueue_style(
-			'acme-upfront-note',
-			plugins_url('../assets/css/note.css', __FILE__),
-			array(),
-			'1.0.0'
-		);
-	}
-}
-```
-
-Elementdaten müssen bei der Ausgabe passend zum Kontext escaped werden. Assets sollten lokal im Plugin liegen; eine CDN-Abhängigkeit ist nicht erforderlich.
-
-### JavaScript-Entity für den Builder
-
-Die Builder-Entity verwendet das Upfront-Modell und registriert den gleichen Typ wie die PHP-View:
-
-```javascript
-(function($) {
-	define([], function() {
-		var AcmeNoteModel = Upfront.Models.ObjectModel.extend({
-			init: function() {
-				this.init_property('type', 'AcmeNoteModel');
-				this.init_property('view_class', 'Acme_Upfront_Note_View');
-				this.init_property('element_id', Upfront.Util.get_unique_id('acme-note'));
-				this.init_property('class', 'c24 acme-upfront-note');
-				this.init_property('has_settings', 0);
-				this.init_property('id_slug', 'acme-note');
-				this.init_property('content', 'Hinweistext');
-			}
-		});
-
-		var AcmeNoteView = Upfront.Views.ObjectView.extend({
-			model: AcmeNoteModel,
-			get_content_markup: function() {
-				return $('<div>').text(
-					this.model.get_property_value_by_name('content') || ''
-				).prop('outerHTML');
-			}
-		});
-
-		Upfront.Application.LayoutEditor.add_object('AcmeNoteModel', {
-			Model: AcmeNoteModel,
-			View: AcmeNoteView
-		});
-	});
-})(jQuery);
-```
-
-Ohne Builder bleibt die PHP-View für die Ausgabe bereits gespeicherter oder exportierter Layouts zuständig. Die JavaScript-Entity wird für die visuelle Bearbeitung und das Einfügen des Elements benötigt.
-
-Komplexere Plugin-Elemente können zusätzlich:
-
-- lokalisierte Texte über `upfront_l10n` bereitstellen,
-- eigene Settings-Panels und Felder registrieren,
-- AJAX-Aktionen mit `upfront_add_ajax()` hinzufügen,
-- Presets und responsive Eigenschaften unterstützen,
-- Ereignisse über `Upfront.Events` abonnieren oder auslösen,
-- Frontend-Assets abhängig von der tatsächlichen Verwendung laden.
-
-Als Referenz eignen sich kleine Core-Elemente wie Spacer und Button. Galerie, Posts und Navigation zeigen umfangreichere Daten-, Settings- und Renderingpfade.
-
-## Installation und Verwendung
-
-1. Das Verzeichnis `upfront` unter `wp-content/themes/` installieren.
-2. Upfront als Parent-Theme für ein kompatibles Child-Theme verwenden.
-3. Ein vorhandenes Upfront-Theme aktivieren oder mit dem separaten Builder-Plugin ein eigenes Theme erstellen und exportieren.
-4. Zusätzliche Upfront-Elemente bei Bedarf als Plugins installieren.
-
-Themes und Anwendungsbeispiele sind im [Upfront-Showcase](https://psource.eimen.net/ps-upfront-theme-framework/) verlinkt.
-
-## Entwicklung am Framework
-
-Voraussetzungen:
-
-- Node.js 20 oder neuer
-- npm
-- PHP und eine lokale ClassicPress-/WordPress-Installation
-- WP-CLI mit `wp i18n make-pot`
-
-```bash
-npm install
-npm run build-css
-npm run lint
-npm run test-js
-npm run test-php
-./scripts/build-i18n.sh
-```
-
-| Befehl | Aufgabe |
-| --- | --- |
-| `npm run build-css` | Sass kompilieren und CSS-Artefakte minimieren |
-| `npm run lint` | JavaScript-Syntax mit ESLint prüfen |
-| `npm run test-js` | JavaScript-Tests ausführen |
-| `npm run test-php` | PHP-Tests ausführen |
-| `./scripts/build-i18n.sh` | POT neu generieren, PO aktualisieren und MO kompilieren |
-| `npm test` | PHP- und JavaScript-Tests gemeinsam ausführen |
-
-Produktive Framework- und Element-Assets werden lokal ausgeliefert. Änderungen an SCSS-Quellen sollten zusammen mit den erzeugten CSS-Dateien eingecheckt werden.
-
-## Links
-
-- [Framework-Infoseite und Theme-Showcase](https://psource.eimen.net/ps-upfront-theme-framework/)
-- [Upfront-Dokumentation](https://psource.eimen.net/wiki/upfront-dokumentation/)
-- [Dokumentation zum Builder-Plugin](https://psource.eimen.net/wiki/upfront-dokumentation/upfront-builder-dokumentation/)
-- [GitHub-Repository](https://github.com/Power-Source/upfront)
-- [PSOURCE](https://psource.eimen.net/)
+## Ausführliche Anleitungen
+
+- [Grundlagen, Farben und Schriftarten](https://psource.eimen.net/wiki/upfront-dokumentation/upfront-part-1-die-basics-themefarben-und-schriftarten/)
+- [Bereiche und Hintergründe](https://psource.eimen.net/wiki/upfront-dokumentation/upfront-teil-2-strukturierung-deiner-webseite-mit-bereichen/)
+- [Elemente und ihre Einstellungen](https://psource.eimen.net/wiki/upfront-dokumentation/upfront-teil-3-layout-deiner-webseite-mit-elementen/)
+- [Responsive Gestaltung](https://psource.eimen.net/wiki/upfront-dokumentation/upfront-teil-6-erstellung-von-responsiven-webseiten/)
+- [Seiten und Beiträge](https://psource.eimen.net/wiki/upfront-dokumentation/upfront-teil-7-arbeiten-mit-seiten-und-beitraegen/)
+- [Eigene Themes mit dem Upfront Builder](https://psource.eimen.net/wiki/upfront-dokumentation/upfront-builder-dokumentation/)
 
 ## Lizenz
 
-Upfront wird unter der [GNU General Public License v2 oder neuer](https://www.gnu.org/licenses/gpl-2.0.html) veröffentlicht.
-
-## Unterstützen
-
-[PSOURCE unterstützen](https://psource.eimen.net/spendenaktionen/psource-unterstuetzen/)
+Upfront steht unter der [GNU General Public License v2 oder neuer](https://www.gnu.org/licenses/gpl-2.0.html).

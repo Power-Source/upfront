@@ -33,10 +33,6 @@ Es ist anders als jedes ClassicPress-Theme, das Du jemals verwendet hast. Jedes 
 Steuere einzelne Elemente UND verwalte den Stil global auf Deiner gesamten Webseite. 
 Füge Designfarben hinzu, pass Typografie an und bearbeite globale Einstellungen ohne eine einzige Codezeile.
 
-= Schriftkatalog aktualisieren =
-
-Der Editor verwendet eine statische Liste der auf dem PSOURCE-Font-Server verfügbaren Schriftfamilien und fragt den Font-Server im normalen Betrieb nicht nach dem Katalog. Vor einem Release aktualisierst Du die Liste bewusst mit `npm run update-font-catalog`. Der Befehl nutzt zusätzlich nur beim manuellen Release Google-Fonts-Metadaten für lesbare Familiennamen und Kategorien.
-
 == ChangeLog ==
 
 = 1.3.8 =
