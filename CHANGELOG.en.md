@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+Unreleased
+-------------------------------------------------------------------------------
+- Fix: MediaElement fullscreen videos fill the available area even with an additional renderer wrapper and remain proportionally centered instead of appearing at the top.
+
 1.3.7 - 2026-11-12
 -------------------------------------------------------------------------------
 - Improvement: The general settings provide information about the PSOURCE Manager and ways to support PSOURCE open source.

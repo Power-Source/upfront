@@ -7,6 +7,33 @@ var assert = require('assert'),
 describe('Responsive post media', function () {
 	var css = fs.readFileSync(path.join(__dirname, '../../styles/global.css'), 'utf8');
 
+	it('positions fullscreen video against the media layer rather than its unsized renderer wrapper', function () {
+		var dom = new JSDOM('<!doctype html><html><head><style>' + css +
+			'</style></head><body><div class="mejs-container">' +
+			'<div class="mejs-mediaelement"><div id="video-renderer">' +
+			'<video style="width:494px;height:123.5px"></video>' +
+			'</div></div></div></body></html>'),
+			player = dom.window.document.querySelector('.mejs-container'),
+			video = dom.window.document.querySelector('video'),
+			style;
+
+		assert.notStrictEqual(dom.window.getComputedStyle(video).position, 'absolute');
+		player.classList.add('mejs-container-fullscreen');
+		style = dom.window.getComputedStyle(video);
+		assert.strictEqual(style.position, 'absolute');
+		assert.strictEqual(style.top, '0px');
+		assert.strictEqual(style.left, '0px');
+		assert.strictEqual(style.objectFit, 'contain');
+		assert.strictEqual(style.objectPosition, '50% 50%');
+
+		player.classList.remove('mejs-container-fullscreen');
+		style = dom.window.getComputedStyle(video);
+		assert.notStrictEqual(style.position, 'absolute');
+		assert.strictEqual(style.width, '494px');
+		assert.strictEqual(style.height, '123.5px');
+		dom.window.close();
+	});
+
 	['upostdata-part content', 'uposts-part content', 'post_content'].forEach(function (className) {
 		it('constrains images and caption wrappers in ' + className, function () {
 			var dom = new JSDOM('<!doctype html><html class="uf-responsive"><head><style>' + css +

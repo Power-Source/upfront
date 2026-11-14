@@ -1,6 +1,10 @@
 Change Log
 ============
 
+Noch nicht veröffentlicht
+-------------------------------------------------------------------------------
+- Fix: Videos im MediaElement-Vollbild füllen auch mit zusätzlichem Renderer-Container die verfügbare Fläche und werden proportional zentriert statt am oberen Rand angezeigt.
+
 1.3.7 - 2026-11-12
 -------------------------------------------------------------------------------
 - Verbesserung: Die allgemeinen Einstellungen informieren über den PSOURCE Manager und Möglichkeiten, PSOURCE Open Source zu unterstützen.

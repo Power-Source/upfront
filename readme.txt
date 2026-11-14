@@ -39,6 +39,9 @@ Der Editor verwendet eine statische Liste der auf dem PSOURCE-Font-Server verfü
 
 == ChangeLog ==
 
+= 1.3.8 =
+* Fix: Videos im MediaElement-Vollbild füllen auch mit zusätzlichem Renderer-Container die verfügbare Fläche und werden proportional zentriert statt am oberen Rand angezeigt.
+
 = 1.3.7 =
 * Verbesserung: Die allgemeinen Einstellungen informieren über den PSOURCE Manager und Möglichkeiten, PSOURCE Open Source zu unterstützen.
 * Fix: Manuell geänderte Schriftfarben werden korrekt gespeichert und nach dem Neuladen im Frontend übernommen.
